@@ -85,7 +85,7 @@ interface inputProps {
   title: string;
 }
 
-const InputCard = ({ id, title }: inputProps) => {
+export const InputCard = ({ id, title }: inputProps) => {
   return (
     <form action="submit" className="inputForm">
       <label htmlFor={id}>{title}</label>
