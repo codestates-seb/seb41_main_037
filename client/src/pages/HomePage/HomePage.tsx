@@ -57,21 +57,31 @@ const HomeMain = styled.main`
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        border: 1px solid #979595;
+        border: 1px solid #ffcb5e;
         border-radius: 10px;
         box-shadow: 2px 2px 5px #979595;
         width: 244px;
         height: 300px;
         margin: 1rem;
-        padding: 0.5rem;
         &:hover {
           transition: 1s;
           transform: scale(1.05);
         }
-        h2 {
-          font-size: 20px;
-          font-weight: 700;
+        .itmeRanking {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          height: 45px;
+          padding: 1rem;
+          border-radius: 10px 10px 0 0;
+          background-color: #ffcb5e;
+          h2 {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+          }
         }
+
         img {
           width: 200px;
           height: 200px;
@@ -82,6 +92,7 @@ const HomeMain = styled.main`
         }
         .itemPrice {
           font-weight: 500;
+          margin-bottom: 1rem;
         }
       }
     }
@@ -98,7 +109,10 @@ interface BestItemProps {
 const BestItemCard = ({ top, name, price, image }: BestItemProps) => {
   return (
     <div className="bestItemCard">
-      <h2>{top}</h2>
+      <div className="itmeRanking">
+        <h2>{top}</h2>
+      </div>
+
       <img src={image} alt={top} />
       <span className="itemName">{name}</span>
       <span className="itemPrice">{price}</span>

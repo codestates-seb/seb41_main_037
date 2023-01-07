@@ -219,7 +219,7 @@ const ProfileElementCard = ({
       {state ? (
         <input
           type="text"
-          placeholder="Enter your email"
+          placeholder={placeholder}
           onKeyUp={(e) => e.key === "Enter" && setState(!state)}
           autoFocus
         />
