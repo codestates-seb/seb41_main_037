@@ -88,14 +88,14 @@ const HomeMain = styled.main`
   }
 `;
 
-interface ItemProps {
+interface BestItemProps {
   top: string;
   name: string;
   price: string;
   image: string;
 }
 
-const BestItemCard = ({ top, name, price, image }: ItemProps) => {
+const BestItemCard = ({ top, name, price, image }: BestItemProps) => {
   return (
     <div className="bestItemCard">
       <h2>{top}</h2>
