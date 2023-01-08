@@ -177,10 +177,7 @@ const MypageMain = styled.main`
 `;
 
 interface WishItemProps {
-  image: string;
-  name: string;
-  price: string;
-  alt: string;
+  [key: string]: string;
 }
 
 const WishItemCard = ({ image, name, price, alt }: WishItemProps) => {

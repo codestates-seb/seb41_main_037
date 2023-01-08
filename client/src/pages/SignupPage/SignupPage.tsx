@@ -80,12 +80,11 @@ const SignupMain = styled.main`
   }
 `;
 
-interface inputProps {
-  id: string;
-  title: string;
+interface InputProps {
+  [key: string]: string;
 }
 
-export const InputCard = ({ id, title }: inputProps) => {
+export const InputCard = ({ id, title }: InputProps) => {
   return (
     <form action="submit" className="inputForm">
       <label htmlFor={id}>{title}</label>

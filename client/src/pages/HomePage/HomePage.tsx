@@ -100,10 +100,7 @@ const HomeMain = styled.main`
 `;
 
 interface BestItemProps {
-  top: string;
-  name: string;
-  price: string;
-  image: string;
+  [key: string]: string;
 }
 
 const BestItemCard = ({ top, name, price, image }: BestItemProps) => {
