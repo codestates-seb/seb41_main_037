@@ -2,12 +2,13 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { AiFillCloseCircle } from "react-icons/ai";
+import HomeHeader from "../../components/HomeHeader/HomeHeader";
 
 const MypageMain = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 100px;
   .mypageSection {
     display: flex;
     flex-direction: column;
@@ -241,98 +242,101 @@ const MyPage = () => {
   const [isPasswordConfirmFocus, setIsPasswordConfirmFocus] = useState(false);
 
   return (
-    <MypageMain>
-      <section className="mypageSection">
-        <section className="userProfile">
-          <img
-            src="https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800"
-            alt="userImage"
-          />
-          <section className="userIntroduction">
-            <ProfileElementCard
-              classname="nickname"
-              title="Nickname"
-              content="Kelly"
-              placeholder="Enter your nickname"
-              state={isNameFocus}
-              setState={setIsNameFocus}
+    <>
+      <HomeHeader />
+      <MypageMain>
+        <section className="mypageSection">
+          <section className="userProfile">
+            <img
+              src="https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800"
+              alt="userImage"
             />
-            <ProfileElementCard
-              classname="email"
-              title="Email"
-              content="testuser@gmail.com"
-              placeholder="Enter your email"
-              state={isEmailFocus}
-              setState={setIsEmailFocus}
-            />
+            <section className="userIntroduction">
+              <ProfileElementCard
+                classname="nickname"
+                title="Nickname"
+                content="Kelly"
+                placeholder="Enter your nickname"
+                state={isNameFocus}
+                setState={setIsNameFocus}
+              />
+              <ProfileElementCard
+                classname="email"
+                title="Email"
+                content="testuser@gmail.com"
+                placeholder="Enter your email"
+                state={isEmailFocus}
+                setState={setIsEmailFocus}
+              />
+            </section>
+            <section className="changePassword">
+              <ProfileElementCard
+                classname="password"
+                title="Password"
+                content="***********"
+                placeholder="Enter your password"
+                state={isPasswordFocus}
+                setState={setIsPasswordFocus}
+              />
+              <ProfileElementCard
+                classname="passwordComfirm"
+                title="Password Confirm"
+                content="***********"
+                placeholder="Enter your password"
+                state={isPasswordConfirmFocus}
+                setState={setIsPasswordConfirmFocus}
+              />
+            </section>
           </section>
-          <section className="changePassword">
-            <ProfileElementCard
-              classname="password"
-              title="Password"
-              content="***********"
-              placeholder="Enter your password"
-              state={isPasswordFocus}
-              setState={setIsPasswordFocus}
-            />
-            <ProfileElementCard
-              classname="passwordComfirm"
-              title="Password Confirm"
-              content="***********"
-              placeholder="Enter your password"
-              state={isPasswordConfirmFocus}
-              setState={setIsPasswordConfirmFocus}
-            />
+          <section className="commentList">
+            <h3>Comment list</h3>
+            {dummyCommentList.map((comment, idx) => (
+              <p key={idx}>{comment}</p>
+            ))}
           </section>
-        </section>
-        <section className="commentList">
-          <h3>Comment list</h3>
-          {dummyCommentList.map((comment, idx) => (
-            <p key={idx}>{comment}</p>
-          ))}
-        </section>
-        <section className="wishList">
-          <h3>Wish list</h3>
-          <section className="wishItems">
-            <WishItemCard
-              image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg"
-              name="햄)모짜치즈볼트리플버거"
-              price="3,400원"
-              alt="wish1"
-            />
-            <WishItemCard
-              image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg"
-              name="도)백종원완전한판정식"
-              price="4,500원"
-              alt="wish2"
-            />
+          <section className="wishList">
+            <h3>Wish list</h3>
+            <section className="wishItems">
+              <WishItemCard
+                image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg"
+                name="햄)모짜치즈볼트리플버거"
+                price="3,400원"
+                alt="wish1"
+              />
+              <WishItemCard
+                image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg"
+                name="도)백종원완전한판정식"
+                price="4,500원"
+                alt="wish2"
+              />
 
-            <WishItemCard
-              image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg"
-              name="주)토끼정햄계란마요"
-              price="1,700원"
-              alt="wish3"
-            />
-            <WishItemCard
-              image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg"
-              name="도)직화고추장삼겹살"
-              price="5,300원"
-              alt="wish4"
-            />
-            <WishItemCard
-              image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg"
-              name="도)탄단지그릴닭가슴살볼"
-              price="4,800원"
-              alt="wish5"
-            />
+              <WishItemCard
+                image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg"
+                name="주)토끼정햄계란마요"
+                price="1,700원"
+                alt="wish3"
+              />
+              <WishItemCard
+                image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg"
+                name="도)직화고추장삼겹살"
+                price="5,300원"
+                alt="wish4"
+              />
+              <WishItemCard
+                image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg"
+                name="도)탄단지그릴닭가슴살볼"
+                price="4,800원"
+                alt="wish5"
+              />
+            </section>
+          </section>
+          <section className="buttonSection">
+            <button>수정하기</button>
+            <button>탈퇴하기</button>
           </section>
         </section>
-        <section className="buttonSection">
-          <button>수정하기</button>
-          <button>탈퇴하기</button>
-        </section>
-      </section>
-    </MypageMain>
+      </MypageMain>
+    </>
   );
 };
 
