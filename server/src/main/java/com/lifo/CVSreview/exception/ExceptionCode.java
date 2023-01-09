@@ -5,7 +5,8 @@ import lombok.Getter;
 public enum ExceptionCode {
 
     REVIEW_NOT_FOUND(401, "Review Not Found"),
-    REVIEW_EXISTS(402, "Review Exists");
+    REVIEW_EXISTS(402, "Review Exists"),
+    MEMBER_NOT_FOUND(401, "Member Not Found");
 
     @Getter
     private int status;
