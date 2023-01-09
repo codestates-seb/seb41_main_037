@@ -24,6 +24,9 @@ public class Product extends Auditable  {
     @Column
     private int rating; // 별점
 
+    @Column
+    private int reviewCount;
+
 
     public void updateProduct(ProductFormDto productFormDto) {
         this.productName = productFormDto.getProductName();
