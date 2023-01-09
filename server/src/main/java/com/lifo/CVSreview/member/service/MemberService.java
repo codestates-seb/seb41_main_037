@@ -2,7 +2,7 @@ package com.lifo.CVSreview.member.service;
 
 import com.lifo.CVSreview.exception.BusinessLogicException;
 import com.lifo.CVSreview.exception.ExceptionCode;
-import com.lifo.CVSreview.member.Entity.MemberEntity;
+import com.lifo.CVSreview.member.Entity.Member;
 import com.lifo.CVSreview.member.repository.MemberRepository;
 import com.lifo.CVSreview.review.entity.Review;
 import org.springframework.data.domain.Page;
@@ -25,44 +25,44 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public MemberEntity createMember(MemberEntity memberEntity){
-        return memberRepository.save(memberEntity);
+    public Member createMember(Member Member){
+        return memberRepository.save(Member);
     }
-    public MemberEntity updateMember(MemberEntity memberEntity){
-        MemberEntity findMember = findVerifiedMember(memberEntity.getMemberId());
+    public Member updateMember(Member Member){
+        Member findMember = findVerifiedMember(Member.getMemberId());
 
-        Optional.ofNullable(memberEntity.getMemberId())
+        Optional.ofNullable(Member.getMemberId())
                 .ifPresent(MemberId ->findMember.setMemberId(MemberId));
-        Optional.ofNullable(memberEntity.getEmail())
+        Optional.ofNullable(Member.getEmail())
                 .ifPresent(email -> findMember.setEmail(email));
-        Optional.ofNullable(memberEntity.getPassword())
+        Optional.ofNullable(Member.getPassword())
                 .ifPresent(password -> findMember.setPassword(password));
-        Optional.ofNullable(memberEntity.getNickname())
+        Optional.ofNullable(Member.getNickname())
                 .ifPresent(nickname -> findMember.setNickname(nickname));
-        Optional.ofNullable(memberEntity.getImage_name())
+        Optional.ofNullable(Member.getImage_name())
                 .ifPresent(image_name -> findMember.setImage_name(image_name));
-        Optional.ofNullable(memberEntity.getImage_path())
+        Optional.ofNullable(Member.getImage_path())
                 .ifPresent(image_path -> findMember.setImage_path(image_path));
         return memberRepository.save(findMember);
     }
 
-    public MemberEntity findMember(Long memberId) {
+    public Member findMember(Long memberId) {
         return findVerifiedMember(memberId);
     }
 
-    public Page<MemberEntity> findMembers(int page, int size) {
+    public Page<Member> findMembers(int page, int size) {
         return memberRepository.findAll(PageRequest.of(page, size,
                 Sort.by("memberId").descending()));
     }
 
-    public MemberEntity findVerifiedMember(Long memberId) {
-        Optional<MemberEntity> optionalMember = memberRepository.findById(memberId);
-        MemberEntity verifiedMember = optionalMember.orElseThrow(() ->
+    public Member findVerifiedMember(Long memberId) {
+        Optional<Member> optionalMember = memberRepository.findById(memberId);
+        Member verifiedMember = optionalMember.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return verifiedMember;
     }
     public void deleteMember(long memberId){
-        MemberEntity findMember = findVerifiedMember(memberId);
+        Member findMember = findVerifiedMember(memberId);
         memberRepository.delete(findMember);
     }
 }

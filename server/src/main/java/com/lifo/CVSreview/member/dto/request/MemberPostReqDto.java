@@ -21,7 +21,6 @@ public class MemberPostReqDto {
     @NotBlank
     private String nickname;
 
-    private String description;
 
     private Long image_name;
 

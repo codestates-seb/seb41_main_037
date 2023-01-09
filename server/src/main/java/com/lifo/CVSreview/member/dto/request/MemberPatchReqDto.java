@@ -18,7 +18,6 @@ public class MemberPatchReqDto {
 
     private String nickname;
 
-    private String description;
 
     private Integer role;
 
