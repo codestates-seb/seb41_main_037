@@ -21,7 +21,7 @@ import java.util.List;
 
 @Controller
 @RestController
-@RequestMapping("v1/members")
+@RequestMapping("members")
 @Validated
 public class MemberController {
     private final MemberService memberService;
@@ -61,13 +61,15 @@ public class MemberController {
     public ResponseEntity getMembers(@RequestParam @Positive int page,
                                      @RequestParam @Positive int size) {
         // Pagination
-        Page<Member> pageMembers = memberService.findMembers(page, size);
+        Page<Member> pageMembers = memberService.findMembers(page-1, size);
 
         List<Member> members = pageMembers.getContent();
 
         List<MemberResDto> response = memberMapper.membersToMemberResDto(members);
 
-        return new ResponseEntity<>(new MultiResponseDto<>(response, pageMembers), HttpStatus.OK);
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(memberMapper.membersToMemberResDto(members), pageMembers),
+                HttpStatus.OK);
     }
 
     @DeleteMapping("/{member_id}")
