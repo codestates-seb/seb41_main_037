@@ -13,7 +13,7 @@ import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
 /**
- * <h3>Spring Data JPA 실습 Solution 코드 포함</h3>
+ * <h3>Spring Data JPA 실습 Solution   코드 포함</h3>
  * Auditable 클래스는 Spring Data JPA 실습 과제 중 첫 번째 과제의 Solution 코드를 포함하고 있습니다.
  * <p>&nbsp;</p>
  * <h4>Auditable 클래스에 대한 추가 설명</h4>

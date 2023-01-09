@@ -15,7 +15,7 @@ import java.util.Optional;
  *         {@link com.codestates.audit.AuditorAwareImpl} 클래스는
  *         <a href="https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/annotation/CreatedBy.html" target="_blank">
  *            {@literal @}CreatedBy
- *         </a> 애너테이션이 추가된 Entity 클래스의 필드에 Auditor(작성자를 의미)의 값을 채워주는 기능을 합니다.
+ *         </a> 애너테이션이 추가된 Entity 클래스의   필드에 Auditor(작성자를 의미)의 값을 채워주는 기능을 합니다.
  *     </li>
  *     <li>
  *         Auditor의 값을 채워주는 기능을 하기 위해서는
