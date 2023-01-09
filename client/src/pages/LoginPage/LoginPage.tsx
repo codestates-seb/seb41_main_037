@@ -1,6 +1,7 @@
 // import React from "react";
 import styled from "styled-components";
 import { InputCard } from "../SignupPage/SignupPage";
+import HomeHeader from "../../components/HomeHeader/HomeHeader";
 
 const LoginMain = styled.main`
   display: flex;
@@ -83,17 +84,20 @@ const LoginMain = styled.main`
 
 const LoginPage = () => {
   return (
-    <LoginMain>
-      <section className="loginSection">
-        <InputCard id="email" title="Email" />
-        <InputCard id="password" title="Password" />
-        <button>Log in</button>
-        <section className="convertToSignup">
-          <span>계정이 없다면?</span>
-          <a href="/signup">Sign up</a>
+    <>
+      <HomeHeader />
+      <LoginMain>
+        <section className="loginSection">
+          <InputCard id="email" title="Email" />
+          <InputCard id="password" title="Password" />
+          <button>Log in</button>
+          <section className="convertToSignup">
+            <span>계정이 없다면?</span>
+            <a href="/signup">Sign up</a>
+          </section>
         </section>
-      </section>
-    </LoginMain>
+      </LoginMain>
+    </>
   );
 };
 

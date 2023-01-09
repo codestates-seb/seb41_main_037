@@ -6,7 +6,10 @@ import SignupPage from "./pages/SignupPage/SignupPage";
 import MainPage from "./pages/MainPage/MainPage";
 import DetailPage from "./pages/DetailPage/DetailPage";
 import MyPage from "./pages/MyPage/MyPage";
-import AdminPage from "./pages/AdminPage/AdminPage";
+import ItemCreatePage from "./pages/AdminPage/ItemCreatePage/ItemCreatePage";
+import ItemSearchPage from "./pages/AdminPage/ItemSearchPage/ItemSearchPage";
+import ItemUpdatePage from "./pages/AdminPage/ItemUpdatePage/ItemUpdatePage";
+import CommentDeletePage from "./pages/AdminPage/CommentDeletePage/CommentDeletePage";
 
 const router = createBrowserRouter([
   {
@@ -35,8 +38,20 @@ const router = createBrowserRouter([
     element: <MyPage />,
   },
   {
-    path: "/admin",
-    element: <AdminPage />,
+    path: "/admin/create",
+    element: <ItemCreatePage />,
+  },
+  {
+    path: "/admin/search",
+    element: <ItemSearchPage />,
+  },
+  {
+    path: "/admin/update",
+    element: <ItemUpdatePage />,
+  },
+  {
+    path: "/admin/comment/delete",
+    element: <CommentDeletePage />,
   },
 ]);
 
