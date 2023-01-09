@@ -27,11 +27,11 @@ public class Review extends BaseTimeEntity {
     @Column(nullable = false, updatable = false, unique = false)
     private int productId;
 
-    @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
-    private Member member;
-
-    @ManyToOne
-    @JoinColumn(name = "PRODUCT_ID")
-    private Product product;
+//    @ManyToOne
+//    @JoinColumn(name = "MEMBER_ID")
+//    private Member member;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "PRODUCT_ID")
+//    private Product product;
 }
