@@ -1,11 +1,13 @@
 package com.lifo.CVSreview.review.entity;
 
 import com.lifo.CVSreview.audit.BaseTimeEntity;
+import com.lifo.CVSreview.validator.NotSpace;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
 @Getter
@@ -22,9 +24,14 @@ public class Review extends BaseTimeEntity {
     @Column(nullable = false, updatable = true, unique = false)
     private int rating ;
 
-    /*@OneToMany(mappedBy = "member")
-    private List<Question> questions = new ArrayList<>();
+    @Column(nullable = false, updatable = false, unique = false)
+    private int productId;
 
-    @OneToMany(mappedBy = "member")
-    private List<Comment> comments = new ArrayList<>();*/
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "PRODUCT_ID")
+    private Product product;
 }

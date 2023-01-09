@@ -31,7 +31,7 @@ public class ReviewController {
     }
 
     @PostMapping
-    public ResponseEntity postMember(@Valid @RequestBody ReviewPostDto reviewPostDtoDto) {
+    public ResponseEntity postReview(@Valid @RequestBody ReviewPostDto reviewPostDtoDto) {
         Review member = reviewService.createReview(mapper.reviewPostDtoToReview(reviewPostDtoDto));
         return new ResponseEntity<>(HttpStatus.OK);
     }

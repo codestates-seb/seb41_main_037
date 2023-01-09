@@ -12,6 +12,7 @@ public class ReviewResponseDto {
     private String modifiedAt;
     private int rating;
     private String username;
+    private int productId;
     public void setUsername(String username) {
         this.username = username;
     }
