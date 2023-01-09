@@ -18,7 +18,6 @@ public class MemberResDto {
     private String email;
     private String nickname;
     private String password;
-    private String description;
     private Integer role;
     private Long image_name;
     private Long image_path;

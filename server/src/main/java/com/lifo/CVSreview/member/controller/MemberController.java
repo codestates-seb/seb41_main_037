@@ -2,7 +2,7 @@ package com.lifo.CVSreview.member.controller;
 
 import com.lifo.CVSreview.member.dto.response.MemberResDto;
 import com.lifo.CVSreview.member.service.MemberService;
-import com.lifo.CVSreview.member.Entity.MemberEntity;
+import com.lifo.CVSreview.member.Entity.Member;
 import com.lifo.CVSreview.member.dto.request.MemberPatchReqDto;
 import com.lifo.CVSreview.member.dto.request.MemberPostReqDto;
 import com.lifo.CVSreview.member.mapper.MemberMapper;
@@ -34,8 +34,8 @@ public class MemberController {
 
     @PostMapping
     public ResponseEntity postMember(@Valid @RequestBody MemberPostReqDto memberPostReqDto){
-        MemberEntity memberEntity = memberMapper.memberPostDtoToMember(memberPostReqDto);
-        MemberEntity response = memberService.createMember(memberEntity);
+        Member Member = memberMapper.memberPostDtoToMember(memberPostReqDto);
+        Member response = memberService.createMember(Member);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
     }
@@ -43,27 +43,27 @@ public class MemberController {
     @PatchMapping("/{member_id}")
     public ResponseEntity patchMember(@Valid @PathVariable("member_id") @Positive long memberId,
                                       @RequestBody MemberPatchReqDto memberPatchReqDto){
-        MemberEntity memberEntity = memberMapper.memberPatchDtoToMemberEntity(memberPatchReqDto);
-        MemberEntity response = memberService.updateMember(memberEntity);
+        Member Member = memberMapper.memberPatchDtoToMember(memberPatchReqDto);
+        Member response = memberService.updateMember(Member);
 
-        return new ResponseEntity<>(memberMapper.memberEntityToMemberResponse(response),HttpStatus.OK);
+        return new ResponseEntity<>(memberMapper.MemberToMemberResponse(response),HttpStatus.OK);
 
     }
 
     @GetMapping("/{member_id}")
     public ResponseEntity getMember(@PathVariable("member_id") @Positive long memberId) {
-        MemberEntity response = memberService.findMember(memberId);
+        Member response = memberService.findMember(memberId);
 
-        return new ResponseEntity<>(memberMapper.memberEntityToMemberResponse(response), HttpStatus.OK);
+        return new ResponseEntity<>(memberMapper.MemberToMemberResponse(response), HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity getMembers(@RequestParam @Positive int page,
                                      @RequestParam @Positive int size) {
         // Pagination
-        Page<MemberEntity> pageMembers = memberService.findMembers(page, size);
+        Page<Member> pageMembers = memberService.findMembers(page, size);
 
-        List<MemberEntity> members = pageMembers.getContent();
+        List<Member> members = pageMembers.getContent();
 
         List<MemberResDto> response = memberMapper.membersToMemberResDto(members);
 
