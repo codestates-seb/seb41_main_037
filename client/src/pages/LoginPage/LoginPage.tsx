@@ -1,7 +1,7 @@
 // import React from "react";
 import styled from "styled-components";
 import { InputCard } from "../SignupPage/SignupPage";
-import HomeHeader from "../../components/HomeHeader/HomeHeader";
+import HomeHeader from "../../components/AdminHeader/AdminHeader";
 
 const LoginMain = styled.main`
   display: flex;

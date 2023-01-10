@@ -2,7 +2,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { AiFillCloseCircle } from "react-icons/ai";
-import HomeHeader from "../../components/HomeHeader/HomeHeader";
+import HomeHeader from "../../components/AdminHeader/AdminHeader";
 
 const MypageMain = styled.main`
   display: flex;

@@ -1,7 +1,7 @@
 // import React from "react";
 import React, { useMemo, useRef, useState } from "react";
 import styled from "styled-components";
-import HomeHeader from "../../../components/HomeHeader/HomeHeader";
+import HomeHeader from "../../../components/AdminHeader/AdminHeader";
 
 const ItemUpdatePageMain = styled.main`
   display: flex;

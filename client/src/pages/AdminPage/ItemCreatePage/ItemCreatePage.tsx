@@ -1,7 +1,7 @@
 // import React from "react";
 import React, { useMemo, useRef, useState } from "react";
 import styled from "styled-components";
-import HomeHeader from "../../../components/HomeHeader/HomeHeader";
+import HomeHeader from "../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../components/AdminNav/AdminNav";
 
 const Main = styled.main`
@@ -11,7 +11,6 @@ const Main = styled.main`
 `;
 
 const ItemCreatePageMain = styled.main`
-  display: flex;
   margin-top: 100px;
   margin-left: 100px;
   .itemCreate {
