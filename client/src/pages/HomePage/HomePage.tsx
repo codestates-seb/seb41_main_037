@@ -68,7 +68,7 @@ const HomeMain = styled.main`
           transition: 1s;
           transform: scale(1.05);
         }
-        .itmeRanking {
+        .itemRanking {
           display: flex;
           align-items: center;
           width: 100%;
@@ -107,7 +107,7 @@ interface BestItemProps {
 const BestItemCard = ({ top, name, price, image }: BestItemProps) => {
   return (
     <div className="bestItemCard">
-      <div className="itmeRanking">
+      <div className="itemRanking">
         <h2>{top}</h2>
       </div>
 
