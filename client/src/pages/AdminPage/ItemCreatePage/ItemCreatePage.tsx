@@ -2,13 +2,18 @@
 import React, { useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import HomeHeader from "../../../components/HomeHeader/HomeHeader";
+import AdminNav from "../../../components/AdminNav/AdminNav";
+
+const Main = styled.main`
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+`;
 
 const ItemCreatePageMain = styled.main`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   margin-top: 100px;
+  margin-left: 100px;
   .itemCreate {
     width: 700px;
     .adminTitle {
@@ -173,38 +178,41 @@ const ItemCreatePage = () => {
   return (
     <>
       <HomeHeader />
-      <ItemCreatePageMain>
-        <section className="itemCreate">
-          <section className="adminTitle">
-            <h2>상품등록</h2>
-          </section>
-          <section className="adminItem">
-            <section>
-              <div>상품명</div>
-              <input type="text" placeholder="상품명을 입력하세요" />
+      <Main>
+        <AdminNav />
+        <ItemCreatePageMain>
+          <section className="itemCreate">
+            <section className="adminTitle">
+              <h2>상품등록</h2>
             </section>
-            <section>
-              <div>가격</div>
-              <input type="text" placeholder="가격을 입력하세요" />
+            <section className="adminItem">
+              <section>
+                <div>상품명</div>
+                <input type="text" placeholder="상품명을 입력하세요" />
+              </section>
+              <section>
+                <div>가격</div>
+                <input type="text" placeholder="가격을 입력하세요" />
+              </section>
+              <section>
+                <div>상품이미지</div>
+                <input
+                  type="file"
+                  accept="image/jpg, image/jpeg, image/png"
+                  ref={fileInput}
+                  onChange={handleChange}
+                  style={{ display: "none" }}
+                />
+                {showImage}
+                <button onClick={handleClinkFileInput}>파일 업로드</button>
+              </section>
             </section>
-            <section>
-              <div>상품이미지</div>
-              <input
-                type="file"
-                accept="image/jpg, image/jpeg, image/png"
-                ref={fileInput}
-                onChange={handleChange}
-                style={{ display: "none" }}
-              />
-              {showImage}
-              <button onClick={handleClinkFileInput}>파일 업로드</button>
+            <section className="adminButton">
+              <button onClick={handleCreate}>등록하기</button>
             </section>
           </section>
-          <section className="adminButton">
-            <button onClick={handleCreate}>등록하기</button>
-          </section>
-        </section>
-      </ItemCreatePageMain>
+        </ItemCreatePageMain>
+      </Main>
     </>
   );
 };
