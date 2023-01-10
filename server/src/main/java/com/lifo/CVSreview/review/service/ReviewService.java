@@ -2,6 +2,8 @@ package com.lifo.CVSreview.review.service;
 
 import com.lifo.CVSreview.exception.BusinessLogicException;
 import com.lifo.CVSreview.exception.ExceptionCode;
+import com.lifo.CVSreview.member.Entity.Member;
+import com.lifo.CVSreview.member.service.MemberService;
 import com.lifo.CVSreview.product.entity.Product;
 import com.lifo.CVSreview.product.service.ProductService;
 import com.lifo.CVSreview.review.entity.Review;
@@ -21,21 +23,27 @@ public class ReviewService {
     private final ReviewMapper reviewMapper;
 
     private final ProductService productService;
+    private final MemberService memberService;
 
-    public ReviewService(ReviewRepository reviewRepository, ReviewMapper reviewMapper, ProductService productService) {
+    public ReviewService(ReviewRepository reviewRepository, ReviewMapper reviewMapper,
+                         ProductService productService, MemberService memberService) {
         this.reviewRepository = reviewRepository;
         this.reviewMapper = reviewMapper;
         this.productService = productService;
+        this.memberService = memberService;
     }
 
     //리뷰작성
     //
-    public Review createReview(Review review) {
+    public Review createReview(Review review,int product_id) {
         verifyExistReview(review.getReviewId());//새로운 리뷰인지 확인
+        review.setMember(memberService.findMember(1L));
+        Product product2 = productService.find(product_id);
+        review.setProduct(product2);
         reviewRepository.save(review); //새로운 리뷰 저장
-        Product product = productService.find(review.getProductId());//리뷰가 가지고 있는 productId를 가지고 있는 product 찾아옴.
+        Product product = review.getProduct();//리뷰가 가지고 있는 productId를 가지고 있는 product 찾아옴.
         product.setReviewCount((product.getReviewCount())+1); //product가 가지고 있는 ReviewCount를 +1 증가시킴.
-        product.setRating(findProductReviews(review.getProductId()));//findProductReviews 메소드를 이용해서 리뷰 평점 계산 후 평점 저장.
+        product.setRating(findProductReviews(product));//findProductReviews 메소드를 이용해서 리뷰 평점 계산 후 평점 저장.
         productService.updateProduct(product);// 제품 평점 및 리뷰 갯수 업데이트.
         return review;
     }
@@ -62,8 +70,8 @@ public class ReviewService {
     //매개변수로 넘어온 productId를 가진 리뷰의 평점을 반환.
     //Stream으로 멋있게 하고 싶었으나 머리가 안되서 일단 초딩수준으로 구현.
     //추후 Stream 공부 후 변경예정
-    public int findProductReviews(int productId) {
-        List<Review> reviews = reviewRepository.findByproductId(productId);
+    public int findProductReviews(Product product) {
+        List<Review> reviews = reviewRepository.findByproduct(product);
         int reviewSize = reviews.size();
         int total = 0;
         for(int i=0; i<reviewSize; i++){
@@ -84,11 +92,11 @@ public class ReviewService {
     //삭제 후 평점 재조정
     public void deleteReview(int reviewId) {
         Review findReview = findVerifiedReview(reviewId); //전달받은 reviewId에 일치하는 리뷰 가져오기. 없다면 예외처리
-        int productId = findReview.getProductId();
+        long productId = findReview.getProduct().getProductId();//리뷰가 가지고 있는 Product를 이용해서 ProductId 가져옴
         Product product = productService.find(productId);//findReivew가 가지고 있는 productId를 가지고 있는 product 찾아옴.
         product.setReviewCount((product.getReviewCount())-1); //product가 가지고 있는 ReviewCount를 -1
         reviewRepository.delete(findReview); //리뷰삭제
-        product.setRating(findProductReviews(productId));//findProductReviews 메소드를 이용해서 리뷰 평점 계산 후 평점 저장.
+        product.setRating(findProductReviews(product));//findProductReviews 메소드를 이용해서 리뷰 평점 계산 후 평점 저장.
         productService.updateProduct(product);// 제품 평점 및 리뷰 갯수 업데이트.
     }
 

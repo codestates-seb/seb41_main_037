@@ -4,14 +4,14 @@ import com.lifo.CVSreview.audit.BaseTimeEntity;
 import com.lifo.CVSreview.member.Entity.Member;
 import com.lifo.CVSreview.product.entity.Product;
 import com.lifo.CVSreview.validator.NotSpace;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Getter
 @Setter
 @Entity
@@ -26,9 +26,6 @@ public class Review extends BaseTimeEntity {
     @Column(nullable = false, updatable = true, unique = false)
     private int rating ;
 
-    @Column(nullable = false, updatable = false, unique = false)
-    private int productId;
-
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
@@ -36,4 +33,8 @@ public class Review extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
+
+    public void addMember(Member member) {
+        this.member = member;
+    }
 }

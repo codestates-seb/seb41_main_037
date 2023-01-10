@@ -1,10 +1,11 @@
 package com.lifo.CVSreview.review.dto;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
-@Builder
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReviewResponseDto {
     private int reviewId;
     private String content;
@@ -12,7 +13,10 @@ public class ReviewResponseDto {
     private String modifiedAt;
     private int rating;
     private String username;
-    private int productId;
+    private long memberId;
+    private long productId;
+
+
     public void setUsername(String username) {
         this.username = username;
     }
