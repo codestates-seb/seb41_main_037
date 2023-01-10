@@ -1,6 +1,6 @@
 // import React from "react";
 import styled from "styled-components";
-import HomeHeader from "../../components/HomeHeader/HomeHeader";
+import HomeHeader from "../../components/AdminHeader/AdminHeader";
 
 const SignupMain = styled.main`
   display: flex;

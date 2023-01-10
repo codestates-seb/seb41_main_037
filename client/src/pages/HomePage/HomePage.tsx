@@ -1,14 +1,22 @@
 // import React from "react";
 import styled from "styled-components";
 import { RxMagnifyingGlass } from "react-icons/rx";
-import HomeHeader from "../../components/HomeHeader/HomeHeader";
+import Nav from "../../components/Nav/Nav";
+
+const Main = styled.main`
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+`;
 
 const HomeMain = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 5rem;
   height: 100vh;
+  margin-left: 10rem;
 
   .searchBarSection {
     position: relative;
@@ -121,36 +129,38 @@ const BestItemCard = ({ top, name, price, image }: BestItemProps) => {
 const HomePage = () => {
   return (
     <>
-      <HomeHeader />
-      <HomeMain>
-        <section className="searchBarSection">
-          <input type="text" placeholder="검색어를 입력하세요." />
-          <RxMagnifyingGlass className="search icon" size="40" />
-        </section>
-        <section className="bestItemSection">
-          <h1 className="bestItemTitle">Weekly Best Item</h1>
-          <section className="bestItem">
-            <BestItemCard
-              top="Top1"
-              name="HEYROO매운까르보볶이"
-              price="1,500원"
-              image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801045574486.jpg"
-            />
-            <BestItemCard
-              top="Top2"
-              name="HEYROO뉴콘치즈그라탕"
-              price="5,300원"
-              image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8805684006131.jpg"
-            />
-            <BestItemCard
-              top="Top3"
-              name="HEYROO바지락칼국수컵"
-              price="2,300원"
-              image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801085069157.jpg"
-            />
+      <Main>
+        <Nav />
+        <HomeMain>
+          <section className="searchBarSection">
+            <input type="text" placeholder="검색어를 입력하세요." />
+            <RxMagnifyingGlass className="search icon" size="40" />
           </section>
-        </section>
-      </HomeMain>
+          <section className="bestItemSection">
+            <h1 className="bestItemTitle">Weekly Best Item</h1>
+            <section className="bestItem">
+              <BestItemCard
+                top="Top1"
+                name="HEYROO매운까르보볶이"
+                price="1,500원"
+                image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801045574486.jpg"
+              />
+              <BestItemCard
+                top="Top2"
+                name="HEYROO뉴콘치즈그라탕"
+                price="5,300원"
+                image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8805684006131.jpg"
+              />
+              <BestItemCard
+                top="Top3"
+                name="HEYROO바지락칼국수컵"
+                price="2,300원"
+                image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801085069157.jpg"
+              />
+            </section>
+          </section>
+        </HomeMain>
+      </Main>
     </>
   );
 };
