@@ -123,7 +123,7 @@ const Nav = () => {
       <NavBar>
         <section className="homeBtn">
           <button>
-            <img className="logoBtn" src="img/cvs logo.png"></img>
+            <img className="logoBtn" src="img/cvs logo2.png"></img>
           </button>
         </section>
         <section className="cvsBtn">
