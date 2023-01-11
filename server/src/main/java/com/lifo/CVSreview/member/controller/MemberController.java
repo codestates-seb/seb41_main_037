@@ -57,6 +57,7 @@ public class MemberController {
         return new ResponseEntity<>(memberMapper.MemberToMemberResponse(response), HttpStatus.OK);
     }
 
+
     @GetMapping
     public ResponseEntity getMembers(@RequestParam @Positive int page,
                                      @RequestParam @Positive int size) {

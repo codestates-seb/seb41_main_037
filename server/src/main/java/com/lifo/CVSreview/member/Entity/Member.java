@@ -1,11 +1,17 @@
 package com.lifo.CVSreview.member.Entity;
 
+import com.lifo.CVSreview.product.entity.Product;
+import com.lifo.CVSreview.review.entity.Review;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -45,6 +51,6 @@ public class Member {
 //    @JoinColumn(name = "product_id")
 //    private Product product;
 
-
-
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Review> review;
 }

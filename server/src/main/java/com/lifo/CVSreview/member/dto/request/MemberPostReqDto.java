@@ -16,6 +16,8 @@ public class MemberPostReqDto {
     private String email;
 
     @NotBlank
+    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{8,20}$"
+            , message = "8자 이상, 영문, 숫자, 특수문자가 포함되어야 합니다.")
     private String password;
 
     @NotBlank
