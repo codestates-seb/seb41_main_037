@@ -33,8 +33,8 @@ public class ReviewController {
     @PostMapping("/{product-id}")
     public ResponseEntity postReview(@Valid @RequestBody ReviewPostDto reviewPostDto,
                                      @PathVariable("product-id") int product_id) {
-        Review review = reviewService.createReview(mapper.reviewPostDtoToReview(reviewPostDto),product_id);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        Review findReview = reviewService.createReview(mapper.reviewPostDtoToReview(reviewPostDto),product_id);
+        return new ResponseEntity<>(mapper.reviewToReviewResponseDto(findReview),HttpStatus.CREATED);
     }
 
     @PatchMapping("{review-id}")

@@ -13,24 +13,26 @@ import java.util.List;
 public interface ReviewMapper {
     Review reviewPostDtoToReview(ReviewPostDto reviewPostDto);
     Review reviewPatchDtoToReview(ReviewPatchDto reviewPatchDto);
-    ReviewResponseDto reviewToReviewResponseDto(Review review);
+    //ReviewResponseDto reviewToReviewResponseDto(Review review);
     List<ReviewResponseDto> reviewsToReviewResponseDtos(List<Review> reviews);
 
-//    default ReviewResponseDto reviewToReview(Review review){
-//        if(review==null) return null;
-//
-//        ReviewResponseDto response = new ReviewResponseDto(
-//                review.getReviewId(),
-//                review.getContent(),
-//                review.getCreatedAt(),
-//                review.getModifiedAt(),
-//                review.getRating(),
-//                review.getMember().getNickname(),
-//                review.getMember().getMemberId(),
-//                review.getProduct().getProductId()
-//        );
-//        return response;
-//    }
+    default ReviewResponseDto reviewToReviewResponseDto(Review review) {
+        if (review == null) return null;
+        else {
+            ReviewResponseDto response = new ReviewResponseDto(
+                    review.getReviewId(),
+                    review.getContent(),
+                    review.getCreatedAt(),
+                    review.getModifiedAt(),
+                    review.getRating(),
+                    review.getMember().getNickname(),
+                    review.getMember().getMemberId(),
+                    review.getProduct().getProductId());
+
+            return response;
+        }
+    }
 }
+
 
 

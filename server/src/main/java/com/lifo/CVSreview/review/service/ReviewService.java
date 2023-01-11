@@ -43,7 +43,7 @@ public class ReviewService {
         reviewRepository.save(review); //새로운 리뷰 저장
         Product product = review.getProduct();//리뷰가 가지고 있는 productId를 가지고 있는 product 찾아옴.
         product.setReviewCount((product.getReviewCount())+1); //product가 가지고 있는 ReviewCount를 +1 증가시킴.
-        product.setRating(findProductReviews(product));//findProductReviews 메소드를 이용해서 리뷰 평점 계산 후 평점 저장.
+        product.setRating(findProductAvgRating(product));//findProductAvgRating 메소드를 이용해서 리뷰 평점 계산 후 평점 저장.
         productService.updateProduct(product);// 제품 평점 및 리뷰 갯수 업데이트.
         return review;
     }
@@ -64,13 +64,14 @@ public class ReviewService {
     //리뷰 1개 찾아오기
     //매개변수로 넘어온 reviewId와 일치하는 리뷰를 가져옴.
     public Review findReview(int reviewId) {
+
         return findVerifiedReview(reviewId);
     }
 
     //매개변수로 넘어온 productId를 가진 리뷰의 평점을 반환.
     //Stream으로 멋있게 하고 싶었으나 머리가 안되서 일단 초딩수준으로 구현.
     //추후 Stream 공부 후 변경예정
-    public int findProductReviews(Product product) {
+    public int findProductAvgRating(Product product) {
         List<Review> reviews = reviewRepository.findByproduct(product);
         int reviewSize = reviews.size();
         int total = 0;
@@ -87,6 +88,11 @@ public class ReviewService {
                 Sort.by("reviewId").descending()));
     }
 
+    //인자로 넘어온 product에 해당하는 리뷰들을 페이지네이션을 이용해서 가져옴
+    public Page<Review> findProductReviews(int page, int size, Product product) {
+        return reviewRepository.findByproduct(product, PageRequest.of(page, size, Sort.by("reviewId").descending()));
+    }
+
     //리뷰삭제
     //매개변수로 넘어온 reviewId와 일치하는 리뷰를 db에서 삭제.
     //삭제 후 평점 재조정
@@ -96,7 +102,7 @@ public class ReviewService {
         Product product = productService.find(productId);//findReivew가 가지고 있는 productId를 가지고 있는 product 찾아옴.
         product.setReviewCount((product.getReviewCount())-1); //product가 가지고 있는 ReviewCount를 -1
         reviewRepository.delete(findReview); //리뷰삭제
-        product.setRating(findProductReviews(product));//findProductReviews 메소드를 이용해서 리뷰 평점 계산 후 평점 저장.
+        product.setRating(findProductAvgRating(product));//findProductAvgRating 메소드를 이용해서 리뷰 평점 계산 후 평점 저장.
         productService.updateProduct(product);// 제품 평점 및 리뷰 갯수 업데이트.
     }
 
