@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import Nav from "../../components/Nav/Nav";
+import { Link } from "react-router-dom";
 
 const Container = styled.main`
   display: flex;
@@ -15,7 +16,7 @@ const Container = styled.main`
 
   header {
     height: 150px;
-    .cuLogo {
+    .cvsLogo {
       width: 150px;
     }
   }
@@ -91,11 +92,14 @@ const Container = styled.main`
       }
     }
     .itemName {
+      font-size: 20px;
       font-weight: 600;
       margin-bottom: 5px;
     }
 
     .itemPrice {
+      font-size: 25px;
+      font-weight: 800;
       margin-bottom: 5px;
     }
   }
@@ -122,7 +126,7 @@ const MainPage = () => {
       <div className="container">
         <div>
           <header>
-            <img className="cuLogo" src="img/cu logo.png"></img>
+            <img className="cvsLogo" src="img/cvs logo.png"></img>
           </header>
           <div className="searchBar">
             <input />
@@ -135,11 +139,13 @@ const MainPage = () => {
           </div>
         </div>
         <div className="itemList">
-          <Item
-            img="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801728106584.jpg"
-            name="버터쿠키"
-            price="1,000원"
-          />
+          <Link to="/itemlist/:itemid">
+            <Item
+              img="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801728106584.jpg"
+              name="버터쿠키"
+              price="1,000원"
+            />
+          </Link>
           <Item
             img="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809027559445.jpg"
             name="콘소메맛팝콘"
