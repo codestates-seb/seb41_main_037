@@ -1,5 +1,6 @@
 // import React from "react";
 import styled from "styled-components";
+import { useState } from "react";
 import { InputCard } from "../SignupPage/SignupPage";
 import HomeHeader from "../../components/AdminHeader/AdminHeader";
 
@@ -83,13 +84,31 @@ const LoginMain = styled.main`
 `;
 
 const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
   return (
     <>
       <HomeHeader />
       <LoginMain>
         <section className="loginSection">
-          <InputCard id="email" title="Email" />
-          <InputCard id="password" title="Password" />
+          <InputCard
+            id="email"
+            title="Email"
+            state={email}
+            handleChange={handleEmail}
+          />
+          <InputCard
+            id="password"
+            title="Password"
+            state={password}
+            handleChange={handlePassword}
+          />
           <button>Log in</button>
           <section className="convertToSignup">
             <span>계정이 없다면?</span>
