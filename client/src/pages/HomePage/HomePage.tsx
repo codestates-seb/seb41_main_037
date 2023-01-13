@@ -5,6 +5,7 @@ import React, { useState, useEffect, useRef } from "react";
 import HomeHeader from "../../components/AdminHeader/AdminHeader";
 import { SiHomeassistantcommunitystore } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
+import Carousel from "../../components/Carousel/Carousel";
 
 const HomeMain = styled.main`
   display: flex;
@@ -54,11 +55,7 @@ const HomeMain = styled.main`
         p {
           display: flex;
           color: #fff;
-          /* border: 3px solid #fff; */
-          /* border-radius: 10px; */
-          /* padding: 1rem; */
           font-size: 30px;
-
           line-height: 40px;
         }
         .buttonSection {
@@ -78,6 +75,7 @@ const HomeMain = styled.main`
             &:hover {
               color: #ffcb5e;
               box-shadow: 2px 2px 2px #7a7979;
+              cursor: pointer;
             }
           }
         }
@@ -90,12 +88,181 @@ const HomeMain = styled.main`
     }
   }
 
-  .pageTwo {
-    background-color: #ffcb5e;
-  }
-
   .pageThree {
     background-color: #ffcb5e;
+    .content {
+      display: flex;
+      flex-direction: column;
+      font-family: "Do Hyeon", sans-serif;
+      width: 75%;
+      .bestItemTitle {
+        display: flex;
+        /* font-family: "Do Hyeon", sans-serif; */
+        flex-direction: column;
+        margin-bottom: 2rem;
+        h1 {
+          color: #58419c;
+          font-size: 60px;
+          margin-bottom: 1rem;
+        }
+        p {
+          color: #fff;
+          font-size: 30px;
+          line-height: 40px;
+        }
+      }
+      .bestItemContent {
+        display: flex;
+        flex-direction: column;
+        h2 {
+          color: #58419c;
+          font-size: 30px;
+          /* margin-bottom: 1rem; */
+        }
+        .bestItem {
+          display: flex;
+          margin-top: 1rem;
+          .bestItemCard {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 2px 2px 5px #979595;
+            min-width: 260px;
+            height: 300px;
+            margin-right: 1.5rem;
+            &:hover {
+              transition: 0.5s;
+              transform: scale(1.02);
+            }
+            .itemRanking {
+              display: flex;
+              align-items: center;
+              width: 100%;
+              height: 45px;
+              padding: 1rem;
+              border-radius: 10px 10px 0 0;
+              background-color: #58419c;
+              h2 {
+                color: #ffcb5e;
+                font-size: 20px;
+                font-weight: 700;
+              }
+            }
+
+            img {
+              width: 200px;
+              height: 200px;
+            }
+            .itemName {
+              margin-bottom: 0.5rem;
+              font-weight: 600;
+              font-size: 20px;
+            }
+            .itemPrice {
+              margin-bottom: 1rem;
+              font-size: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .pageTwo {
+    background-color: #ffcb5e;
+    .content {
+      display: flex;
+      flex-direction: column;
+      font-family: "Do Hyeon", sans-serif;
+      width: 75%;
+      .bestItemTitle {
+        display: flex;
+        /* font-family: "Do Hyeon", sans-serif; */
+        flex-direction: column;
+        margin-bottom: 2rem;
+        h1 {
+          color: #58419c;
+          font-size: 60px;
+          margin-bottom: 1rem;
+        }
+        p {
+          color: #fff;
+          font-size: 30px;
+          line-height: 40px;
+        }
+      }
+      .bestItemContent {
+        display: flex;
+        flex-direction: column;
+        h2 {
+          color: #58419c;
+          font-size: 30px;
+          /* margin-bottom: 1rem; */
+        }
+        .bestItem {
+          display: flex;
+          /* flex-direction: column; */
+          margin-top: 1rem;
+          .slick-slide div {
+            cursor: pointer;
+          }
+          .slick-prev:before,
+          .slick-next:before {
+            color: #58419c;
+          }
+          .bestItemCard {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px 10px 5px 5px;
+            background-color: #fff;
+            /* box-shadow: 2px 2px 5px #979595; */
+            max-width: 260px;
+            height: 314px;
+            /* &:nth-child(1) {
+      margin-right: 1rem;
+    } */
+
+            &:hover {
+              transition: 0.5s;
+              /* transform: scale(1.02); */
+            }
+            .itemRanking {
+              display: flex;
+              align-items: flex-start;
+              min-width: 260px;
+              height: 50px;
+              padding: 1rem;
+              border-radius: 10px 10px 0 0;
+              background-color: #58419c;
+              h2 {
+                color: #ffcb5e;
+                font-size: 20px;
+                font-weight: 700;
+              }
+            }
+
+            img {
+              width: 200px;
+              height: 200px;
+            }
+            .itemName {
+              margin-bottom: 0.5rem;
+              font-weight: 600;
+              font-size: 20px;
+            }
+            .itemPrice {
+              margin-bottom: 1rem;
+              font-size: 20px;
+            }
+          }
+        }
+      }
+    }
   }
 `;
 
@@ -182,10 +349,8 @@ const HomePage = () => {
           <section className="content">
             <section className="leftSection">
               <section className="icon">
-                {/* <TbBuildingStore /> */}
                 <SiHomeassistantcommunitystore size={150} />
               </section>
-
               <h1>편의점 PB상품을 한 곳에서</h1>
               <p>
                 CU, GS25, 7ELEVEN 3사 편의점 PB상품의 제품 평점부터 리뷰까지 한
@@ -201,8 +366,25 @@ const HomePage = () => {
             <section className="rightSection"></section>
           </section>
         </section>
-        <section className="inner pageTwo">2</section>
-        <section className="inner pageThree">3</section>
+        <section className="inner pageTwo">
+          <section className="content">
+            <section className="bestItemTitle">
+              <h1>베스트 상품</h1>
+              <p>한 주간 가장 평점이 높은 상품을 소개합니다</p>
+            </section>
+            <section className="bestItemContent">
+              <h2>주간 Best 10</h2>
+              <section className="bestItem">
+                <Carousel />
+              </section>
+            </section>
+          </section>
+        </section>
+        <section className="inner pageThree">
+          <section className="content">
+            <section className="bestItemTitle">page3</section>
+          </section>
+        </section>
       </section>
     </HomeMain>
   );

@@ -8,8 +8,8 @@ interface DotProps {
 const DotDiv = styled.div<{ isSame: boolean }>`
   width: 12px;
   height: 12px;
-  border: 1px solid #fff;
-  background-color: ${(props) => (props.isSame ? "#fff" : "transparent")};
+  border: 1px solid #58419c;
+  background-color: ${(props) => (props.isSame ? "#58419c" : "transparent")};
   border-radius: 50%;
   transition-duration: 1000ms;
 `;
