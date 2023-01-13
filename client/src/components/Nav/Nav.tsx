@@ -1,4 +1,5 @@
-import React from "react";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const NavBar = styled.main`
@@ -7,6 +8,7 @@ const NavBar = styled.main`
   height: 100%;
   padding-top: 10px;
   text-align: center;
+  position: fixed;
 
   .homeBtn > button {
     background-color: transparent;
@@ -31,6 +33,7 @@ const NavBar = styled.main`
   }
 
   .cuBtn {
+    color: transparent;
     width: 100px;
     background-image: url("img/cu logo_white.png");
     background-repeat: no-repeat;
@@ -39,10 +42,12 @@ const NavBar = styled.main`
     &:focus {
       width: 100px;
       background-color: white;
-      background-image: url("img/cu logo.png");
-      background-repeat: no-repeat;
-      background-size: 60px;
-      background-position: center;
+    }
+
+    img {
+      width: 60px;
+      &:focus {
+      }
     }
   }
 
@@ -123,19 +128,33 @@ const Nav = () => {
       <NavBar>
         <section className="homeBtn">
           <button>
-            <img className="logoBtn" src="img/cvs logo2.png"></img>
+            <Link to="/">
+              <img className="logoBtn" src="img/cvs logo2.png"></img>
+            </Link>
           </button>
         </section>
         <section className="cvsBtn">
-          <button className="cuBtn"></button>
-          <button className="gs25Btn"></button>
-          <button className="sevenelevenBtn"></button>
+          <button className="cuBtn">
+            <Link to="/itemlist">
+              <img src="img/cu logo.png"></img>
+            </Link>
+          </button>
+          <button className="gs25Btn">
+            <Link to="/itemlist"></Link>
+          </button>
+          <button className="sevenelevenBtn">
+            <Link to="/itemlist"></Link>
+          </button>
         </section>
         <section className="userBtn">
-          <button className="loginBtn">Login</button>
+          <button className="loginBtn">
+            <Link to="/login">Login</Link>
+          </button>
           <button className="signupBtn">
-            Sign <br />
-            up
+            <Link to="/signup">
+              Sign <br />
+              up
+            </Link>
           </button>
         </section>
       </NavBar>
