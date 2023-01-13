@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { HiOutlineHeart, HiHeart } from "react-icons/hi";
 import Nav from "../../components/Nav/Nav";
-import { Link } from "react-router-dom";
 
 const Container = styled.main`
   display: flex;
@@ -114,6 +114,11 @@ const Container = styled.main`
         .itemImg {
           width: 200px;
           height: 200px;
+          -ms-user-select: none;
+          -moz-user-select: -moz-none;
+          -khtml-user-select: none;
+          -webkit-user-select: none;
+          user-select: none;
         }
 
         .itemName {
@@ -141,13 +146,23 @@ interface ItemProps {
   [key: string]: string;
 }
 
-const Item = ({ img, name, price, like }: ItemProps) => {
+const Item = ({ img, name, price }: ItemProps) => {
+  const [like, setLike] = useState(false);
+
   return (
     <div className="itemBox">
-      <HiOutlineHeart className="itemLike">{like}</HiOutlineHeart>
-      <img className="itemImg" src={img}></img>
-      <div className="itemName">{name}</div>
-      <div className="itemPrice">{price}</div>
+      <span
+        className="itemLike"
+        onClick={() => {
+          setLike(!like);
+        }}>
+        {like ? <HiHeart /> : <HiOutlineHeart />}
+      </span>
+      <Link to="/itemlist/:itemid">
+        <img className="itemImg" src={img}></img>
+        <div className="itemName">{name}</div>
+        <div className="itemPrice">{price}</div>
+      </Link>
     </div>
   );
 };
@@ -175,13 +190,11 @@ const MainPage = () => {
             <button className="sortBtn">Like</button>
           </div>
           <div className="itemList">
-            <Link to="/itemlist/:itemid">
-              <Item
-                img="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801728106584.jpg"
-                name="버터쿠키"
-                price="1,000원"
-              />
-            </Link>
+            <Item
+              img="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801728106584.jpg"
+              name="버터쿠키"
+              price="1,000원"
+            />
             <Item
               img="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809027559445.jpg"
               name="콘소메맛팝콘"
