@@ -1,11 +1,17 @@
 // import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Dots from "../../components/Dots/Dots";
 import React, { useState, useEffect, useRef } from "react";
 import HomeHeader from "../../components/AdminHeader/AdminHeader";
 import { SiHomeassistantcommunitystore } from "react-icons/si";
+import { FaPencilAlt } from "react-icons/fa";
+import { BsFillBookmarkHeartFill } from "react-icons/bs";
+import { RiMailStarFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import Carousel from "../../components/Carousel/Carousel";
+import { slideInRight } from "react-animations";
+
+const slideInAnimation = keyframes`${slideInRight}`;
 
 const HomeMain = styled.main`
   display: flex;
@@ -88,89 +94,6 @@ const HomeMain = styled.main`
     }
   }
 
-  .pageThree {
-    background-color: #ffcb5e;
-    .content {
-      display: flex;
-      flex-direction: column;
-      font-family: "Do Hyeon", sans-serif;
-      width: 75%;
-      .bestItemTitle {
-        display: flex;
-        /* font-family: "Do Hyeon", sans-serif; */
-        flex-direction: column;
-        margin-bottom: 2rem;
-        h1 {
-          color: #58419c;
-          font-size: 60px;
-          margin-bottom: 1rem;
-        }
-        p {
-          color: #fff;
-          font-size: 30px;
-          line-height: 40px;
-        }
-      }
-      .bestItemContent {
-        display: flex;
-        flex-direction: column;
-        h2 {
-          color: #58419c;
-          font-size: 30px;
-          /* margin-bottom: 1rem; */
-        }
-        .bestItem {
-          display: flex;
-          margin-top: 1rem;
-          .bestItemCard {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-radius: 5px;
-            background-color: #fff;
-            box-shadow: 2px 2px 5px #979595;
-            min-width: 260px;
-            height: 300px;
-            margin-right: 1.5rem;
-            &:hover {
-              transition: 0.5s;
-              transform: scale(1.02);
-            }
-            .itemRanking {
-              display: flex;
-              align-items: center;
-              width: 100%;
-              height: 45px;
-              padding: 1rem;
-              border-radius: 10px 10px 0 0;
-              background-color: #58419c;
-              h2 {
-                color: #ffcb5e;
-                font-size: 20px;
-                font-weight: 700;
-              }
-            }
-
-            img {
-              width: 200px;
-              height: 200px;
-            }
-            .itemName {
-              margin-bottom: 0.5rem;
-              font-weight: 600;
-              font-size: 20px;
-            }
-            .itemPrice {
-              margin-bottom: 1rem;
-              font-size: 20px;
-            }
-          }
-        }
-      }
-    }
-  }
-
   .pageTwo {
     background-color: #ffcb5e;
     .content {
@@ -200,11 +123,9 @@ const HomeMain = styled.main`
         h2 {
           color: #58419c;
           font-size: 30px;
-          /* margin-bottom: 1rem; */
         }
         .bestItem {
           display: flex;
-          /* flex-direction: column; */
           margin-top: 1rem;
           .slick-slide div {
             cursor: pointer;
@@ -220,17 +141,8 @@ const HomeMain = styled.main`
             align-items: center;
             border-radius: 10px 10px 5px 5px;
             background-color: #fff;
-            /* box-shadow: 2px 2px 5px #979595; */
             max-width: 260px;
             height: 314px;
-            /* &:nth-child(1) {
-      margin-right: 1rem;
-    } */
-
-            &:hover {
-              transition: 0.5s;
-              /* transform: scale(1.02); */
-            }
             .itemRanking {
               display: flex;
               align-items: flex-start;
@@ -260,6 +172,85 @@ const HomeMain = styled.main`
               font-size: 20px;
             }
           }
+        }
+      }
+    }
+  }
+  .pageThree {
+    background-color: #ffcb5e;
+    .content {
+      display: flex;
+      flex-direction: column;
+      font-family: "Do Hyeon", sans-serif;
+      width: 75%;
+      .funcSection:nth-child(1) {
+        animation-delay: 1s;
+        animation-duration: 3s;
+        animation-name: ${slideInAnimation};
+      }
+      .funcSection:nth-child(2) {
+        animation-delay: 1s;
+        animation-duration: 4s;
+        animation-name: ${slideInAnimation};
+      }
+      .funcSection:nth-child(3) {
+        animation-delay: 1s;
+        animation-duration: 5s;
+        animation-name: ${slideInAnimation};
+      }
+      .funcSection {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 3rem;
+        .title {
+          display: flex;
+          align-items: center;
+          h1 {
+            display: flex;
+            color: #58419c;
+            font-size: 60px;
+            /* margin-bottom: 1rem; */
+          }
+          div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            /* background-color: #58419c; */
+            color: #58419c;
+          }
+        }
+        p {
+          color: #fff;
+          font-size: 30px;
+          line-height: 40px;
+        }
+      }
+    }
+  }
+  .pageFour {
+    background-color: #ffcb5e;
+    .content {
+      display: flex;
+      flex-direction: column;
+      font-family: "Do Hyeon", sans-serif;
+      width: 75%;
+      .funcSection {
+        display: flex;
+        /* font-family: "Do Hyeon", sans-serif; */
+        flex-direction: column;
+        margin-bottom: 2rem;
+        h1 {
+          color: #58419c;
+          font-size: 60px;
+          margin-bottom: 1rem;
+        }
+        p {
+          color: #fff;
+          font-size: 30px;
+          line-height: 40px;
         }
       }
     }
@@ -296,14 +287,21 @@ const HomePage = () => {
             behavior: "smooth",
           });
           setScrollIndex(3);
-        } else {
+        } else if (scrollTop >= pageHeight * 2 && scrollTop < pageHeight * 3) {
           // 현재 3페이지
           outerDivRef.current.scrollTo({
-            top: pageHeight * 2,
+            top: pageHeight * 3,
             left: 0,
             behavior: "smooth",
           });
-          setScrollIndex(3);
+          setScrollIndex(4);
+        } else {
+          outerDivRef.current.scrollTo({
+            top: pageHeight * 3,
+            left: 0,
+            behavior: "smooth",
+          });
+          setScrollIndex(4);
         }
       } else {
         // 스크롤 올릴 때
@@ -323,7 +321,7 @@ const HomePage = () => {
             behavior: "smooth",
           });
           setScrollIndex(1);
-        } else {
+        } else if (scrollTop >= pageHeight * 2 && scrollTop < pageHeight * 3) {
           // 현재 3페이지
           outerDivRef.current.scrollTo({
             top: pageHeight,
@@ -331,6 +329,14 @@ const HomePage = () => {
             behavior: "smooth",
           });
           setScrollIndex(2);
+        } else {
+          // 현재 4페이지
+          outerDivRef.current.scrollTo({
+            top: pageHeight * 2,
+            left: 0,
+            behavior: "smooth",
+          });
+          setScrollIndex(3);
         }
       }
     };
@@ -382,9 +388,39 @@ const HomePage = () => {
         </section>
         <section className="inner pageThree">
           <section className="content">
-            <section className="bestItemTitle">page3</section>
+            <section className="funcSection">
+              <section className="title">
+                <h1>댓글 작성</h1>
+                <div>
+                  <FaPencilAlt size={50} />
+                </div>
+              </section>
+              <p>상품에 대한 리뷰를 작성할 수 있습니다</p>
+            </section>
+            <section className="funcSection">
+              <section className="title">
+                <h1>별점 추천</h1>
+                <div>
+                  <RiMailStarFill size={50} />
+                </div>
+              </section>
+              <p>상품에 대한 추천도를 별점으로 확인할 수 있습니다</p>
+            </section>
+            <section className="funcSection">
+              <section className="title">
+                <h1>상품 찜하기</h1>
+                <div>
+                  <BsFillBookmarkHeartFill size={50} />
+                </div>
+              </section>
+              <p>
+                마음에 드는 상품을 찜하면 마이페이지에서 자신의 찜 목록을 확인할
+                수 있습니다
+              </p>
+            </section>
           </section>
         </section>
+        <section className="inner pageFour">지도!</section>
       </section>
     </HomeMain>
   );
