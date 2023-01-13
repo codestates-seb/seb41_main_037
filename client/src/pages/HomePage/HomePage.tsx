@@ -1,166 +1,210 @@
 // import React from "react";
 import styled from "styled-components";
-import { RxMagnifyingGlass } from "react-icons/rx";
-import Nav from "../../components/Nav/Nav";
-
-const Main = styled.main`
-  display: flex;
-  justify-content: space-between;
-  width: 80%;
-`;
+import Dots from "../../components/Dots/Dots";
+import React, { useState, useEffect, useRef } from "react";
+import HomeHeader from "../../components/AdminHeader/AdminHeader";
+import { SiHomeassistantcommunitystore } from "react-icons/si";
+import { useNavigate } from "react-router-dom";
 
 const HomeMain = styled.main`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 100vw;
   height: 100vh;
-  margin-left: 10rem;
-
-  .searchBarSection {
-    position: relative;
-    width: 700px;
-    height: 50px;
-    margin-bottom: 5rem;
-    margin-right: 2rem;
-    input {
-      width: 700px;
-      height: 50px;
-      font-size: large;
-      color: #383838;
-      padding: 0.5rem 0 0.5rem 2rem;
-      border: none;
-      border-radius: 30px;
-      background-color: #f5f5f5;
-      box-shadow: 3px 3px 3px #979595;
-      &::placeholder {
-        color: #979595;
-      }
-      &:focus-within {
-        outline: none !important;
-        box-shadow: 3px 3px 3px #7a7979;
-      }
-    }
-    .search.icon {
-      position: absolute;
-      top: 5px;
-      right: 12px;
-      color: #58419c;
+  background-color: aliceblue;
+  .outer {
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto;
+    /* 화면에서 스크롤바 안보이게 */
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 
-  .bestItemSection {
+  .inner {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 100px;
+  }
+
+  .pageOne {
+    background-color: #ffcb5e;
     display: flex;
     flex-direction: column;
-    .bestItemTitle {
-      color: #58419c;
-      margin-left: 1rem;
-      font-size: 25px;
-      font-weight: 700;
-    }
-    .bestItem {
+    font-family: "Do Hyeon", sans-serif;
+    color: #fff;
+    .content {
       display: flex;
-      .bestItemCard {
+      .leftSection {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        border: 1px solid #ffcb5e;
-        border-radius: 10px;
-        box-shadow: 2px 2px 5px #979595;
-        width: 244px;
-        height: 300px;
-        margin: 1rem;
-        &:hover {
-          transition: 1s;
-          transform: scale(1.05);
+        width: 60%;
+        margin-left: 100px;
+        min-width: 600px;
+        .icon {
+          color: #7a7979;
         }
-        .itemRanking {
-          display: flex;
-          align-items: center;
-          width: 100%;
-          height: 45px;
-          padding: 1rem;
-          border-radius: 10px 10px 0 0;
-          background-color: #ffcb5e;
-          h2 {
-            color: #fff;
-            font-size: 20px;
-            font-weight: 700;
-          }
-        }
-
-        img {
-          width: 200px;
-          height: 200px;
-        }
-        .itemName {
-          margin-bottom: 0.5rem;
-          font-weight: 600;
-        }
-        .itemPrice {
-          font-weight: 500;
+        h1 {
+          color: #58419c;
+          font-size: 60px;
           margin-bottom: 1rem;
         }
+        p {
+          display: flex;
+          color: #fff;
+          /* border: 3px solid #fff; */
+          /* border-radius: 10px; */
+          /* padding: 1rem; */
+          font-size: 30px;
+
+          line-height: 40px;
+        }
+        .buttonSection {
+          display: flex;
+          button {
+            border: none;
+            padding: 0 1rem;
+            width: fit-content;
+            height: 50px;
+            font-size: 22px;
+            border-radius: 20px;
+            margin: 1rem 1rem 0 0;
+            font-family: "Do Hyeon", sans-serif;
+            background-color: #58419c;
+            box-shadow: 1px 1px 2px #7a7979;
+            color: #fff;
+            &:hover {
+              color: #ffcb5e;
+              box-shadow: 2px 2px 2px #7a7979;
+            }
+          }
+        }
+      }
+      .rightSection {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
       }
     }
+  }
+
+  .pageTwo {
+    background-color: #ffcb5e;
+  }
+
+  .pageThree {
+    background-color: #ffcb5e;
   }
 `;
 
-interface BestItemProps {
-  [key: string]: string;
-}
-
-const BestItemCard = ({ top, name, price, image }: BestItemProps) => {
-  return (
-    <div className="bestItemCard">
-      <div className="itemRanking">
-        <h2>{top}</h2>
-      </div>
-
-      <img src={image} alt={top} />
-      <span className="itemName">{name}</span>
-      <span className="itemPrice">{price}</span>
-    </div>
-  );
-};
-
 const HomePage = () => {
+  const outerDivRef = useRef<any>();
+  const [scrollIndex, setScrollIndex] = useState(1);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const wheelHandler = (e: React.WheelEvent<HTMLElement>) => {
+      e.preventDefault();
+      const { deltaY } = e;
+      const { scrollTop } = outerDivRef.current; // 스크롤 위쪽 끝부분 위치
+      const pageHeight = window.innerHeight; // 화면 세로길이, 100vh와 같음
+
+      if (deltaY > 0) {
+        // 스크롤 내릴 때
+        if (scrollTop >= 0 && scrollTop < pageHeight) {
+          //현재 1페이지
+          outerDivRef.current.scrollTo({
+            top: pageHeight,
+            left: 0,
+            behavior: "smooth",
+          });
+          setScrollIndex(2);
+        } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
+          //현재 2페이지
+          outerDivRef.current.scrollTo({
+            top: pageHeight * 2,
+            left: 0,
+            behavior: "smooth",
+          });
+          setScrollIndex(3);
+        } else {
+          // 현재 3페이지
+          outerDivRef.current.scrollTo({
+            top: pageHeight * 2,
+            left: 0,
+            behavior: "smooth",
+          });
+          setScrollIndex(3);
+        }
+      } else {
+        // 스크롤 올릴 때
+        if (scrollTop >= 0 && scrollTop < pageHeight) {
+          //현재 1페이지
+          outerDivRef.current.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+          });
+          setScrollIndex(1);
+        } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
+          //현재 2페이지
+          outerDivRef.current.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+          });
+          setScrollIndex(1);
+        } else {
+          // 현재 3페이지
+          outerDivRef.current.scrollTo({
+            top: pageHeight,
+            left: 0,
+            behavior: "smooth",
+          });
+          setScrollIndex(2);
+        }
+      }
+    };
+    const outerDivRefCurrent = outerDivRef.current;
+    outerDivRefCurrent.addEventListener("wheel", wheelHandler);
+    return () => {
+      outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
+    };
+  }, []);
   return (
-    <>
-      <Main>
-        <Nav />
-        <HomeMain>
-          <section className="searchBarSection">
-            <input type="text" placeholder="검색어를 입력하세요." />
-            <RxMagnifyingGlass className="search icon" size="40" />
-          </section>
-          <section className="bestItemSection">
-            <h1 className="bestItemTitle">Weekly Best Item</h1>
-            <section className="bestItem">
-              <BestItemCard
-                top="Top1"
-                name="HEYROO매운까르보볶이"
-                price="1,500원"
-                image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801045574486.jpg"
-              />
-              <BestItemCard
-                top="Top2"
-                name="HEYROO뉴콘치즈그라탕"
-                price="5,300원"
-                image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8805684006131.jpg"
-              />
-              <BestItemCard
-                top="Top3"
-                name="HEYROO바지락칼국수컵"
-                price="2,300원"
-                image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801085069157.jpg"
-              />
+    <HomeMain>
+      <section ref={outerDivRef} className="outer">
+        <Dots scrollIndex={scrollIndex} />
+        <section className="inner pageOne">
+          <HomeHeader />
+          <section className="content">
+            <section className="leftSection">
+              <section className="icon">
+                {/* <TbBuildingStore /> */}
+                <SiHomeassistantcommunitystore size={150} />
+              </section>
+
+              <h1>편의점 PB상품을 한 곳에서</h1>
+              <p>
+                CU, GS25, 7ELEVEN 3사 편의점 PB상품의 제품 평점부터 리뷰까지 한
+                곳에서 볼 수 있는 서비스를 제공합니다
+              </p>
+              <section className="buttonSection">
+                <button onClick={() => navigate("/itemList")}>
+                  바로 시작하기
+                </button>
+                <button onClick={() => navigate("/login")}>로그인하기</button>
+              </section>
             </section>
+            <section className="rightSection"></section>
           </section>
-        </HomeMain>
-      </Main>
-    </>
+        </section>
+        <section className="inner pageTwo">2</section>
+        <section className="inner pageThree">3</section>
+      </section>
+    </HomeMain>
   );
 };
 
