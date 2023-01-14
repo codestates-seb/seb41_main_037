@@ -4,12 +4,15 @@ import Dots from "../../components/Dots/Dots";
 import React, { useState, useEffect, useRef } from "react";
 import HomeHeader from "../../components/AdminHeader/AdminHeader";
 import { SiHomeassistantcommunitystore } from "react-icons/si";
-import { FaPencilAlt } from "react-icons/fa";
+import { FaPencilAlt, FaMapMarkerAlt } from "react-icons/fa";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import { RiMailStarFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import Carousel from "../../components/Carousel/Carousel";
 import { slideInRight } from "react-animations";
+import MapCu from "../../components/Map/MapCu";
+import MapGs from "../../components/Map/MapGs";
+import Map7Eleven from "../../components/Map/Map7Eleven";
 
 const slideInAnimation = keyframes`${slideInRight}`;
 
@@ -103,7 +106,6 @@ const HomeMain = styled.main`
       width: 75%;
       .bestItemTitle {
         display: flex;
-        /* font-family: "Do Hyeon", sans-serif; */
         flex-direction: column;
         margin-bottom: 2rem;
         h1 {
@@ -209,7 +211,6 @@ const HomeMain = styled.main`
             display: flex;
             color: #58419c;
             font-size: 60px;
-            /* margin-bottom: 1rem; */
           }
           div {
             display: flex;
@@ -218,7 +219,6 @@ const HomeMain = styled.main`
             width: 75px;
             height: 75px;
             border-radius: 50%;
-            /* background-color: #58419c; */
             color: #58419c;
           }
         }
@@ -239,18 +239,48 @@ const HomeMain = styled.main`
       width: 75%;
       .funcSection {
         display: flex;
-        /* font-family: "Do Hyeon", sans-serif; */
         flex-direction: column;
-        margin-bottom: 2rem;
-        h1 {
-          color: #58419c;
-          font-size: 60px;
-          margin-bottom: 1rem;
+        margin-bottom: 1rem;
+        .title {
+          display: flex;
+          align-items: center;
+          h1 {
+            display: flex;
+            color: #58419c;
+            font-size: 60px;
+          }
+          div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            color: #58419c;
+          }
         }
         p {
           color: #fff;
           font-size: 30px;
           line-height: 40px;
+        }
+      }
+      .mapSection {
+        display: flex;
+        div {
+          display: flex;
+          flex-direction: column;
+          margin-right: 1rem;
+          h2 {
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem 0;
+            font-size: 24px;
+            color: #ffcb5e;
+            background-color: #58419c;
+            border-radius: 10px;
+            margin: 0 1rem 1rem 0;
+          }
         }
       }
     }
@@ -420,7 +450,33 @@ const HomePage = () => {
             </section>
           </section>
         </section>
-        <section className="inner pageFour">지도!</section>
+        <section className="inner pageFour">
+          <section className="content">
+            <section className="funcSection">
+              <section className="title">
+                <h1>편의점 위치</h1>
+                <div>
+                  <FaMapMarkerAlt size={50} />
+                </div>
+              </section>
+              <p>지도 기능을 통해 가까운 편의점 위치를 제공합니다</p>
+            </section>
+            <section className="mapSection">
+              <div>
+                <h2>CU</h2>
+                <MapCu />
+              </div>
+              <div>
+                <h2>GS25</h2>
+                <MapGs />
+              </div>
+              <div>
+                <h2>7-ELEVEN</h2>
+                <Map7Eleven />
+              </div>
+            </section>
+          </section>
+        </section>
       </section>
     </HomeMain>
   );
