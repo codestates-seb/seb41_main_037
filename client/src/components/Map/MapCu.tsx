@@ -19,6 +19,7 @@ const MapContainer = styled.div`
 `;
 
 const MapCu = () => {
+  const { kakao } = window;
   const location = Location();
   const ref = useRef<HTMLElement | null>(null);
   const data_cu: any = LocationCu();
@@ -89,7 +90,7 @@ const MapCu = () => {
         marker.setMap(map);
       }
     });
-  }, [location, location_cu]);
+  }, [location, location_cu, kakao.maps]);
   return (
     <>
       <MapContainer id="mapCu" />

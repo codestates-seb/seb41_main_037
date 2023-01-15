@@ -19,6 +19,7 @@ const MapContainer = styled.div`
 `;
 
 const MapGs = () => {
+  const { kakao } = window;
   const location = Location();
   const ref = useRef<HTMLElement | null>(null);
   const data_gs: any = LocationGs();
@@ -87,7 +88,7 @@ const MapGs = () => {
         marker.setMap(map);
       }
     });
-  }, [location, location_gs]);
+  }, [location, location_gs, kakao.maps]);
   return (
     <>
       <MapContainer id="mapGs" />
