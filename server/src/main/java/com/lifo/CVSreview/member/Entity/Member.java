@@ -53,4 +53,11 @@ public class Member {
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Review> review;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
+//    @OneToMany(fetch = FetchType.LAZY)
+//    private List<ZzimResponseDto> Zzims;
+
 }

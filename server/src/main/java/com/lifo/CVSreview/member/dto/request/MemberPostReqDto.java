@@ -24,9 +24,9 @@ public class MemberPostReqDto {
     private String nickname;
 
 
-    private Long image_name;
-
-    private Long image_path;
+//    private Long image_name;
+//
+//    private Long image_path;
 
     @Min(1)
     @Max(2)

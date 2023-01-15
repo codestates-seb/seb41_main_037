@@ -26,4 +26,9 @@ public class MemberResDto {
     private Long image_path;
     private LocalDateTime member_created_at;
     private List<ReviewResponseDto> reviews;
+//    private List<ZzimResponseDto> Zzims;
+    public void setReviews(List<ReviewResponseDto> reviews){
+        this.reviews = reviews;
+    }
 }
+

@@ -3,8 +3,14 @@ package com.lifo.CVSreview.member.service;
 import com.lifo.CVSreview.exception.BusinessLogicException;
 import com.lifo.CVSreview.exception.ExceptionCode;
 import com.lifo.CVSreview.member.Entity.Member;
+import com.lifo.CVSreview.member.dto.response.MemberResDto;
+import com.lifo.CVSreview.member.mapper.MemberMapper;
 import com.lifo.CVSreview.member.repository.MemberRepository;
+import com.lifo.CVSreview.review.dto.ReviewResponseDto;
 import com.lifo.CVSreview.review.entity.Review;
+import com.lifo.CVSreview.review.mapper.ReviewMapper;
+import com.lifo.CVSreview.review.repository.ReviewRepository;
+import com.lifo.CVSreview.review.service.ReviewService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -20,9 +26,15 @@ import java.util.Optional;
 @Transactional
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final MemberMapper memberMapper;
+    private final ReviewService reviewService;
+    private final ReviewMapper reviewMapper;
 
-    public MemberService(MemberRepository memberRepository){
+    public MemberService(MemberRepository memberRepository, MemberMapper memberMapper, ReviewService reviewService, ReviewMapper reviewMapper){
         this.memberRepository = memberRepository;
+        this.memberMapper = memberMapper;
+        this.reviewService = reviewService;
+        this.reviewMapper = reviewMapper;
     }
 
     public Member createMember(Member Member){
@@ -46,7 +58,7 @@ public class MemberService {
         return memberRepository.save(findMember);
     }
 
-    public Member findMember(Long memberId) {
+    public Member findMember(Long memberId ) {
         return findVerifiedMember(memberId);
     }
 
@@ -54,6 +66,24 @@ public class MemberService {
         return memberRepository.findAll(PageRequest.of(page, size,
                 Sort.by("memberId").descending()));
     }
+
+//    public MemberResDto findMemberMyPage(Long memberId) {
+//        Member findMember = findVerifiedMember(memberId);
+//        MemberResDto memberResDto = memberMapper.MemberToMemberResponse(findMember);
+//        List<Review> reviews = reviewService.findReview(memberId);
+//        List<ReviewResponseDto> response = reviewMapper.reviewsToReviewResponseDtos(reviews);
+//        memberResDto.setReviews(response);
+//        return response;
+//    }
+//    public MemberResDto findMemberZzims(Long memberId){
+//        Member findMember = findVerifiedMember(memberId);
+//        MemberResDto memberResDto = memberMapper.MemberToMemberResponse(findMember);
+//        List<Zzim> Zzims = zzimService.findZzim(memberId);
+//        List<ZzimResponseDto> reponse = zzimMapper.ZzimsToZzimReponseDtos(Zzims);
+//        memberResDto.setZzims(reponse);
+//        return reponse;
+//    }
+
 
     public Member findVerifiedMember(Long memberId) {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
