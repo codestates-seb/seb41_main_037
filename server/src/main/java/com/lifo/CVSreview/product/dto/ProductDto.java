@@ -69,7 +69,7 @@ public class ProductDto {
 
         private int reviewCount;
 
-        private int favoriteProduct;
+        private int favoriteCount;
 
     }
-}//
+}

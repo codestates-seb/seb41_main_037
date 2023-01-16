@@ -1,6 +1,7 @@
 package com.lifo.CVSreview.product.entity;
 
 import com.lifo.CVSreview.audit.BaseTimeEntity;
+import com.lifo.CVSreview.favorite.entity.Favorite;
 import com.lifo.CVSreview.review.entity.Review;
 import lombok.*;
 
@@ -39,7 +40,7 @@ public class Product extends BaseTimeEntity {
     private int reviewCount;  //리뷰수
 
     @Column
-    private int favoriteProduct; //찜
+    private int favoriteCount; //찜수
 
     //상품과 리뷰는 1 : N 관계
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
@@ -51,12 +52,14 @@ public class Product extends BaseTimeEntity {
         review.setProduct(this);
     }
 
-//    상품과 찜은 1 : N 관계
-//    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-//    private List<FavoriteProduct> FavoriteProducts = new ArrayList<>();
-//
-//    public void setFavoriteProduct(FavoriteProduct favoriteProduct) {
-//        this.getFavoriteProducts().add(favoriteProduct);
-//        favoriteProduct.setProduct(this);
-//    }
-}//
+    //상품과 찜은 1 : N 관계
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Favorite> favorites = new ArrayList<>();
+
+    public void setFavorite(Favorite favorite) {
+      favorites.add(favorite);
+      if (favorite.getProduct() != this) {
+          favorite.setProduct(this);
+      }
+   }
+}

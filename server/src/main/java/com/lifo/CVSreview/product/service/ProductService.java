@@ -2,6 +2,7 @@ package com.lifo.CVSreview.product.service;
 
 import com.lifo.CVSreview.exception.BusinessLogicException;
 import com.lifo.CVSreview.exception.ExceptionCode;
+import com.lifo.CVSreview.product.dto.ProductDto;
 import com.lifo.CVSreview.product.entity.Product;
 import com.lifo.CVSreview.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
 import java.util.Map;
 import java.util.Optional;
 
@@ -75,6 +78,10 @@ public class ProductService {
                         new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
         return findProduct;
     }
+
+    /*찜 가져오기*/
+
+
 
     //상품 검색
     @Transactional
