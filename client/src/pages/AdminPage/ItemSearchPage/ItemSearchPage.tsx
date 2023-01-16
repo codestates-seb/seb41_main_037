@@ -5,6 +5,7 @@ import HomeHeader from "../../../components/AdminHeader/AdminHeader";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { BsTrashFill } from "react-icons/bs";
 import { BiEdit } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const Main = styled.main`
   display: flex;
@@ -139,9 +140,11 @@ const ItemSearchPage = () => {
             {dummyItems.map((item, idx) => (
               <section className="item" key={idx}>
                 <p>{item}</p>
-                <div className="icon">
-                  <BiEdit size={12} />
-                </div>
+                <Link to="/admin/update">
+                  <div className="icon">
+                    <BiEdit size={12} />
+                  </div>
+                </Link>
                 <div className="icon">
                   <BsTrashFill size={12} />
                 </div>
