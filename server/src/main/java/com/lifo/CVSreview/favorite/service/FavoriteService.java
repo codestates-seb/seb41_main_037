@@ -31,12 +31,12 @@ public class FavoriteService {
         favorite.setProduct(product);
 
         if(isNotAlreadyFavorite(member, product)){
-            product.setFavoriteProduct(product.getFavoriteProduct()+1); //product의 좋아요 개수 +1
+            product.setFavoriteCount(product.getFavoriteCount()+1); //product의 좋아요 개수 +1
             productService.updateProduct(product); // 좋아요 개수 업데이트
             favoriteRepository.save(favorite);
             return true;
         }else{
-            product.setFavoriteProduct(product.getFavoriteProduct()-1); //product의 좋아요 개수 -1
+            product.setFavoriteCount(product.getFavoriteCount()-1); //product의 좋아요 개수 -1
             productService.updateProduct(product); // 좋아요 개수 업데이트
             favoriteRepository.delete(favoriteRepository.findByMemberAndProduct(member, product));
             return false;
