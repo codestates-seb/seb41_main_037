@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
 
 const NavBar = styled.main`
   position: fixed;
@@ -8,65 +9,36 @@ const NavBar = styled.main`
   height: 100%;
   background-color: #ffcb5e;
 
-  .homeBtn > button {
+  .homeBtn {
     margin-top: 10px;
     margin-bottom: 70px;
     background-color: transparent;
     border: none;
-
     &:hover {
       transition: 1s;
       transform: scale(1.05);
     }
-    .logoBtn {
+
+    .home {
       width: 80px;
     }
   }
 
-  .cvsBtn > button {
+  .cvsLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     width: 100px;
     height: 100px;
-    background-color: transparent;
-    background-position: center;
-    background-size: 60px;
-    background-repeat: no-repeat;
-    color: transparent;
-    border: none;
 
-    &:focus {
-      width: 100px;
-      background-position: center;
-      background-size: 60px;
-      background-color: white;
-      background-repeat: no-repeat;
-    }
-  }
-
-  .cuBtn {
-    background-image: url("img/cu logo_white.png");
-
-    img {
+    > img {
       width: 60px;
-      &:focus {
-      }
     }
   }
 
-  .gs25Btn {
-    background-image: url("img/gs25 logo_white.png");
-
-    &:focus {
-      background-image: url("img/gs25 logo.png");
-    }
-  }
-
-  .sevenelevenBtn {
-    background-image: url("img/seveneleven logo_white.png");
-
-    &:focus {
-      background-image: url("img/seveneleven logo.png");
-    }
+  .focused {
+    background-color: white;
   }
 
   .userBtn {
@@ -97,27 +69,49 @@ const NavBar = styled.main`
 `;
 
 const Nav = () => {
+  const [currentTab, clickTab] = useState(0);
+  const navigate = useNavigate();
+
+  const menuItem = [
+    {
+      path: "/cu",
+      img1: <img src="img/cu logo.png"></img>,
+      img2: <img src="img/cu logo_white.png"></img>,
+    },
+    {
+      path: "/gs25",
+      img1: <img src="img/gs25 logo.png"></img>,
+      img2: <img src="img/gs25 logo_white.png"></img>,
+    },
+    {
+      path: "/seveneleven",
+      img1: <img src="img/seveneleven logo.png"></img>,
+      img2: <img src="img/seveneleven logo_white.png"></img>,
+    },
+  ];
+
+  const selectHandler = (index: number) => {
+    clickTab(index);
+  };
+
   return (
     <NavBar>
       <section className="homeBtn">
-        <button>
-          <Link to="/">
-            <img className="logoBtn" src="img/cvs logo2.png"></img>
-          </Link>
-        </button>
+        <img
+          className="home"
+          src="img/cvs logo2.png"
+          onClick={() => navigate("/")}></img>
       </section>
-      <section className="cvsBtn">
-        <button className="cuBtn">
-          <Link to="/itemlist">
-            <img src="img/cu logo.png"></img>
+      <section className="menuBtn">
+        {menuItem.map((item, index) => (
+          <Link to={item.path} key={index}>
+            <div
+              onClick={() => selectHandler(index)}
+              className={index === currentTab ? "cvsLogo focused" : "cvsLogo"}>
+              {index === currentTab ? item.img1 : item.img2}
+            </div>
           </Link>
-        </button>
-        <button className="gs25Btn">
-          <Link to="/itemlist"></Link>
-        </button>
-        <button className="sevenelevenBtn">
-          <Link to="/itemlist"></Link>
-        </button>
+        ))}
       </section>
       <section className="userBtn">
         <button className="loginBtn">

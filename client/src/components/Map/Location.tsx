@@ -22,7 +22,7 @@ const Location = () => {
         latitude: 37.483034,
         longitude: 126.902435,
       });
-      console.log("위치 받기 실패");
+      // console.log("위치 받기 실패");
     }
   }, []);
 

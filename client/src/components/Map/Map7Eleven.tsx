@@ -23,7 +23,7 @@ const Map7Eleven = () => {
   const location = Location();
   const ref = useRef<HTMLElement | null>(null);
   const data_7Eleven: any = Location7Eleven();
-  console.log(data_7Eleven);
+  // console.log(data_7Eleven);
 
   const location_7Eleven: any = data_7Eleven.map((e: any) => ({
     content: `${e.place_name}:${e.phone}`,

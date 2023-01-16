@@ -3,7 +3,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
-import MainPage from "./pages/MainPage/MainPage";
+import MainPage1 from "./pages/MainPage/MainPage1";
+import MainPage2 from "./pages/MainPage/MainPage2";
+import MainPage3 from "./pages/MainPage/MainPage3";
 import DetailPage from "./pages/DetailPage/DetailPage";
 import MyPage from "./pages/MyPage/MyPage";
 import ItemCreatePage from "./pages/AdminPage/ItemCreatePage/ItemCreatePage";
@@ -26,8 +28,16 @@ const router = createBrowserRouter([
     element: <SignupPage />,
   },
   {
-    path: "/itemList",
-    element: <MainPage />,
+    path: "/cu",
+    element: <MainPage1 />,
+  },
+  {
+    path: "/gs25",
+    element: <MainPage2 />,
+  },
+  {
+    path: "/seveneleven",
+    element: <MainPage3 />,
   },
   {
     path: "/itemList/:itemId",

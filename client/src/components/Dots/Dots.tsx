@@ -2,7 +2,8 @@
 import styled from "styled-components";
 
 interface DotProps {
-  [key: string]: number;
+  num?: number;
+  scrollIndex: number;
 }
 
 const DotDiv = styled.div<{ isSame: boolean }>`
