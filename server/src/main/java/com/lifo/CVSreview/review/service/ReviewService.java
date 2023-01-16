@@ -72,7 +72,7 @@ public class ReviewService {
     //Stream으로 멋있게 하고 싶었으나 머리가 안되서 일단 초딩수준으로 구현.
     //추후 Stream 공부 후 변경예정
     public int findProductAvgRating(Product product) {
-        List<Review> reviews = reviewRepository.findByproduct(product);
+        List<Review> reviews = reviewRepository.findByproductOrderByCreatedAtDesc(product);
         int reviewSize = reviews.size();
         int total = 0;
         for(int i=0; i<reviewSize; i++){
@@ -88,9 +88,14 @@ public class ReviewService {
                 Sort.by("reviewId").descending()));
     }
 
-    //인자로 넘어온 product에 해당하는 리뷰들을 페이지네이션을 이용해서 가져옴
-    public Page<Review> findProductReviews(int page, int size, Product product) {
-        return reviewRepository.findByproduct(product, PageRequest.of(page, size, Sort.by("reviewId").descending()));
+    //인자로 넘어온 product에 해당하는 리뷰들을 리스트로 넘김
+    public List<Review> findProductReviews(Product product) {
+        return reviewRepository.findByproductOrderByCreatedAtDesc(product);
+    }
+
+    //인자로 받은 memberId가 작성한 리뷰를 List형식으로 반환.
+    public List<Review> findMyReviews(long memberId) {
+        return reviewRepository.findByMember(memberId);
     }
 
     //리뷰삭제

@@ -12,6 +12,7 @@ import java.util.Optional;
 
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
     Optional<Review> findById(int reviewId);
-    List<Review> findByproduct(Product product);
-    Page<Review> findByproduct(Product product, Pageable pageable);
+    List<Review> findByproductOrderByCreatedAtDesc(Product product);
+    //Page<Review> findByproduct(Product product, Pageable pageable);
+    List<Review> findByMember(long memberId);
 }
