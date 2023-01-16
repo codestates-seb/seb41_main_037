@@ -1,5 +1,5 @@
 // import React from "react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import { AiFillCloseCircle } from "react-icons/ai";
 import HomeHeader from "../../components/AdminHeader/AdminHeader";
@@ -9,6 +9,7 @@ const MypageMain = styled.main`
   justify-content: center;
   align-items: center;
   margin-top: 100px;
+  font-family: "Do Hyeon", sans-serif;
   .mypageSection {
     display: flex;
     flex-direction: column;
@@ -16,10 +17,14 @@ const MypageMain = styled.main`
     .userProfile {
       display: flex;
       img {
+        display: flex;
         width: 150px;
         height: 150px;
         border-radius: 3px;
         box-shadow: 2px 2px 3px #979595;
+      }
+      input {
+        display: flex;
       }
       .userIntroduction,
       .changePassword {
@@ -147,6 +152,7 @@ const MypageMain = styled.main`
       justify-content: flex-end;
       button:nth-child(1) {
         border: none;
+        font-family: "Do Hyeon", sans-serif;
         background-color: #58419c;
         box-shadow: 2px 2px 3px #7a7979;
         border-radius: 30px;
@@ -161,6 +167,7 @@ const MypageMain = styled.main`
       }
       button:nth-child(2) {
         border: none;
+        font-family: "Do Hyeon", sans-serif;
         background-color: #979595;
         box-shadow: inset 2px 2px 2px #7a7979;
         border-radius: 30px;
@@ -241,6 +248,21 @@ const MyPage = () => {
   const [isPasswordFocus, setIsPasswordFocus] = useState(false);
   const [isPasswordConfirmFocus, setIsPasswordConfirmFocus] = useState(false);
 
+  const [image, setImage] = useState(
+    "https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800"
+  );
+  const fileInput = useRef<HTMLInputElement>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setImage(URL.createObjectURL(e.target.files[0]));
+    }
+  };
+
+  const handleUpdate = () => {
+    console.log(image);
+  };
+
   return (
     <>
       <HomeHeader />
@@ -248,8 +270,16 @@ const MyPage = () => {
         <section className="mypageSection">
           <section className="userProfile">
             <img
-              src="https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800"
+              src={image}
               alt="userImage"
+              onClick={() => fileInput.current?.click()}
+            />
+            <input
+              type="file"
+              accept="image/jpg, image/png, image/jpeg"
+              ref={fileInput}
+              onChange={handleChange}
+              style={{ display: "none" }}
             />
             <section className="userIntroduction">
               <ProfileElementCard
@@ -331,7 +361,7 @@ const MyPage = () => {
             </section>
           </section>
           <section className="buttonSection">
-            <button>수정하기</button>
+            <button onClick={handleUpdate}>수정하기</button>
             <button>탈퇴하기</button>
           </section>
         </section>
