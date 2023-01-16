@@ -216,6 +216,7 @@ const MainPage1 = () => {
           <div className="searchBar">
             <input
               type="text"
+              maxLength={30}
               onChange={(e) => {
                 console.log(e.target.value);
               }}
