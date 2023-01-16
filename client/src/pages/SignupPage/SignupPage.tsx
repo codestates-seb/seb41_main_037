@@ -1,7 +1,9 @@
 // import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import HomeHeader from "../../components/AdminHeader/AdminHeader";
+import { RiErrorWarningFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const SignupMain = styled.main`
   display: flex;
@@ -24,7 +26,7 @@ const SignupMain = styled.main`
     .inputForm {
       display: flex;
       flex-direction: column;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       label {
         color: #383838;
         font-size: 18px;
@@ -41,6 +43,17 @@ const SignupMain = styled.main`
         box-shadow: inset 1px 1px 2px #7a7979;
         &:focus-within {
           outline: none !important;
+        }
+      }
+      div {
+        display: flex;
+        align-items: center;
+        font-size: 10px;
+        color: red;
+        div {
+          margin: 0.1rem 0 0 0.2rem;
+          /* margin-left: 0.2rem; */
+          align-items: center;
         }
       }
     }
@@ -82,29 +95,102 @@ const SignupMain = styled.main`
   }
 `;
 
-// type PropsString = 'id' | 'title' | 'state';
-
 interface InputProps {
   id: string;
   title: string;
-  state: string;
+  value: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  warning: string;
+  warningState: boolean;
+  type?: string;
 }
 
-export const InputCard = ({ id, title, state, handleChange }: InputProps) => {
+export const InputCard = ({
+  id,
+  title,
+  value,
+  handleChange,
+  warning,
+  warningState,
+  type,
+}: InputProps) => {
   return (
     <form action="submit" className="inputForm">
       <label htmlFor={id}>{title}</label>
-      <input type="text" id={id} value={state} onChange={handleChange} />
+      <input type={type} id={id} value={value} onChange={handleChange} />
+      {warningState && (
+        <div>
+          <RiErrorWarningFill size={12} />
+          <div>{warning}</div>
+        </div>
+      )}
     </form>
   );
 };
 
 const SignupPage = () => {
+  const navigate = useNavigate();
+
   const [nickname, setNickname] = useState("");
+  const [isNicknameWarning, setIsNicknameWarning] = useState(false);
+  const [nicknameState, setNicknameState] = useState(false);
+
   const [email, setEmail] = useState("");
+  const [isEmailWarning, setIsEmailWarning] = useState(false);
+  const [emailState, setEmailState] = useState(false);
+
   const [password, setPassword] = useState("");
+  const [isPasswordWarning, setIsPasswordWarning] = useState(false);
+  const [passwordState, setPasswordState] = useState(false);
+
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [isPasswordConfirmWarning, setIsPasswordConfirmWarning] =
+    useState(false);
+  const [passwordConfirmState, setPasswordConfirmState] = useState(false);
+
+  useEffect(() => {
+    if (nickname === "") {
+      setIsNicknameWarning(false);
+      setNicknameState(false);
+    } else {
+      setIsNicknameWarning(false);
+      setNicknameState(true);
+    }
+
+    if (email === "") {
+      setIsEmailWarning(false);
+    } else if (
+      email.match(
+        /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
+      )
+    ) {
+      setIsEmailWarning(false);
+      setEmailState(true);
+    } else {
+      setIsEmailWarning(true);
+      setEmailState(false);
+    }
+
+    if (password === "") {
+      setIsPasswordWarning(false);
+    } else if (password.match(/^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,}$/)) {
+      setIsPasswordWarning(false);
+      setPasswordState(true);
+    } else {
+      setIsPasswordWarning(true);
+      setPasswordState(false);
+    }
+
+    if (passwordConfirm === "") {
+      setIsPasswordConfirmWarning(false);
+    } else if (passwordConfirm === password) {
+      setIsPasswordConfirmWarning(false);
+      setPasswordConfirmState(true);
+    } else {
+      setIsPasswordConfirmWarning(true);
+      setPasswordConfirmState(false);
+    }
+  }, [nickname, email, password, passwordConfirm]);
 
   const handleNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
@@ -118,6 +204,19 @@ const SignupPage = () => {
   const handlePasswordConfirm = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordConfirm(e.target.value);
   };
+
+  const handleSignupClick = () => {
+    // 서버 통신 후 다시 작성!
+    if (nicknameState && emailState && passwordState && passwordConfirmState) {
+      // 회원가입 성공 시
+      alert("회원가입이 완료되었습니다");
+      navigate("/login");
+    } else {
+      // 회원가입 실패 시(option)
+      alert("다시 한 번 확인해주세요");
+    }
+  };
+
   return (
     <>
       <HomeHeader />
@@ -126,28 +225,38 @@ const SignupPage = () => {
           <InputCard
             id="nickname"
             title="Nickname"
-            state={nickname}
+            value={nickname}
             handleChange={handleNickname}
+            warning="이미 사용중인 닉네임입니다"
+            warningState={isNicknameWarning}
           />
           <InputCard
             id="email"
             title="Email"
-            state={email}
+            value={email}
             handleChange={handleEmail}
+            warning="유효하지 않은 이메일 형식입니다"
+            warningState={isEmailWarning}
           />
           <InputCard
             id="password"
             title="Password"
-            state={password}
+            value={password}
             handleChange={handlePassword}
+            warning="비밀번호는 특수문자, 영문, 숫자 포함 8자리 이상이어야 합니다"
+            warningState={isPasswordWarning}
+            type="password"
           />
           <InputCard
             id="passwordConfirm"
             title="Password Confirm"
-            state={passwordConfirm}
+            value={passwordConfirm}
             handleChange={handlePasswordConfirm}
+            warning="정확한 비밀번호를 입력해 주세요"
+            warningState={isPasswordConfirmWarning}
+            type="password"
           />
-          <button>Sign up</button>
+          <button onClick={handleSignupClick}>Sign up</button>
           <section className="convertToLogin">
             <span>계정이 있다면?</span>
             <a href="/login">Log in</a>
