@@ -107,6 +107,11 @@ const Container = styled.main`
         outline: solid 3px;
         outline-color: #f5f5f5;
         border-radius: 20px;
+        -ms-user-select: none;
+        -moz-user-select: -moz-none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
         &:hover {
           outline: solid 5px;
           outline-color: #ffcb5e;
@@ -124,11 +129,6 @@ const Container = styled.main`
           > img {
             width: 160px;
             height: 160px;
-            -ms-user-select: none;
-            -moz-user-select: -moz-none;
-            -khtml-user-select: none;
-            -webkit-user-select: none;
-            user-select: none;
           }
         }
 
