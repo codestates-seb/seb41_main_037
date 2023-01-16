@@ -1,37 +1,53 @@
 import React from "react";
 import styled from "styled-components";
 
-// 검정 배경
-const Footerdiv = styled.div`
+const Main = styled.main`
+  display: flex;
+  // justify-content: space-between;
   width: 100%;
-  background-color: #383838;
+  flex-direction: column;
+`;
+
+// 배경
+const Footerdiv = styled.div`
+  
+  background-color: #604770;
   height: 100px;
   display: flex;
-  align-items: center;
+  //align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 6rem;
+  //position: fixed;
 `
 // 왼쪽 글씨
 const FooterInfo = styled.p`
-  width:400px; 
-  font-size: 25px;
+  width: 420px; 
+  font-size: 20px;
   color: white;
   // margin: 25px;
   //background-color: skyblue;
-  text-align: center;
+  //text-align: center;
   //height: 50px;
+  margin-left: 5rem;
 `
 // 오른쪽 로고
-const FooterLogo = styled.img`
-  float: right;
-  text-align: center;
+// const FooterLogo = styled.img`
+//   float: right;
+//   text-align: center;
 
-`
+// `
 
 const Footer = () => {
   return (
-    <Footerdiv>
-      <FooterInfo>Copyright 2023 LIFO.</FooterInfo>
-      <FooterLogo></FooterLogo>
-    </Footerdiv>
+    <Main>
+
+        <Footerdiv>
+          <FooterInfo>Main Project CVS Review WEB Service 
+          Copyright 2023 LIFO.</FooterInfo>
+        </Footerdiv>
+
+    </Main>
   )
 };
 
