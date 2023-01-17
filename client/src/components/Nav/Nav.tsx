@@ -77,18 +77,18 @@ const Nav = () => {
   const menuItem = [
     {
       path: "/cu",
-      img1: <img src="img/cu logo.png" alt="cu"></img>,
-      img2: <img src="img/cu logo_white.png" alt="cu"></img>,
+      img1: <img src="/img/cu logo.png" alt="cu"></img>,
+      img2: <img src="/img/cu logo_white.png" alt="cu"></img>,
     },
     {
       path: "/gs25",
-      img1: <img src="img/gs25 logo.png" alt="gs25"></img>,
-      img2: <img src="img/gs25 logo_white.png" alt="gs25"></img>,
+      img1: <img src="/img/gs25 logo.png" alt="gs25"></img>,
+      img2: <img src="/img/gs25 logo_white.png" alt="gs25"></img>,
     },
     {
       path: "/seveneleven",
-      img1: <img src="img/seveneleven logo.png" alt="seveneleven"></img>,
-      img2: <img src="img/seveneleven logo_white.png" alt="seveneleven"></img>,
+      img1: <img src="/img/seveneleven logo.png" alt="seveneleven"></img>,
+      img2: <img src="/img/seveneleven logo_white.png" alt="seveneleven"></img>,
     },
   ];
 
@@ -101,7 +101,7 @@ const Nav = () => {
       <section className="homeBtn">
         <img
           className="home"
-          src="img/cvs logo2.png"
+          src="/img/cvs logo2.png"
           alt="home"
           onClick={() => navigate("/")}></img>
       </section>
