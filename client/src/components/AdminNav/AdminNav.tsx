@@ -1,8 +1,9 @@
 // import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdminNavBar = styled.nav`
+  font-family: "Do Hyeon", sans-serif;
   margin-top: 75px;
   min-width: 192px;
   height: 100vh;
@@ -50,6 +51,7 @@ const AdminNavBar = styled.nav`
       min-width: 192px;
       bottom: 0;
       button {
+        font-family: "Do Hyeon", sans-serif;
         display: flex;
         align-items: center;
         justify-content: flex-start;
@@ -69,8 +71,9 @@ const AdminNavBar = styled.nav`
 `;
 
 const AdminNav = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
   let location = window.location.pathname;
+
   return (
     <AdminNavBar>
       <section className="buttonSection">
@@ -78,7 +81,11 @@ const AdminNav = () => {
           <h2>관리자 메뉴</h2>
           <a
             href="/admin/search"
-            className={location === "/admin/search" ? "tab" : ""}
+            className={
+              location === "/admin/search" || location === "/admin/update"
+                ? "tab"
+                : ""
+            }
           >
             상품검색
           </a>
@@ -95,17 +102,9 @@ const AdminNav = () => {
             리뷰삭제
           </a>
         </section>
-
-        {isLogin ? (
-          <section className="memberSection">
-            <button onClick={() => setIsLogin(!isLogin)}>Logout</button>
-          </section>
-        ) : (
-          <section className="memberSection">
-            <button onClick={() => setIsLogin(!isLogin)}>Login</button>
-            <button>Sign up</button>
-          </section>
-        )}
+        <section className="memberSection">
+          <button onClick={() => navigate("/")}>Logout</button>
+        </section>
       </section>
     </AdminNavBar>
   );

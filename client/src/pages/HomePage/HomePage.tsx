@@ -393,9 +393,7 @@ const HomePage = () => {
                 곳에서 볼 수 있는 서비스를 제공합니다
               </p>
               <section className="buttonSection">
-                <button onClick={() => navigate("/itemList")}>
-                  바로 시작하기
-                </button>
+                <button onClick={() => navigate("/cu")}>바로 시작하기</button>
                 <button onClick={() => navigate("/login")}>로그인하기</button>
               </section>
             </section>

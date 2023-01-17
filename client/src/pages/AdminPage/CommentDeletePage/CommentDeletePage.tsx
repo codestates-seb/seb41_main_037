@@ -12,6 +12,7 @@ const Main = styled.main`
 `;
 
 const CommentDeletePageMain = styled.main`
+  font-family: "Do Hyeon", sans-serif;
   margin: 100px 0 0 100px;
   .commentTitle {
     display: flex;
@@ -25,6 +26,7 @@ const CommentDeletePageMain = styled.main`
     height: 40px;
     margin-bottom: 1rem;
     input {
+      font-family: "Do Hyeon", sans-serif;
       width: 700px;
       height: 40px;
       font-size: 15px;
@@ -75,10 +77,24 @@ const CommentDeletePageMain = styled.main`
       justify-content: space-between;
       background-color: #f5f5f5;
       box-shadow: inset 1px 1px 2px #7a7979;
-      p {
+      p:nth-child(1) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 45px;
+        max-height: 20px;
+        border-radius: 5px;
+        font-size: 15px;
+        color: #fff;
+        padding: 0.5rem;
+        background-color: #7a7979;
+        width: 10%;
+        box-shadow: 1px 1px 1px #222222;
+      }
+      p:nth-child(2) {
         font-size: 15px;
         line-height: 20px;
-        width: 95%;
+        width: 85%;
       }
       .icon {
         display: flex;
@@ -130,6 +146,8 @@ const CommentDeletePage = () => {
           <section className="commentSection">
             {dummyComment.map((comment, idx) => (
               <section className="comment" key={idx}>
+                {/* 작성자 id로 대체할 부분 */}
+                <p>id: {idx}</p>
                 <p>{comment}</p>
                 <div className="icon">
                   <BsTrashFill size={12} />

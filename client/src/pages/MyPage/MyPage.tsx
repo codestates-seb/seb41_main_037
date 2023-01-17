@@ -184,11 +184,11 @@ const MypageMain = styled.main`
   }
 `;
 
-interface WishItemProps {
-  [key: string]: string;
-}
+// interface WishItemProps {
+//   [key: string]: string;
+// }
 
-const WishItemCard = ({ image, name, price, alt }: WishItemProps) => {
+const WishItemCard = ({ image, name, price, alt }: Record<string, string>) => {
   return (
     <div className="wishItem">
       <div className="closeIcon">

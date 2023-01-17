@@ -11,6 +11,7 @@ const Main = styled.main`
 `;
 
 const ItemCreatePageMain = styled.main`
+  font-family: "Do Hyeon", sans-serif;
   margin-top: 100px;
   margin-left: 100px;
   .itemCreate {
@@ -46,6 +47,7 @@ const ItemCreatePageMain = styled.main`
           border-radius: 5px 0 0 5px;
         }
         input {
+          font-family: "Do Hyeon", sans-serif;
           font-size: 15px;
           margin-left: 1rem;
           width: 80%;
@@ -89,6 +91,7 @@ const ItemCreatePageMain = styled.main`
           }
         }
         button {
+          font-family: "Do Hyeon", sans-serif;
           border: none;
           color: #fff;
           height: 30px;
@@ -105,6 +108,7 @@ const ItemCreatePageMain = styled.main`
       display: flex;
       justify-content: flex-end;
       button {
+        font-family: "Do Hyeon", sans-serif;
         border: none;
         background-color: #979595;
         box-shadow: inset 2px 2px 2px #7a7979;

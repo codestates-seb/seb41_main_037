@@ -14,6 +14,7 @@ const Main = styled.main`
 `;
 
 const ItemSearchPageMain = styled.main`
+  font-family: "Do Hyeon", sans-serif;
   margin: 100px 0 0 100px;
   .itemSearch {
     width: 700px;
@@ -30,6 +31,7 @@ const ItemSearchPageMain = styled.main`
     height: 40px;
     margin-bottom: 1rem;
     input {
+      font-family: "Do Hyeon", sans-serif;
       width: 700px;
       height: 40px;
       font-size: 15px;
