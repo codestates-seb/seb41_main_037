@@ -193,7 +193,7 @@ const Item = ({ img, name, price }: ItemProps) => {
       </span>
       <Link to="/itemlist/:itemid">
         <div className="itemImg">
-          <img src={img}></img>
+          <img src={img} alt="itemImg"></img>
         </div>
         <div className="itemInfo">
           <div className="itemName">{name}</div>
@@ -212,7 +212,10 @@ const MainPage3 = () => {
         <section className="headerContainer">
           <header>
             <Link to="/">
-              <img className="cvsLogo" src="img/cvs logo.png"></img>
+              <img
+                className="cvsLogo"
+                src="/img/cvs logo.png"
+                alt="logoImg"></img>
             </Link>
           </header>
           <div className="searchBar">
