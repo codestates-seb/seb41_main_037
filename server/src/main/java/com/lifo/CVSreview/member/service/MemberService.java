@@ -77,7 +77,7 @@ public class MemberService {
 //        List<ReviewResponseDto> response = reviewMapper.reviewsToReviewResponseDtos(reviews);
 //        memberResDto.setReviews(response);
 //        return response;
-    }
+//    }
 //    public MemberResDto findMemberZzims(Long memberId){
 //        Member findMember = findVerifiedMember(memberId);
 //        MemberResDto memberResDto = memberMapper.MemberToMemberResponse(findMember);
