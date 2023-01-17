@@ -1,4 +1,4 @@
-// import React from "react";
+import React, { useState } from "react";
 import AdminNav from "../../../components/AdminNav/AdminNav";
 import styled from "styled-components";
 import HomeHeader from "../../../components/AdminHeader/AdminHeader";
@@ -57,11 +57,40 @@ const ItemSearchPageMain = styled.main`
     }
   }
 
+  .menuTab {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    background-color: #f5f5f5;
+    color: #979595;
+
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    cursor: pointer;
+
+    > li {
+      display: flex;
+      width: 200px;
+      height: 50px;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+  }
+
+  .active {
+    background-color: #d9d9d9;
+    color: black;
+  }
+
   .itemListSection {
     width: 700px;
     max-height: 500px;
-    border-radius: 5px;
     background-color: #d9d9d9;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     padding: 0.5rem;
     overflow-y: scroll;
     &::-webkit-scrollbar {
@@ -81,7 +110,7 @@ const ItemSearchPageMain = styled.main`
       margin: 1rem;
       padding: 0.5rem;
       justify-content: space-between;
-      background-color: #f5f5f5;
+      background-color: white;
       box-shadow: inset 1px 1px 2px #7a7979;
       p {
         font-size: 15px;
@@ -123,6 +152,18 @@ const dummyItems = [
 ];
 
 const ItemSearchPage = () => {
+  const [currentTab, clickTab] = useState(0);
+
+  const menuArr = [
+    { name: "전체", content: "전체 data" },
+    { name: "CU", content: "CU data" },
+    { name: "GS25", content: "GS25 data" },
+    { name: "SEVENELEVEN", content: "SEVENELEVEN data" },
+  ];
+
+  const selectHandler = (index: number) => {
+    clickTab(index);
+  };
   return (
     <>
       <Main>
@@ -136,6 +177,19 @@ const ItemSearchPage = () => {
             <section className="searchBarSection">
               <input type="text" placeholder="상품명을 입력하세요." />
               <RxMagnifyingGlass className="search icon" size={25} />
+            </section>
+            <section>
+              <ul className="menuTab">
+                {menuArr.map((el, index) => (
+                  <li
+                    className={
+                      index === currentTab ? "menuTab active" : "menuTab"
+                    }
+                    onClick={() => selectHandler(index)}>
+                    {el.name}
+                  </li>
+                ))}
+              </ul>
             </section>
           </section>
           <section className="itemListSection">
