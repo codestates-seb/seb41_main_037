@@ -4,11 +4,11 @@ import lombok.Getter;
 
 public enum ExceptionCode {
 
-    REVIEW_NOT_FOUND(401, "Review Not Found"),
-    REVIEW_EXISTS(402, "Review Exists"),
-    MEMBER_NOT_FOUND(401, "Member Not Found"),
+    REVIEW_NOT_FOUND(404, "Review Not Found"),
+    REVIEW_EXISTS(409, "Review Exists"),
+    MEMBER_NOT_FOUND(404, "Member Not Found"),
 
-    PRODUCT_NOT_FOUND(401, "Product Not Found");
+    PRODUCT_NOT_FOUND(404, "Product Not Found");
     @Getter
     private int status;
 
