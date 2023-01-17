@@ -3,7 +3,6 @@ import styled, { keyframes } from "styled-components";
 import Dots from "../../components/Dots/Dots";
 import React, { useState, useEffect, useRef } from "react";
 import HomeHeader from "../../components/AdminHeader/AdminHeader";
-import { SiHomeassistantcommunitystore } from "react-icons/si";
 import { FaPencilAlt, FaMapMarkerAlt, FaCrown } from "react-icons/fa";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import { RiMailStarFill } from "react-icons/ri";
@@ -13,6 +12,7 @@ import { slideInRight } from "react-animations";
 import MapCu from "../../components/Map/MapCu";
 import MapGs from "../../components/Map/MapGs";
 import Map7Eleven from "../../components/Map/Map7Eleven";
+import { FcShop } from "react-icons/fc";
 
 const slideInAnimation = keyframes`${slideInRight}`;
 
@@ -383,7 +383,7 @@ const HomePage = () => {
           <HomeHeader />
           <section className="content">
             <section className="icon">
-              <SiHomeassistantcommunitystore size={150} />
+              <FcShop size={200} />
             </section>
             <h1>편의점 PB상품을 한 곳에서</h1>
             <p>
