@@ -56,10 +56,10 @@ public class MemberController {
 //
 //        return new ResponseEntity<>(memberMapper.MemberToMemberResponse(response), HttpStatus.OK);
 //    }
-//    @GetMapping("/{member_id}") // MyPage 내가 작성한 리뷰목록
-//    public ResponseEntity getMemberReviews(@PathVariable("member_id")@Positive long memberId){
-//        return new ResponseEntity<>(memberService.findMemberReviews(memberId),HttpStatus.OK);
-//    }
+    @GetMapping("/{member_id}") // MyPage 내가 작성한 리뷰목록
+    public ResponseEntity getMemberReviews(@PathVariable("member_id")@Positive long memberId){
+        return new ResponseEntity<>(memberService.findMemberMyPage(memberId),HttpStatus.OK);
+    }
 
     @GetMapping
     public ResponseEntity getMembers(@RequestParam @Positive int page,

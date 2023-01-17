@@ -1,6 +1,6 @@
 package com.lifo.CVSreview.member.Entity;
 
-import com.lifo.CVSreview.product.entity.Product;
+import com.lifo.CVSreview.favorite.entity.Favorite;
 import com.lifo.CVSreview.review.entity.Review;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,9 +47,6 @@ public class Member {
     @Column(name = "member_created_at", nullable = false)
     private LocalDateTime member_created_at = LocalDateTime.now();
 
-//    @OneToMany
-//    @JoinColumn(name = "product_id")
-//    private Product product;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Review> review;
@@ -57,7 +54,7 @@ public class Member {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
-//    @OneToMany(fetch = FetchType.LAZY)
-//    private List<ZzimResponseDto> Zzims;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Favorite> favorite;
 
 }

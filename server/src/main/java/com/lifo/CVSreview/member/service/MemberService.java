@@ -2,6 +2,10 @@ package com.lifo.CVSreview.member.service;
 
 import com.lifo.CVSreview.exception.BusinessLogicException;
 import com.lifo.CVSreview.exception.ExceptionCode;
+import com.lifo.CVSreview.favorite.dto.FavoritePostDto;
+import com.lifo.CVSreview.favorite.entity.Favorite;
+import com.lifo.CVSreview.favorite.mapper.FavoriteMapper;
+import com.lifo.CVSreview.favorite.service.FavoriteService;
 import com.lifo.CVSreview.member.Entity.Member;
 import com.lifo.CVSreview.member.dto.response.MemberResDto;
 import com.lifo.CVSreview.member.mapper.MemberMapper;
@@ -28,16 +32,20 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
-    @Lazy
     private final ReviewService reviewService;
-    @Lazy
     private final ReviewMapper reviewMapper;
 
-    public MemberService(MemberRepository memberRepository, MemberMapper memberMapper, ReviewService reviewService, ReviewMapper reviewMapper){
+//    private final FavoriteService favoriteService;
+//    private final FavoriteMapper favoriteMapper;
+
+    public MemberService(MemberRepository memberRepository, MemberMapper memberMapper, @Lazy ReviewService reviewService, @Lazy ReviewMapper reviewMapper, FavoriteService favoriteService,
+                         FavoriteMapper favoriteMapper){
         this.memberRepository = memberRepository;
         this.memberMapper = memberMapper;
         this.reviewService = reviewService;
         this.reviewMapper = reviewMapper;
+//        this.favoriteService = favoriteService;
+//        this.favoriteMapper = favoriteMapper;
     }
 
     public Member createMember(Member Member){
@@ -61,7 +69,7 @@ public class MemberService {
         return memberRepository.save(findMember);
     }
 
-    public Member findMember(Long memberId ) {
+    public Member findMember(Long memberId) {
         return findVerifiedMember(memberId);
     }
 
@@ -70,21 +78,21 @@ public class MemberService {
                 Sort.by("memberId").descending()));
     }
 
-//    public MemberResDto findMemberMyPage(Long memberId) {
+    public MemberResDto findMemberMyPage(Long memberId) {
+        Member findMember = findVerifiedMember(memberId);
+        MemberResDto memberResDto = memberMapper.MemberToMemberResponse(findMember);
+        List<Review> reviews = reviewService.findMyReviews(memberId);
+        List<ReviewResponseDto> responses = reviewMapper.reviewsToReviewResponseDtos(reviews);
+        memberResDto.setReviews(responses);
+        return memberResDto;
+    }
+//    public MemberResDto findMemberFavorite(Long memberId){
 //        Member findMember = findVerifiedMember(memberId);
 //        MemberResDto memberResDto = memberMapper.MemberToMemberResponse(findMember);
-//        List<Review> reviews = reviewService.findReview(memberId);
-//        List<ReviewResponseDto> response = reviewMapper.reviewsToReviewResponseDtos(reviews);
-//        memberResDto.setReviews(response);
-//        return response;
-//    }
-//    public MemberResDto findMemberZzims(Long memberId){
-//        Member findMember = findVerifiedMember(memberId);
-//        MemberResDto memberResDto = memberMapper.MemberToMemberResponse(findMember);
-//        List<Zzim> Zzims = zzimService.findZzim(memberId);
-//        List<ZzimResponseDto> reponse = zzimMapper.ZzimsToZzimReponseDtos(Zzims);
-//        memberResDto.setZzims(reponse);
-//        return reponse;
+//        List<Favorite> favorite = favoriteService.MemberFavorite(memberId);
+//        List<FavoriteResponseDto> response = favoriteMapper.FavoriteToZzimReponseDtos(fae);
+//        memberResDto.setFavorite(response);
+//        return memberResDto;
 //    }
 
 
@@ -94,7 +102,7 @@ public class MemberService {
                 new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return verifiedMember;
     }
-    public void deleteMember(long memberId){
+    public void deleteMember(Long memberId){
         Member findMember = findVerifiedMember(memberId);
         memberRepository.delete(findMember);
     }
