@@ -26,11 +26,7 @@ const HomeHeader = () => {
   };
   return (
     <HomePageHeader>
-      <img
-        src="https://cdn.discordapp.com/attachments/1059647896942809148/1062250836220203069/Logo-removebg-preview.png"
-        alt="logo"
-        onClick={handleClickHeader}
-      />
+      <img src="/img/cvs logo.png" alt="logo" onClick={handleClickHeader} />
     </HomePageHeader>
   );
 };
