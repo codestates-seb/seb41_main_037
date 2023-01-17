@@ -14,6 +14,7 @@ const NavBar = styled.main`
     margin-bottom: 70px;
     background-color: transparent;
     border: none;
+    cursor: pointer;
     &:hover {
       transition: 1s;
       transform: scale(1.05);
@@ -31,6 +32,7 @@ const NavBar = styled.main`
     text-align: center;
     width: 100px;
     height: 100px;
+    cursor: pointer;
 
     > img {
       width: 60px;
@@ -103,8 +105,7 @@ const Nav = () => {
           className="home"
           src="/img/cvs logo2.png"
           alt="home"
-          onClick={() => navigate("/")}
-        ></img>
+          onClick={() => navigate("/")}></img>
       </section>
       <section className="menuBtn">
         {menuItem.map((item, index) => (
@@ -115,8 +116,7 @@ const Nav = () => {
             }}
             className={
               location.pathname === item.path ? "cvsLogo focused" : "cvsLogo"
-            }
-          >
+            }>
             {location.pathname === item.path ? item.img1 : item.img2}
           </div>
         ))}
