@@ -13,6 +13,9 @@ const DotDiv = styled.div<{ isSame: boolean }>`
   background-color: ${(props) => (props.isSame ? "#58419c" : "transparent")};
   border-radius: 50%;
   transition-duration: 1000ms;
+  &:hover {
+    background-color: #58419c;
+  }
 `;
 
 const Dot = ({ num, scrollIndex }: DotProps) => {

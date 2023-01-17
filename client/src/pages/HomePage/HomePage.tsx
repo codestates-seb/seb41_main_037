@@ -4,7 +4,7 @@ import Dots from "../../components/Dots/Dots";
 import React, { useState, useEffect, useRef } from "react";
 import HomeHeader from "../../components/AdminHeader/AdminHeader";
 import { SiHomeassistantcommunitystore } from "react-icons/si";
-import { FaPencilAlt, FaMapMarkerAlt } from "react-icons/fa";
+import { FaPencilAlt, FaMapMarkerAlt, FaCrown } from "react-icons/fa";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import { RiMailStarFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +17,7 @@ import Map7Eleven from "../../components/Map/Map7Eleven";
 const slideInAnimation = keyframes`${slideInRight}`;
 
 const HomeMain = styled.main`
+  font-family: "Do Hyeon", sans-serif;
   display: flex;
   width: 100vw;
   height: 100vh;
@@ -41,58 +42,45 @@ const HomeMain = styled.main`
 
   .pageOne {
     background-color: #ffcb5e;
-    display: flex;
-    flex-direction: column;
-    font-family: "Do Hyeon", sans-serif;
-    color: #fff;
     .content {
       display: flex;
-      .leftSection {
+      flex-direction: column;
+      width: 75%;
+      .icon {
+        color: #7a7979;
+      }
+      h1 {
+        color: #58419c;
+        font-size: 60px;
+        margin-bottom: 1rem;
+      }
+      p {
         display: flex;
-        flex-direction: column;
-        width: 60%;
-        margin-left: 100px;
-        min-width: 600px;
-        .icon {
-          color: #7a7979;
-        }
-        h1 {
-          color: #58419c;
-          font-size: 60px;
-          margin-bottom: 1rem;
-        }
-        p {
-          display: flex;
+        color: #fff;
+        font-size: 30px;
+        line-height: 40px;
+      }
+      .buttonSection {
+        display: flex;
+        button {
+          border: none;
+          padding: 0 1rem;
+          width: fit-content;
+          height: 50px;
+          font-size: 22px;
+          border-radius: 20px;
+          margin: 1rem 1rem 0 0;
+          font-family: "Do Hyeon", sans-serif;
+          background-color: #58419c;
+          box-shadow: 1px 1px 2px #7a7979;
           color: #fff;
-          font-size: 30px;
-          line-height: 40px;
-        }
-        .buttonSection {
-          display: flex;
-          button {
-            border: none;
-            padding: 0 1rem;
-            width: fit-content;
-            height: 50px;
-            font-size: 22px;
-            border-radius: 20px;
-            margin: 1rem 1rem 0 0;
-            font-family: "Do Hyeon", sans-serif;
-            background-color: #58419c;
-            box-shadow: 1px 1px 2px #7a7979;
-            color: #fff;
-            &:hover {
-              color: #ffcb5e;
-              box-shadow: 2px 2px 2px #7a7979;
-              cursor: pointer;
-            }
+          &:hover {
+            color: #ffcb5e;
+            box-shadow: 2px 2px 2px #7a7979;
+            transition: 0.3s;
+            cursor: pointer;
           }
         }
-      }
-      .rightSection {
-        display: flex;
-        flex-direction: column;
-        width: 40%;
       }
     }
   }
@@ -102,16 +90,28 @@ const HomeMain = styled.main`
     .content {
       display: flex;
       flex-direction: column;
-      font-family: "Do Hyeon", sans-serif;
       width: 75%;
       .bestItemTitle {
         display: flex;
         flex-direction: column;
         margin-bottom: 2rem;
-        h1 {
-          color: #58419c;
-          font-size: 60px;
-          margin-bottom: 1rem;
+        .title {
+          display: flex;
+          align-items: center;
+          h1 {
+            display: flex;
+            color: #58419c;
+            font-size: 60px;
+          }
+          div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            color: #58419c;
+          }
         }
         p {
           color: #fff;
@@ -183,17 +183,18 @@ const HomeMain = styled.main`
     .content {
       display: flex;
       flex-direction: column;
-      font-family: "Do Hyeon", sans-serif;
       width: 75%;
       .funcSection:nth-child(1) {
         animation-delay: 1s;
         animation-duration: 3s;
         animation-name: ${slideInAnimation};
+        margin-bottom: 4rem;
       }
       .funcSection:nth-child(2) {
         animation-delay: 1s;
         animation-duration: 4s;
         animation-name: ${slideInAnimation};
+        margin-bottom: 4rem;
       }
       .funcSection:nth-child(3) {
         animation-delay: 1s;
@@ -203,7 +204,6 @@ const HomeMain = styled.main`
       .funcSection {
         display: flex;
         flex-direction: column;
-        margin-bottom: 3rem;
         .title {
           display: flex;
           align-items: center;
@@ -235,7 +235,6 @@ const HomeMain = styled.main`
     .content {
       display: flex;
       flex-direction: column;
-      font-family: "Do Hyeon", sans-serif;
       width: 75%;
       .funcSection {
         display: flex;
@@ -383,27 +382,30 @@ const HomePage = () => {
         <section className="inner pageOne">
           <HomeHeader />
           <section className="content">
-            <section className="leftSection">
-              <section className="icon">
-                <SiHomeassistantcommunitystore size={150} />
-              </section>
-              <h1>편의점 PB상품을 한 곳에서</h1>
-              <p>
-                CU, GS25, 7ELEVEN 3사 편의점 PB상품의 제품 평점부터 리뷰까지 한
-                곳에서 볼 수 있는 서비스를 제공합니다
-              </p>
-              <section className="buttonSection">
-                <button onClick={() => navigate("/cu")}>바로 시작하기</button>
-                <button onClick={() => navigate("/login")}>로그인하기</button>
-              </section>
+            <section className="icon">
+              <SiHomeassistantcommunitystore size={150} />
             </section>
-            <section className="rightSection"></section>
+            <h1>편의점 PB상품을 한 곳에서</h1>
+            <p>
+              CU, GS25, 7ELEVEN 3사 편의점 PB상품의 제품 평점부터 리뷰까지 한
+              곳에서 볼 수 있는 서비스를 제공합니다
+            </p>
+            <section className="buttonSection">
+              <button onClick={() => navigate("/cu")}>바로 시작하기</button>
+              <button onClick={() => navigate("/login")}>로그인하기</button>
+            </section>
           </section>
         </section>
         <section className="inner pageTwo">
           <section className="content">
             <section className="bestItemTitle">
-              <h1>베스트 상품</h1>
+              <section className="title">
+                <h1>베스트 상품</h1>
+                <div>
+                  <FaCrown size={50} />
+                </div>
+              </section>
+
               <p>한 주간 가장 평점이 높은 상품을 소개합니다</p>
             </section>
             <section className="bestItemContent">
