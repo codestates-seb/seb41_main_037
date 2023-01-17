@@ -2,9 +2,10 @@ package com.lifo.CVSreview.product.service;
 
 import com.lifo.CVSreview.exception.BusinessLogicException;
 import com.lifo.CVSreview.exception.ExceptionCode;
-import com.lifo.CVSreview.product.dto.ProductDto;
 import com.lifo.CVSreview.product.entity.Product;
 import com.lifo.CVSreview.product.repository.ProductRepository;
+import com.lifo.CVSreview.review.entity.Review;
+import com.lifo.CVSreview.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,17 +13,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.validation.Valid;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ProductService {
 
     private final ProductRepository productRepository;
+
+    private final ReviewRepository reviewRepository;
 
     /*상품등록*/
     public Product create(Product product) {
@@ -61,11 +63,14 @@ public class ProductService {
                 Sort.by("productId").descending()));
     }
 
-    /*상품 삭제
-    영속성 전이: CASCADE 덕분에 Product를 삭제할 때 연관 관계 매핑된 Review와 FavoriteProduct도 함께 삭제될걸로 예상하는데 맞을까요? */
+    /*상품 삭제 */
     public void delete(long productId) {
         Product find = findVerifiedProduct(productId); // 전달받은 productId와 일치하는 상품 가져오기
-
+        reviewRepository.deleteAllById(
+                find.getReviews()
+                        .stream().map(Review::getReviewId)
+                        .collect(Collectors.toList())
+        );
         productRepository.delete(find);
     }
 
@@ -79,14 +84,12 @@ public class ProductService {
         return findProduct;
     }
 
-    /*찜 가져오기*/
-
 
 
     //상품 검색
     @Transactional
     public Page<Product> search(Map<String, String> params, Pageable pageable) {
         return productRepository.findProductsByProductNameContaining(params.get("key"), pageable);
-    }//
+    }
 
 }
