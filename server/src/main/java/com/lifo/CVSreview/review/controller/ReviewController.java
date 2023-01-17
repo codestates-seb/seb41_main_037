@@ -65,9 +65,11 @@ public class ReviewController {
                 HttpStatus.OK);
     }
 
+    /*
     @DeleteMapping("/{review-id}")
     public ResponseEntity deleteQuestion(@PathVariable("review-id") int reviewId) {
         reviewService.deleteReview(reviewId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+     */
 }

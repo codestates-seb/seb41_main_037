@@ -73,6 +73,9 @@ public class ReviewService {
     //추후 Stream 공부 후 변경예정
     public int findProductAvgRating(Product product) {
         List<Review> reviews = reviewRepository.findByproductOrderByCreatedAtDesc(product);
+        if(reviews.size()==0){
+            return 0;
+        }
         int reviewSize = reviews.size();
         int total = 0;
         for(int i=0; i<reviewSize; i++){
