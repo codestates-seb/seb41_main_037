@@ -11,6 +11,7 @@ import com.lifo.CVSreview.review.entity.Review;
 import com.lifo.CVSreview.review.mapper.ReviewMapper;
 import com.lifo.CVSreview.review.repository.ReviewRepository;
 import com.lifo.CVSreview.review.service.ReviewService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -27,7 +28,9 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
+    @Lazy
     private final ReviewService reviewService;
+    @Lazy
     private final ReviewMapper reviewMapper;
 
     public MemberService(MemberRepository memberRepository, MemberMapper memberMapper, ReviewService reviewService, ReviewMapper reviewMapper){
@@ -74,7 +77,7 @@ public class MemberService {
 //        List<ReviewResponseDto> response = reviewMapper.reviewsToReviewResponseDtos(reviews);
 //        memberResDto.setReviews(response);
 //        return response;
-//    }
+    }
 //    public MemberResDto findMemberZzims(Long memberId){
 //        Member findMember = findVerifiedMember(memberId);
 //        MemberResDto memberResDto = memberMapper.MemberToMemberResponse(findMember);
