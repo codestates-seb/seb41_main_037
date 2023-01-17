@@ -27,6 +27,7 @@ public class FavoriteService {
         Favorite favorite = new Favorite(); //이렇게 하면 안될 거 같은데.. 이거말곤 방법이 떠오르질 않음.
         Product product = productService.find(product_id); // 인자로 받은 productId에 해당하는 product 가져옴
 
+        favorite.setProductName(product.getProductName());
         favorite.setMember(member);
         favorite.setProduct(product);
 
@@ -44,10 +45,8 @@ public class FavoriteService {
     }
 
     //인자로 전달받은 memberId가 좋아요를 누른 상품목록을 리스트로 반환
-    public List<Favorite> MemberFavorite(long memberId) {
-        Optional<Member> member = memberRepository.findById(memberId);
-        Member member2= member.get();
-        return favoriteRepository.findByMember(member2);
+    public List<Favorite> MemberFavorite(Member member) {
+        return favoriteRepository.findByMember(member);
     }
 
     //사용자가 이미 좋아요를 했는지 확인.

@@ -32,14 +32,14 @@ public class ReviewController {
 
     @PostMapping("/{product-id}")
     public ResponseEntity postReview(@Valid @RequestBody ReviewPostDto reviewPostDto,
-                                     @PathVariable("product-id") int product_id) {
+                                     @PathVariable("product-id") long product_id) {
         Review findReview = reviewService.createReview(mapper.reviewPostDtoToReview(reviewPostDto),product_id);
         return new ResponseEntity<>(mapper.reviewToReviewResponseDto(findReview),HttpStatus.CREATED);
     }
 
     @PatchMapping("{review-id}")
     public ResponseEntity patchReview(
-            @PathVariable("review-id") @Positive int reviewId,
+            @PathVariable("review-id") @Positive long reviewId,
             @Valid @RequestBody ReviewPatchDto reviewPatchDto) {
         reviewPatchDto.setReviewId(reviewId);
         Review review = reviewService.updateReview(mapper.reviewPatchDtoToReview(reviewPatchDto));
@@ -49,7 +49,7 @@ public class ReviewController {
 
     @GetMapping("/{review-id}")
     public ResponseEntity getReview(
-            @PathVariable("review-id") @Positive int reviewId){
+            @PathVariable("review-id") @Positive long reviewId){
         Review findReview = reviewService.findReview(reviewId);
         return new ResponseEntity<>(mapper.reviewToReviewResponseDto(findReview),HttpStatus.OK);
     }

@@ -1,5 +1,6 @@
 package com.lifo.CVSreview.review.repository;
 
+import com.lifo.CVSreview.member.Entity.Member;
 import com.lifo.CVSreview.product.entity.Product;
 import com.lifo.CVSreview.review.entity.Review;
 import org.springframework.data.domain.Page;
@@ -14,5 +15,5 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Optional<Review> findById(long reviewId);
     List<Review> findByproductOrderByCreatedAtDesc(Product product);
     //Page<Review> findByproduct(Product product, Pageable pageable);
-    List<Review> findByMember(long memberId);
+    List<Review> findByMember(Member member);
 }

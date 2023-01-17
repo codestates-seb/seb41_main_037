@@ -12,7 +12,7 @@ public class ReviewPatchDto {
     private String content;
     private int rating;
 
-    public void setReviewId(int reviewId) {
+    public void setReviewId(long reviewId) {
         this.reviewId = reviewId;
     }
 }

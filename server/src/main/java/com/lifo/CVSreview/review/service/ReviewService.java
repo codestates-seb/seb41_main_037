@@ -35,7 +35,7 @@ public class ReviewService {
 
     //리뷰작성
     //
-    public Review createReview(Review review,int product_id) {
+    public Review createReview(Review review,long product_id) {
         verifyExistReview(review.getReviewId());//새로운 리뷰인지 확인
         review.setMember(memberService.findMember(1L));
         Product product2 = productService.find(product_id);
@@ -97,8 +97,8 @@ public class ReviewService {
     }
 
     //인자로 받은 memberId가 작성한 리뷰를 List형식으로 반환.
-    public List<Review> findMyReviews(long memberId) {
-        return reviewRepository.findByMember(memberId);
+    public List<Review> findMyReviews(Member member) {
+        return reviewRepository.findByMember(member);
     }
 
     //리뷰삭제
