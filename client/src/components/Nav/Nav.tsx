@@ -56,6 +56,7 @@ const NavBar = styled.main`
       color: white;
       border: none;
       border-radius: 50px;
+      font-family: "Do Hyeon", sans-serif;
 
       &:hover {
         background-color: white;

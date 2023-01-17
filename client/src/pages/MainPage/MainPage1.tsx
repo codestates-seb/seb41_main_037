@@ -80,6 +80,7 @@ const Container = styled.main`
         border-radius: 50px;
         font-size: 12px;
         font-weight: 600;
+        font-family: "Do Hyeon", sans-serif;
         &:hover {
           background-color: #58419c;
           color: white;
@@ -112,6 +113,7 @@ const Container = styled.main`
         -khtml-user-select: none;
         -webkit-user-select: none;
         user-select: none;
+        font-family: "Do Hyeon", sans-serif;
         &:hover {
           outline: solid 5px;
           outline-color: #ffcb5e;
