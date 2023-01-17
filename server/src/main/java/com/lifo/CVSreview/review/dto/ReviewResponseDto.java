@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReviewResponseDto {
-    private int reviewId;
+    private long reviewId;
     private String content;
     private String createdAt;
     private String modifiedAt;

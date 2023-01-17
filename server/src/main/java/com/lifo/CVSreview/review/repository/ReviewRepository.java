@@ -10,8 +10,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface ReviewRepository extends JpaRepository<Review, Integer> {
-    Optional<Review> findById(int reviewId);
+public interface ReviewRepository extends JpaRepository<Review, Long> {
+    Optional<Review> findById(long reviewId);
     List<Review> findByproductOrderByCreatedAtDesc(Product product);
     //Page<Review> findByproduct(Product product, Pageable pageable);
     List<Review> findByMember(long memberId);

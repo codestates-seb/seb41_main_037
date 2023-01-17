@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 @Getter
 public class ReviewPatchDto {
-    private int reviewId;
+    private long reviewId;
 
     @Size(min = 10, message = "10자 이상부터 입력 가능")
     private String content;

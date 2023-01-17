@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 public class Review extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int reviewId;
+    private long reviewId;
 
     @Column(length = 500, nullable = false, updatable = true, unique = false)
     private String content;

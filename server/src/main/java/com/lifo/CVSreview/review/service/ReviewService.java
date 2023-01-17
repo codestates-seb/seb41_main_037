@@ -63,7 +63,7 @@ public class ReviewService {
 
     //리뷰 1개 찾아오기
     //매개변수로 넘어온 reviewId와 일치하는 리뷰를 가져옴.
-    public Review findReview(int reviewId) {
+    public Review findReview(long reviewId) {
 
         return findVerifiedReview(reviewId);
     }
@@ -116,7 +116,7 @@ public class ReviewService {
 
     //매개변수로 넘어온 reviewId를 DB에서 가져오기
     //존재하지 않는다면 예외처리
-    public Review findVerifiedReview(int reviewId) {
+    public Review findVerifiedReview(long reviewId) {
         Optional<Review> optionalMember =
                 reviewRepository.findById(reviewId);
         Review findReview =
@@ -127,7 +127,7 @@ public class ReviewService {
 
     //리뷰가 존재한다면 예외처리
     //없는 리뷰라면 그대로 통과
-    private void verifyExistReview(int reviewId) {
+    private void verifyExistReview(long reviewId) {
         Optional<Review> optionalReview = reviewRepository.findById(reviewId);
         if(optionalReview.isPresent()){
             throw new BusinessLogicException(ExceptionCode.REVIEW_EXISTS);
