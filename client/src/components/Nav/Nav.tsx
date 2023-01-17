@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const NavBar = styled.main`
   position: fixed;
@@ -71,27 +71,28 @@ const NavBar = styled.main`
 const Nav = () => {
   const [currentTab, clickTab] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const menuItem = [
     {
       path: "/cu",
-      img1: <img src="img/cu logo.png"></img>,
-      img2: <img src="img/cu logo_white.png"></img>,
+      img1: <img src="img/cu logo.png" alt="cu"></img>,
+      img2: <img src="img/cu logo_white.png" alt="cu"></img>,
     },
     {
       path: "/gs25",
-      img1: <img src="img/gs25 logo.png"></img>,
-      img2: <img src="img/gs25 logo_white.png"></img>,
+      img1: <img src="img/gs25 logo.png" alt="gs25"></img>,
+      img2: <img src="img/gs25 logo_white.png" alt="gs25"></img>,
     },
     {
       path: "/seveneleven",
-      img1: <img src="img/seveneleven logo.png"></img>,
-      img2: <img src="img/seveneleven logo_white.png"></img>,
+      img1: <img src="img/seveneleven logo.png" alt="seveneleven"></img>,
+      img2: <img src="img/seveneleven logo_white.png" alt="seveneleven"></img>,
     },
   ];
 
   const selectHandler = (index: number) => {
-    clickTab(index);
+    clickTab(currentTab);
   };
 
   return (
@@ -100,17 +101,21 @@ const Nav = () => {
         <img
           className="home"
           src="img/cvs logo2.png"
+          alt="home"
           onClick={() => navigate("/")}></img>
       </section>
       <section className="menuBtn">
         {menuItem.map((item, index) => (
-          <Link to={item.path} key={index}>
-            <div
-              onClick={() => selectHandler(index)}
-              className={index === currentTab ? "cvsLogo focused" : "cvsLogo"}>
-              {index === currentTab ? item.img1 : item.img2}
-            </div>
-          </Link>
+          <div
+            onClick={() => {
+              selectHandler(index);
+              navigate(item.path);
+            }}
+            className={
+              location.pathname === item.path ? "cvsLogo focused" : "cvsLogo"
+            }>
+            {location.pathname === item.path ? item.img1 : item.img2}
+          </div>
         ))}
       </section>
       <section className="userBtn">
