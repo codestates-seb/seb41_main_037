@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
-import { Link } from "react-router-dom";
+import Header from "../../components/Header/Header";
 
 const Main = styled.main`
   display: flex;
@@ -227,11 +227,12 @@ const DetailPage = () => {
       <Main>
         <Nav />
         <section className="Container">
-          <header>
+          <Header />
+          {/* <header>
             <Link to="/">
               <img className="cvsLogo" src="img/cvs logo.png"></img>
             </Link>
-          </header>
+          </header> */}
           <section className="HomeMain">
             <section className="itemSection">
               <img

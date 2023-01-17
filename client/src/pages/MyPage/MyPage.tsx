@@ -112,7 +112,7 @@ const MypageMain = styled.main`
       p {
         background-color: #f4f5f9;
         box-shadow: inset 1px 1px 2px #7a7979;
-        font-size: 13px;
+        font-size: 15px;
         border-radius: 5px;
         padding: 0.5rem;
         line-height: 20px;
@@ -154,6 +154,7 @@ const MypageMain = styled.main`
           .closeIcon {
             display: flex;
             width: 100%;
+            margin-top: 0.5rem;
             justify-content: flex-end;
             color: #58419c;
             &:hover {

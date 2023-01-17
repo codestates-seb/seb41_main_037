@@ -188,7 +188,8 @@ const Item = ({ img, name, price }: ItemProps) => {
         className="itemLike"
         onClick={() => {
           setLike(!like);
-        }}>
+        }}
+      >
         {like ? <HiHeart /> : <HiOutlineHeart />}
       </span>
       <Link to="/itemlist/:itemid">
@@ -215,7 +216,8 @@ const MainPage2 = () => {
               <img
                 className="cvsLogo"
                 src="/img/cvs logo.png"
-                alt="logoImg"></img>
+                alt="logoImg"
+              ></img>
             </Link>
           </header>
           <div className="searchBar">
