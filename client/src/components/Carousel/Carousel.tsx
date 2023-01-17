@@ -17,6 +17,17 @@ const StyledSlider = styled(Slider)`
   .slick-next:before {
     color: #58419c;
   }
+  .slick-dots {
+    bottom: -60px;
+    margin-right: 18px;
+  }
+  .slick-dots li button:before {
+    line-height: 0px;
+    color: #58419c;
+  }
+  .slick-dots li.slick-active button:before {
+    color: #58419c;
+  }
 `;
 
 interface BestItemProps {
@@ -45,9 +56,10 @@ const Carousel = () => {
   const showMaxCnt = 3;
   const arr = Array.from(new Array(2));
   const settings = {
-    arrows: true,
+    rows: 1,
+    arrows: false,
     autoplay: true,
-    dots: false,
+    dots: true,
     infinite: arr.length > showMaxCnt,
     speed: 1000,
     slidesToShow: showMaxCnt,

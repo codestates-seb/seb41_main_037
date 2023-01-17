@@ -58,6 +58,7 @@ const HomeMain = styled.main`
         display: flex;
         color: #fff;
         font-size: 30px;
+        max-width: 750px;
         line-height: 40px;
       }
       .buttonSection {
@@ -69,7 +70,7 @@ const HomeMain = styled.main`
           height: 50px;
           font-size: 22px;
           border-radius: 20px;
-          margin: 1rem 1rem 0 0;
+          margin: 2rem 1rem 0 0;
           font-family: "Do Hyeon", sans-serif;
           background-color: #58419c;
           box-shadow: 1px 1px 2px #7a7979;

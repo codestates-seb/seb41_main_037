@@ -17,27 +17,7 @@ const StyledSlider = styled(Slider)`
   }
   .slick-prev,
   .slick-next {
-    font-size: 0;
-    line-height: 0;
-
-    position: absolute;
     top: 45%;
-
-    display: block;
-
-    width: 20px;
-    height: 20px;
-    padding: 0;
-    -webkit-transform: translate(0, -50%);
-    -ms-transform: translate(0, -50%);
-    transform: translate(0, -50%);
-
-    cursor: pointer;
-
-    color: transparent;
-    border: none;
-    outline: none;
-    background: transparent;
   }
   .slick-dots {
     bottom: -15px;
@@ -231,10 +211,6 @@ const MypageMain = styled.main`
     }
   }
 `;
-
-// interface WishItemProps {
-//   [key: string]: string;
-// }
 
 const WishItemCard = ({ image, name, price, alt }: Record<string, string>) => {
   return (
