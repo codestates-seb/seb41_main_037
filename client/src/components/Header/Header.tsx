@@ -18,7 +18,7 @@ const Header = () => {
         alt="logo"
       />
     </DetailHeader>
-  )
+  );
 };
 
 export default Header;

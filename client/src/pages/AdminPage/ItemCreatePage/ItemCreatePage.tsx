@@ -1,5 +1,5 @@
 // import React from "react";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import HomeHeader from "../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../components/AdminNav/AdminNav";
@@ -25,8 +25,43 @@ const ItemCreatePageMain = styled.main`
     .adminItem {
       display: flex;
       flex-direction: column;
-      section:nth-child(1),
-      section:nth-child(2) {
+      section:nth-child(1) {
+        display: flex;
+        margin-bottom: 1rem;
+        align-items: center;
+        border: 1px solid #7a7979;
+        border-radius: 5px;
+        height: 50px;
+        &:focus-within {
+          box-shadow: 2px 2px 5px #979595;
+        }
+        div {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100px;
+          height: 50px;
+          color: #fff;
+          background-color: #7a7979;
+          border-radius: 5px 0 0 5px;
+        }
+        label {
+          display: flex;
+          align-items: center;
+          margin: 0 2rem 0 1rem;
+          input {
+            font-family: "Do Hyeon", sans-serif;
+            font-size: 15px;
+            margin: 0.5rem;
+            border: none;
+            &:focus-within {
+              outline: none;
+            }
+          }
+        }
+      }
+      section:nth-child(2),
+      section:nth-child(3) {
         display: flex;
         margin-bottom: 1rem;
         align-items: center;
@@ -57,9 +92,10 @@ const ItemCreatePageMain = styled.main`
           }
         }
       }
-      section:nth-child(3) {
+      section:nth-child(4) {
         display: flex;
         flex-direction: column;
+        justify-content: center;
         margin-bottom: 1rem;
         border: 1px solid #7a7979;
         border-radius: 5px;
@@ -79,17 +115,16 @@ const ItemCreatePageMain = styled.main`
         }
         section {
           display: flex;
-          align-items: center;
+          flex-direction: column;
           justify-content: center;
           border: none;
-          p {
-            margin-top: 1rem;
-          }
+          height: fit-content;
           img {
             width: 200px;
             height: 200px;
           }
         }
+
         button {
           font-family: "Do Hyeon", sans-serif;
           border: none;
@@ -126,56 +161,31 @@ const ItemCreatePageMain = styled.main`
   }
 `;
 
-interface UploadImage {
-  file: File;
-  thumbnail: string;
-  type: string;
-}
-
 const ItemCreatePage = () => {
   const fileInput = useRef<HTMLInputElement>(null);
-  const [imageFile, setImageFile] = useState<UploadImage | null>(null);
+  const [image, setImage] = useState(
+    "https://cdn-icons-png.flaticon.com/512/5578/5578817.png"
+  );
+  // 선택된 편의점 이름을 담는 변수
+  const [selectedStore, setSelectedStore] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setImage(URL.createObjectURL(e.target.files[0]));
+    }
+  };
 
   const handleClinkFileInput = () => {
     fileInput.current?.click();
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileList = e.target.files;
-    if (fileList && fileList[0]) {
-      const url = URL.createObjectURL(fileList[0]);
-
-      setImageFile({
-        file: fileList[0],
-        thumbnail: url,
-        type: fileList[0].type.slice(0, 5),
-      });
-    }
+  const handleStoreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedStore(e.target.value);
   };
 
-  const showImage = useMemo(() => {
-    if (!imageFile && imageFile === null) {
-      return (
-        <section>
-          <p>이미지 예시</p>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/5578/5578817.png"
-            alt="비어있는 프로필"
-          />
-        </section>
-      );
-    }
-    return (
-      <img
-        src={imageFile.thumbnail}
-        alt={imageFile.type}
-        onClick={handleClinkFileInput}
-      />
-    );
-  }, [imageFile]);
-
   const handleCreate = () => {
-    console.log(imageFile);
+    console.log(image);
+    console.log(selectedStore);
   };
 
   return (
@@ -190,6 +200,36 @@ const ItemCreatePage = () => {
             </section>
             <section className="adminItem">
               <section>
+                <div>편의점</div>
+                <label>
+                  <input
+                    type="radio"
+                    name="cvs"
+                    value="cu"
+                    onChange={handleStoreChange}
+                  />
+                  CU
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="cvs"
+                    value="gs25"
+                    onChange={handleStoreChange}
+                  />
+                  GS25
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="cvs"
+                    value="7eleven"
+                    onChange={handleStoreChange}
+                  />
+                  7-ELEVEN
+                </label>
+              </section>
+              <section>
                 <div>상품명</div>
                 <input type="text" placeholder="상품명을 입력하세요" />
               </section>
@@ -197,6 +237,7 @@ const ItemCreatePage = () => {
                 <div>가격</div>
                 <input type="text" placeholder="가격을 입력하세요" />
               </section>
+
               <section>
                 <div>상품이미지</div>
                 <input
@@ -206,7 +247,13 @@ const ItemCreatePage = () => {
                   onChange={handleChange}
                   style={{ display: "none" }}
                 />
-                {showImage}
+                <section>
+                  <img
+                    src={image}
+                    alt="userImg"
+                    onClick={handleClinkFileInput}
+                  />
+                </section>
                 <button onClick={handleClinkFileInput}>파일 업로드</button>
               </section>
             </section>
