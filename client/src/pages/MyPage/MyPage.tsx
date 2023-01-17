@@ -3,6 +3,54 @@ import { useRef, useState } from "react";
 import styled from "styled-components";
 import { AiFillCloseCircle } from "react-icons/ai";
 import HomeHeader from "../../components/AdminHeader/AdminHeader";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+const StyledSlider = styled(Slider)`
+  display: flex;
+  height: 230px;
+  width: 620px;
+  justify-content: center;
+  .slick-slide div {
+    cursor: pointer;
+  }
+  .slick-prev,
+  .slick-next {
+    font-size: 0;
+    line-height: 0;
+
+    position: absolute;
+    top: 45%;
+
+    display: block;
+
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+
+    cursor: pointer;
+
+    color: transparent;
+    border: none;
+    outline: none;
+    background: transparent;
+  }
+  .slick-dots {
+    bottom: -15px;
+  }
+  .slick-dots li button:before {
+    line-height: 0px;
+
+    color: #58419c;
+  }
+  .slick-dots li.slick-active button:before {
+    color: #58419c;
+  }
+`;
 
 const MypageMain = styled.main`
   display: flex;
@@ -107,7 +155,7 @@ const MypageMain = styled.main`
       }
       .wishItems {
         display: flex;
-        overflow-x: scroll;
+        justify-content: center;
         &::-webkit-scrollbar {
           display: none;
         }
@@ -121,7 +169,7 @@ const MypageMain = styled.main`
           padding: 0.5rem;
           margin-right: 1rem;
           width: 150px;
-          height: 220px;
+          height: 200px;
           border-radius: 10px;
           .closeIcon {
             display: flex;
@@ -263,6 +311,17 @@ const MyPage = () => {
     console.log(image);
   };
 
+  const showMaxCnt = 4;
+  const arr = Array.from(new Array(3));
+  const settings = {
+    arrows: true,
+    dots: true,
+    infinite: arr.length > showMaxCnt,
+    speed: 1000,
+    slidesToShow: showMaxCnt,
+    slidesToScroll: showMaxCnt,
+  };
+
   return (
     <>
       <HomeHeader />
@@ -327,37 +386,69 @@ const MyPage = () => {
           <section className="wishList">
             <h3>Wish list</h3>
             <section className="wishItems">
-              <WishItemCard
-                image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg"
-                name="햄)모짜치즈볼트리플버거"
-                price="3,400원"
-                alt="wish1"
-              />
-              <WishItemCard
-                image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg"
-                name="도)백종원완전한판정식"
-                price="4,500원"
-                alt="wish2"
-              />
+              <StyledSlider {...settings}>
+                <WishItemCard
+                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg"
+                  name="햄)모짜치즈볼트리플버거"
+                  price="3,400원"
+                  alt="wish1"
+                />
+                <WishItemCard
+                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg"
+                  name="도)백종원완전한판정식"
+                  price="4,500원"
+                  alt="wish2"
+                />
+                <WishItemCard
+                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg"
+                  name="주)토끼정햄계란마요"
+                  price="1,700원"
+                  alt="wish3"
+                />
+                <WishItemCard
+                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg"
+                  name="도)직화고추장삼겹살"
+                  price="5,300원"
+                  alt="wish4"
+                />
+                <WishItemCard
+                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg"
+                  name="도)탄단지그릴닭가슴살볼"
+                  price="4,800원"
+                  alt="wish5"
+                />
+                <WishItemCard
+                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg"
+                  name="햄)모짜치즈볼트리플버거"
+                  price="3,400원"
+                  alt="wish1"
+                />
+                <WishItemCard
+                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg"
+                  name="도)백종원완전한판정식"
+                  price="4,500원"
+                  alt="wish2"
+                />
 
-              <WishItemCard
-                image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg"
-                name="주)토끼정햄계란마요"
-                price="1,700원"
-                alt="wish3"
-              />
-              <WishItemCard
-                image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg"
-                name="도)직화고추장삼겹살"
-                price="5,300원"
-                alt="wish4"
-              />
-              <WishItemCard
-                image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg"
-                name="도)탄단지그릴닭가슴살볼"
-                price="4,800원"
-                alt="wish5"
-              />
+                <WishItemCard
+                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg"
+                  name="주)토끼정햄계란마요"
+                  price="1,700원"
+                  alt="wish3"
+                />
+                <WishItemCard
+                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg"
+                  name="도)직화고추장삼겹살"
+                  price="5,300원"
+                  alt="wish4"
+                />
+                <WishItemCard
+                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg"
+                  name="도)탄단지그릴닭가슴살볼"
+                  price="4,800원"
+                  alt="wish5"
+                />
+              </StyledSlider>
             </section>
           </section>
           <section className="buttonSection">
