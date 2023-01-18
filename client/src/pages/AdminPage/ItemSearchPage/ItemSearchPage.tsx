@@ -26,7 +26,6 @@ const ItemSearchPageMain = styled.main`
     }
   }
   .searchBarSection {
-    position: relative;
     width: 700px;
     height: 40px;
     margin-bottom: 1rem;
@@ -164,6 +163,15 @@ const ItemSearchPage = () => {
   const selectHandler = (index: number) => {
     clickTab(index);
   };
+
+  const onRemove = () => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      alert("삭제되었습니다.");
+    } else {
+      alert("취소합니다.");
+    }
+  };
+
   return (
     <>
       <Main>
@@ -202,7 +210,7 @@ const ItemSearchPage = () => {
                   </div>
                 </Link>
                 <div className="icon">
-                  <BsTrashFill size={12} />
+                  <BsTrashFill size={12} onClick={onRemove} />
                 </div>
               </section>
             ))}

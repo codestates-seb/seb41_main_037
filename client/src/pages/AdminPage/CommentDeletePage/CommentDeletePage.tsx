@@ -21,7 +21,6 @@ const CommentDeletePageMain = styled.main`
     margin-bottom: 1rem;
   }
   .searchBarSection {
-    position: relative;
     width: 700px;
     height: 40px;
     margin-bottom: 1rem;
@@ -129,6 +128,14 @@ const dummyComment = [
   "이 시리즈 맛있음 양 적어서 1+1할 때 사야 개꿀",
 ];
 
+const onRemove = () => {
+  if (window.confirm("정말 삭제하시겠습니까?")) {
+    alert("삭제되었습니다.");
+  } else {
+    alert("취소합니다.");
+  }
+};
+
 const CommentDeletePage = () => {
   return (
     <>
@@ -150,7 +157,7 @@ const CommentDeletePage = () => {
                 <p>id: {idx}</p>
                 <p>{comment}</p>
                 <div className="icon">
-                  <BsTrashFill size={12} />
+                  <BsTrashFill size={12} onClick={onRemove} />
                 </div>
               </section>
             ))}
