@@ -2,7 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
+<<<<<<< Updated upstream
 import Header from "../../components/Header/Header";
+=======
+<<<<<<< HEAD
+import { Link } from "react-router-dom";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { HiOutlineHeart, HiHeart, HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
+
+=======
+import Header from "../../components/Header/Header";
+>>>>>>> b0cd131476517ad8e20c81325b7f036f2df119e9
+>>>>>>> Stashed changes
 
 const Main = styled.main`
   display: flex;
@@ -42,7 +53,7 @@ const Main = styled.main`
     .itemSection {
       //position: relative;
       width: 980px;
-      height: 450px;
+      height: 400px;
       // background-color: yellow;
       margin-bottom: 2rem;
       border: 3px solid #ffcb5e;
@@ -59,7 +70,7 @@ const Main = styled.main`
       .contentSection {
         background-color: #f5f5f5;
         width: 580px;
-        height: 400px;
+        height: 350px;
         float: left;
         margin: 20px;
         border-radius: 20px;
@@ -67,18 +78,18 @@ const Main = styled.main`
       .TitleSection {
         font-size: 35px;
         font-weight: bold;
-        margin: 70px 50px 20px 50px;
+        margin: 50px 50px 20px 50px;
         border-bottom: 7px solid #ffcb5e;
         // background-color: red;
         height: 70px;
       }
       .PriceSection {
-        font-size: 15px;
+        font-size: 25px;
         font-weight: bold;
-        margin: 20px 50px 20px 50px;
+        margin: 40px 50px 40px 50px;
         border-bottom: 2px solid #ffcb5e;
-        // background-color: red;
-        height: 40px;
+        //background-color: red;
+        height: 60px;
       }
       .ExplaneSection {
         font-size: 15px;
@@ -91,17 +102,17 @@ const Main = styled.main`
       .LikeSection {
         font-size: 40px;
         font-weight: bold;
-        margin: 20px 50px 30px 50px;
-        border-bottom: 2px solid #ffcb5e;
-        // background-color: red;
+        margin: 0px 50px 30px 50px;
+        //border-bottom: 2px solid #ffcb5e;
         height: 60px;
         color: #58419c;
+        //background: blue;
       }
     }
     .StarRatingSection {
       //position: relative;
       width: 1120px;
-      height: 150px;
+      height: 180px;
       //border: 3px solid #ffcb5e;
       border-bottom: 5px solid #58419c;
       //border-radius: 20px;
@@ -111,7 +122,7 @@ const Main = styled.main`
       input {
         float: left;
         width: 55%;
-        height: 65%;
+        height: 55%;
         border-radius: 10px;
         background-color: #f5f5f5;
         //margin: 10px 20px 10px 20px;
@@ -130,17 +141,23 @@ const Main = styled.main`
         font-size: 16px;
         border: none;
         cursor: pointer;
+        &:hover {
+          filter: brightness(1.2);
+          transition: 0.5s;
+          cursor: pointer;
       }
+    }
       .WriteStarRating {
         margin: auto 0;
         margin-right: 30px;
         font-size: 35px;
+        color: #ffcb5e;
       }
     }
     .ReviewSection {
       //position: relative;
       width: 1000px;
-      height: 150px;
+      height: 10px;
       display: flex;
       justify-content: center;
       //background-color: #c6bce3;
@@ -150,6 +167,7 @@ const Main = styled.main`
         margin: auto 0;
         font-size: 20px;
         margin-right: 30px;
+        color: #ffcb5e;
       }
       .ReviewContentBox {
         float: left;
@@ -221,13 +239,22 @@ const Main = styled.main`
 
 // 깃허브 별점댓글창 찾아보기
 
+// const LikeButton = ({ like, onClick }) => {
+//   return (
+//       <LikeSection src={like?HeartImg:EmptyHeartImg} onClick={onClick} />
+//   );
+// };
+
 const DetailPage = () => {
   return (
     <>
       <Main>
         <Nav />
         <section className="Container">
+<<<<<<< Updated upstream
           <Header />
+=======
+>>>>>>> Stashed changes
           {/* <header>
             <Link to="/">
               <img className="cvsLogo" src="img/cvs logo.png"></img>
@@ -246,29 +273,41 @@ const DetailPage = () => {
                 <section className="PriceSection">
                   <p>가격: 3500원</p>
                 </section>
-                <section className="ExplaneSection">
+                {/* <section className="ExplaneSection">
                   <p>
                     상품설명: 지역 특산물 햇감자를 사용한 감자 샐러드를 넣은
                     샌드위치
                   </p>
-                </section>
+                </section> */}
                 <section className="LikeSection">
-                  <p>♥</p>
+                  <p>{onclick ? <HiHeart /> : <HiOutlineHeart />}</p>
                 </section>
               </section>
             </section>
             <section className="StarRatingSection">
-              <p className="WriteStarRating">⭐⭐⭐⭐⭐</p>
+              <p className="WriteStarRating">
+                <AiFillStar />
+                <AiFillStar />
+                <AiFillStar />
+                <AiFillStar />
+                <AiFillStar />
+              </p>
               <input></input>
               <button>Enter</button>
             </section>
             <section className="ReviewSection">
-              <p className="ResultStarRating">⭐⭐⭐⭐⭐</p>
+              <p className="ResultStarRating">
+                <AiFillStar />
+                <AiFillStar />
+                <AiFillStar />
+                <AiOutlineStar />
+                <AiOutlineStar />
+              </p>
               <section className="ReviewContentBox">
                 <section className="ReviewTop">
                   <section className="ReviewNickname">USERID1234</section>
-                  <button className="ReviewDelete">삭제</button>
-                  <button className="ReviewModify">수정</button>
+                      <HiOutlinePencilAlt />
+                      <HiOutlineTrash />
                   <section className="ReviewMiddle">
                     <section className="ReviewContent">
                       너무 맛있어요 추천합니다!
@@ -279,9 +318,10 @@ const DetailPage = () => {
               </section>
             </section>
           </section>
-          <Footer />
+          
         </section>
       </Main>
+      <Footer />
     </>
   );
 };
