@@ -1,7 +1,7 @@
 import React, { MutableRefObject, useEffect, useRef } from "react";
 import styled from "styled-components";
 import Location from "./Location";
-import Location7Eleven from "./Location7Eleven";
+import LocationData from "./LocationData";
 
 declare global {
   interface Window {
@@ -18,14 +18,18 @@ const MapContainer = styled.div`
   font-size: 12px;
 `;
 
-const Map7Eleven = () => {
+interface PropsType {
+  id: string;
+  content: string;
+}
+
+const Map = ({ id, content }: PropsType) => {
   const { kakao } = window;
   const location = Location();
   const ref = useRef<HTMLElement | null>(null);
-  const data_7Eleven: any = Location7Eleven();
-  // console.log(data_7Eleven);
+  const data_store: any = LocationData(content);
 
-  const location_7Eleven: any = data_7Eleven.map((e: any) => ({
+  const location_store: any = data_store.map((e: any) => ({
     content: `${e.place_name}:${e.phone}`,
     latlng: new kakao.maps.LatLng(e.y, e.x),
   }));
@@ -33,7 +37,7 @@ const Map7Eleven = () => {
   useEffect(() => {
     kakao.maps.load(() => {
       if (typeof location !== "string") {
-        const container = document.getElementById("map7Eleven");
+        const container = document.getElementById(id);
         const options = {
           center: new kakao.maps.LatLng(location.latitude, location.longitude),
           level: 4,
@@ -44,23 +48,23 @@ const Map7Eleven = () => {
         const imageSrc =
           "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
-        for (let i = 0; i < location_7Eleven.length; i++) {
-          // 마커 이미지의 이미지 크기 입니다
+        for (let i = 0; i < location_store.length; i++) {
+          // 마커 이미지의 이미지 크기
           let imageSize = new kakao.maps.Size(24, 35);
 
-          // 마커 이미지를 생성합니다
+          // 마커 이미지를 생성
           let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
-          // 마커를 생성합니다
+          // 마커를 생성
           let markerTest = new kakao.maps.Marker({
-            position: location_7Eleven[i].latlng, // 마커를 표시할 위치
+            position: location_store[i].latlng, // 마커를 표시할 위치
             image: markerImage, // 마커 이미지
           });
           markerTest.setMap(map);
 
           // 마커에 표시할 인포윈도우를 생성
           let infowindow = new kakao.maps.InfoWindow({
-            content: location_7Eleven[i].content, // 인포윈도우에 표시할 내용
+            content: location_store[i].content, // 인포윈도우에 표시할 내용
           });
 
           // 마커에 mouseover 이벤트, mouseout 이벤트를 등록
@@ -89,16 +93,17 @@ const Map7Eleven = () => {
         marker.setMap(map);
       }
     });
-  }, [location, location_7Eleven, kakao.maps]);
+  }, [location, location_store, kakao.maps, id]);
   return (
     <>
-      <MapContainer id="map7Eleven" />
+      <MapContainer id={id} />
     </>
   );
 };
 
-export default Map7Eleven;
+export default Map;
 
+// 인포윈도우를 여는 오프너를 만드는 함수
 function makeOverListener(map: any, marker: any, infowindow: any) {
   infowindow.close();
   return function () {

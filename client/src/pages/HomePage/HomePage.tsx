@@ -9,9 +9,7 @@ import { RiMailStarFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import Carousel from "../../components/Carousel/Carousel";
 import { slideInRight } from "react-animations";
-import MapCu from "../../components/Map/MapCu";
-import MapGs from "../../components/Map/MapGs";
-import Map7Eleven from "../../components/Map/Map7Eleven";
+import Map from "../../components/Map/Map";
 import { FcShop } from "react-icons/fc";
 
 const slideInAnimation = keyframes`${slideInRight}`;
@@ -465,15 +463,15 @@ const HomePage = () => {
             <section className="mapSection">
               <div>
                 <h2>CU</h2>
-                <MapCu />
+                <Map id="mapCu" content="CU" />
               </div>
               <div>
                 <h2>GS25</h2>
-                <MapGs />
+                <Map id="mapGs" content="GS" />
               </div>
               <div>
                 <h2>7-ELEVEN</h2>
-                <Map7Eleven />
+                <Map id="map7Eleven" content="세븐일레븐" />
               </div>
             </section>
           </section>

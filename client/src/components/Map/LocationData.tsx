@@ -2,7 +2,7 @@
 import { useState, useMemo } from "react";
 import Location from "./Location";
 
-const LocationCu = () => {
+const LocationData = (store: string) => {
   const [arr, setArr] = useState<object[]>([]);
   const location = Location();
   const { kakao } = window;
@@ -16,12 +16,12 @@ const LocationCu = () => {
 
   useMemo(() => {
     if (typeof location !== "string") {
-      places.keywordSearch("CU", callback, {
+      places.keywordSearch(store, callback, {
         location: new kakao.maps.LatLng(location.latitude, location.longitude),
       });
     }
-  }, [location]);
+  }, [location, store]);
   return arr;
 };
 
-export default LocationCu;
+export default LocationData;
