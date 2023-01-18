@@ -20,10 +20,17 @@ spring:
   sql:
     init:
       data-locations: classpath*:data.sql
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+    converters:
+      preferred-json-mapper: gson
+
+
 mail:
   address:
     admin: admin@gmail.com
 jwt:
-  secret-key: ${JWT_SECRET_KEY}
-  access-token-expiration-minutes: 60
-  refresh-token-expiration-minutes: 360
+  key: kevin123412341234123412341234123412341234123412341234
+  access-token-expiration-minutes: 40
+  refresh-token-expiration-minutes: 420
