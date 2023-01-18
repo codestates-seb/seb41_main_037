@@ -4,6 +4,14 @@ import styled from "styled-components";
 import HomeHeader from "../../components/AdminHeader/AdminHeader";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import LoginFooter from "../../components/LoginFooter/LoginFooter";
+
+const Container = styled.section`
+  font-family: "Do Hyeon", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 
 const SignupMain = styled.main`
   display: flex;
@@ -52,12 +60,12 @@ const SignupMain = styled.main`
         color: red;
         div {
           margin: 0.1rem 0 0 0.2rem;
-          /* margin-left: 0.2rem; */
           align-items: center;
         }
       }
     }
     button {
+      font-family: "Do Hyeon", sans-serif;
       width: 300px;
       height: 35px;
       border: none;
@@ -218,7 +226,7 @@ const SignupPage = () => {
   };
 
   return (
-    <>
+    <Container>
       <HomeHeader />
       <SignupMain>
         <section className="signupSection">
@@ -263,7 +271,8 @@ const SignupPage = () => {
           </section>
         </section>
       </SignupMain>
-    </>
+      <LoginFooter />
+    </Container>
   );
 };
 

@@ -4,6 +4,14 @@ import { useEffect, useState } from "react";
 import { InputCard } from "../SignupPage/SignupPage";
 import HomeHeader from "../../components/AdminHeader/AdminHeader";
 import { useNavigate } from "react-router-dom";
+import LoginFooter from "../../components/LoginFooter/LoginFooter";
+
+const Container = styled.section`
+  font-family: "Do Hyeon", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 
 const LoginMain = styled.main`
   display: flex;
@@ -57,6 +65,7 @@ const LoginMain = styled.main`
       }
     }
     button {
+      font-family: "Do Hyeon", sans-serif;
       width: 300px;
       height: 35px;
       border: none;
@@ -149,7 +158,7 @@ const LoginPage = () => {
     setPassword(e.target.value);
   };
   return (
-    <>
+    <Container>
       <HomeHeader />
       <LoginMain>
         <section className="loginSection">
@@ -177,7 +186,8 @@ const LoginPage = () => {
           </section>
         </section>
       </LoginMain>
-    </>
+      <LoginFooter />
+    </Container>
   );
 };
 

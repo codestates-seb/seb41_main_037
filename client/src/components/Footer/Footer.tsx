@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 const Main = styled.main`
+  font-family: "Do Hyeon", sans-serif;
   display: flex;
-  margin-left: 100px;
+  margin-left: 70px;
 `;
 // 배경
 const Footerdiv = styled.div`
