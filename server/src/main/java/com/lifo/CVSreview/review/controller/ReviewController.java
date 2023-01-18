@@ -55,6 +55,12 @@ public class ReviewController {
         return new ResponseEntity<>(mapper.reviewToReviewResponseDto(findReview),HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity searchReview(@RequestParam String search){
+        List<Review> reviews =reviewService.searchReview(search);
+        return new ResponseEntity<>(mapper.reviewsToReviewResponseDtos(reviews),HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity getReviews(@Positive @RequestParam int page,
                                      @Positive @RequestParam int size){

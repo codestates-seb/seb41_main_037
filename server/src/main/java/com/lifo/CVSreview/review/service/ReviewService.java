@@ -96,6 +96,10 @@ public class ReviewService {
         return reviewRepository.findByproductOrderByCreatedAtDesc(product);
     }
 
+    public List<Review> searchReview(String search) {
+        return reviewRepository.findBycontentContaining(search);
+    }
+
     //인자로 받은 memberId가 작성한 리뷰를 List형식으로 반환.
     public List<Review> findMyReviews(Member member) {
         return reviewRepository.findByMember(member);
