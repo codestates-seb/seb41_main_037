@@ -2,41 +2,28 @@ import React from "react";
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import { AiFillCloseCircle } from "react-icons/ai";
-import HomeHeader from "../../components/AdminHeader/AdminHeader";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Header from "../../components/Header/Header";
+import Nav from "../../components/Nav/Nav";
+import Footer from "../../components/Footer/Footer";
 
-const StyledSlider = styled(Slider)`
+const Container = styled.main`
   display: flex;
-  height: 230px;
-  width: 620px;
-  justify-content: center;
-  .slick-slide div {
-    cursor: pointer;
-  }
-  .slick-prev,
-  .slick-next {
-    top: 45%;
-  }
-  .slick-dots {
-    bottom: -15px;
-  }
-  .slick-dots li button:before {
-    line-height: 0px;
+  width: 100%;
+  margin-bottom: 100px;
 
-    color: #58419c;
-  }
-  .slick-dots li.slick-active button:before {
-    color: #58419c;
+  .mainContainer {
+    display: flex;
+    width: calc(100% - 100px);
+    flex-direction: column;
+    align-items: center;
+    margin-left: 100px;
   }
 `;
 
 const MypageMain = styled.main`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 100px;
   font-family: "Do Hyeon", sans-serif;
   .mypageSection {
     display: flex;
@@ -213,6 +200,31 @@ const MypageMain = styled.main`
   }
 `;
 
+const StyledSlider = styled(Slider)`
+  display: flex;
+  height: 230px;
+  width: 620px;
+  justify-content: center;
+  .slick-slide div {
+    cursor: pointer;
+  }
+  .slick-prev,
+  .slick-next {
+    top: 45%;
+  }
+  .slick-dots {
+    bottom: -15px;
+  }
+  .slick-dots li button:before {
+    line-height: 0px;
+
+    color: #58419c;
+  }
+  .slick-dots li.slick-active button:before {
+    color: #58419c;
+  }
+`;
+
 const WishItemCard = ({ image, name, price, alt }: Record<string, string>) => {
   return (
     <div className="wishItem">
@@ -301,139 +313,145 @@ const MyPage = () => {
 
   return (
     <>
-      <HomeHeader />
-      <MypageMain>
-        <section className="mypageSection">
-          <section className="userProfile">
-            <img
-              src={image}
-              alt="userImage"
-              onClick={() => fileInput.current?.click()}
-            />
-            <input
-              type="file"
-              accept="image/jpg, image/png, image/jpeg"
-              ref={fileInput}
-              onChange={handleChange}
-              style={{ display: "none" }}
-            />
-            <section className="userIntroduction">
-              <ProfileElementCard
-                classname="nickname"
-                title="Nickname"
-                content="Kelly"
-                placeholder="Enter your nickname"
-                state={isNameFocus}
-                setState={setIsNameFocus}
-              />
-              <ProfileElementCard
-                classname="email"
-                title="Email"
-                content="testuser@gmail.com"
-                placeholder="Enter your email"
-                state={isEmailFocus}
-                setState={setIsEmailFocus}
-              />
-            </section>
-            <section className="changePassword">
-              <ProfileElementCard
-                classname="password"
-                title="Password"
-                content="***********"
-                placeholder="Enter your password"
-                state={isPasswordFocus}
-                setState={setIsPasswordFocus}
-              />
-              <ProfileElementCard
-                classname="passwordComfirm"
-                title="Password Confirm"
-                content="***********"
-                placeholder="Enter your password"
-                state={isPasswordConfirmFocus}
-                setState={setIsPasswordConfirmFocus}
-              />
-            </section>
-          </section>
-          <section className="commentList">
-            <h3>Comment list</h3>
-            {dummyCommentList.map((comment, idx) => (
-              <p key={idx}>{comment}</p>
-            ))}
-          </section>
-          <section className="wishList">
-            <h3>Wish list</h3>
-            <section className="wishItems">
-              <StyledSlider {...settings}>
-                <WishItemCard
-                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg"
-                  name="햄)모짜치즈볼트리플버거"
-                  price="3,400원"
-                  alt="wish1"
+      <Container>
+        <Nav />
+        <section className="mainContainer">
+          <Header />
+          <MypageMain>
+            <section className="mypageSection">
+              <section className="userProfile">
+                <img
+                  src={image}
+                  alt="userImage"
+                  onClick={() => fileInput.current?.click()}
                 />
-                <WishItemCard
-                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg"
-                  name="도)백종원완전한판정식"
-                  price="4,500원"
-                  alt="wish2"
+                <input
+                  type="file"
+                  accept="image/jpg, image/png, image/jpeg"
+                  ref={fileInput}
+                  onChange={handleChange}
+                  style={{ display: "none" }}
                 />
-                <WishItemCard
-                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg"
-                  name="주)토끼정햄계란마요"
-                  price="1,700원"
-                  alt="wish3"
-                />
-                <WishItemCard
-                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg"
-                  name="도)직화고추장삼겹살"
-                  price="5,300원"
-                  alt="wish4"
-                />
-                <WishItemCard
-                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg"
-                  name="도)탄단지그릴닭가슴살볼"
-                  price="4,800원"
-                  alt="wish5"
-                />
-                <WishItemCard
-                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg"
-                  name="햄)모짜치즈볼트리플버거"
-                  price="3,400원"
-                  alt="wish1"
-                />
-                <WishItemCard
-                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg"
-                  name="도)백종원완전한판정식"
-                  price="4,500원"
-                  alt="wish2"
-                />
+                <section className="userIntroduction">
+                  <ProfileElementCard
+                    classname="nickname"
+                    title="Nickname"
+                    content="Kelly"
+                    placeholder="Enter your nickname"
+                    state={isNameFocus}
+                    setState={setIsNameFocus}
+                  />
+                  <ProfileElementCard
+                    classname="email"
+                    title="Email"
+                    content="testuser@gmail.com"
+                    placeholder="Enter your email"
+                    state={isEmailFocus}
+                    setState={setIsEmailFocus}
+                  />
+                </section>
+                <section className="changePassword">
+                  <ProfileElementCard
+                    classname="password"
+                    title="Password"
+                    content="***********"
+                    placeholder="Enter your password"
+                    state={isPasswordFocus}
+                    setState={setIsPasswordFocus}
+                  />
+                  <ProfileElementCard
+                    classname="passwordComfirm"
+                    title="Password Confirm"
+                    content="***********"
+                    placeholder="Enter your password"
+                    state={isPasswordConfirmFocus}
+                    setState={setIsPasswordConfirmFocus}
+                  />
+                </section>
+              </section>
+              <section className="commentList">
+                <h3>Comment list</h3>
+                {dummyCommentList.map((comment, idx) => (
+                  <p key={idx}>{comment}</p>
+                ))}
+              </section>
+              <section className="wishList">
+                <h3>Wish list</h3>
+                <section className="wishItems">
+                  <StyledSlider {...settings}>
+                    <WishItemCard
+                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg"
+                      name="햄)모짜치즈볼트리플버거"
+                      price="3,400원"
+                      alt="wish1"
+                    />
+                    <WishItemCard
+                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg"
+                      name="도)백종원완전한판정식"
+                      price="4,500원"
+                      alt="wish2"
+                    />
+                    <WishItemCard
+                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg"
+                      name="주)토끼정햄계란마요"
+                      price="1,700원"
+                      alt="wish3"
+                    />
+                    <WishItemCard
+                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg"
+                      name="도)직화고추장삼겹살"
+                      price="5,300원"
+                      alt="wish4"
+                    />
+                    <WishItemCard
+                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg"
+                      name="도)탄단지그릴닭가슴살볼"
+                      price="4,800원"
+                      alt="wish5"
+                    />
+                    <WishItemCard
+                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg"
+                      name="햄)모짜치즈볼트리플버거"
+                      price="3,400원"
+                      alt="wish1"
+                    />
+                    <WishItemCard
+                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg"
+                      name="도)백종원완전한판정식"
+                      price="4,500원"
+                      alt="wish2"
+                    />
 
-                <WishItemCard
-                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg"
-                  name="주)토끼정햄계란마요"
-                  price="1,700원"
-                  alt="wish3"
-                />
-                <WishItemCard
-                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg"
-                  name="도)직화고추장삼겹살"
-                  price="5,300원"
-                  alt="wish4"
-                />
-                <WishItemCard
-                  image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg"
-                  name="도)탄단지그릴닭가슴살볼"
-                  price="4,800원"
-                  alt="wish5"
-                />
-              </StyledSlider>
+                    <WishItemCard
+                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg"
+                      name="주)토끼정햄계란마요"
+                      price="1,700원"
+                      alt="wish3"
+                    />
+                    <WishItemCard
+                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg"
+                      name="도)직화고추장삼겹살"
+                      price="5,300원"
+                      alt="wish4"
+                    />
+                    <WishItemCard
+                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg"
+                      name="도)탄단지그릴닭가슴살볼"
+                      price="4,800원"
+                      alt="wish5"
+                    />
+                  </StyledSlider>
+                </section>
+              </section>
+              <section className="buttonSection">
+                <button onClick={handleUpdate}>수정하기</button>
+                <button>탈퇴하기</button>
+              </section>
             </section>
-          </section>
-          <section className="buttonSection">
-            <button onClick={handleUpdate}>수정하기</button>
-            <button>탈퇴하기</button>
-          </section>
+          </MypageMain>
         </section>
-      </MypageMain>
+      </Container>
+      <Footer />
     </>
   );
 };

@@ -13,7 +13,7 @@ const Footerdiv = styled.div`
   text-align: left;
   width: 100%;
   height: 100px;
-  background-color: #604770;
+  background-color: #58419c;
 `;
 // 왼쪽 글씨
 const FooterInfo = styled.p`
