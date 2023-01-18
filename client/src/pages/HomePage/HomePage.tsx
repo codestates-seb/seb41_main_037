@@ -1,6 +1,5 @@
 // import React from "react";
 import styled, { keyframes } from "styled-components";
-import Dots from "../../components/Dots/Dots";
 import React, { useState, useEffect, useRef } from "react";
 import HomeHeader from "../../components/AdminHeader/AdminHeader";
 import { FaPencilAlt, FaMapMarkerAlt, FaCrown } from "react-icons/fa";
@@ -184,25 +183,21 @@ const HomeMain = styled.main`
       flex-direction: column;
       width: 75%;
       .funcSection:nth-child(1) {
-        animation-delay: 1s;
         animation-duration: 3s;
-        animation-name: ${slideInAnimation};
         margin-bottom: 4rem;
       }
       .funcSection:nth-child(2) {
-        animation-delay: 1s;
         animation-duration: 4s;
-        animation-name: ${slideInAnimation};
         margin-bottom: 4rem;
       }
       .funcSection:nth-child(3) {
-        animation-delay: 1s;
         animation-duration: 5s;
-        animation-name: ${slideInAnimation};
       }
       .funcSection {
         display: flex;
         flex-direction: column;
+        animation-delay: 1s;
+        animation-name: ${slideInAnimation};
         .title {
           display: flex;
           align-items: center;
@@ -285,6 +280,37 @@ const HomeMain = styled.main`
   }
 `;
 
+const DotsDiv = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 90%;
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 20px;
+    height: 100px;
+  }
+`;
+
+const DotDiv = styled.div<{ isSame: boolean }>`
+  width: 12px;
+  height: 12px;
+  border: 1px solid #58419c;
+  background-color: ${(props) => (props.isSame ? "#58419c" : "transparent")};
+  border-radius: 50%;
+  transition-duration: 1000ms;
+  &:hover {
+    background-color: #58419c;
+  }
+`;
+
+interface DotProps {
+  num: number;
+  scrollIndex: number;
+}
+
 const HomePage = () => {
   const outerDivRef = useRef<any>();
   const [scrollIndex, setScrollIndex] = useState(1);
@@ -324,6 +350,7 @@ const HomePage = () => {
           });
           setScrollIndex(4);
         } else {
+          // 현재 4페이지
           outerDivRef.current.scrollTo({
             top: pageHeight * 3,
             left: 0,
@@ -374,10 +401,36 @@ const HomePage = () => {
       outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
     };
   }, []);
+
+  // 홈페이지 우측 풀페이지를 위한 dot
+  const Dot = ({ num, scrollIndex }: DotProps) => {
+    let isSame = scrollIndex === num ? true : false;
+    const page = (num || 0) - 1;
+    const handleClick = () => {
+      const pageHeight = window.innerHeight; // 화면 세로길이, 100vh와 같음
+      outerDivRef.current.scrollTo({
+        top: pageHeight * page,
+        left: 0,
+        behavior: "smooth",
+      });
+      setScrollIndex(num || 0);
+
+      console.log(pageHeight);
+    };
+    return <DotDiv isSame={isSame} onClick={handleClick}></DotDiv>;
+  };
+
   return (
     <HomeMain>
       <section ref={outerDivRef} className="outer">
-        <Dots scrollIndex={scrollIndex} />
+        <DotsDiv>
+          <div className="container">
+            <Dot num={1} scrollIndex={scrollIndex}></Dot>
+            <Dot num={2} scrollIndex={scrollIndex}></Dot>
+            <Dot num={3} scrollIndex={scrollIndex}></Dot>
+            <Dot num={4} scrollIndex={scrollIndex}></Dot>
+          </div>
+        </DotsDiv>
         <section className="inner pageOne">
           <HomeHeader />
           <section className="content">
@@ -404,7 +457,6 @@ const HomePage = () => {
                   <FaCrown size={50} />
                 </div>
               </section>
-
               <p>한 주간 가장 평점이 높은 상품을 소개합니다</p>
             </section>
             <section className="bestItemContent">
