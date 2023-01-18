@@ -2,18 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
-<<<<<<< Updated upstream
 import Header from "../../components/Header/Header";
-=======
-<<<<<<< HEAD
 import { Link } from "react-router-dom";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { HiOutlineHeart, HiHeart, HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
-
-=======
-import Header from "../../components/Header/Header";
->>>>>>> b0cd131476517ad8e20c81325b7f036f2df119e9
->>>>>>> Stashed changes
+import {
+  HiOutlineHeart,
+  HiHeart,
+  HiOutlinePencilAlt,
+  HiOutlineTrash,
+} from "react-icons/hi";
 
 const Main = styled.main`
   display: flex;
@@ -145,8 +142,8 @@ const Main = styled.main`
           filter: brightness(1.2);
           transition: 0.5s;
           cursor: pointer;
+        }
       }
-    }
       .WriteStarRating {
         margin: auto 0;
         margin-right: 30px;
@@ -251,15 +248,7 @@ const DetailPage = () => {
       <Main>
         <Nav />
         <section className="Container">
-<<<<<<< Updated upstream
           <Header />
-=======
->>>>>>> Stashed changes
-          {/* <header>
-            <Link to="/">
-              <img className="cvsLogo" src="img/cvs logo.png"></img>
-            </Link>
-          </header> */}
           <section className="HomeMain">
             <section className="itemSection">
               <img
@@ -306,8 +295,8 @@ const DetailPage = () => {
               <section className="ReviewContentBox">
                 <section className="ReviewTop">
                   <section className="ReviewNickname">USERID1234</section>
-                      <HiOutlinePencilAlt />
-                      <HiOutlineTrash />
+                  <HiOutlinePencilAlt />
+                  <HiOutlineTrash />
                   <section className="ReviewMiddle">
                     <section className="ReviewContent">
                       너무 맛있어요 추천합니다!
@@ -318,7 +307,6 @@ const DetailPage = () => {
               </section>
             </section>
           </section>
-          
         </section>
       </Main>
       <Footer />
