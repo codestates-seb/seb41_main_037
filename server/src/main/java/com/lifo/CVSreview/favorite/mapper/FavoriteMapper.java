@@ -12,4 +12,17 @@ import java.util.List;
 @Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface FavoriteMapper {
     List<FavoriteResponseDto> favoritesToFavoriteResponseDtos(List<Favorite> favorites);
+    default FavoriteResponseDto favoriteToFavoriteResponseDto(Favorite favorite){
+        if (favorite == null) return null;
+        else{
+            FavoriteResponseDto response = new FavoriteResponseDto(
+                    favorite.getFavoriteId(),
+                    favorite.getCreatedAt(),
+                    favorite.getMember().getMemberId(),
+                    favorite.getProduct().getProductId(),
+                    favorite.getProductName());
+
+            return response;
+        }
+    }
 }

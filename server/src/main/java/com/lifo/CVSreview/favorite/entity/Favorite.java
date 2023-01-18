@@ -3,18 +3,18 @@ package com.lifo.CVSreview.favorite.entity;
 import com.lifo.CVSreview.audit.BaseTimeEntity;
 import com.lifo.CVSreview.member.Entity.Member;
 import com.lifo.CVSreview.product.entity.Product;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Getter
 @Setter
-@NoArgsConstructor
+@Entity
 public class Favorite extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
