@@ -6,6 +6,7 @@ import com.lifo.CVSreview.product.entity.Product;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +27,16 @@ public class Favorite extends BaseTimeEntity {
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
 
+    @Column(name = "ni_rg_dt")
+    LocalDateTime niRgDt;
+
     @Column(nullable = false, updatable = true, unique = false)
     private String ProductName;
+
+    @PrePersist
+    public void createdAt() {
+        this.niRgDt = LocalDateTime.now();
+    }
 
     public Favorite(Member member, Product product) {
         this.member = member;

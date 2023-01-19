@@ -49,6 +49,8 @@ public class FavoriteService {
         return favoriteRepository.findByMember(member);
     }
 
+
+
     //사용자가 이미 좋아요를 했는지 확인.
     private boolean isNotAlreadyFavorite(Member member, Product product) {
         Favorite favorite = favoriteRepository.findByMemberAndProduct(member, product);//
