@@ -50,6 +50,7 @@ public class ProductController {
         return new ResponseEntity<>(new MultiResponseDto<>(mapper.entitysToResponses(products), pageProduct), HttpStatus.OK);
     }
 
+
     /*search*/
     @GetMapping("/search")
    public ResponseEntity productSearch(
