@@ -10,6 +10,7 @@ import {
   HiOutlinePencilAlt,
   HiOutlineTrash,
 } from "react-icons/hi";
+import { FaRegCommentDots } from "react-icons/fa";
 
 const Main = styled.main`
   display: flex;
@@ -23,9 +24,9 @@ const Main = styled.main`
     align-items: center;
     text-align: center;
     flex-wrap: wrap;
-    margin-left: 100px;
     width: 100%;
     height: 100%;
+    margin-left: 100px;
   }
 
   header {
@@ -38,107 +39,131 @@ const Main = styled.main`
     }
   }
 
-  .homeMain {
+  .detailPageMain {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: left;
     align-items: center;
-    margin-top: 5rem;
+    text-align: left;
     height: 100%;
+    margin-top: 5rem;
 
     .itemSection {
-      width: 800px;
-      height: 400px;
-      align-items: center;
-      border: 3px solid #ffcb5e;
-      border-radius: 20px;
       display: flex;
       justify-content: center;
+      align-items: center;
+      width: 800px;
+      height: 350px;
+      border: 3px solid #ffcb5e;
+      border-radius: 20px;
+
       img {
         width: 250px;
         height: 250px;
         margin: auto;
       }
       .contentSection {
-        background-color: #f5f5f5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         width: 400px;
-        height: 350px;
-        float: left;
-        margin: 20px;
+        height: 300px;
+        margin-right: 30px;
         border-radius: 20px;
         font-family: "Do Hyeon", sans-serif;
+
         .titleSection {
+          display: flex;
+          align-items: flex-end;
+          height: 50px;
+          margin-bottom: 15px;
+          padding-bottom: 5px;
+          border-bottom: 7px solid #ffcb5e;
           font-size: 30px;
           font-weight: 500;
-          margin: 50px 50px 20px 50px;
-          border-bottom: 7px solid #ffcb5e;
-          height: 70px;
         }
         .priceSection {
+          display: flex;
+          align-items: flex-end;
+          height: 50px;
+          margin-bottom: 15px;
+          padding-bottom: 5px;
+          border-bottom: 2px solid #ffcb5e;
           font-size: 25px;
           font-weight: 400;
-          margin: 40px 50px 40px 50px;
-          border-bottom: 2px solid #ffcb5e;
-          height: 60px;
         }
-        .explaneSection {
-          font-size: 15px;
-          font-weight: bold;
-          margin: 20px 50px 20px 50px;
-          border-bottom: 2px solid #ffcb5e;
-          height: 40px;
-        }
-        .likeSection {
-          font-size: 30px;
-          font-weight: bold;
-          margin: 0px 50px 30px 50px;
-          height: 60px;
-          color: #58419c;
 
-          .Likebutton {
+        .likeSection {
+          display: flex;
+          align-items: flex-end;
+          height: 50px;
+          padding-bottom: 5px;
+          color: #58419c;
+          border-bottom: 2px solid #ffcb5e;
+          font-size: 30px;
+          font-weight: 400;
+
+          .likeButton {
+            margin-right: 5px;
             cursor: pointer;
+          }
+          .likeCountNum {
+            font-size: 25px;
+          }
+
+          .countComment {
+            display: flex;
+            align-items: flex-end;
+            margin-left: 30px;
+            .commentIcon {
+              display: flex;
+              margin-right: 5px;
+              font-size: 28px;
+            }
+            .commentCountNum {
+              font-size: 25px;
+            }
           }
         }
       }
     }
     .addCommentSection {
-      width: 800px;
-      height: 200px;
-      border-bottom: 5px solid #58419c;
       display: flex;
       justify-content: center;
       align-items: center;
+      width: 800px;
+      height: 200px;
       margin-bottom: 30px;
+      border-bottom: 5px solid #58419c;
 
       .addStarRating {
         margin: 20px;
-        font-size: 30px;
         color: #ffcb5e;
+        font-size: 30px;
         cursor: pointer;
       }
       > textarea {
         width: 450px;
         height: 100px;
-        border-radius: 10px;
+        padding: 10px;
         background-color: #f5f5f5;
         border: none;
+        border-radius: 10px;
         resize: none;
-        padding: 10px;
         font-family: "Do Hyeon", sans-serif;
         &:focus {
           outline-color: #58419c;
         }
       }
       > button {
-        background-color: #58419c;
         width: 100px;
         height: 100px;
-        border-radius: 10px;
         margin: 20px;
+        background-color: #58419c;
         color: white;
-        font-size: 16px;
         border: none;
+        border-radius: 10px;
+        font-size: 16px;
         font-family: "Do Hyeon", sans-serif;
         cursor: pointer;
         &:hover {
@@ -149,27 +174,27 @@ const Main = styled.main`
       }
     }
     .commentSection {
-      width: 800px;
-      height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
+      width: 800px;
+      height: 100%;
       margin-bottom: 20px;
       font-family: "Do Hyeon", sans-serif;
       letter-spacing: 0.3px;
 
       .resultStarRating {
-        font-size: 20px;
-        color: #ffcb5e;
         margin-bottom: 5px;
+        color: #ffcb5e;
+        font-size: 20px;
       }
       .commentBox {
-        width: 630px;
-        height: 70%;
-        border-radius: 3px;
-        border: none;
         display: flex;
         flex-direction: column;
+        width: 630px;
+        height: 70%;
+        margin-bottom: 20px;
+        border-bottom: solid 2px #f5f5f5;
 
         .userInfo {
           display: flex;
@@ -182,22 +207,20 @@ const Main = styled.main`
           align-items: center;
           font-size: 15px;
           font-weight: bold;
-          //border-bottom: 3px solid #dfdbdb;
         }
 
         .userEdit {
           display: flex;
           align-items: center;
-          font-size: 18px;
           height: 100%;
+          font-size: 18px;
         }
 
         .commentInfo {
           display: flex;
           justify-content: space-between;
+          margin-bottom: 20px;
           font-size: 15px;
-          //font-weight: bold;
-          margin-bottom: 25px;
 
           .comment {
             height: 100%;
@@ -205,26 +228,14 @@ const Main = styled.main`
             line-height: 20px;
           }
           .commentDate {
-            font-size: 15px;
             text-align: right;
+            font-size: 15px;
           }
         }
       }
     }
   }
 `;
-
-// https://velog.io/@whoyoung90/TIL-35-WECODE-%EB%B3%84%EC%A0%90-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84
-// 재시도
-
-// 깃허브 별점댓글창 찾아보기
-
-// const LikeButton = ({ like, onClick }) => {
-//   return (
-//       <LikeSection src={like?HeartImg:EmptyHeartImg} onClick={onClick} />
-//   );
-// };
-
 interface CommentProps {
   [key: string]: any;
 }
@@ -279,7 +290,7 @@ const DetailPage = () => {
         <Nav />
         <section className="container">
           <Header />
-          <section className="homeMain">
+          <section className="detailPageMain">
             <section className="itemSection">
               <img
                 src="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809802266629.jpg"
@@ -287,7 +298,7 @@ const DetailPage = () => {
               />
               <section className="contentSection">
                 <section className="titleSection">
-                  <p> 햄감자샐러드샌드위치</p>
+                  <p>햄감자샐러드샌드위치</p>
                 </section>
                 <section className="priceSection">
                   <p>가격 : 3500원</p>
@@ -297,7 +308,16 @@ const DetailPage = () => {
                   onClick={() => {
                     setLike(!like);
                   }}>
-                  {like ? <HiHeart className="Likebutton" /> : <HiOutlineHeart className="Likebutton" />}
+                  {like ? (
+                    <HiHeart className="likeButton" />
+                  ) : (
+                    <HiOutlineHeart className="likeButton" />
+                  )}
+                  <div className="likeCountNum">13</div>
+                  <section className="countComment">
+                    <FaRegCommentDots className="commentIcon" />
+                    <div className="commentCountNum">4</div>
+                  </section>
                 </section>
               </section>
             </section>
@@ -321,7 +341,11 @@ const DetailPage = () => {
                 onChange={(e) => {
                   console.log(e.target.value);
                 }}></textarea>
-              <button onClick={() => console.log(starRating)}>OK !</button>
+              <button onClick={() => console.log(starRating)}>
+                리뷰
+                <br />
+                등록
+              </button>
             </section>
             <section className="commentSection">
               <section className="commentList">
