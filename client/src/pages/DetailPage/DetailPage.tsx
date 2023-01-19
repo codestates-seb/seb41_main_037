@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
@@ -17,7 +17,7 @@ const Main = styled.main`
   width: 100%;
   margin-bottom: 100px;
 
-  .Container {
+  .container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,6 +26,7 @@ const Main = styled.main`
     flex-wrap: wrap;
     margin-left: 100px;
     width: 100%;
+    height: 100%;
   }
 
   header {
@@ -38,102 +39,96 @@ const Main = styled.main`
     }
   }
 
-  .HomeMain {
+  .homeMain {
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: left;
     align-items: center;
     margin-top: 5rem;
-    height: 100vh;
-    //background-color: lightgreen;
+    height: 100%;
+
     .itemSection {
-      //position: relative;
-      width: 980px;
+      width: 800px;
       height: 400px;
-      // background-color: yellow;
-      margin-bottom: 2rem;
+      margin-bottom: 10px;
       border: 3px solid #ffcb5e;
       border-radius: 20px;
       display: flex;
       justify-content: center;
       img {
-        width: 300px;
-        height: 300px;
+        width: 250px;
+        height: 250px;
         margin: auto;
-        //display: block;
-        float: left;
       }
       .contentSection {
         background-color: #f5f5f5;
-        width: 580px;
+        width: 400px;
         height: 350px;
         float: left;
         margin: 20px;
         border-radius: 20px;
-      }
-      .TitleSection {
-        font-size: 35px;
-        font-weight: bold;
-        margin: 50px 50px 20px 50px;
-        border-bottom: 7px solid #ffcb5e;
-        // background-color: red;
-        height: 70px;
-      }
-      .PriceSection {
-        font-size: 25px;
-        font-weight: bold;
-        margin: 40px 50px 40px 50px;
-        border-bottom: 2px solid #ffcb5e;
-        //background-color: red;
-        height: 60px;
-      }
-      .ExplaneSection {
-        font-size: 15px;
-        font-weight: bold;
-        margin: 20px 50px 20px 50px;
-        border-bottom: 2px solid #ffcb5e;
-        // background-color: red;
-        height: 40px;
-      }
-      .LikeSection {
-        font-size: 40px;
-        font-weight: bold;
-        margin: 0px 50px 30px 50px;
-        //border-bottom: 2px solid #ffcb5e;
-        height: 60px;
-        color: #58419c;
-        //background: blue;
+        .titleSection {
+          font-size: 30px;
+          font-weight: 500;
+          margin: 50px 50px 20px 50px;
+          border-bottom: 7px solid #ffcb5e;
+          height: 70px;
+          font-family: "Do Hyeon", sans-serif;
+        }
+        .priceSection {
+          font-size: 25px;
+          font-weight: 400;
+          margin: 40px 50px 40px 50px;
+          border-bottom: 2px solid #ffcb5e;
+          height: 60px;
+          font-family: "Do Hyeon", sans-serif;
+        }
+        .explaneSection {
+          font-size: 15px;
+          font-weight: bold;
+          margin: 20px 50px 20px 50px;
+          border-bottom: 2px solid #ffcb5e;
+          height: 40px;
+        }
+        .likeSection {
+          font-size: 40px;
+          font-weight: bold;
+          margin: 0px 50px 30px 50px;
+          height: 60px;
+          color: #58419c;
+        }
       }
     }
-    .StarRatingSection {
-      //position: relative;
-      width: 1120px;
-      height: 180px;
-      //border: 3px solid #ffcb5e;
+    .addCommentSection {
+      width: 800px;
+      height: 200px;
       border-bottom: 5px solid #58419c;
-      //border-radius: 20px;
       display: flex;
       justify-content: center;
+      align-items: center;
       margin-bottom: 30px;
-      input {
-        float: left;
-        width: 55%;
-        height: 55%;
+
+      .addStarRating {
+        margin: 20px;
+        font-size: 20px;
+        color: #ffcb5e;
+      }
+      > input {
+        //float: left;
+        width: 500px;
+        height: 100px;
         border-radius: 10px;
         background-color: #f5f5f5;
-        //margin: 10px 20px 10px 20px;
-        margin: auto 0;
-        margin-right: 30px;
+
         border: none;
       }
-      button {
+      > button {
         background-color: #58419c;
-        //margin: 10px 20px 10px 20px;
-        width: 110px;
-        height: 95px;
+        width: 100px;
+        height: 100px;
         border-radius: 10px;
-        margin: auto 0;
+        margin: 30px;
         color: white;
         font-size: 16px;
         border: none;
@@ -144,87 +139,62 @@ const Main = styled.main`
           cursor: pointer;
         }
       }
-      .WriteStarRating {
-        margin: auto 0;
-        margin-right: 30px;
-        font-size: 35px;
-        color: #ffcb5e;
-      }
     }
-    .ReviewSection {
-      //position: relative;
-      width: 1000px;
-      height: 10px;
+    .commentSection {
+      width: 800px;
+      height: 100%;
       display: flex;
       justify-content: center;
-      //background-color: #c6bce3;
+      align-items: center;
       border-bottom: 3px solid #dfdbdb;
+      margin-bottom: 20px;
 
-      .ResultStarRating {
-        margin: auto 0;
+      .resultStarRating {
         font-size: 20px;
-        margin-right: 30px;
         color: #ffcb5e;
+        margin-bottom: 5px;
       }
-      .ReviewContentBox {
-        float: left;
-        width: 80%;
+      .commentBox {
+        width: 630px;
         height: 70%;
         border-radius: 3px;
-        background-color: #f5f5f5;
-        //margin: 10px 20px 10px 20px;
-        margin: auto 0;
-        margin-right: 30px;
         border: none;
-        margin: auto 0;
+        display: flex;
+        flex-direction: column;
 
-        .ReviewTop {
-          width: 100%;
-          height: 30%;
+        .userInfo {
+          display: flex;
+          justify-content: space-between;
+          flex-direction: row;
+          margin-bottom: 10px;
         }
-        .ReviewNickname {
-          font-size: 14px;
-          margin: 10px 0 0px 20px;
-          height: 30px;
-          width: 300px;
-          font-weight: bold;
-          //background-color: green;
-        }
-        .ReviewModify {
-          font-size: 12px;
-          float: right;
-          margin: 12px;
-        }
-        .ReviewDelete {
-          font-size: 12px;
-          float: right;
-          margin: 12px;
-        }
-        .ReviewMiddle {
-          width: 46%;
-          position: absolute;
-          height: 50px;
-          display: block;
-        }
-        .ReviewContent {
-          font-size: 18px;
-          width: 600px;
-          margin: 10px 0 10px 20px;
-          font-weight: bold;
-        }
-        .ReviewDown {
-          height: 15px;
-          width: 30%;
-          position: absolute;
-          display: block;
-        }
-        .ReviewDate {
+        .userName {
+          display: flex;
+          align-items: center;
           font-size: 15px;
-          float: right;
-          bottom: 30px;
-          right: 0;
-          position: absolute;
-          padding-left: -20px;
+          font-weight: bold;
+        }
+
+        .userEdit {
+          display: flex;
+          align-items: center;
+          font-size: 18px;
+          height: 100%;
+        }
+
+        .commentInfo {
+          display: flex;
+          justify-content: space-between;
+          font-size: 18px;
+          font-weight: bold;
+          margin-bottom: 25px;
+
+          .comment {
+            height: 100%;
+          }
+          .commentDate {
+            font-size: 15px;
+          }
         }
       }
     }
@@ -242,24 +212,72 @@ const Main = styled.main`
 //   );
 // };
 
+const dummyComment = [
+  "가볍게 당충전하기 딱 좋습니다. 먹고 나서 잔여감도 막 느껴지는게 별로 없어서 좋았어요. 최근에 투쁠원으로 두번 사먹었던것 같아요. 맛있습니다.",
+  "편의점 커피중에 제일 맛있다 달고 시고 씁쓸함",
+  "이거 없으면 못산다 꾸준히 2+1해주는 GS가 고맙다",
+  "바리스타 중에 제일 달다",
+  "투쁠원으로 안사서 다행이지 이걸 세개나 샀음 어쩔뻔했어... 참고로 당면버전 말고 불닭볶음면은 엄청 좋아하는 사람입니다",
+  "이거 진짜 짱맛있음. 원래 기존 까르보불닭이나 무슨 치즈불닭이나 이런거 맛없어했던 사람인데, 이거 납작당면 버전, 특히 이 로제맛이 젤 맛있음.",
+  "까르보(떡볶이버전), 일반불닭납작당면맛 먹어본 사람으로써 그냥 온리 로제가 짱맛. 나머지 까르보, 불닭납작당면은 진짜 너무 맛없었음",
+  "칠성보다 탄산이 좀 더 적고 단맛이 강함",
+  "이것도 gs pay 결제시 100원 행사 해당상품인가요?",
+  "이 시리즈 맛있음 양 적어서 1+1할 때 사야 개꿀",
+];
+
+interface CommentProps {
+  [key: string]: any;
+}
+
+const Comment = ({ name, comment, date }: CommentProps) => {
+  return (
+    <>
+      <section className="resultStarRating">
+        <p className="resultStarRating">
+          <AiFillStar />
+          <AiFillStar />
+          <AiFillStar />
+          <AiOutlineStar />
+          <AiOutlineStar />
+        </p>
+      </section>
+      <section className="commentBox">
+        <section className="userInfo">
+          <div className="userName">{name}</div>
+          <div className="userEdit">
+            <HiOutlinePencilAlt />
+            <HiOutlineTrash />
+          </div>
+        </section>
+        <section className="commentInfo">
+          <div className="comment">{comment}</div>
+          <div className="commentDate">{date}</div>
+        </section>
+      </section>
+    </>
+  );
+};
+
 const DetailPage = () => {
+  const [like, setLike] = useState(false);
+
   return (
     <>
       <Main>
         <Nav />
-        <section className="Container">
+        <section className="container">
           <Header />
-          <section className="HomeMain">
+          <section className="homeMain">
             <section className="itemSection">
               <img
                 src="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809802266629.jpg"
                 alt="itemImage"
               />
               <section className="contentSection">
-                <section className="TitleSection">
+                <section className="titleSection">
                   <p> 햄감자샐러드샌드위치</p>
                 </section>
-                <section className="PriceSection">
+                <section className="priceSection">
                   <p>가격: 3500원</p>
                 </section>
                 {/* <section className="ExplaneSection">
@@ -268,13 +286,17 @@ const DetailPage = () => {
                     샌드위치
                   </p>
                 </section> */}
-                <section className="LikeSection">
-                  <p>{onclick ? <HiHeart /> : <HiOutlineHeart />}</p>
+                <section
+                  className="likeSection"
+                  onClick={() => {
+                    setLike(!like);
+                  }}>
+                  {like ? <HiHeart /> : <HiOutlineHeart />}
                 </section>
               </section>
             </section>
-            <section className="StarRatingSection">
-              <p className="WriteStarRating">
+            <section className="addCommentSection">
+              <p className="addStarRating">
                 <AiFillStar />
                 <AiFillStar />
                 <AiFillStar />
@@ -284,26 +306,28 @@ const DetailPage = () => {
               <input></input>
               <button>Enter</button>
             </section>
-            <section className="ReviewSection">
-              <p className="ResultStarRating">
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiOutlineStar />
-                <AiOutlineStar />
-              </p>
-              <section className="ReviewContentBox">
-                <section className="ReviewTop">
-                  <section className="ReviewNickname">USERID1234</section>
-                  <HiOutlinePencilAlt />
-                  <HiOutlineTrash />
-                  <section className="ReviewMiddle">
-                    <section className="ReviewContent">
-                      너무 맛있어요 추천합니다!
-                    </section>
-                    <section className="ReviewDate">2023.01.11</section>
-                  </section>
-                </section>
+            <section className="commentSection">
+              <section className="commentList">
+                <Comment
+                  name="유저1111"
+                  comment="너무 맛있어요 정말 맛있어요"
+                  date="2023-01-19"
+                />
+                <Comment
+                  name="유저222"
+                  comment="또 사먹어야지"
+                  date="2023-01-19"
+                />
+                <Comment
+                  name="유저222"
+                  comment="또 사먹어야지"
+                  date="2023-01-19"
+                />
+                <Comment
+                  name="유저222"
+                  comment="또 사먹어야지"
+                  date="2023-01-19"
+                />
               </section>
             </section>
           </section>
