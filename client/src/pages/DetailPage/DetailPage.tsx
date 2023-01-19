@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
-import { Link } from "react-router-dom";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import {
   HiOutlineHeart,
@@ -212,19 +211,6 @@ const Main = styled.main`
 //   );
 // };
 
-const dummyComment = [
-  "가볍게 당충전하기 딱 좋습니다. 먹고 나서 잔여감도 막 느껴지는게 별로 없어서 좋았어요. 최근에 투쁠원으로 두번 사먹었던것 같아요. 맛있습니다.",
-  "편의점 커피중에 제일 맛있다 달고 시고 씁쓸함",
-  "이거 없으면 못산다 꾸준히 2+1해주는 GS가 고맙다",
-  "바리스타 중에 제일 달다",
-  "투쁠원으로 안사서 다행이지 이걸 세개나 샀음 어쩔뻔했어... 참고로 당면버전 말고 불닭볶음면은 엄청 좋아하는 사람입니다",
-  "이거 진짜 짱맛있음. 원래 기존 까르보불닭이나 무슨 치즈불닭이나 이런거 맛없어했던 사람인데, 이거 납작당면 버전, 특히 이 로제맛이 젤 맛있음.",
-  "까르보(떡볶이버전), 일반불닭납작당면맛 먹어본 사람으로써 그냥 온리 로제가 짱맛. 나머지 까르보, 불닭납작당면은 진짜 너무 맛없었음",
-  "칠성보다 탄산이 좀 더 적고 단맛이 강함",
-  "이것도 gs pay 결제시 100원 행사 해당상품인가요?",
-  "이 시리즈 맛있음 양 적어서 1+1할 때 사야 개꿀",
-];
-
 interface CommentProps {
   [key: string]: any;
 }
@@ -260,6 +246,18 @@ const Comment = ({ name, comment, date }: CommentProps) => {
 
 const DetailPage = () => {
   const [like, setLike] = useState(false);
+  const [clicked, setCliked] = useState([false, false, false, false, false]);
+  const starArr = [0, 1, 2, 3, 4];
+  const handleStarClick = (idx: number) => {
+    let clickStates = [...clicked];
+    for (let i = 0; i < 5; i++) {
+      clickStates[i] = i <= idx ? true : false;
+    }
+    setCliked(clickStates);
+  };
+
+  // 별점 => post할 때 이 변수 이용할 것
+  let starRating = clicked.filter(Boolean).length;
 
   return (
     <>
@@ -290,21 +288,30 @@ const DetailPage = () => {
                   className="likeSection"
                   onClick={() => {
                     setLike(!like);
-                  }}>
+                  }}
+                >
                   {like ? <HiHeart /> : <HiOutlineHeart />}
                 </section>
               </section>
             </section>
             <section className="addCommentSection">
               <p className="addStarRating">
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
+                {starArr.map((star) =>
+                  clicked[star] ? (
+                    <AiFillStar
+                      key={star}
+                      onClick={() => handleStarClick(star)}
+                    />
+                  ) : (
+                    <AiOutlineStar
+                      key={star}
+                      onClick={() => handleStarClick(star)}
+                    />
+                  )
+                )}
               </p>
               <input></input>
-              <button>Enter</button>
+              <button onClick={() => console.log(starRating)}>Enter</button>
             </section>
             <section className="commentSection">
               <section className="commentList">
