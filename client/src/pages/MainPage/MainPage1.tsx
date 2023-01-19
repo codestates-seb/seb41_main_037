@@ -6,6 +6,7 @@ import { HiOutlineHeart, HiHeart } from "react-icons/hi";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
+import { FaRegCommentDots } from "react-icons/fa";
 
 const Container = styled.main`
   display: flex;
@@ -103,7 +104,7 @@ const Container = styled.main`
         position: relative;
         flex-direction: column;
         width: 250px;
-        height: 290px;
+        height: 320px;
         margin: 20px;
         padding: 20px;
         outline: solid 3px;
@@ -161,6 +162,29 @@ const Container = styled.main`
           color: #58419c;
           font-size: 25px;
         }
+
+        .likeCommentCount {
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #f5f5f5;
+          color: #58419c;
+          border-top: solid 3px #f5f5f5;
+          border-bottom-left-radius: 20px;
+          border-bottom-right-radius: 20px;
+          font-size: 17px;
+
+          .likeCount {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+          }
+          .commentCount {
+            display: flex;
+            align-items: center;
+          }
+        }
       }
     }
   }
@@ -199,6 +223,15 @@ const Item = ({ img, name, price }: ItemProps) => {
         <div className="itemInfo">
           <div className="itemName">{name}</div>
           <div className="itemPrice">{price}</div>
+          <div className="likeCommentCount">
+            <span className="likeCount">
+              <HiHeart />
+              13
+            </span>
+            <span className="commentCount">
+              <FaRegCommentDots />4
+            </span>
+          </div>
         </div>
       </Link>
     </div>
@@ -233,9 +266,20 @@ const MainPage1 = () => {
           </section>
           <section className="contentContainer">
             <div className="sortBtnGroup">
-              <button className="sortBtn">Score</button>
-              <button className="sortBtn">Price</button>
-              <button className="sortBtn">Like</button>
+              <button className="sortBtn">
+                찜<br />
+                많은순
+              </button>
+              <button className="sortBtn">
+                가격
+                <br />
+                높은순
+              </button>
+              <button className="sortBtn">
+                리뷰
+                <br />
+                많은순
+              </button>
             </div>
             <div className="itemList">
               <Item
