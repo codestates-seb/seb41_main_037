@@ -60,6 +60,7 @@ public class ProductController {
         Page<Product> search = productService.search(params, pageable);
         return new ResponseEntity<>(new MultiResponseDto(search.getContent(),search), HttpStatus.OK);
     }
+
 }
 
 
