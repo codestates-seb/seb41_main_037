@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
+    Page<Product> findProductsByProductCategoryAndProductNameContaining(Product.ProductCategory category, String productName, Pageable pageable);
+
     Page<Product> findProductsByProductNameContaining(String productName, Pageable pageable);
 
 
@@ -23,4 +25,4 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
  */
 
 
-}//
+} //

@@ -2,6 +2,7 @@ package com.lifo.CVSreview.product.entity;
 
 import com.lifo.CVSreview.audit.BaseTimeEntity;
 import com.lifo.CVSreview.favorite.entity.Favorite;
+
 import com.lifo.CVSreview.review.entity.Review;
 import lombok.*;
 
@@ -42,6 +43,10 @@ public class Product extends BaseTimeEntity {
     @Column
     private int favoriteCount; //찜수
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ProductCategory productCategory;
+
     //상품과 리뷰는 1 : N 관계
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Review> reviews = new ArrayList<>();
@@ -76,4 +81,4 @@ public class Product extends BaseTimeEntity {
        ProductCategory(String category) {this.category = category;}
 
    }
-}//
+} //

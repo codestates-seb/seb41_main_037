@@ -90,8 +90,20 @@ public class ProductService {
 
     //상품 검색
     @Transactional
-    public Page<Product> search(Map<String, String> params, Pageable pageable) {
-        return productRepository.findProductsByProductNameContaining(params.get("key"), pageable);
+    public Page<Product> search(Product.ProductCategory category, Map<String, String> params, Pageable pageable) {
+        // ?key=초코&category=CU
+        // ?key=초코
+
+        if (params.get("category") != null) {
+            return productRepository.findProductsByProductCategoryAndProductNameContaining(
+                    category,
+                    params.get("key"),
+                    pageable);
+        } else {
+            return productRepository.findProductsByProductNameContaining(
+                    params.get("key"),
+                    pageable);
+        }
     }
 
-}//
+} //
