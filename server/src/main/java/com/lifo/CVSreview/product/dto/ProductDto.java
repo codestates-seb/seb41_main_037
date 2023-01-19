@@ -1,5 +1,7 @@
 package com.lifo.CVSreview.product.dto;
 
+import com.lifo.CVSreview.review.dto.ReviewResponseDto;
+import com.lifo.CVSreview.review.entity.Review;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +9,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 public class ProductDto {
@@ -76,5 +79,6 @@ public class ProductDto {
 
         private String productCategory;
 
+        private List<ReviewResponseDto> reviews;
     }
-} //
+}//
