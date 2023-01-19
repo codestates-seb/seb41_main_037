@@ -27,6 +27,8 @@ public class ProductDto {
 
         private String imgUrl;
 
+        private String productCategory;
+
 
     }
 
@@ -47,6 +49,7 @@ public class ProductDto {
 
         private String imgUrl;
 
+        private String productCategory;
     }
 
     @Getter
@@ -70,6 +73,8 @@ public class ProductDto {
         private int reviewCount;
 
         private int favoriteCount;
+
+        private String productCategory;
 
     }
 }

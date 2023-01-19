@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,6 +38,8 @@ public class ProductService {
     public Product updateProduct(Product product) {
         Product findProduct = findVerifiedProduct(product.getProductId());
 
+        Optional.of(product.getProductCategory())
+                .ifPresent(productCategory -> findProduct.setProductCategory(product.getProductCategory()));
         Optional.of(product.getProductName())
                 .ifPresent(name -> findProduct.setProductName(product.getProductName()));
         Optional.of(product.getPrice())
@@ -83,7 +86,6 @@ public class ProductService {
                         new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
         return findProduct;
     }
-
 
 
     //상품 검색

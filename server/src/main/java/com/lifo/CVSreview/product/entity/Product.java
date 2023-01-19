@@ -52,6 +52,8 @@ public class Product extends BaseTimeEntity {
         review.setProduct(this);
     }
 
+
+
     //상품과 찜은 1 : N 관계
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Favorite> favorites = new ArrayList<>();
@@ -61,5 +63,17 @@ public class Product extends BaseTimeEntity {
       if (favorite.getProduct() != this) {
           favorite.setProduct(this);
       }
+   }
+
+   public enum ProductCategory {
+        CU("CU"),
+       GS("GS"),
+       SEVEN("SEVEN");
+
+       @Getter
+       private String category;
+
+       ProductCategory(String category) {this.category = category;}
+
    }
 }

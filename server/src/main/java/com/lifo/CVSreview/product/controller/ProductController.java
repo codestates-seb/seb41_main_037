@@ -33,22 +33,6 @@ public class ProductController {
     private final ProductService productService;
     private final ProductMapper mapper;
 
-//    @PostMapping
-//    public ResponseEntity post(@Valid @RequestBody ProductDto.Post post) {
-//        Product product = productService.create(mapper.postToEntity(post));
-//
-//        return new ResponseEntity<>(new SingleResponseDto<>(mapper.entityToResponse(product)), HttpStatus.CREATED);
-//    }
-
-//    @PatchMapping("/{product-id}")
-//    public ResponseEntity patch(@PathVariable("product-id") @Positive long productId,
-//                                @Valid @RequestBody ProductDto.Patch patch) {
-//        patch.setProductId(productId);
-//
-//        Product update = productService.updateProduct(mapper.patchToEntity(patch));
-//
-//        return new ResponseEntity<>(new SingleResponseDto<>(mapper.entityToResponse(update)), HttpStatus.OK);
-//    }
 
     @GetMapping("/{product-id}")
     public ResponseEntity get(@PathVariable("product-id") @Positive long productId) {
@@ -66,22 +50,17 @@ public class ProductController {
         return new ResponseEntity<>(new MultiResponseDto<>(mapper.entitysToResponses(products), pageProduct), HttpStatus.OK);
     }
 
-//    @DeleteMapping("/{product-id}")
-//    public ResponseEntity delete(@PathVariable("product-id") @Positive long productId) {
-//        productService.delete(productId);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
-
     /*search*/
     @GetMapping("/search")
    public ResponseEntity productSearch(
+            Product.ProductCategory category,
             @RequestParam Map<String, String> params,
             @PageableDefault(page = 0, size = 8, direction = Sort.Direction.DESC)
            Pageable pageable) {
         Page<Product> search = productService.search(params, pageable);
         return new ResponseEntity<>(new MultiResponseDto(search.getContent(),search), HttpStatus.OK);
     }
-}//
+}
 
 
 
