@@ -28,9 +28,22 @@ const MypageMain = styled.main`
   .mypageSection {
     display: flex;
     flex-direction: column;
-    width: 700px;
+    @media screen and (max-width: 768px) {
+      width: 550px;
+    }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      width: 700px;
+    }
+    @media screen and(min-width: 1024px) {
+      width: 850px;
+    }
+
     .userProfile {
       display: flex;
+      @media screen and (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+      }
       img {
         display: flex;
         width: 150px;
@@ -43,7 +56,6 @@ const MypageMain = styled.main`
       }
       .userIntroduction,
       .changePassword {
-        display: flex;
         flex-direction: column;
         justify-content: flex-start;
         margin-left: 1rem;
@@ -203,7 +215,16 @@ const MypageMain = styled.main`
 const StyledSlider = styled(Slider)`
   display: flex;
   height: 230px;
-  width: 620px;
+  @media screen and (max-width: 767px) {
+    width: 470px;
+  }
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 620px;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 650px;
+  }
+
   justify-content: center;
   .slick-slide div {
     cursor: pointer;
@@ -225,9 +246,9 @@ const StyledSlider = styled(Slider)`
   }
 `;
 
-const WishItemCard = ({ image, name, price, alt }: Record<string, string>) => {
+const WishItemCard = ({ id, image, name, price, alt }: WishProps) => {
   return (
-    <div className="wishItem">
+    <div className="wishItem" key={id}>
       <div className="closeIcon">
         <AiFillCloseCircle size="20" />
       </div>
@@ -279,6 +300,97 @@ const dummyCommentList: string[] = [
   "밀크카라멜이나 메가톤바 좋아하시면 높은 확률로 마음에 드실 거예요 제입에는 초코보다 훨씬 맛있어요",
 ];
 
+interface WishProps {
+  id: number;
+  image: string;
+  name: string;
+  price: string;
+  alt: string;
+}
+
+const dummyWishList: WishProps[] = [
+  {
+    id: 1,
+    image:
+      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg",
+    name: "햄)모짜치즈볼트리플버거",
+    price: "3,400원",
+    alt: "wish1",
+  },
+  {
+    id: 2,
+    image:
+      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg",
+    name: "도)백종원완전한판정식",
+    price: "4,500원",
+    alt: "wish2",
+  },
+  {
+    id: 3,
+    image:
+      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg",
+    name: "주)토끼정햄계란마요",
+    price: "1,700원",
+    alt: "wish3",
+  },
+  {
+    id: 4,
+    image:
+      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg",
+    name: "도)직화고추장삼겹살",
+    price: "5,300원",
+    alt: "wish4",
+  },
+  {
+    id: 5,
+    image:
+      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg",
+    name: "도)탄단지그릴닭가슴살볼",
+    price: "4,800원",
+    alt: "wish5",
+  },
+  {
+    id: 6,
+    image:
+      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg",
+    name: "햄)모짜치즈볼트리플버거",
+    price: "3,400원",
+    alt: "wish1",
+  },
+  {
+    id: 7,
+    image:
+      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg",
+    name: "도)백종원완전한판정식",
+    price: "4,500원",
+    alt: "wish2",
+  },
+  {
+    id: 8,
+    image:
+      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg",
+    name: "주)토끼정햄계란마요",
+    price: "1,700원",
+    alt: "wish3",
+  },
+  {
+    id: 9,
+    image:
+      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg",
+    name: "도)직화고추장삼겹살",
+    price: "5,300원",
+    alt: "wish4",
+  },
+  {
+    id: 10,
+    image:
+      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg",
+    name: "도)탄단지그릴닭가슴살볼",
+    price: "4,800원",
+    alt: "wish5",
+  },
+];
+
 const MyPage = () => {
   const [isNameFocus, setIsNameFocus] = useState(false);
   const [isEmailFocus, setIsEmailFocus] = useState(false);
@@ -300,15 +412,35 @@ const MyPage = () => {
     console.log(image);
   };
 
-  const showMaxCnt = 4;
-  const arr = Array.from(new Array(3));
+  // const showMaxCnt = 4;
+  // const arr = Array.from(new Array(3));
   const settings = {
     arrows: true,
     dots: true,
-    infinite: arr.length > showMaxCnt,
+    // infinite: Array.from(new Array(3)).length > 4,
     speed: 1000,
-    slidesToShow: showMaxCnt,
-    slidesToScroll: showMaxCnt,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          // infinite: Array.from(new Array(2)).length > 3,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          // infinite: Array.from(new Array(2)).length > 3,
+          dots: true,
+        },
+      },
+    ],
   };
 
   return (
@@ -379,67 +511,17 @@ const MyPage = () => {
                 <h3>Wish list</h3>
                 <section className="wishItems">
                   <StyledSlider {...settings}>
-                    <WishItemCard
-                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg"
-                      name="햄)모짜치즈볼트리플버거"
-                      price="3,400원"
-                      alt="wish1"
-                    />
-                    <WishItemCard
-                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg"
-                      name="도)백종원완전한판정식"
-                      price="4,500원"
-                      alt="wish2"
-                    />
-                    <WishItemCard
-                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg"
-                      name="주)토끼정햄계란마요"
-                      price="1,700원"
-                      alt="wish3"
-                    />
-                    <WishItemCard
-                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg"
-                      name="도)직화고추장삼겹살"
-                      price="5,300원"
-                      alt="wish4"
-                    />
-                    <WishItemCard
-                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg"
-                      name="도)탄단지그릴닭가슴살볼"
-                      price="4,800원"
-                      alt="wish5"
-                    />
-                    <WishItemCard
-                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg"
-                      name="햄)모짜치즈볼트리플버거"
-                      price="3,400원"
-                      alt="wish1"
-                    />
-                    <WishItemCard
-                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg"
-                      name="도)백종원완전한판정식"
-                      price="4,500원"
-                      alt="wish2"
-                    />
-
-                    <WishItemCard
-                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg"
-                      name="주)토끼정햄계란마요"
-                      price="1,700원"
-                      alt="wish3"
-                    />
-                    <WishItemCard
-                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg"
-                      name="도)직화고추장삼겹살"
-                      price="5,300원"
-                      alt="wish4"
-                    />
-                    <WishItemCard
-                      image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg"
-                      name="도)탄단지그릴닭가슴살볼"
-                      price="4,800원"
-                      alt="wish5"
-                    />
+                    {dummyWishList.map((el) => {
+                      return (
+                        <WishItemCard
+                          id={el.id}
+                          image={el.image}
+                          name={el.name}
+                          price={el.price}
+                          alt={el.alt}
+                        />
+                      );
+                    })}
                   </StyledSlider>
                 </section>
               </section>
