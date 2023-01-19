@@ -95,6 +95,10 @@ const Main = styled.main`
           margin: 0px 50px 30px 50px;
           height: 60px;
           color: #58419c;
+
+          .Likebutton {
+            cursor: pointer;
+          }
         }
       }
     }
@@ -111,6 +115,7 @@ const Main = styled.main`
         margin: 20px;
         font-size: 30px;
         color: #ffcb5e;
+        cursor: pointer;
       }
       > textarea {
         width: 450px;
@@ -292,7 +297,7 @@ const DetailPage = () => {
                   onClick={() => {
                     setLike(!like);
                   }}>
-                  {like ? <HiHeart /> : <HiOutlineHeart />}
+                  {like ? <HiHeart className="Likebutton" /> : <HiOutlineHeart className="Likebutton" />}
                 </section>
               </section>
             </section>
