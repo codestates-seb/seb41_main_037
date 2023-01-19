@@ -8,7 +8,6 @@ const NavBar = styled.main`
   width: 100px;
   height: 100%;
   background-color: #ffcb5e;
-
   .homeBtn {
     margin-top: 10px;
     margin-bottom: 70px;
@@ -19,12 +18,10 @@ const NavBar = styled.main`
       transition: 1s;
       transform: scale(1.05);
     }
-
     .home {
       width: 80px;
     }
   }
-
   .cvsLogo {
     display: flex;
     justify-content: center;
@@ -33,39 +30,39 @@ const NavBar = styled.main`
     width: 100px;
     height: 100px;
     cursor: pointer;
-
     > img {
       width: 60px;
     }
   }
-
   .focused {
     background-color: white;
   }
-
   .userBtn {
-    position: absolute;
-    bottom: 0;
-    flex-direction: column;
-    margin-top: 120px;
-    margin-bottom: 15px;
-
-    > button {
-      width: 50px;
-      height: 50px;
-      margin: 3px;
-      background-color: #58419c;
-      color: white;
-      border: none;
-      border-radius: 50px;
-      font-family: "Do Hyeon", sans-serif;
-
-      &:hover {
-        background-color: white;
-        color: #58419c;
-      }
-      &:focus {
-        border: solid 2px #58419c;
+    @media screen and (max-height: 600px) {
+      display: none;
+    }
+    @media screen and (min-height: 600px) {
+      position: absolute;
+      bottom: 0;
+      flex-direction: column;
+      margin-top: 120px;
+      margin-bottom: 15px;
+      > button {
+        width: 50px;
+        height: 50px;
+        margin: 3px;
+        background-color: #58419c;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-family: "Do Hyeon", sans-serif;
+        &:hover {
+          background-color: white;
+          color: #58419c;
+        }
+        &:focus {
+          border: solid 2px #58419c;
+        }
       }
     }
   }
@@ -105,7 +102,8 @@ const Nav = () => {
           className="home"
           src="/img/cvs logo2.png"
           alt="home"
-          onClick={() => navigate("/")}></img>
+          onClick={() => navigate("/")}
+        ></img>
       </section>
       <section className="menuBtn">
         {menuItem.map((item, index) => (
@@ -116,7 +114,8 @@ const Nav = () => {
             }}
             className={
               location.pathname === item.path ? "cvsLogo focused" : "cvsLogo"
-            }>
+            }
+          >
             {location.pathname === item.path ? item.img1 : item.img2}
           </div>
         ))}
