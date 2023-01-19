@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import HomeHeader from "../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../components/AdminNav/AdminNav";
-import { RxMagnifyingGlass } from "react-icons/rx";
 import { BsTrashFill } from "react-icons/bs";
+import { FcSearch } from "react-icons/fc";
 
 const Main = styled.main`
   display: flex;
@@ -21,32 +21,36 @@ const CommentDeletePageMain = styled.main`
     margin-bottom: 1rem;
   }
   .searchBarSection {
+    display: flex;
+    align-items: center;
     width: 700px;
     height: 40px;
     margin-bottom: 1rem;
+    color: #383838;
+    background-color: #f5f5f5;
+    box-shadow: 3px 3px 3px #979595;
+    border-radius: 30px;
+    padding: 0.5rem 1rem 0.5rem 1.5rem;
+    &:focus-within {
+      box-shadow: 3px 3px 3px #7a7979;
+    }
     input {
+      display: flex;
       font-family: "Do Hyeon", sans-serif;
-      width: 700px;
-      height: 40px;
+      width: 635px;
+      height: 30px;
       font-size: 15px;
-      color: #383838;
-      padding: 0.5rem 0 0.5rem 2rem;
-      border: none;
-      border-radius: 30px;
       background-color: #f5f5f5;
-      box-shadow: 3px 3px 3px #979595;
+      border: none;
       &::placeholder {
         color: #979595;
       }
       &:focus-within {
         outline: none !important;
-        box-shadow: 3px 3px 3px #7a7979;
       }
     }
     .search.icon {
-      position: absolute;
-      top: 7px;
-      right: 10px;
+      display: flex;
       color: #58419c;
     }
   }
@@ -148,7 +152,7 @@ const CommentDeletePage = () => {
           </section>
           <section className="searchBarSection">
             <input type="text" placeholder="검색어를 입력하세요." />
-            <RxMagnifyingGlass className="search icon" size={25} />
+            <FcSearch className="search icon" size={25} />
           </section>
           <section className="commentSection">
             {dummyComment.map((comment, idx) => (
