@@ -72,6 +72,9 @@ const MypageMain = styled.main`
           padding: 0 0.5rem;
           margin: 0.5rem 0;
           width: 259px;
+          @media screen and (min-width: 1024px) {
+            width: 320px;
+          }
           height: 30px;
           color: #fff;
           background-color: #979595;
