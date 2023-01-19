@@ -5,7 +5,9 @@ import com.lifo.CVSreview.favorite.mapper.FavoriteMapper;
 import com.lifo.CVSreview.favorite.repository.FavoriteRepository;
 import com.lifo.CVSreview.favorite.service.FavoriteService;
 import com.lifo.CVSreview.member.Entity.Member;
+import com.lifo.CVSreview.product.dto.ProductDto;
 import com.lifo.CVSreview.product.entity.Product;
+import com.lifo.CVSreview.product.mapper.ProductMapper;
 import com.lifo.CVSreview.product.repository.ProductRepository;
 import com.lifo.CVSreview.review.dto.ReviewPostDto;
 import com.lifo.CVSreview.review.entity.Review;
@@ -27,6 +29,7 @@ public class FavoriteController {
     private final FavoriteService favoriteService;
     final private FavoriteRepository favoriteRepository;
     final private ProductRepository productRepository;
+    final private ProductMapper mapper;
 
     @GetMapping("/favorite/{product-id}")
     public ResponseEntity postFavorite(@PathVariable("product-id") long productId) {
@@ -40,7 +43,7 @@ public class FavoriteController {
     }
 
     @GetMapping(value = "/getFavorites")
-    public ResponseEntity<List<Product>> getFavorites() {
+    public ResponseEntity<List<ProductDto.Response>> getFavorites() {
 
         LocalDateTime before7Days = LocalDateTime.now().minusDays(7); // 현재날짜에서 -7
         // 최근 7일간 찜을 많이 받은 상품 id 순으로 list 를 가져온다
@@ -58,7 +61,7 @@ public class FavoriteController {
 
         for (int i = 0; i < maxIndex; bestProducts.add(productRepository.findById(list.get(i++)).get()));
 
-        return new ResponseEntity<>(bestProducts, HttpStatus.OK);
+        return new ResponseEntity<>(mapper.entitysToResponses(bestProducts), HttpStatus.OK);
     }
 
 
