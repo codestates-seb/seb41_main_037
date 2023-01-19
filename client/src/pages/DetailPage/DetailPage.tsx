@@ -50,7 +50,7 @@ const Main = styled.main`
     .itemSection {
       width: 800px;
       height: 400px;
-      margin-bottom: 10px;
+      align-items: center;
       border: 3px solid #ffcb5e;
       border-radius: 20px;
       display: flex;
@@ -67,13 +67,13 @@ const Main = styled.main`
         float: left;
         margin: 20px;
         border-radius: 20px;
+        font-family: "Do Hyeon", sans-serif;
         .titleSection {
           font-size: 30px;
           font-weight: 500;
           margin: 50px 50px 20px 50px;
           border-bottom: 7px solid #ffcb5e;
           height: 70px;
-          font-family: "Do Hyeon", sans-serif;
         }
         .priceSection {
           font-size: 25px;
@@ -81,7 +81,6 @@ const Main = styled.main`
           margin: 40px 50px 40px 50px;
           border-bottom: 2px solid #ffcb5e;
           height: 60px;
-          font-family: "Do Hyeon", sans-serif;
         }
         .explaneSection {
           font-size: 15px;
@@ -91,7 +90,7 @@ const Main = styled.main`
           height: 40px;
         }
         .likeSection {
-          font-size: 40px;
+          font-size: 30px;
           font-weight: bold;
           margin: 0px 50px 30px 50px;
           height: 60px;
@@ -110,27 +109,32 @@ const Main = styled.main`
 
       .addStarRating {
         margin: 20px;
-        font-size: 20px;
+        font-size: 30px;
         color: #ffcb5e;
       }
-      > input {
-        //float: left;
-        width: 500px;
+      > textarea {
+        width: 450px;
         height: 100px;
         border-radius: 10px;
         background-color: #f5f5f5;
-
         border: none;
+        resize: none;
+        padding: 10px;
+        font-family: "Do Hyeon", sans-serif;
+        &:focus {
+          outline-color: #58419c;
+        }
       }
       > button {
         background-color: #58419c;
         width: 100px;
         height: 100px;
         border-radius: 10px;
-        margin: 30px;
+        margin: 20px;
         color: white;
         font-size: 16px;
         border: none;
+        font-family: "Do Hyeon", sans-serif;
         cursor: pointer;
         &:hover {
           filter: brightness(1.2);
@@ -145,8 +149,9 @@ const Main = styled.main`
       display: flex;
       justify-content: center;
       align-items: center;
-      border-bottom: 3px solid #dfdbdb;
       margin-bottom: 20px;
+      font-family: "Do Hyeon", sans-serif;
+      letter-spacing: 0.3px;
 
       .resultStarRating {
         font-size: 20px;
@@ -172,6 +177,7 @@ const Main = styled.main`
           align-items: center;
           font-size: 15px;
           font-weight: bold;
+          //border-bottom: 3px solid #dfdbdb;
         }
 
         .userEdit {
@@ -184,15 +190,18 @@ const Main = styled.main`
         .commentInfo {
           display: flex;
           justify-content: space-between;
-          font-size: 18px;
-          font-weight: bold;
+          font-size: 15px;
+          //font-weight: bold;
           margin-bottom: 25px;
 
           .comment {
             height: 100%;
+            width: 80%;
+            line-height: 20px;
           }
           .commentDate {
             font-size: 15px;
+            text-align: right;
           }
         }
       }
@@ -276,20 +285,13 @@ const DetailPage = () => {
                   <p> 햄감자샐러드샌드위치</p>
                 </section>
                 <section className="priceSection">
-                  <p>가격: 3500원</p>
+                  <p>가격 : 3500원</p>
                 </section>
-                {/* <section className="ExplaneSection">
-                  <p>
-                    상품설명: 지역 특산물 햇감자를 사용한 감자 샐러드를 넣은
-                    샌드위치
-                  </p>
-                </section> */}
                 <section
                   className="likeSection"
                   onClick={() => {
                     setLike(!like);
-                  }}
-                >
+                  }}>
                   {like ? <HiHeart /> : <HiOutlineHeart />}
                 </section>
               </section>
@@ -310,30 +312,33 @@ const DetailPage = () => {
                   )
                 )}
               </p>
-              <input></input>
-              <button onClick={() => console.log(starRating)}>Enter</button>
+              <textarea
+                onChange={(e) => {
+                  console.log(e.target.value);
+                }}></textarea>
+              <button onClick={() => console.log(starRating)}>OK !</button>
             </section>
             <section className="commentSection">
               <section className="commentList">
                 <Comment
-                  name="유저1111"
+                  name="ABC123"
+                  comment="내일 또 사먹어야지"
+                  date="2023-01-19"
+                />
+                <Comment
+                  name="편의점리뷰어"
                   comment="너무 맛있어요 정말 맛있어요"
                   date="2023-01-19"
                 />
                 <Comment
-                  name="유저222"
-                  comment="또 사먹어야지"
-                  date="2023-01-19"
+                  name="프엔개발자"
+                  comment="맛있습니다 다른 제품보다 내용물이 많아서 간식으로 먹기 좋았습니다 가격도 3500원이면 적당한 것 같네요"
+                  date="2023-01-13"
                 />
                 <Comment
-                  name="유저222"
-                  comment="또 사먹어야지"
-                  date="2023-01-19"
-                />
-                <Comment
-                  name="유저222"
-                  comment="또 사먹어야지"
-                  date="2023-01-19"
+                  name="샌드위치좋아"
+                  comment="샌드위치 좋아해서 사봤는데 정말 맛있습니다! 자주 먹고 싶은데 재고가 잘 없네요  단종시키지 말아주세요!"
+                  date="2023-01-10"
                 />
               </section>
             </section>
