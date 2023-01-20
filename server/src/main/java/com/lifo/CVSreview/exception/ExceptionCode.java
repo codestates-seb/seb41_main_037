@@ -8,7 +8,9 @@ public enum ExceptionCode {
     REVIEW_EXISTS(409, "Review Exists"),
     MEMBER_NOT_FOUND(404, "Member Not Found"),
 
-    PRODUCT_NOT_FOUND(404, "Product Not Found");
+    PRODUCT_NOT_FOUND(404, "Product Not Found"),
+    AUTHENTICATION_NOT_FOUND(404, "Authentication not found in SecurityContextHolder");
+
     @Getter
     private int status;
 

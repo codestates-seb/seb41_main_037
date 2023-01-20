@@ -12,8 +12,23 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface MemberMapper {
     Member memberPostDtoToMember(MemberPostReqDto memberPostReqDto);
-    MemberResDto MemberToMemberResponse(Member Member);
-    MemberMyPageDto MemberToMemberMyPageResponse(Member Member);
+    MemberResDto MemberToMemberResponse(Member member);
+    default MemberMyPageDto MemberToMemberMyPageResponse(Member member) {
+        if ( member == null ) {
+            return null;
+        }
+
+        MemberMyPageDto memberMyPageDto = new MemberMyPageDto();
+
+        memberMyPageDto.setMemberId( member.getMemberId() );
+        memberMyPageDto.setNickname( member.getNickname() );
+        memberMyPageDto.setEmail(member.getEmail());
+        memberMyPageDto.setRole( member.getRole() );
+        memberMyPageDto.setImage_name( member.getImage_name() );
+        memberMyPageDto.setImage_path( member.getImage_path() );
+
+        return memberMyPageDto;
+    }
 
     default Member memberPatchDtoToMember(MemberPatchReqDto memberPatchReqDto) {
         if ( memberPatchReqDto == null ) {

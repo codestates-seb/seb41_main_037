@@ -13,6 +13,7 @@ import java.util.List;
 public class MemberMyPageDto {
     private Long memberId;
     private String nickname;
+    private String email;
     private Integer role;
     private String image_name;
     private String image_path;

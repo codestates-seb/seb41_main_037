@@ -2,6 +2,7 @@ package com.lifo.CVSreview.member.service;
 
 //import com.lifo.CVSreview.auth.utils.CustomAuthorityUtils;
 
+import com.lifo.CVSreview.auth.utils.CustomAuthorityUtils;
 import com.lifo.CVSreview.exception.BusinessLogicException;
 import com.lifo.CVSreview.exception.ExceptionCode;
 import com.lifo.CVSreview.favorite.dto.FavoriteResponseDto;
@@ -20,6 +21,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,35 +38,39 @@ public class MemberService {
 
     private final FavoriteService favoriteService;
     private final FavoriteMapper favoriteMapper;
-//    private final PasswordEncoder passwordEncoder;
-//    private final CustomAuthorityUtils authorityUtils;
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
 
     public MemberService(MemberRepository memberRepository, MemberMapper memberMapper, @Lazy ReviewService reviewService, @Lazy ReviewMapper reviewMapper, @Lazy FavoriteService favoriteService,
-                         @Lazy FavoriteMapper favoriteMapper){
-//    , PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils){
+                         @Lazy FavoriteMapper favoriteMapper, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils){
         this.memberRepository = memberRepository;
         this.memberMapper = memberMapper;
         this.reviewService = reviewService;
         this.reviewMapper = reviewMapper;
         this.favoriteService = favoriteService;
         this.favoriteMapper = favoriteMapper;
-//        this.passwordEncoder = passwordEncoder;
-//        this.authorityUtils = authorityUtils;
+        this.passwordEncoder = passwordEncoder;
+        this.authorityUtils = authorityUtils;
     }
 
-    public Member createMember(Member Member){
-        return memberRepository.save(Member);
-    }
-    public Member updateMember(Member Member){
-        Member findMember = findVerifiedMember(Member.getMemberId());
+    public Member createMember(Member member){
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encryptedPassword);
 
-        Optional.ofNullable(Member.getPassword())
+        List<String> roles = authorityUtils.createRoles(member.getEmail());
+        member.setRoles(roles);
+        return memberRepository.save(member);
+    }
+    public Member updateMember(Member member){
+        Member findMember = findVerifiedMember(member.getMemberId());
+
+        Optional.ofNullable(member.getPassword())
                 .ifPresent(password -> findMember.setPassword(password));
-        Optional.ofNullable(Member.getNickname())
+        Optional.ofNullable(member.getNickname())
                 .ifPresent(nickname -> findMember.setNickname(nickname));
-        Optional.ofNullable(Member.getImage_name())
+        Optional.ofNullable(member.getImage_name())
                 .ifPresent(image_name -> findMember.setImage_name(image_name));
-        Optional.ofNullable(Member.getImage_path())
+        Optional.ofNullable(member.getImage_path())
                 .ifPresent(image_path -> findMember.setImage_path(image_path));
         return memberRepository.save(findMember);
     }
