@@ -29,6 +29,9 @@ dependencies {
 	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
 	implementation 'org.modelmapper:modelmapper:3.1.1'// 추가)modelmapper 라이브러리를 사용하기 위한 설정
+	//https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 
 	//implementation 'com.google.code.gson:gson'
 	//implementation 'org.springframework.boot:spring-boot-starter-security'

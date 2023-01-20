@@ -15,6 +15,21 @@ public interface MemberMapper {
     MemberResDto MemberToMemberResponse(Member Member);
     MemberMyPageDto MemberToMemberMyPageResponse(Member Member);
 
-    Member memberPatchDtoToMember(MemberPatchReqDto memberPatchReqDto);
+    default Member memberPatchDtoToMember(MemberPatchReqDto memberPatchReqDto) {
+        if ( memberPatchReqDto == null ) {
+            return null;
+        }
+
+        Member member = new Member();
+
+        member.setMemberId( memberPatchReqDto.getMemberId() );
+        member.setNickname( memberPatchReqDto.getNickname() );
+        member.setPassword( memberPatchReqDto.getPassword() );
+        member.setImage_name( member.getImage_name() );
+        member.setImage_path( member.getImage_path() );
+
+        return member;
+    }
+
     List<MemberResDto> membersToMemberResDto(List<Member> members);
 }

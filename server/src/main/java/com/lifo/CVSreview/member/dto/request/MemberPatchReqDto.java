@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.Positive;
 
 @Data
@@ -17,9 +16,6 @@ public class MemberPatchReqDto {
     private String password;
 
     private String nickname;
-
-
-    private Integer role;
 
     private String image_name;
 

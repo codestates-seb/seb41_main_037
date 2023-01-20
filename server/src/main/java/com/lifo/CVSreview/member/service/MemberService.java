@@ -1,5 +1,7 @@
 package com.lifo.CVSreview.member.service;
 
+//import com.lifo.CVSreview.auth.utils.CustomAuthorityUtils;
+
 import com.lifo.CVSreview.exception.BusinessLogicException;
 import com.lifo.CVSreview.exception.ExceptionCode;
 import com.lifo.CVSreview.favorite.dto.FavoriteResponseDto;
@@ -34,15 +36,20 @@ public class MemberService {
 
     private final FavoriteService favoriteService;
     private final FavoriteMapper favoriteMapper;
+//    private final PasswordEncoder passwordEncoder;
+//    private final CustomAuthorityUtils authorityUtils;
 
     public MemberService(MemberRepository memberRepository, MemberMapper memberMapper, @Lazy ReviewService reviewService, @Lazy ReviewMapper reviewMapper, @Lazy FavoriteService favoriteService,
                          @Lazy FavoriteMapper favoriteMapper){
+//    , PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils){
         this.memberRepository = memberRepository;
         this.memberMapper = memberMapper;
         this.reviewService = reviewService;
         this.reviewMapper = reviewMapper;
         this.favoriteService = favoriteService;
         this.favoriteMapper = favoriteMapper;
+//        this.passwordEncoder = passwordEncoder;
+//        this.authorityUtils = authorityUtils;
     }
 
     public Member createMember(Member Member){
@@ -51,10 +58,6 @@ public class MemberService {
     public Member updateMember(Member Member){
         Member findMember = findVerifiedMember(Member.getMemberId());
 
-        Optional.ofNullable(Member.getMemberId())
-                .ifPresent(MemberId ->findMember.setMemberId(MemberId));
-        Optional.ofNullable(Member.getEmail())
-                .ifPresent(email -> findMember.setEmail(email));
         Optional.ofNullable(Member.getPassword())
                 .ifPresent(password -> findMember.setPassword(password));
         Optional.ofNullable(Member.getNickname())
@@ -86,14 +89,6 @@ public class MemberService {
         memberMyPageDto.setReviews(responses);
         return memberMyPageDto;
     }
-//    public MemberResDto findMemberFavorite(Long memberId){
-//        Member findMember = findVerifiedMember(memberId);
-//        MemberResDto memberResDto = memberMapper.MemberToMemberResponse(findMember);
-//        List<Favorite> favorite = favoriteService.MemberFavorite(memberId);
-////      List<FavoriteResponseDto> response = favoriteMapper.FavoriteToFavoriteReponseDtos(favorite);
-//        memberResDto.setFavorite(response);
-//        return memberResDto;
-//    }
 
 
     public Member findVerifiedMember(long memberId) {

@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Data
 @NoArgsConstructor
@@ -23,13 +25,7 @@ public class MemberPostReqDto {
     @NotBlank
     private String nickname;
 
+    private String image_name;
 
-//    private Long image_name;
-//
-//    private Long image_path;
-
-    @Min(1)
-    @Max(2)
-    private Integer role;
-
+    private String image_path;
 }

@@ -5,8 +5,6 @@ import com.lifo.CVSreview.review.entity.Review;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -39,10 +37,10 @@ public class Member {
     private String description;
 
     @Column
-    private Long image_name;
+    private String image_name;
 
     @Column
-    private Long image_path;
+    private String image_path;
 
     @Column(name = "member_created_at", nullable = false)
     private LocalDateTime member_created_at = LocalDateTime.now();
