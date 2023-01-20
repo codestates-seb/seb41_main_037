@@ -39,10 +39,10 @@ public class Member {
     private String description;
 
     @Column
-    private Long image_name;
+    private String image_name;
 
     @Column
-    private Long image_path;
+    private String image_path;
 
     @Column(name = "member_created_at", nullable = false)
     private LocalDateTime member_created_at = LocalDateTime.now();

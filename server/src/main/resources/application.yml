@@ -22,9 +22,16 @@ spring:
       data-locations: classpath*:data.sql
   mvc:
     pathmatch:
-      matching-strategy: ant_path_matcher
+      matching-strategy: ANT_PATH_MATCHER
     converters:
       preferred-json-mapper: gson
+#jwt:
+#  secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
+
+#  security:
+#    user:
+#      username: user
+#      password: imyonghan
 
 
 mail:

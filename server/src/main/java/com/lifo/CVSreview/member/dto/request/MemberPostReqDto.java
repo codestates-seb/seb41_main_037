@@ -23,13 +23,7 @@ public class MemberPostReqDto {
     @NotBlank
     private String nickname;
 
+    private String image_name;
 
-//    private Long image_name;
-//
-//    private Long image_path;
-
-    @Min(1)
-    @Max(2)
-    private Integer role;
-
+    private String image_path;
 }

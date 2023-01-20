@@ -18,9 +18,6 @@ public class MemberPatchReqDto {
 
     private String nickname;
 
-
-    private Integer role;
-
     private String image_name;
 
     private String image_path;
