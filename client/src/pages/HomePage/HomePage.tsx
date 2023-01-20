@@ -10,6 +10,7 @@ import Carousel from "../../components/Carousel/Carousel";
 import { slideInRight } from "react-animations";
 import Map from "../../components/Map/Map";
 import { FcShop } from "react-icons/fc";
+import { FiArrowUp } from "react-icons/fi";
 
 const slideInAnimation = keyframes`${slideInRight}`;
 
@@ -278,6 +279,50 @@ const HomeMain = styled.main`
       }
     }
   }
+  .fixedbtnSection {
+    /* position: fixed; */
+    /* top: 90%;
+    right: 50px; */
+    display: flex;
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      background-color: #58419c;
+      color: #fff;
+      &:hover {
+        color: #ffcb5e;
+        box-shadow: 1px 1px 2px #7a7979;
+        transition: 0.3s;
+        cursor: pointer;
+      }
+      // 위로가기 버튼
+      &:nth-child(1) {
+        position: fixed;
+        top: 90%;
+        right: 50px;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+      }
+      // 로그인 버튼
+      &:nth-child(2),
+      &:nth-child(3) {
+        position: fixed;
+        font-family: "Do Hyeon", sans-serif;
+        font-size: 13px;
+        top: 15%;
+        right: 50px;
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+      }
+      // 바로가기 버튼
+      &:nth-child(3) {
+        right: 120px;
+      }
+    }
+  }
 `;
 
 const DotsDiv = styled.div`
@@ -420,6 +465,14 @@ const HomePage = () => {
     return <DotDiv isSame={isSame} onClick={handleClick}></DotDiv>;
   };
 
+  const handleScrollTopBtnClick = () => {
+    outerDivRef.current?.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <HomeMain>
       <section ref={outerDivRef} className="outer">
@@ -527,6 +580,17 @@ const HomePage = () => {
               </div>
             </section>
           </section>
+        </section>
+        <section className="fixedbtnSection">
+          <button className="scrollTopBtn" onClick={handleScrollTopBtnClick}>
+            <FiArrowUp size={35} />
+          </button>
+          <button className="scrollTopBtn" onClick={() => navigate("/login")}>
+            로그인
+          </button>
+          <button className="scrollTopBtn" onClick={() => navigate("/cu")}>
+            PB상품
+          </button>
         </section>
       </section>
     </HomeMain>

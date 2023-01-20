@@ -59,18 +59,15 @@ const ItemSearchPageMain = styled.main`
       color: #58419c;
     }
   }
-
   .menuTab {
     display: flex;
     align-items: center;
     list-style: none;
     background-color: #f5f5f5;
     color: #979595;
-
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     cursor: pointer;
-
     > li {
       display: flex;
       width: 200px;
@@ -82,12 +79,10 @@ const ItemSearchPageMain = styled.main`
       border-top-right-radius: 5px;
     }
   }
-
   .active {
     background-color: #d9d9d9;
     color: black;
   }
-
   .itemListSection {
     width: 700px;
     max-height: 500px;
