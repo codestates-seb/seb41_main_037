@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Header from "../../components/Header/Header";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.main`
   display: flex;
@@ -111,14 +112,32 @@ const MypageMain = styled.main`
         font-weight: 600;
         margin-bottom: 0.5rem;
       }
-      p {
-        background-color: #f4f5f9;
-        box-shadow: inset 1px 1px 2px #7a7979;
-        font-size: 15px;
+      .commentSection {
+        display: flex;
+        background-color: rgb(244, 245, 249);
         border-radius: 5px;
-        padding: 0.5rem;
-        line-height: 20px;
         margin-bottom: 0.5rem;
+        box-shadow: inset 1px 1px 2px #7a7979;
+        align-items: center;
+        cursor: pointer;
+        .store {
+          display: flex;
+          justify-content: center;
+          min-width: 80px;
+          color: #58419c;
+        }
+        .content {
+          box-shadow: inset 1px 1px 2px #7a7979;
+          p {
+            font-size: 15px;
+            padding: 0.2rem 0.5rem;
+            line-height: 20px;
+            &:nth-child(2) {
+              font-size: 13px;
+              color: #7a7979;
+            }
+          }
+        }
       }
     }
     .wishList {
@@ -296,11 +315,36 @@ const ProfileElementCard = ({
   );
 };
 
-const dummyCommentList: string[] = [
-  "가볍게 당충전하기 딱 좋습니다. 먹고 나서 잔여감도 막 느껴지는게 별로없어서 좋았어요. 최근에 투쁠원으로 두번 사먹었던것 같아요. 맛있습니다.",
-  "오렌지는 없어서 교차구매 못하고 레몬 2개 사왔는데 음...취향은 타겠지만 저한테는 제로 음료중 거의 가장 맛없습니다.(제로 음료 폐인입니다)",
-  "오렌지보다 레몬이 더 맛있어요",
-  "밀크카라멜이나 메가톤바 좋아하시면 높은 확률로 마음에 드실 거예요 제입에는 초코보다 훨씬 맛있어요",
+interface CommentProps {
+  store: string;
+  date: string;
+  comment: string;
+}
+
+const dummyCommentList: CommentProps[] = [
+  {
+    store: "GS25",
+    date: "2022-01-12",
+    comment:
+      "가볍게 당충전하기 딱 좋습니다. 먹고 나서 잔여감도 막 느껴지는게 별로없어서 좋았어요. 최근에 투쁠원으로 두번 사먹었던것 같아요. 맛있습니다.",
+  },
+  {
+    store: "CU",
+    date: "2022-01-14",
+    comment:
+      "오렌지는 없어서 교차구매 못하고 레몬 2개 사왔는데 음...취향은 타겠지만 저한테는 제로 음료중 거의 가장 맛없습니다.(제로 음료 폐인입니다)",
+  },
+  {
+    store: "GS25",
+    date: "2022-01-17",
+    comment: "오렌지보다 레몬이 더 맛있어요",
+  },
+  {
+    store: "7-ELEVEN",
+    date: "2022-01-20",
+    comment:
+      "밀크카라멜이나 메가톤바 좋아하시면 높은 확률로 마음에 드실 거예요 제입에는 초코보다 훨씬 맛있어요",
+  },
 ];
 
 interface WishProps {
@@ -395,6 +439,7 @@ const dummyWishList: WishProps[] = [
 ];
 
 const MyPage = () => {
+  const navigate = useNavigate();
   const [isNameFocus, setIsNameFocus] = useState(false);
   const [isEmailFocus, setIsEmailFocus] = useState(false);
   const [isPasswordFocus, setIsPasswordFocus] = useState(false);
@@ -415,12 +460,9 @@ const MyPage = () => {
     console.log(image);
   };
 
-  // const showMaxCnt = 4;
-  // const arr = Array.from(new Array(3));
   const settings = {
     arrows: true,
     dots: true,
-    // infinite: Array.from(new Array(3)).length > 4,
     speed: 1000,
     slidesToShow: 4,
     slidesToScroll: 4,
@@ -430,7 +472,6 @@ const MyPage = () => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          // infinite: Array.from(new Array(2)).length > 3,
           dots: true,
         },
       },
@@ -439,7 +480,6 @@ const MyPage = () => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          // infinite: Array.from(new Array(2)).length > 3,
           dots: true,
         },
       },
@@ -507,7 +547,17 @@ const MyPage = () => {
               <section className="commentList">
                 <h3>Comment list</h3>
                 {dummyCommentList.map((comment, idx) => (
-                  <p key={idx}>{comment}</p>
+                  <section
+                    className="commentSection"
+                    key={idx}
+                    onClick={() => navigate("/itemList/:itemid")}
+                  >
+                    <section className="store">{comment.store}</section>
+                    <section className="content">
+                      <p>{comment.comment}</p>
+                      <p>{comment.date}</p>
+                    </section>
+                  </section>
                 ))}
               </section>
               <section className="wishList">
