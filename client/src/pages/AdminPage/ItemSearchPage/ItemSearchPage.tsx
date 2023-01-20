@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminNav from "../../../components/AdminNav/AdminNav";
 import styled from "styled-components";
 import HomeHeader from "../../../components/AdminHeader/AdminHeader";
@@ -6,6 +6,8 @@ import { BsTrashFill } from "react-icons/bs";
 import { BiEdit } from "react-icons/bi";
 import { FcSearch } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import useFetch from "../../../api/useFetch";
+import axios from "axios";
 
 const Main = styled.main`
   display: flex;
@@ -151,6 +153,15 @@ const dummyItems = [
 
 const ItemSearchPage = () => {
   const [currentTab, clickTab] = useState(0);
+  const { data } = useFetch("/products?page=1&size=30");
+  const [products, setProducts] = useState<any>(null);
+  useEffect(() => {
+    if (data) {
+      setProducts(data.data);
+    }
+  }, [data]);
+
+  console.log(products);
 
   const menuArr = [
     { name: "전체", content: "전체 data" },
@@ -161,10 +172,39 @@ const ItemSearchPage = () => {
 
   const selectHandler = (index: number) => {
     clickTab(index);
+    if (products) {
+      if (index === 1) {
+        setProducts(
+          data.data.filter((item: any) => item.productCategory === "CU")
+        );
+      } else if (index === 2) {
+        setProducts(
+          data.data.filter((item: any) => item.productCategory === "GS")
+        );
+      } else if (index === 3) {
+        setProducts(
+          data.data.filter((item: any) => item.productCategory === "SEVEN")
+        );
+      } else {
+        setProducts(data.data);
+      }
+    }
   };
 
-  const onRemove = () => {
+  // const onRemove = () => {
+  //   if (window.confirm("정말 삭제하시겠습니까?")) {
+  //     alert("삭제되었습니다.");
+  //   } else {
+  //     alert("취소합니다.");
+  //   }
+  // };
+  const deleteProduct = (id: number) => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
+      console.log(id);
+      if (products) {
+        axios.delete(`/admin/${id}`);
+        setProducts(products.filter((item: any) => item.productId !== id));
+      }
       alert("삭제되었습니다.");
     } else {
       alert("취소합니다.");
@@ -201,7 +241,7 @@ const ItemSearchPage = () => {
             </section>
           </section>
           <section className="itemListSection">
-            {dummyItems.map((item, idx) => (
+            {/* {dummyItems.map((item, idx) => (
               <section className="item" key={idx}>
                 <p>{item}</p>
                 <Link to="/admin/update">
@@ -213,7 +253,24 @@ const ItemSearchPage = () => {
                   <BsTrashFill size={12} onClick={onRemove} />
                 </div>
               </section>
-            ))}
+            ))} */}
+            {products &&
+              products.map((item: any) => (
+                <section className="item" key={item.productId}>
+                  <p>{item.productName}</p>
+                  <Link to="/admin/update">
+                    <div className="icon">
+                      <BiEdit size={12} />
+                    </div>
+                  </Link>
+                  <div className="icon">
+                    <BsTrashFill
+                      size={12}
+                      onClick={() => deleteProduct(item.productId)}
+                    />
+                  </div>
+                </section>
+              ))}
           </section>
         </ItemSearchPageMain>
       </Main>

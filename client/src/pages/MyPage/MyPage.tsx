@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import { AiFillCloseCircle } from "react-icons/ai";
@@ -9,6 +9,8 @@ import Header from "../../components/Header/Header";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
 import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+import useFetch from "../../api/useFetch";
 
 const Container = styled.main`
   display: flex;
@@ -290,31 +292,6 @@ interface ProfileProps {
   setState: (state: boolean) => void;
 }
 
-const ProfileElementCard = ({
-  classname,
-  title,
-  content,
-  placeholder,
-  state,
-  setState,
-}: ProfileProps) => {
-  return (
-    <section className={classname}>
-      <h3>{title}</h3>
-      {state ? (
-        <input
-          type="text"
-          placeholder={placeholder}
-          onKeyUp={(e) => e.key === "Enter" && setState(!state)}
-          autoFocus
-        />
-      ) : (
-        <p onClick={() => setState(!state)}>{content}</p>
-      )}
-    </section>
-  );
-};
-
 interface CommentProps {
   store: string;
   date: string;
@@ -438,12 +415,66 @@ const dummyWishList: WishProps[] = [
   },
 ];
 
+interface ReviewProps {
+  reviewId: number;
+  content: string;
+  createdAt: string;
+  modifiedAt: string;
+  rating: number;
+  username: "전인종";
+  memberId: number;
+  productId: number;
+}
+
 const MyPage = () => {
   const navigate = useNavigate();
   const [isNameFocus, setIsNameFocus] = useState(false);
   const [isEmailFocus, setIsEmailFocus] = useState(false);
   const [isPasswordFocus, setIsPasswordFocus] = useState(false);
   const [isPasswordConfirmFocus, setIsPasswordConfirmFocus] = useState(false);
+
+  // const [memberData, setMemberData] = useState([]);
+  const { data } = useFetch("/members/1");
+  // console.log(data);
+
+  // const [memberData, setMemberData] = useState([]);
+  // const [reviews, setReviews] = useState([]);
+
+  // useEffect(() => {
+  //   setMemberData(data);
+  //   setReviews(data.reviews);
+  // }, []);
+  // console.log(memberData);
+  // console.log(reviews);
+
+  // console.log(reviews);
+
+  // console.log(memberData);
+
+  const ProfileElementCard = ({
+    classname,
+    title,
+    content,
+    placeholder,
+    state,
+    setState,
+  }: ProfileProps) => {
+    return (
+      <section className={classname}>
+        <h3>{title}</h3>
+        {state ? (
+          <input
+            type="text"
+            placeholder={placeholder}
+            onKeyUp={(e) => e.key === "Enter" && setState(!state)}
+            autoFocus
+          />
+        ) : (
+          <p onClick={() => setState(!state)}>{content}</p>
+        )}
+      </section>
+    );
+  };
 
   const [image, setImage] = useState(
     "https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800"
@@ -546,7 +577,20 @@ const MyPage = () => {
               </section>
               <section className="commentList">
                 <h3>Comment list</h3>
-                {dummyCommentList.map((comment, idx) => (
+                {data.reviews?.map((el: ReviewProps) => (
+                  <section
+                    className="commentSection"
+                    key={el.reviewId}
+                    onClick={() => navigate("/itemList/:itemid")}
+                  >
+                    <section className="store">{el.username}</section>
+                    <section className="content">
+                      <p>{el.content}</p>
+                      <p>{el.createdAt}</p>
+                    </section>
+                  </section>
+                ))}
+                {/* {dummyCommentList.map((comment, idx) => (
                   <section
                     className="commentSection"
                     key={idx}
@@ -558,7 +602,7 @@ const MyPage = () => {
                       <p>{comment.date}</p>
                     </section>
                   </section>
-                ))}
+                ))} */}
               </section>
               <section className="wishList">
                 <h3>Wish list</h3>

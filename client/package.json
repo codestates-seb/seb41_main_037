@@ -53,5 +53,6 @@
   },
   "devDependencies": {
     "kakao.maps.d.ts": "^0.1.33"
-  }
+  },
+  "proxy": "https://0598-211-217-205-149.jp.ngrok.io"
 }
