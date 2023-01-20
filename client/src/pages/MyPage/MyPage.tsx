@@ -129,7 +129,7 @@ const MypageMain = styled.main`
           color: #58419c;
         }
         .content {
-          box-shadow: inset 1px 1px 2px #7a7979;
+          /* box-shadow: inset 1px 1px 2px #7a7979; */
           p {
             font-size: 15px;
             padding: 0.2rem 0.5rem;
@@ -328,7 +328,7 @@ interface WishProps {
   id: number;
   image: string;
   name: string;
-  price: string;
+  price?: string;
   alt: string;
 }
 
@@ -415,16 +415,16 @@ const dummyWishList: WishProps[] = [
   },
 ];
 
-interface ReviewProps {
-  reviewId: number;
-  content: string;
-  createdAt: string;
-  modifiedAt: string;
-  rating: number;
-  username: "전인종";
-  memberId: number;
-  productId: number;
-}
+// interface ReviewProps {
+//   reviewId: number;
+//   content: string;
+//   createdAt: string;
+//   modifiedAt: string;
+//   rating: number;
+//   username: "전인종";
+//   memberId: number;
+//   productId: number;
+// }
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -433,23 +433,21 @@ const MyPage = () => {
   const [isPasswordFocus, setIsPasswordFocus] = useState(false);
   const [isPasswordConfirmFocus, setIsPasswordConfirmFocus] = useState(false);
 
-  // const [memberData, setMemberData] = useState([]);
   const { data } = useFetch("/members/1");
-  // console.log(data);
+  const [member, setMember] = useState<any>(null);
+  const [reviews, setReviews] = useState<any>(null);
+  const [favorites, setFavorites] = useState<any>(null);
+  useEffect(() => {
+    if (data) {
+      setMember(data);
+      setReviews(data.reviews);
+      setFavorites(data.favorites);
+    }
+  }, [data]);
 
-  // const [memberData, setMemberData] = useState([]);
-  // const [reviews, setReviews] = useState([]);
-
-  // useEffect(() => {
-  //   setMemberData(data);
-  //   setReviews(data.reviews);
-  // }, []);
-  // console.log(memberData);
-  // console.log(reviews);
-
-  // console.log(reviews);
-
-  // console.log(memberData);
+  console.log(member);
+  console.log(reviews);
+  console.log(favorites);
 
   const ProfileElementCard = ({
     classname,
@@ -542,7 +540,7 @@ const MyPage = () => {
                   <ProfileElementCard
                     classname="nickname"
                     title="Nickname"
-                    content="Kelly"
+                    content={member && member.nickname}
                     placeholder="Enter your nickname"
                     state={isNameFocus}
                     setState={setIsNameFocus}
@@ -577,19 +575,20 @@ const MyPage = () => {
               </section>
               <section className="commentList">
                 <h3>Comment list</h3>
-                {data.reviews?.map((el: ReviewProps) => (
-                  <section
-                    className="commentSection"
-                    key={el.reviewId}
-                    onClick={() => navigate("/itemList/:itemid")}
-                  >
-                    <section className="store">{el.username}</section>
-                    <section className="content">
-                      <p>{el.content}</p>
-                      <p>{el.createdAt}</p>
+                {reviews &&
+                  reviews.map((review: any) => (
+                    <section
+                      className="commentSection"
+                      key={review.reviewId}
+                      onClick={() => navigate("/itemList/:itemid")}
+                    >
+                      <section className="store">{review.username}</section>
+                      <section className="content">
+                        <p>{review.content}</p>
+                        <p>{review.createdAt}</p>
+                      </section>
                     </section>
-                  </section>
-                ))}
+                  ))}
                 {/* {dummyCommentList.map((comment, idx) => (
                   <section
                     className="commentSection"
@@ -607,19 +606,32 @@ const MyPage = () => {
               <section className="wishList">
                 <h3>Wish list</h3>
                 <section className="wishItems">
-                  <StyledSlider {...settings}>
-                    {dummyWishList.map((el) => {
+                  {favorites && (
+                    <StyledSlider {...settings}>
+                      {favorites.map((wishItem: any) => {
+                        return (
+                          <WishItemCard
+                            id={wishItem.favoriteId}
+                            image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg"
+                            name={wishItem.productName}
+                            price="1500원"
+                            alt="img"
+                          />
+                        );
+                      })}
+                      {/* {dummyWishList.map((el) => {
                       return (
                         <WishItemCard
                           id={el.id}
                           image={el.image}
                           name={el.name}
-                          price={el.price}
+                          // price={el.price}
                           alt={el.alt}
                         />
                       );
-                    })}
-                  </StyledSlider>
+                    })} */}
+                    </StyledSlider>
+                  )}
                 </section>
               </section>
               <section className="buttonSection">
