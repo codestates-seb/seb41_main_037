@@ -20,6 +20,7 @@ spring:
   sql:
     init:
       data-locations: classpath*:data.sql
+      mode: always
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER

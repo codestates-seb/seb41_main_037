@@ -22,7 +22,7 @@ public class Product extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
 
-    @Column(length = 15, nullable = false)
+    @Column(length = 500, nullable = false)
     private String productName; // 상품명
 
     @Column(length = 15, nullable = false)
