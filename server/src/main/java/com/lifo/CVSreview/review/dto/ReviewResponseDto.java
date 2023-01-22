@@ -1,5 +1,6 @@
 package com.lifo.CVSreview.review.dto;
 
+import com.lifo.CVSreview.product.entity.Product;
 import lombok.*;
 
 @Getter
@@ -15,7 +16,7 @@ public class ReviewResponseDto {
     private String username;
     private long memberId;
     private long productId;
-
+    private Product.ProductCategory productCategory;
 
     public void setUsername(String username) {
         this.username = username;

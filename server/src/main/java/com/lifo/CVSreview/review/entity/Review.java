@@ -26,6 +26,9 @@ public class Review extends BaseTimeEntity {
     @Column(nullable = false, updatable = true, unique = false)
     private int rating ;
 
+//    @Column(nullable = true, updatable = true, unique = false)
+//    private Product.ProductCategory ProductCategory ;
+
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;

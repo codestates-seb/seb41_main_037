@@ -20,7 +20,10 @@ public interface FavoriteMapper {
                     favorite.getCreatedAt(),
                     favorite.getMember().getMemberId(),
                     favorite.getProduct().getProductId(),
-                    favorite.getProductName());
+                    favorite.getProductName(),
+                    favorite.getProduct().getImgName(),
+                    favorite.getProduct().getImgUrl(),
+                    favorite.getProduct().getPrice());
 
             return response;
         }

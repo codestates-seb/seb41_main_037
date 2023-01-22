@@ -12,4 +12,7 @@ public class FavoriteResponseDto {
     private long memberId;
     private long productId;
     private String ProductName;
+    private String imgName;
+    private String imgUrl;
+    private int price;
 }

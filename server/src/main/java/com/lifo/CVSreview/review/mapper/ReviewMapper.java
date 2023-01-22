@@ -27,8 +27,8 @@ public interface ReviewMapper {
                     review.getRating(),
                     review.getMember().getNickname(),
                     review.getMember().getMemberId(),
-                    review.getProduct().getProductId());
-
+                    review.getProduct().getProductId(),
+                    review.getProduct().getProductCategory());
             return response;
         }
     }

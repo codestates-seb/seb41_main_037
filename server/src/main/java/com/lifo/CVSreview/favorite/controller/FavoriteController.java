@@ -49,11 +49,11 @@ public class FavoriteController {
         // 최근 7일간 찜을 많이 받은 상품 id 순으로 list 를 가져온다
         List<Long> list = favoriteRepository.findFavorites(before7Days);
 
-        // 만약 찜을 받은 상품 종류가 3개 미만이라면, 찜을 받은 최대 개수만큼으로 list 범위 지정
-        int maxIndex = list.size() < 3 ? list.size() : 3;
+        // 만약 찜을 받은 상품 종류가 10개 미만이라면, 찜을 받은 최대 개수만큼으로 list 범위 지정
+        int maxIndex = list.size() < 10 ? list.size() : 10;
 
         // list 내 지정된 범위 row 삭제
-        // 3개만 출력하고 싶으니, 3개부터 list 끝까지 삭제
+        // 10개만 출력하고 싶으니, 3개부터 list 끝까지 삭제
         list.subList(maxIndex, list.size()).clear();
 
         // 순서 유지를 위해 반복문을 통한 list add
