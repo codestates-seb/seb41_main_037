@@ -1,4 +1,3 @@
-// import React from "react";
 import styled, { keyframes } from "styled-components";
 import React, { useState, useEffect, useRef } from "react";
 import HomeHeader from "../../components/AdminHeader/AdminHeader";
@@ -11,7 +10,6 @@ import { slideInRight } from "react-animations";
 import Map from "../../components/Map/Map";
 import { FcShop } from "react-icons/fc";
 import { FiArrowUp } from "react-icons/fi";
-// import useFetch from "../../api/useFetch";
 
 const slideInAnimation = keyframes`${slideInRight}`;
 
@@ -129,13 +127,6 @@ const HomeMain = styled.main`
         .bestItem {
           display: flex;
           margin-top: 1rem;
-          /* .slick-slide div {
-            cursor: pointer;
-          }
-          .slick-prev:before,
-          .slick-next:before {
-            color: #58419c;
-          } */
           .bestItemCard {
             display: flex;
             flex-direction: column;
@@ -162,17 +153,17 @@ const HomeMain = styled.main`
             }
 
             img {
-              width: 160px;
-              height: 160px;
+              width: 140px;
+              height: 140px;
             }
             .itemName {
-              margin-bottom: 0.5rem;
+              /* margin-bottom: 0.5rem; */
               font-weight: 600;
-              font-size: 20px;
+              font-size: 18px;
             }
             .itemPrice {
               margin-bottom: 1rem;
-              font-size: 20px;
+              font-size: 18px;
             }
           }
         }

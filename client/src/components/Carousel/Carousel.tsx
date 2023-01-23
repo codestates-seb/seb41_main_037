@@ -9,7 +9,7 @@ import useFetch from "../../api/useFetch";
 const StyledSlider = styled(Slider)`
   display: flex;
   height: 314px;
-  width: 950px;
+  width: 840px;
   /* justify-content: center; */
   .slick-slide div {
     cursor: pointer;
@@ -21,7 +21,7 @@ const StyledSlider = styled(Slider)`
 `;
 
 interface BestItemProps {
-  top: string;
+  top: number;
   name: string;
   price: number;
   image: string;
@@ -40,9 +40,9 @@ const BestItemCard = ({
   return (
     <div className="bestItemCard" onClick={onClick} key={id}>
       <div className="itemRanking">
-        <h2>{top}</h2>
+        <h2>Top{top + 1}</h2>
       </div>
-      <img src={image} alt={top} />
+      <img src={image} alt={top.toString()} />
       <span className="itemName">{name}</span>
       <span className="itemPrice">{price}원</span>
     </div>
@@ -51,9 +51,6 @@ const BestItemCard = ({
 
 const Carousel = () => {
   const navigate = useNavigate();
-  // const showMaxCnt = 3;
-  // const arr = Array.from(new Array(2));
-
   const { data } = useFetch("/getFavorites");
   const [bestItems, setBestItems] = useState<any>(null);
 
@@ -66,7 +63,6 @@ const Carousel = () => {
   console.log(bestItems);
 
   const settings = {
-    // rows: 1,
     arrows: true,
     autoplay: true,
     infinite: false,
@@ -78,11 +74,11 @@ const Carousel = () => {
     <section className="page-carousel">
       {bestItems && (
         <StyledSlider {...settings}>
-          {bestItems.map((item: any) => {
+          {bestItems.map((item: any, idx: number) => {
             return (
               <BestItemCard
                 id={item.productId}
-                top="Top1"
+                top={idx}
                 name={item.productName}
                 price={item.price}
                 image={item.imgUrl}
