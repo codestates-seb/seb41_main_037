@@ -9,7 +9,6 @@ import Header from "../../components/Header/Header";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
 import useFetch from "../../api/useFetch";
 
 const Container = styled.main`
@@ -129,7 +128,9 @@ const MypageMain = styled.main`
           color: #58419c;
         }
         .content {
-          /* box-shadow: inset 1px 1px 2px #7a7979; */
+          box-shadow: inset 1px 1px 2px #7a7979;
+          width: 100%;
+          border-radius: 0 5px 5px 0;
           p {
             font-size: 15px;
             padding: 0.2rem 0.5rem;
@@ -165,7 +166,7 @@ const MypageMain = styled.main`
         .wishItem {
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          justify-content: space-between;
           align-items: center;
           background-color: #fff;
           box-shadow: 2px 2px 3px #7a7979;
@@ -177,7 +178,6 @@ const MypageMain = styled.main`
           .closeIcon {
             display: flex;
             width: 100%;
-            margin-top: 0.5rem;
             justify-content: flex-end;
             color: #58419c;
             &:hover {
@@ -185,8 +185,8 @@ const MypageMain = styled.main`
             }
           }
           img {
-            width: 134px;
-            height: 134px;
+            width: 110px;
+            height: 110px;
           }
           .itemName {
             font-size: 13px;
@@ -278,7 +278,7 @@ const WishItemCard = ({ id, image, name, price, alt }: WishProps) => {
       </div>
       <img src={image} alt={alt} />
       <span className="itemName">{name}</span>
-      <span className="itemPrice">{price}</span>
+      <span className="itemPrice">{price}원</span>
     </div>
   );
 };
@@ -298,32 +298,6 @@ interface ProfileProps {
 //   comment: string;
 // }
 
-// const dummyCommentList: CommentProps[] = [
-//   {
-//     store: "GS25",
-//     date: "2022-01-12",
-//     comment:
-//       "가볍게 당충전하기 딱 좋습니다. 먹고 나서 잔여감도 막 느껴지는게 별로없어서 좋았어요. 최근에 투쁠원으로 두번 사먹었던것 같아요. 맛있습니다.",
-//   },
-//   {
-//     store: "CU",
-//     date: "2022-01-14",
-//     comment:
-//       "오렌지는 없어서 교차구매 못하고 레몬 2개 사왔는데 음...취향은 타겠지만 저한테는 제로 음료중 거의 가장 맛없습니다.(제로 음료 폐인입니다)",
-//   },
-//   {
-//     store: "GS25",
-//     date: "2022-01-17",
-//     comment: "오렌지보다 레몬이 더 맛있어요",
-//   },
-//   {
-//     store: "7-ELEVEN",
-//     date: "2022-01-20",
-//     comment:
-//       "밀크카라멜이나 메가톤바 좋아하시면 높은 확률로 마음에 드실 거예요 제입에는 초코보다 훨씬 맛있어요",
-//   },
-// ];
-
 interface WishProps {
   id: number;
   image: string;
@@ -331,89 +305,6 @@ interface WishProps {
   price?: string;
   alt: string;
 }
-
-// const dummyWishList: WishProps[] = [
-//   {
-//     id: 1,
-//     image:
-//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg",
-//     name: "햄)모짜치즈볼트리플버거",
-//     price: "3,400원",
-//     alt: "wish1",
-//   },
-//   {
-//     id: 2,
-//     image:
-//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg",
-//     name: "도)백종원완전한판정식",
-//     price: "4,500원",
-//     alt: "wish2",
-//   },
-//   {
-//     id: 3,
-//     image:
-//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg",
-//     name: "주)토끼정햄계란마요",
-//     price: "1,700원",
-//     alt: "wish3",
-//   },
-//   {
-//     id: 4,
-//     image:
-//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg",
-//     name: "도)직화고추장삼겹살",
-//     price: "5,300원",
-//     alt: "wish4",
-//   },
-//   {
-//     id: 5,
-//     image:
-//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg",
-//     name: "도)탄단지그릴닭가슴살볼",
-//     price: "4,800원",
-//     alt: "wish5",
-//   },
-//   {
-//     id: 6,
-//     image:
-//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg",
-//     name: "햄)모짜치즈볼트리플버거",
-//     price: "3,400원",
-//     alt: "wish1",
-//   },
-//   {
-//     id: 7,
-//     image:
-//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg",
-//     name: "도)백종원완전한판정식",
-//     price: "4,500원",
-//     alt: "wish2",
-//   },
-//   {
-//     id: 8,
-//     image:
-//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg",
-//     name: "주)토끼정햄계란마요",
-//     price: "1,700원",
-//     alt: "wish3",
-//   },
-//   {
-//     id: 9,
-//     image:
-//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg",
-//     name: "도)직화고추장삼겹살",
-//     price: "5,300원",
-//     alt: "wish4",
-//   },
-//   {
-//     id: 10,
-//     image:
-//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg",
-//     name: "도)탄단지그릴닭가슴살볼",
-//     price: "4,800원",
-//     alt: "wish5",
-//   },
-// ];
 
 // interface ReviewProps {
 //   reviewId: number;
@@ -548,7 +439,7 @@ const MyPage = () => {
                   <ProfileElementCard
                     classname="email"
                     title="Email"
-                    content="testuser@gmail.com"
+                    content={member && member.email}
                     placeholder="Enter your email"
                     state={isEmailFocus}
                     setState={setIsEmailFocus}
@@ -582,26 +473,15 @@ const MyPage = () => {
                       key={review.reviewId}
                       onClick={() => navigate("/itemList/:itemid")}
                     >
-                      <section className="store">{review.username}</section>
+                      <section className="store">
+                        {review.productCategory}
+                      </section>
                       <section className="content">
                         <p>{review.content}</p>
                         <p>{review.createdAt}</p>
                       </section>
                     </section>
                   ))}
-                {/* {dummyCommentList.map((comment, idx) => (
-                  <section
-                    className="commentSection"
-                    key={idx}
-                    onClick={() => navigate("/itemList/:itemid")}
-                  >
-                    <section className="store">{comment.store}</section>
-                    <section className="content">
-                      <p>{comment.comment}</p>
-                      <p>{comment.date}</p>
-                    </section>
-                  </section>
-                ))} */}
               </section>
               <section className="wishList">
                 <h3>Wish list</h3>
@@ -612,24 +492,13 @@ const MyPage = () => {
                         return (
                           <WishItemCard
                             id={wishItem.favoriteId}
-                            image="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg"
+                            image={wishItem.imgUrl}
                             name={wishItem.productName}
-                            price="1500원"
+                            price={wishItem.price}
                             alt="img"
                           />
                         );
                       })}
-                      {/* {dummyWishList.map((el) => {
-                      return (
-                        <WishItemCard
-                          id={el.id}
-                          image={el.image}
-                          name={el.name}
-                          // price={el.price}
-                          alt={el.alt}
-                        />
-                      );
-                    })} */}
                     </StyledSlider>
                   )}
                 </section>
