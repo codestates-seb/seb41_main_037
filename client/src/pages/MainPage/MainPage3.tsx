@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { RxMagnifyingGlass } from "react-icons/rx";
@@ -6,6 +6,7 @@ import { HiOutlineHeart, HiHeart } from "react-icons/hi";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
+import useFetch from "../.././api/useFetch";
 
 const Container = styled.main`
   display: flex;
@@ -205,7 +206,24 @@ const Item = ({ img, name, price }: ItemProps) => {
   );
 };
 
-const MainPage3 = () => {
+const MainPage1 = () => {
+  const { data } = useFetch("/products?page=1&size=24");
+  const [products, setProducts] = useState<any>(null);
+
+  useEffect(() => {
+    if (data) {
+      setProducts(data.data);
+    }
+  }, [data]);
+
+  console.log(products);
+
+  const filterItems = () => {
+    setProducts(
+      products.filter((item: any) => item.productCategory === "SEVEN")
+    );
+  };
+
   return (
     <>
       <Container>
@@ -233,60 +251,31 @@ const MainPage3 = () => {
           </section>
           <section className="contentContainer">
             <div className="sortBtnGroup">
-              <button className="sortBtn">Score</button>
-              <button className="sortBtn">Price</button>
-              <button className="sortBtn">Like</button>
+              <button className="sortBtn">
+                찜<br />
+                많은순
+              </button>
+              <button className="sortBtn">
+                가격
+                <br />
+                높은순
+              </button>
+              <button className="sortBtn">
+                리뷰
+                <br />
+                많은순
+              </button>
             </div>
-            <div className="itemList">
-              <Item
-                id="1"
-                img="https://www.7-eleven.co.kr/upload/product/8801069/415031.1.jpg"
-                name="마쉼카페라떼"
-                price="2,600원"
-              />
-              <Item
-                id="2"
-                img="https://www.7-eleven.co.kr/upload/product/8801069/415062.1.jpg"
-                name="마쉼카라멜마끼아또"
-                price="2,600원"
-              />
-              <Item
-                id="3"
-                img="https://www.7-eleven.co.kr/upload/product/8801069/415055.1.jpg"
-                name="마쉼초코라떼"
-                price="2,600원"
-              />
-              <Item
-                id="4"
-                img="https://www.7-eleven.co.kr/upload/product/8801069/415093.1.jpg"
-                name="마쉼청포도에이드"
-                price="2,600원"
-              />
-              <Item
-                id="5"
-                img="https://www.7-eleven.co.kr/upload/product/8801104/671842.1.jpg"
-                name="오구딸기타임"
-                price="1,100원"
-              />
-              <Item
-                id="6"
-                img="https://www.7-eleven.co.kr/upload/product/8801104/671859.1.jpg"
-                name="오구초코타임"
-                price="1,100원"
-              />
-              <Item
-                id="7"
-                img="https://www.7-eleven.co.kr/upload/product/8809350/885983.1.jpg"
-                name="담음오렌지주스"
-                price="1,800원"
-              />
-              <Item
-                id="8"
-                img="https://www.7-eleven.co.kr/upload/product/8809350/886003.1.jpg"
-                name="담음사과주스"
-                price="1,800원"
-              />
-            </div>
+            <li className="itemList" onLoad={filterItems}>
+              {products &&
+                products.map((item: any) => (
+                  <Item
+                    img={item.imgUrl}
+                    name={item.productName}
+                    price={item.price}
+                  />
+                ))}
+            </li>
           </section>
           <div className="pageBtnGroup">
             <button className="pageBtn">
@@ -308,4 +297,4 @@ const MainPage3 = () => {
   );
 };
 
-export default MainPage3;
+export default MainPage1;
