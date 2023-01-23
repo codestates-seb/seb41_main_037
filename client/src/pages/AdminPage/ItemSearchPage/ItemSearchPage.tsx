@@ -232,7 +232,8 @@ const ItemSearchPage = () => {
                     className={
                       index === currentTab ? "menuTab active" : "menuTab"
                     }
-                    onClick={() => selectHandler(index)}>
+                    onClick={() => selectHandler(index)}
+                  >
                     {el.name}
                   </li>
                 ))}

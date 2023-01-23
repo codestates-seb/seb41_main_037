@@ -9,19 +9,10 @@ const useFetch = (url: string) => {
 
   useEffect(() => {
     setLoading(true);
-    // const fetchData = async () => {
-    //   try {
-    //     const response = await axios.get(url);
-    //     const data = response?.data;
-    //     setData(data);
-    //   } catch (error: any) {
-    //     setError(error);
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // };
     axios
-      .get(url)
+      .get(
+        `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080${url}`
+      )
       .then((response) => {
         setData(response.data);
       })
@@ -31,7 +22,6 @@ const useFetch = (url: string) => {
       .finally(() => {
         setLoading(false);
       });
-    // fetchData().then((r) => r);
   }, [url]);
 
   return { data, loading, error };
