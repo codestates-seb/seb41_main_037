@@ -76,18 +76,18 @@ const Nav = () => {
   const menuItem = [
     {
       path: "/cu",
-      img1: <img src="/img/cu logo.png" alt="cu"></img>,
-      img2: <img src="/img/cu logo_white.png" alt="cu"></img>,
+      img1: <img src="/img/cu logo.png" alt="CU"></img>,
+      img2: <img src="/img/cu logo_white.png" alt="CU"></img>,
     },
     {
       path: "/gs25",
-      img1: <img src="/img/gs25 logo.png" alt="gs25"></img>,
-      img2: <img src="/img/gs25 logo_white.png" alt="gs25"></img>,
+      img1: <img src="/img/gs25 logo.png" alt="GS25"></img>,
+      img2: <img src="/img/gs25 logo_white.png" alt="GS25"></img>,
     },
     {
       path: "/seveneleven",
-      img1: <img src="/img/seveneleven logo.png" alt="seveneleven"></img>,
-      img2: <img src="/img/seveneleven logo_white.png" alt="seveneleven"></img>,
+      img1: <img src="/img/seveneleven logo.png" alt="7-ELEVEN"></img>,
+      img2: <img src="/img/seveneleven logo_white.png" alt="7-ELEVEN"></img>,
     },
   ];
 
@@ -101,9 +101,8 @@ const Nav = () => {
         <img
           className="home"
           src="/img/cvs logo2.png"
-          alt="home"
-          onClick={() => navigate("/")}
-        ></img>
+          alt="HOME"
+          onClick={() => navigate("/")}></img>
       </section>
       <section className="menuBtn">
         {menuItem.map((item, index) => (
@@ -114,8 +113,7 @@ const Nav = () => {
             }}
             className={
               location.pathname === item.path ? "cvsLogo focused" : "cvsLogo"
-            }
-          >
+            }>
             {location.pathname === item.path ? item.img1 : item.img2}
           </div>
         ))}

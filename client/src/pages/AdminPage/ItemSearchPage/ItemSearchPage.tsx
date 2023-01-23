@@ -164,10 +164,10 @@ const ItemSearchPage = () => {
   console.log(products);
 
   const menuArr = [
-    { name: "전체", content: "전체 data" },
-    { name: "CU", content: "CU data" },
-    { name: "GS25", content: "GS25 data" },
-    { name: "SEVENELEVEN", content: "SEVENELEVEN data" },
+    { name: "전체" },
+    { name: "CU" },
+    { name: "GS25" },
+    { name: "7-ELEVEN" },
   ];
 
   const selectHandler = (index: number) => {
@@ -232,8 +232,7 @@ const ItemSearchPage = () => {
                     className={
                       index === currentTab ? "menuTab active" : "menuTab"
                     }
-                    onClick={() => selectHandler(index)}
-                  >
+                    onClick={() => selectHandler(index)}>
                     {el.name}
                   </li>
                 ))}
