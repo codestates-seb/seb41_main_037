@@ -11,6 +11,7 @@ import { slideInRight } from "react-animations";
 import Map from "../../components/Map/Map";
 import { FcShop } from "react-icons/fc";
 import { FiArrowUp } from "react-icons/fi";
+// import useFetch from "../../api/useFetch";
 
 const slideInAnimation = keyframes`${slideInRight}`;
 
@@ -128,22 +129,23 @@ const HomeMain = styled.main`
         .bestItem {
           display: flex;
           margin-top: 1rem;
-          .slick-slide div {
+          /* .slick-slide div {
             cursor: pointer;
           }
           .slick-prev:before,
           .slick-next:before {
             color: #58419c;
-          }
+          } */
           .bestItemCard {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             border-radius: 10px 10px 5px 5px;
             background-color: #fff;
             max-width: 260px;
             height: 314px;
+            margin-right: 0.5rem;
             .itemRanking {
               display: flex;
               align-items: flex-start;
@@ -160,8 +162,8 @@ const HomeMain = styled.main`
             }
 
             img {
-              width: 200px;
-              height: 200px;
+              width: 160px;
+              height: 160px;
             }
             .itemName {
               margin-bottom: 0.5rem;
@@ -280,9 +282,6 @@ const HomeMain = styled.main`
     }
   }
   .fixedbtnSection {
-    /* position: fixed; */
-    /* top: 90%;
-    right: 50px; */
     display: flex;
     button {
       display: flex;

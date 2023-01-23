@@ -292,37 +292,37 @@ interface ProfileProps {
   setState: (state: boolean) => void;
 }
 
-interface CommentProps {
-  store: string;
-  date: string;
-  comment: string;
-}
+// interface CommentProps {
+//   store: string;
+//   date: string;
+//   comment: string;
+// }
 
-const dummyCommentList: CommentProps[] = [
-  {
-    store: "GS25",
-    date: "2022-01-12",
-    comment:
-      "가볍게 당충전하기 딱 좋습니다. 먹고 나서 잔여감도 막 느껴지는게 별로없어서 좋았어요. 최근에 투쁠원으로 두번 사먹었던것 같아요. 맛있습니다.",
-  },
-  {
-    store: "CU",
-    date: "2022-01-14",
-    comment:
-      "오렌지는 없어서 교차구매 못하고 레몬 2개 사왔는데 음...취향은 타겠지만 저한테는 제로 음료중 거의 가장 맛없습니다.(제로 음료 폐인입니다)",
-  },
-  {
-    store: "GS25",
-    date: "2022-01-17",
-    comment: "오렌지보다 레몬이 더 맛있어요",
-  },
-  {
-    store: "7-ELEVEN",
-    date: "2022-01-20",
-    comment:
-      "밀크카라멜이나 메가톤바 좋아하시면 높은 확률로 마음에 드실 거예요 제입에는 초코보다 훨씬 맛있어요",
-  },
-];
+// const dummyCommentList: CommentProps[] = [
+//   {
+//     store: "GS25",
+//     date: "2022-01-12",
+//     comment:
+//       "가볍게 당충전하기 딱 좋습니다. 먹고 나서 잔여감도 막 느껴지는게 별로없어서 좋았어요. 최근에 투쁠원으로 두번 사먹었던것 같아요. 맛있습니다.",
+//   },
+//   {
+//     store: "CU",
+//     date: "2022-01-14",
+//     comment:
+//       "오렌지는 없어서 교차구매 못하고 레몬 2개 사왔는데 음...취향은 타겠지만 저한테는 제로 음료중 거의 가장 맛없습니다.(제로 음료 폐인입니다)",
+//   },
+//   {
+//     store: "GS25",
+//     date: "2022-01-17",
+//     comment: "오렌지보다 레몬이 더 맛있어요",
+//   },
+//   {
+//     store: "7-ELEVEN",
+//     date: "2022-01-20",
+//     comment:
+//       "밀크카라멜이나 메가톤바 좋아하시면 높은 확률로 마음에 드실 거예요 제입에는 초코보다 훨씬 맛있어요",
+//   },
+// ];
 
 interface WishProps {
   id: number;
@@ -332,88 +332,88 @@ interface WishProps {
   alt: string;
 }
 
-const dummyWishList: WishProps[] = [
-  {
-    id: 1,
-    image:
-      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg",
-    name: "햄)모짜치즈볼트리플버거",
-    price: "3,400원",
-    alt: "wish1",
-  },
-  {
-    id: 2,
-    image:
-      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg",
-    name: "도)백종원완전한판정식",
-    price: "4,500원",
-    alt: "wish2",
-  },
-  {
-    id: 3,
-    image:
-      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg",
-    name: "주)토끼정햄계란마요",
-    price: "1,700원",
-    alt: "wish3",
-  },
-  {
-    id: 4,
-    image:
-      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg",
-    name: "도)직화고추장삼겹살",
-    price: "5,300원",
-    alt: "wish4",
-  },
-  {
-    id: 5,
-    image:
-      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg",
-    name: "도)탄단지그릴닭가슴살볼",
-    price: "4,800원",
-    alt: "wish5",
-  },
-  {
-    id: 6,
-    image:
-      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg",
-    name: "햄)모짜치즈볼트리플버거",
-    price: "3,400원",
-    alt: "wish1",
-  },
-  {
-    id: 7,
-    image:
-      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg",
-    name: "도)백종원완전한판정식",
-    price: "4,500원",
-    alt: "wish2",
-  },
-  {
-    id: 8,
-    image:
-      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg",
-    name: "주)토끼정햄계란마요",
-    price: "1,700원",
-    alt: "wish3",
-  },
-  {
-    id: 9,
-    image:
-      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg",
-    name: "도)직화고추장삼겹살",
-    price: "5,300원",
-    alt: "wish4",
-  },
-  {
-    id: 10,
-    image:
-      "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg",
-    name: "도)탄단지그릴닭가슴살볼",
-    price: "4,800원",
-    alt: "wish5",
-  },
-];
+// const dummyWishList: WishProps[] = [
+//   {
+//     id: 1,
+//     image:
+//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg",
+//     name: "햄)모짜치즈볼트리플버거",
+//     price: "3,400원",
+//     alt: "wish1",
+//   },
+//   {
+//     id: 2,
+//     image:
+//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg",
+//     name: "도)백종원완전한판정식",
+//     price: "4,500원",
+//     alt: "wish2",
+//   },
+//   {
+//     id: 3,
+//     image:
+//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg",
+//     name: "주)토끼정햄계란마요",
+//     price: "1,700원",
+//     alt: "wish3",
+//   },
+//   {
+//     id: 4,
+//     image:
+//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg",
+//     name: "도)직화고추장삼겹살",
+//     price: "5,300원",
+//     alt: "wish4",
+//   },
+//   {
+//     id: 5,
+//     image:
+//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg",
+//     name: "도)탄단지그릴닭가슴살볼",
+//     price: "4,800원",
+//     alt: "wish5",
+//   },
+//   {
+//     id: 6,
+//     image:
+//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068396300.jpg",
+//     name: "햄)모짜치즈볼트리플버거",
+//     price: "3,400원",
+//     alt: "wish1",
+//   },
+//   {
+//     id: 7,
+//     image:
+//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/880980226317.jpg",
+//     name: "도)백종원완전한판정식",
+//     price: "4,500원",
+//     alt: "wish2",
+//   },
+//   {
+//     id: 8,
+//     image:
+//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801771025580.jpg",
+//     name: "주)토끼정햄계란마요",
+//     price: "1,700원",
+//     alt: "wish3",
+//   },
+//   {
+//     id: 9,
+//     image:
+//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809196616536.jpg",
+//     name: "도)직화고추장삼겹살",
+//     price: "5,300원",
+//     alt: "wish4",
+//   },
+//   {
+//     id: 10,
+//     image:
+//       "https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801068402872.jpg",
+//     name: "도)탄단지그릴닭가슴살볼",
+//     price: "4,800원",
+//     alt: "wish5",
+//   },
+// ];
 
 // interface ReviewProps {
 //   reviewId: number;
