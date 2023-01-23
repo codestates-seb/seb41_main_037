@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import HomeHeader from "../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../components/AdminNav/AdminNav";
 import { BsTrashFill } from "react-icons/bs";
 import { FcSearch } from "react-icons/fc";
+import useFetch from "../../../api/useFetch";
 
 const Main = styled.main`
   display: flex;
@@ -80,7 +81,7 @@ const CommentDeletePageMain = styled.main`
       justify-content: space-between;
       background-color: #f5f5f5;
       box-shadow: inset 1px 1px 2px #7a7979;
-      p:nth-child(1) {
+      .memberId {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -94,11 +95,21 @@ const CommentDeletePageMain = styled.main`
         width: 10%;
         box-shadow: 1px 1px 1px #222222;
       }
-      p:nth-child(2) {
-        font-size: 15px;
-        line-height: 20px;
+      .content {
+        display: flex;
+        flex-direction: column;
         width: 85%;
+        p:nth-child(1) {
+          font-size: 15px;
+          line-height: 20px;
+          width: 85%;
+        }
+        p:nth-child(2) {
+          color: #7a7979;
+          font-size: 13px;
+        }
       }
+
       .icon {
         display: flex;
         justify-content: center;
@@ -119,19 +130,6 @@ const CommentDeletePageMain = styled.main`
   }
 `;
 
-const dummyComment = [
-  "가볍게 당충전하기 딱 좋습니다. 먹고 나서 잔여감도 막 느껴지는게 별로 없어서 좋았어요. 최근에 투쁠원으로 두번 사먹었던것 같아요. 맛있습니다.",
-  "편의점 커피중에 제일 맛있다 달고 시고 씁쓸함",
-  "이거 없으면 못산다 꾸준히 2+1해주는 GS가 고맙다",
-  "바리스타 중에 제일 달다",
-  "투쁠원으로 안사서 다행이지 이걸 세개나 샀음 어쩔뻔했어... 참고로 당면버전 말고 불닭볶음면은 엄청 좋아하는 사람입니다",
-  "이거 진짜 짱맛있음. 원래 기존 까르보불닭이나 무슨 치즈불닭이나 이런거 맛없어했던 사람인데, 이거 납작당면 버전, 특히 이 로제맛이 젤 맛있음.",
-  "까르보(떡볶이버전), 일반불닭납작당면맛 먹어본 사람으로써 그냥 온리 로제가 짱맛. 나머지 까르보, 불닭납작당면은 진짜 너무 맛없었음",
-  "칠성보다 탄산이 좀 더 적고 단맛이 강함",
-  "이것도 gs pay 결제시 100원 행사 해당상품인가요?",
-  "이 시리즈 맛있음 양 적어서 1+1할 때 사야 개꿀",
-];
-
 const onRemove = () => {
   if (window.confirm("정말 삭제하시겠습니까?")) {
     alert("삭제되었습니다.");
@@ -141,6 +139,13 @@ const onRemove = () => {
 };
 
 const CommentDeletePage = () => {
+  const [reviews, setReviews] = useState<any>(null);
+  const { data } = useFetch("/reviews?page=1&size=50");
+  useEffect(() => {
+    if (data) {
+      setReviews(data.data);
+    }
+  }, [data]);
   return (
     <>
       <HomeHeader />
@@ -155,16 +160,19 @@ const CommentDeletePage = () => {
             <FcSearch className="search icon" size={25} />
           </section>
           <section className="commentSection">
-            {dummyComment.map((comment, idx) => (
-              <section className="comment" key={idx}>
-                {/* 작성자 id로 대체할 부분 */}
-                <p>id: {idx}</p>
-                <p>{comment}</p>
-                <div className="icon">
-                  <BsTrashFill size={12} onClick={onRemove} />
-                </div>
-              </section>
-            ))}
+            {reviews &&
+              reviews.map((comment: any) => (
+                <section className="comment" key={comment.reviewId}>
+                  <p className="memberId">id: {comment.memberId}</p>
+                  <section className="content">
+                    <p>{comment.content}</p>
+                    <p>{comment.createdAt}</p>
+                  </section>
+                  <div className="icon">
+                    <BsTrashFill size={12} onClick={onRemove} />
+                  </div>
+                </section>
+              ))}
           </section>
         </CommentDeletePageMain>
       </Main>
