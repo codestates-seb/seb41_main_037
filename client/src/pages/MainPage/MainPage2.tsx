@@ -231,6 +231,7 @@ const MainPage1 = () => {
 
   const [word, setWord] = useState<string>("");
   const onSubmit = async () => {
+    // window.location.href = "/search?key=" + word + "&category=GS";
     window.history.pushState("", word, "/search?key=" + word + "&category=GS");
     setProducts(
       products.filter((item: any) =>
@@ -242,6 +243,27 @@ const MainPage1 = () => {
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       onSubmit();
+    }
+  };
+
+  const sortProduct = (type: any) => {
+    const newProduct = [...products];
+    if (type === "like") {
+      newProduct.sort(
+        (a: { rating: number }, b: { rating: number }) => b.rating - a.rating
+      );
+      setProducts(newProduct);
+    } else if (type === "price") {
+      newProduct.sort(
+        (a: { price: number }, b: { price: number }) => b.price - a.price
+      );
+      setProducts(newProduct);
+    } else if (type === "review") {
+      newProduct.sort(
+        (a: { reviewCount: number }, b: { reviewCount: number }) =>
+          b.reviewCount - a.reviewCount
+      );
+      setProducts(newProduct);
     }
   };
 
@@ -281,16 +303,29 @@ const MainPage1 = () => {
             </section>
             <section className="contentContainer">
               <div className="sortBtnGroup">
-                <button className="sortBtn">
-                  찜<br />
+                <button
+                  className="sortBtn"
+                  onClick={() => {
+                    sortProduct("like");
+                  }}>
+                  찜
+                  <br />
                   많은순
                 </button>
-                <button className="sortBtn">
+                <button
+                  className="sortBtn"
+                  onClick={() => {
+                    sortProduct("price");
+                  }}>
                   가격
                   <br />
                   높은순
                 </button>
-                <button className="sortBtn">
+                <button
+                  className="sortBtn"
+                  onClick={() => {
+                    sortProduct("review");
+                  }}>
                   리뷰
                   <br />
                   많은순
