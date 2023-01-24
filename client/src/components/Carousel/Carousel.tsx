@@ -60,7 +60,7 @@ const Carousel = () => {
     }
   }, [data]);
 
-  console.log(bestItems);
+  // console.log(bestItems);
 
   const settings = {
     arrows: true,

@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import HomeHeader from "../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../components/AdminNav/AdminNav";
+import axios from "axios";
 
 const Main = styled.main`
   display: flex;
@@ -168,6 +169,8 @@ const ItemCreatePage = () => {
   );
   // 선택된 편의점 이름을 담는 변수
   const [selectedStore, setSelectedStore] = useState("");
+  const [price, setPrice] = useState("");
+  const [productName, setProductName] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -183,9 +186,30 @@ const ItemCreatePage = () => {
     setSelectedStore(e.target.value);
   };
 
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPrice(e.target.value);
+  };
+
+  const handleProductNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProductName(e.target.value);
+  };
+
   const handleCreate = () => {
-    console.log(image);
-    console.log(selectedStore);
+    if (selectedStore && productName && price && image) {
+      axios
+        .post(
+          "http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/admin",
+          {
+            productName: productName,
+            price: Number(price),
+            imgName: "img",
+            imgUrl: image,
+            productCategory: selectedStore,
+          }
+        )
+        .catch((err) => console.log(err));
+      alert("상품이 등록되었습니다");
+    }
   };
 
   return (
@@ -205,7 +229,7 @@ const ItemCreatePage = () => {
                   <input
                     type="radio"
                     name="cvs"
-                    value="cu"
+                    value="CU"
                     onChange={handleStoreChange}
                   />
                   CU
@@ -214,7 +238,7 @@ const ItemCreatePage = () => {
                   <input
                     type="radio"
                     name="cvs"
-                    value="gs25"
+                    value="GS"
                     onChange={handleStoreChange}
                   />
                   GS25
@@ -223,7 +247,7 @@ const ItemCreatePage = () => {
                   <input
                     type="radio"
                     name="cvs"
-                    value="7eleven"
+                    value="SEVEN"
                     onChange={handleStoreChange}
                   />
                   7-ELEVEN
@@ -231,11 +255,19 @@ const ItemCreatePage = () => {
               </section>
               <section>
                 <div>상품명</div>
-                <input type="text" placeholder="상품명을 입력하세요" />
+                <input
+                  type="text"
+                  placeholder="상품명을 입력하세요"
+                  onChange={handleProductNameChange}
+                />
               </section>
               <section>
                 <div>가격</div>
-                <input type="text" placeholder="가격을 입력하세요" />
+                <input
+                  type="text"
+                  placeholder="가격을 입력하세요(숫자만 입력)"
+                  onChange={handlePriceChange}
+                />
               </section>
 
               <section>
