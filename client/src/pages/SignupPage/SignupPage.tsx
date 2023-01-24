@@ -5,6 +5,7 @@ import HomeHeader from "../../components/AdminHeader/AdminHeader";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import LoginFooter from "../../components/LoginFooter/LoginFooter";
+import axios from "axios";
 
 const Container = styled.section`
   font-family: "Do Hyeon", sans-serif;
@@ -214,9 +215,20 @@ const SignupPage = () => {
   };
 
   const handleSignupClick = () => {
-    // 서버 통신 후 다시 작성!
     if (nicknameState && emailState && passwordState && passwordConfirmState) {
       // 회원가입 성공 시
+      axios
+        .post(
+          "http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/members",
+          {
+            email: email,
+            nickname: nickname,
+            password: password,
+            role: 0,
+          }
+        )
+        .then((res) => console.log(res.data))
+        .catch((err) => console.log(err));
       alert("회원가입이 완료되었습니다");
       navigate("/login");
     } else {
