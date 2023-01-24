@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, KeyboardEvent } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { RxMagnifyingGlass } from "react-icons/rx";
@@ -178,11 +178,18 @@ const Container = styled.main`
 `;
 
 interface ItemProps {
-  [key: string]: string;
+  id: number;
+  img: string;
+  name: string;
+  price: number;
+  convertPrice: void;
 }
 
-const Item = ({ img, name, price }: ItemProps) => {
+const Item = ({ id, img, name, price }: ItemProps) => {
   const [like, setLike] = useState(false);
+  const convertPrice = (price: any) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
 
   return (
     <div className="itemBox">
@@ -193,13 +200,13 @@ const Item = ({ img, name, price }: ItemProps) => {
         }}>
         {like ? <HiHeart /> : <HiOutlineHeart />}
       </span>
-      <Link to="/itemlist/:itemid">
+      <Link to="/itemList/:itemId">
         <div className="itemImg">
           <img src={img} alt="itemImg"></img>
         </div>
         <div className="itemInfo">
           <div className="itemName">{name}</div>
-          <div className="itemPrice">{price}</div>
+          <div className="itemPrice">{convertPrice(price)}원</div>
         </div>
       </Link>
     </div>
@@ -224,76 +231,107 @@ const MainPage1 = () => {
     );
   };
 
+  const [word, setWord] = useState<string>("");
+  const onSubmit = async () => {
+    window.history.pushState(
+      "",
+      word,
+      "/search?key=" + word + "&category=ELEVEN"
+    );
+    setProducts(
+      products.filter((item: any) =>
+        item.productName.toUpperCase().includes(word.toUpperCase())
+      )
+    );
+  };
+
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onSubmit();
+    }
+  };
+
   return (
-    <>
-      <Container>
-        <Nav />
-        <section className="mainContainer">
-          <section className="headerContainer">
-            <header>
-              <Link to="/">
-                <img
-                  className="cvsLogo"
-                  src="/img/cvs logo.png"
-                  alt="logoImg"></img>
-              </Link>
-            </header>
-            <div className="searchBar">
-              <input
-                type="text"
-                maxLength={30}
-                onChange={(e) => {
-                  console.log(e.target.value);
-                }}
-              />
-              <RxMagnifyingGlass className="searchIcon" />
-            </div>
-          </section>
-          <section className="contentContainer">
-            <div className="sortBtnGroup">
-              <button className="sortBtn">
-                찜<br />
-                많은순
-              </button>
-              <button className="sortBtn">
-                가격
-                <br />
-                높은순
-              </button>
-              <button className="sortBtn">
-                리뷰
-                <br />
-                많은순
-              </button>
-            </div>
-            <li className="itemList" onLoad={filterItems}>
-              {products &&
-                products.map((item: any) => (
+    products && (
+      <>
+        <Container>
+          <Nav />
+          <section className="mainContainer">
+            <section className="headerContainer">
+              <header>
+                <Link to="/">
+                  <img
+                    className="cvsLogo"
+                    src="/img/cvs logo.png"
+                    alt="logoImg"></img>
+                </Link>
+              </header>
+              <div className="searchBar">
+                <input
+                  type="text"
+                  maxLength={30}
+                  onChange={(e) => {
+                    setWord(e.target.value);
+                    console.log(word);
+                  }}
+                  onKeyPress={handleKeyPress}
+                />
+                <RxMagnifyingGlass
+                  className="searchIcon"
+                  type="button"
+                  onClick={() => {
+                    onSubmit();
+                  }}
+                />
+              </div>
+            </section>
+            <section className="contentContainer">
+              <div className="sortBtnGroup">
+                <button className="sortBtn">
+                  찜<br />
+                  많은순
+                </button>
+                <button className="sortBtn">
+                  가격
+                  <br />
+                  높은순
+                </button>
+                <button className="sortBtn">
+                  리뷰
+                  <br />
+                  많은순
+                </button>
+              </div>
+              <li className="itemList" onLoad={filterItems}>
+                {products.map((item: any) => (
                   <Item
+                    id={item.productId}
                     img={item.imgUrl}
                     name={item.productName}
                     price={item.price}
+                    convertPrice={item.price}
                   />
                 ))}
-            </li>
+              </li>
+            </section>
+            <div className="pageBtnGroup">
+              <button className="pageBtn">
+                <IoMdArrowDropleft />
+              </button>
+              <button className="pageBtn">1</button>
+              <button className="pageBtn">2</button>
+              <button className="pageBtn">3</button>
+              <button className="pageBtn">4</button>
+              <button className="pageBtn">5</button>
+              <button className="pageBtn">
+                <IoMdArrowDropright />
+              </button>
+            </div>
           </section>
-          <div className="pageBtnGroup">
-            <button className="pageBtn">
-              <IoMdArrowDropleft />
-            </button>
-            <button className="pageBtn">1</button>
-            <button className="pageBtn">2</button>
-            <button className="pageBtn">3</button>
-            <button className="pageBtn">4</button>
-            <button className="pageBtn">5</button>
-            <button className="pageBtn">
-              <IoMdArrowDropright />
-            </button>
-          </div>
-        </section>
-      </Container>
-      <Footer />
-    </>
+        </Container>
+        <Footer />
+      </>
+    )
   );
 };
 
