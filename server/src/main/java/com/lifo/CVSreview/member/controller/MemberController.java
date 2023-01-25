@@ -1,5 +1,6 @@
 package com.lifo.CVSreview.member.controller;
 
+import com.lifo.CVSreview.auth.utils.SecurityUtil;
 import com.lifo.CVSreview.member.Entity.Member;
 import com.lifo.CVSreview.member.dto.request.MemberPatchReqDto;
 import com.lifo.CVSreview.member.dto.request.MemberPostReqDto;
@@ -36,7 +37,6 @@ public class MemberController {
         Member Member = memberMapper.memberPostDtoToMember(memberPostReqDto);
         Member response = memberService.createMember(Member);
         return new ResponseEntity<>(response, HttpStatus.OK);
-
     }
 
     @ApiOperation(value = "회원정보 수정")

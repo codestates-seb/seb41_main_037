@@ -1,10 +1,12 @@
 package com.lifo.CVSreview.favorite.controller;
 
+import com.lifo.CVSreview.auth.utils.SecurityUtil;
 import com.lifo.CVSreview.favorite.entity.Favorite;
 import com.lifo.CVSreview.favorite.mapper.FavoriteMapper;
 import com.lifo.CVSreview.favorite.repository.FavoriteRepository;
 import com.lifo.CVSreview.favorite.service.FavoriteService;
 import com.lifo.CVSreview.member.Entity.Member;
+import com.lifo.CVSreview.member.repository.MemberRepository;
 import com.lifo.CVSreview.product.dto.ProductDto;
 import com.lifo.CVSreview.product.entity.Product;
 import com.lifo.CVSreview.product.mapper.ProductMapper;
@@ -30,12 +32,11 @@ public class FavoriteController {
     final private FavoriteRepository favoriteRepository;
     final private ProductRepository productRepository;
     final private ProductMapper mapper;
+    final private MemberRepository memberRepository;
 
     @GetMapping("/favorite/{product-id}")
     public ResponseEntity postFavorite(@PathVariable("product-id") long productId) {
-        Member member = new Member(); //테스트를 위해 멤버를 만들어서
-        member.setMemberId(1L); // memberId를 1로 세팅. 추후에 Security 구현하면서 변경 필요
-        if (favoriteService.createFavorite(productId, member)) {
+        if (favoriteService.createFavorite(productId, memberRepository.findByEmail(SecurityUtil.getCurrentMemberId()).get())){
             return new ResponseEntity<>(HttpStatus.OK); //좋아요를 눌렀다면 
         }else{
             return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 좋아요를 취소했다면

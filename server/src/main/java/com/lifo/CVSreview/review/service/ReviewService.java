@@ -1,8 +1,10 @@
 package com.lifo.CVSreview.review.service;
 
+import com.lifo.CVSreview.auth.utils.SecurityUtil;
 import com.lifo.CVSreview.exception.BusinessLogicException;
 import com.lifo.CVSreview.exception.ExceptionCode;
 import com.lifo.CVSreview.member.Entity.Member;
+import com.lifo.CVSreview.member.repository.MemberRepository;
 import com.lifo.CVSreview.member.service.MemberService;
 import com.lifo.CVSreview.product.entity.Product;
 import com.lifo.CVSreview.product.service.ProductService;
@@ -25,19 +27,22 @@ public class ReviewService {
     private final ProductService productService;
     private final MemberService memberService;
 
-    public ReviewService(ReviewRepository reviewRepository, ReviewMapper reviewMapper,
-                         ProductService productService, MemberService memberService) {
+    private final MemberRepository memberRepository;
+
+    public ReviewService(ReviewRepository reviewRepository, ReviewMapper reviewMapper, ProductService productService, MemberService memberService, MemberRepository memberRepository) {
         this.reviewRepository = reviewRepository;
         this.reviewMapper = reviewMapper;
         this.productService = productService;
         this.memberService = memberService;
+        this.memberRepository = memberRepository;
     }
 
     //리뷰작성
     //
     public Review createReview(Review review,long product_id) {
+        System.out.println(SecurityUtil.getCurrentMemberId());
         verifyExistReview(review.getReviewId());//새로운 리뷰인지 확인
-        review.setMember(memberService.findMember(1L));
+        review.setMember(memberRepository.findByEmail(SecurityUtil.getCurrentMemberId()).get());
         Product product2 = productService.find(product_id);
         review.setProduct(product2);
         reviewRepository.save(review); //새로운 리뷰 저장
