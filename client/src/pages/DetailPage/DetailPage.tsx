@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
@@ -10,7 +10,9 @@ import {
   HiOutlinePencilAlt,
   HiOutlineTrash,
 } from "react-icons/hi";
-import { FaRegCommentDots } from "react-icons/fa";
+import { FaProductHunt, FaRegCommentDots } from "react-icons/fa";
+import useFetch from "../../api/useFetch";
+import { useParams } from "react-router-dom";
 
 const Main = styled.main`
   display: flex;
@@ -236,6 +238,45 @@ const Main = styled.main`
     }
   }
 `;
+
+interface ItemProps {
+  [key: string]: any;
+}
+
+const Item = ({ id, img, name, price, fav, comment }: ItemProps) => {
+  const [like, setLike] = useState(false);
+
+  return (
+    <>
+      <img src={img} alt="itemImage" />
+      <section className="contentSection">
+        <section className="titleSection">
+          <p>{name}</p>
+        </section>
+        <section className="priceSection">
+          <p>가격 : {price}원</p>
+        </section>
+        <section
+          className="likeSection"
+          onClick={() => {
+            setLike(!like);
+          }}>
+          {like ? (
+            <HiHeart className="likeButton" />
+          ) : (
+            <HiOutlineHeart className="likeButton" />
+          )}
+          <div className="likeCountNum">{fav}</div>
+          <section className="countComment">
+            <FaRegCommentDots className="commentIcon" />
+            <div className="commentCountNum">{comment}</div>
+          </section>
+        </section>
+      </section>
+    </>
+  );
+};
+
 interface CommentProps {
   [key: string]: any;
 }
@@ -270,7 +311,6 @@ const Comment = ({ name, comment, date }: CommentProps) => {
 };
 
 const DetailPage = () => {
-  const [like, setLike] = useState(false);
   const [clicked, setCliked] = useState([false, false, false, false, false]);
   const starArr = [0, 1, 2, 3, 4];
   const handleStarClick = (idx: number) => {
@@ -284,6 +324,22 @@ const DetailPage = () => {
   // 별점 => post할 때 이 변수 이용할 것
   let starRating = clicked.filter(Boolean).length;
 
+  const { id } = useParams<any>();
+  const { data } = useFetch("/products?page=1&size=24");
+  const [product, setProduct] = useState<any>(null);
+
+  console.log(id);
+
+  useEffect(() => {
+    if (data) {
+      setProduct(
+        data.data.filter((item: any) => item.productId === Number(id))
+      );
+    }
+  }, [data, id]);
+
+  console.log(product);
+
   return (
     <>
       <Main>
@@ -292,34 +348,17 @@ const DetailPage = () => {
           <Header />
           <section className="detailPageMain">
             <section className="itemSection">
-              <img
-                src="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8809802266629.jpg"
-                alt="itemImage"
-              />
-              <section className="contentSection">
-                <section className="titleSection">
-                  <p>햄감자샐러드샌드위치</p>
-                </section>
-                <section className="priceSection">
-                  <p>가격 : 3500원</p>
-                </section>
-                <section
-                  className="likeSection"
-                  onClick={() => {
-                    setLike(!like);
-                  }}>
-                  {like ? (
-                    <HiHeart className="likeButton" />
-                  ) : (
-                    <HiOutlineHeart className="likeButton" />
-                  )}
-                  <div className="likeCountNum">13</div>
-                  <section className="countComment">
-                    <FaRegCommentDots className="commentIcon" />
-                    <div className="commentCountNum">4</div>
-                  </section>
-                </section>
-              </section>
+              {product &&
+                product.map((item: any) => (
+                  <Item
+                    id={item.productId}
+                    img={item.imgUrl}
+                    name={item.productName}
+                    price={item.price}
+                    fav={item.favoriteCount}
+                    comment={item.reviewCount}
+                  />
+                ))}
             </section>
             <section className="addCommentSection">
               <p className="addStarRating">
