@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-redeclare */
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Nav from "../../components/Nav/Nav";
@@ -281,17 +282,11 @@ interface CommentProps {
   [key: string]: any;
 }
 
-const Comment = ({ name, comment, date }: CommentProps) => {
+const Comment = ({ score, name, comment, date }: CommentProps) => {
   return (
     <>
       <section className="resultStarRating">
-        <p className="resultStarRating">
-          <AiFillStar />
-          <AiFillStar />
-          <AiFillStar />
-          <AiOutlineStar />
-          <AiOutlineStar />
-        </p>
+        <p className="resultStarRating">{score}</p>
       </section>
       <section className="commentBox">
         <section className="userInfo">
@@ -325,20 +320,38 @@ const DetailPage = () => {
   let starRating = clicked.filter(Boolean).length;
 
   const { id } = useParams<any>();
-  const { data } = useFetch("/products?page=1&size=24");
+  const { data: productData } = useFetch("/products?page=1&size=24");
+  const { data: reviewData } = useFetch("/reviews?page=1&size=50");
   const [product, setProduct] = useState<any>(null);
-
-  console.log(id);
+  const [reviews, setReviews] = useState<any>(null);
 
   useEffect(() => {
-    if (data) {
+    if (productData) {
       setProduct(
-        data.data.filter((item: any) => item.productId === Number(id))
+        productData.data.filter((item: any) => item.productId === Number(id))
+      );
+      setReviews(
+        reviewData.data.filter((item: any) => item.productId === Number(id))
       );
     }
-  }, [data, id]);
+  }, [productData, reviewData, id]);
 
-  console.log(product);
+  const starRender = (rating: any) => {
+    return (
+      <>
+        {Array(parseInt(rating))
+          .fill(2)
+          .map((el, i) => (
+            <AiFillStar key={i} />
+          ))}
+        {Array(Math.floor(5 - rating))
+          .fill(2)
+          .map((el, i) => (
+            <AiFillStar key={i} color="#E3E3E3" />
+          ))}
+      </>
+    );
+  };
 
   return (
     <>
@@ -388,26 +401,16 @@ const DetailPage = () => {
             </section>
             <section className="commentSection">
               <section className="commentList">
-                <Comment
-                  name="ABC123"
-                  comment="내일 또 사먹어야지"
-                  date="2023-01-19"
-                />
-                <Comment
-                  name="편의점리뷰어"
-                  comment="너무 맛있어요 정말 맛있어요"
-                  date="2023-01-19"
-                />
-                <Comment
-                  name="프엔개발자"
-                  comment="맛있습니다 다른 제품보다 내용물이 많아서 간식으로 먹기 좋았습니다 가격도 3500원이면 적당한 것 같네요"
-                  date="2023-01-13"
-                />
-                <Comment
-                  name="샌드위치좋아"
-                  comment="샌드위치 좋아해서 사봤는데 정말 맛있습니다! 자주 먹고 싶은데 재고가 잘 없네요  단종시키지 말아주세요!"
-                  date="2023-01-10"
-                />
+                {reviews &&
+                  reviews.map((comment: any) => (
+                    <Comment
+                      id={comment.reviewId}
+                      score={starRender(comment.rating)}
+                      name={comment.username}
+                      comment={comment.content}
+                      date={comment.createdAt}
+                    />
+                  ))}
               </section>
             </section>
           </section>
