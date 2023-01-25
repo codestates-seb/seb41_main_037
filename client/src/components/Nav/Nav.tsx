@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { useSetRecoilState } from "recoil";
+import { LoginState } from "../../states/LoginState";
 
 const NavBar = styled.main`
   position: fixed;
@@ -72,6 +75,8 @@ const Nav = () => {
   const [currentTab, clickTab] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
+  const isLogin = useRecoilValue(LoginState);
+  const setIsLogin = useSetRecoilState(LoginState);
 
   const menuItem = [
     {
@@ -95,6 +100,14 @@ const Nav = () => {
     clickTab(currentTab);
   };
 
+  const handleClickLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("memberID");
+    localStorage.removeItem("role");
+    setIsLogin(false);
+    navigate("/");
+  };
+
   return (
     <NavBar>
       <section className="homeBtn">
@@ -102,7 +115,8 @@ const Nav = () => {
           className="home"
           src="/img/cvs logo2.png"
           alt="HOME"
-          onClick={() => navigate("/")}></img>
+          onClick={() => navigate("/")}
+        ></img>
       </section>
       <section className="menuBtn">
         {menuItem.map((item, index) => (
@@ -113,22 +127,34 @@ const Nav = () => {
             }}
             className={
               location.pathname === item.path ? "cvsLogo focused" : "cvsLogo"
-            }>
+            }
+          >
             {location.pathname === item.path ? item.img1 : item.img2}
           </div>
         ))}
       </section>
-      <section className="userBtn">
-        <button className="loginBtn">
-          <Link to="/login">Login</Link>
-        </button>
-        <button className="signupBtn">
-          <Link to="/signup">
-            Sign <br />
-            up
-          </Link>
-        </button>
-      </section>
+      {isLogin ? (
+        <section className="userBtn">
+          <button className="mypageBtn">
+            <Link to="/mypage">Mypage</Link>
+          </button>
+          <button className="logoutBtn" onClick={handleClickLogout}>
+            <Link to="/">Logout</Link>
+          </button>
+        </section>
+      ) : (
+        <section className="userBtn">
+          <button className="loginBtn">
+            <Link to="/login">Login</Link>
+          </button>
+          <button className="signupBtn">
+            <Link to="/signup">
+              Sign <br />
+              up
+            </Link>
+          </button>
+        </section>
+      )}
     </NavBar>
   );
 };
