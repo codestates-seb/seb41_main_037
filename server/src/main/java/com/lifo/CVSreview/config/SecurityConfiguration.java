@@ -52,11 +52,12 @@ public class SecurityConfiguration {
                                 .antMatchers(HttpMethod.POST, "/*/reviews").hasRole("USER")
                                 .antMatchers(HttpMethod.PATCH, "/*/reviews/**").hasRole("USER")
                                 .antMatchers(HttpMethod.DELETE, "/*/reviews/**").hasRole("USER")
-                                .antMatchers(HttpMethod.POST, "/*/products").hasRole("ADMIN")
                                 .antMatchers(HttpMethod.PATCH, "/*/products/**").hasRole("ADMIN")
                                 .antMatchers(HttpMethod.DELETE, "/*/products/**").hasRole("ADMIN")
                                 .antMatchers(HttpMethod.POST, "/*/favorite").hasRole("USER")
+                                .antMatchers(HttpMethod.POST, "/*/members").permitAll()
                                 .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
+                                .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
 
                         .anyRequest().permitAll()
                 );
