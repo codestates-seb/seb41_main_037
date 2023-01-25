@@ -1,4 +1,5 @@
 // import React from "react";
+import axios from "axios";
 import React, { useMemo, useRef, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -127,17 +128,17 @@ const ItemUpdatePageMain = styled.main`
   }
 `;
 
-interface UploadImage {
-  file: File;
-  thumbnail: string;
-  type: string;
-}
+// interface UploadImage {
+//   file: File;
+//   thumbnail: string;
+//   type: string;
+// }
 
 const ItemUpdatePage = () => {
   const { productId } = useParams();
   const { data } = useFetch(`/products/${productId}`);
   const fileInput = useRef<HTMLInputElement>(null);
-  const [imageFile, setImageFile] = useState<UploadImage | null>(null);
+  const [imageFile, setImageFile] = useState<any>(null);
   const [product, setProduct] = useState<any>(null);
   const [name, setName] = useState<any>(null);
   const [price, setPrice] = useState<any>(null);
@@ -155,6 +156,26 @@ const ItemUpdatePage = () => {
     fileInput.current?.click();
   };
 
+  // const getBlob = async () => {
+  //   let blob = await fetch(imageFile.thumbnail).then((r) => r.blob());
+  //   if (blob) {
+  //     let data = new FormData();
+  //     data.append("image", blob, "image.jpg");
+  //   }
+  //   console.log(data);
+  // };
+
+  // let blob =  axios.get(imageFile.thumbnail).then((r) => {
+  //   r.blob()
+  // });
+  // console.log(blob);
+
+  // const reader = new FileReader();
+
+  // reader.onload = function () {
+  //   console.log(reader.result);
+  // };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
     if (fileList && fileList[0]) {
@@ -165,6 +186,7 @@ const ItemUpdatePage = () => {
         thumbnail: url,
         type: fileList[0].type.slice(0, 5),
       });
+      // reader.readAsDataURL(fileList[0]);
     }
   };
 

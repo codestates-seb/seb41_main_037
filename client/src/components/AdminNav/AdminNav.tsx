@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+// import { useRecoilValue } from "recoil";
+import { LoginState } from "../../states/LoginState";
+import { useSetRecoilState } from "recoil";
 
 const AdminNavBar = styled.nav`
   font-family: "Do Hyeon", sans-serif;
@@ -73,6 +76,18 @@ const AdminNavBar = styled.nav`
 const AdminNav = () => {
   const navigate = useNavigate();
   let location = window.location.pathname;
+  // const isLogin = useRecoilValue(LoginState);
+  const setIsLogin = useSetRecoilState(LoginState);
+
+  // console.log(isLogin);
+
+  const handleClickLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("memberID");
+    localStorage.removeItem("role");
+    setIsLogin(false);
+    navigate("/");
+  };
 
   return (
     <AdminNavBar>
@@ -103,7 +118,7 @@ const AdminNav = () => {
           </a>
         </section>
         <section className="memberSection">
-          <button onClick={() => navigate("/")}>Logout</button>
+          <button onClick={handleClickLogout}>Logout</button>
         </section>
       </section>
     </AdminNavBar>

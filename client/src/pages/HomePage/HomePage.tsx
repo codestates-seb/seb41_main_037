@@ -449,8 +449,6 @@ const HomePage = () => {
         behavior: "smooth",
       });
       setScrollIndex(num || 0);
-
-      console.log(pageHeight);
     };
     return <DotDiv isSame={isSame} onClick={handleClick}></DotDiv>;
   };

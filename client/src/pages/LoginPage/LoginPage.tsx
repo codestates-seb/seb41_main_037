@@ -5,6 +5,10 @@ import { InputCard } from "../SignupPage/SignupPage";
 import HomeHeader from "../../components/AdminHeader/AdminHeader";
 import { useNavigate } from "react-router-dom";
 import LoginFooter from "../../components/LoginFooter/LoginFooter";
+import axios from "axios";
+import { Buffer } from "buffer";
+import { LoginState } from "../../states/LoginState";
+import { useSetRecoilState } from "recoil";
 
 const Container = styled.section`
   font-family: "Do Hyeon", sans-serif;
@@ -114,6 +118,14 @@ const LoginPage = () => {
   const [isPasswordWarning, setIsPasswordWarning] = useState(false);
   const [passwordState, setPasswordState] = useState(false);
 
+  const setIsLogin = useSetRecoilState(LoginState);
+
+  // const test = jwt.decode(
+  //   "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidGVzdDNAZ21haWwuY29tIiwic3ViIjoidGVzdDNAZ21haWwuY29tIiwiaWF0IjoxNjc0NjIzOTk3LCJleHAiOjE2NzQ2Mjc1OTd9.ixEJhFsrflleZg2cq7POZi4EkGLufcIelY0xCDpwRXfyorFE7G0u-2jOISlLHUYA"
+  // );
+
+  // console.log(test);
+
   useEffect(() => {
     if (email === "") {
       setIsEmailWarning(false);
@@ -144,10 +156,35 @@ const LoginPage = () => {
     // 서버 통신 후 다시 작성!
     if (emailState && passwordState) {
       // 로그인 성공 시
-      navigate("/");
+      axios
+        .post(
+          "http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/v1/auth/login",
+          {
+            username: email,
+            password: password,
+          }
+        )
+        .then((res) => {
+          if (res.headers.authorization) {
+            let token = res.headers.authorization;
+            let base64Payload = token.split(".")[1]; //value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
+            let payload = Buffer.from(base64Payload, "base64");
+            let memberInformation = JSON.parse(payload.toString());
+            // console.log(memberInformation);
+            localStorage.setItem("token", token);
+            localStorage.setItem("memberID", memberInformation.memberID);
+            localStorage.setItem("role", memberInformation.roles[0]);
+            setIsLogin(true);
+          }
+          // console.log(res);
+          // console.log(res.headers);
+          // console.log(res.headers.authorization);
+          navigate("/");
+        })
+        .catch((err) => alert("일치하는 회원정보가 없습니다"));
     } else {
       // 로그인 실패 시
-      alert("로그인 실패");
+      alert("이메일과 비밀번호를 올바르게 입력해주세요");
     }
   };
 

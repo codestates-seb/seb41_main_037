@@ -228,7 +228,7 @@ const SignupPage = () => {
           }
         )
         .then((res) => console.log(res.data))
-        .catch((err) => console.log(err));
+        .catch((err) => alert("이미 가입한 회원입니다"));
       alert("회원가입이 완료되었습니다");
       navigate("/login");
     } else {
