@@ -82,7 +82,7 @@ const Carousel = () => {
                 name={item.productName}
                 price={item.price}
                 image={item.imgUrl}
-                onClick={() => navigate("/itemList/:itemId")}
+                onClick={() => navigate(`/products/${item.productId}`)}
               />
             );
           })}

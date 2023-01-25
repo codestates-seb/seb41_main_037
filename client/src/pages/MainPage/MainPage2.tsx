@@ -200,7 +200,7 @@ const Item = ({ id, img, name, price }: ItemProps) => {
         }}>
         {like ? <HiHeart /> : <HiOutlineHeart />}
       </span>
-      <Link to="/itemList/:itemId">
+      <Link to={`/products/${id}`}>
         <div className="itemImg">
           <img src={img} alt="itemImg"></img>
         </div>
@@ -213,7 +213,7 @@ const Item = ({ id, img, name, price }: ItemProps) => {
   );
 };
 
-const MainPage1 = () => {
+const MainPage2 = () => {
   const { data } = useFetch("/products?page=1&size=24");
   const [products, setProducts] = useState<any>(null);
 
@@ -362,4 +362,4 @@ const MainPage1 = () => {
   );
 };
 
-export default MainPage1;
+export default MainPage2;
