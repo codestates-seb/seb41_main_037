@@ -78,9 +78,9 @@ public class MemberController {
 //                HttpStatus.OK);
 //    }
 //
-//    @DeleteMapping("/{member_id}")
-//    public ResponseEntity deleteMember(@PathVariable("member_id")@Positive long memberId) {
-//        memberService.deleteMember(memberId);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
+    @DeleteMapping("/{member_id}")
+    public ResponseEntity deleteMember(@PathVariable("member_id")@Positive long memberId) {
+        memberService.deleteMember(memberId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
