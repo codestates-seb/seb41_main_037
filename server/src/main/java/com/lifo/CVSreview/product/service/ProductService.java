@@ -38,11 +38,11 @@ public class ProductService {
     public Product updateProduct(Product product) {
         Product findProduct = findVerifiedProduct(product.getProductId());
 
-        Optional.of(product.getProductCategory())
+        Optional.ofNullable(product.getProductCategory())
                 .ifPresent(productCategory -> findProduct.setProductCategory(product.getProductCategory()));
-        Optional.of(product.getProductName())
+        Optional.ofNullable(product.getProductName())
                 .ifPresent(name -> findProduct.setProductName(product.getProductName()));
-        Optional.of(product.getPrice())
+        Optional.ofNullable(product.getPrice())
                 .ifPresent(price -> findProduct.setPrice(product.getPrice()));
         Optional.ofNullable(product.getProductName())
                 .ifPresent(imgName -> findProduct.setImgName(product.getImgName()));

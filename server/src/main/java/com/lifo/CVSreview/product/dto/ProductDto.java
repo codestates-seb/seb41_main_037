@@ -31,8 +31,6 @@ public class ProductDto {
         private String imgUrl;
 
         private String productCategory;
-
-
     }
 
     @Getter
@@ -42,10 +40,8 @@ public class ProductDto {
     public static class Patch {
         private Long productId;
 
-        @NotBlank(message = "상품명은 필수 입력 값입니다.")
         private String productName;
 
-        @NotNull(message = "가격은 필수 입력 값입니다.")
         private int price;
 
         private String imgName;
@@ -81,4 +77,4 @@ public class ProductDto {
 
         private List<ReviewResponseDto> reviews;
     }
-}//
+}
