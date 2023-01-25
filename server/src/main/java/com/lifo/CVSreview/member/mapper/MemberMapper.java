@@ -23,7 +23,7 @@ public interface MemberMapper {
         memberMyPageDto.setMemberId( member.getMemberId() );
         memberMyPageDto.setNickname( member.getNickname() );
         memberMyPageDto.setEmail(member.getEmail());
-        memberMyPageDto.setRole( member.getRole() );
+        memberMyPageDto.setRoles( member.getRoles() );
         memberMyPageDto.setImage_name( member.getImage_name() );
         memberMyPageDto.setImage_path( member.getImage_path() );
 
