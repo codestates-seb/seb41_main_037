@@ -486,8 +486,9 @@ const MyPage = () => {
                       <section
                         className="comment"
                         key={review.reviewId}
-                        onClick={() => navigate("/itemList/:itemid")}
-                      >
+                        onClick={() =>
+                          navigate(`/products/${review.productId}`)
+                        }>
                         <section className="store">
                           {review.productCategory}
                         </section>
