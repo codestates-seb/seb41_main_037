@@ -10,6 +10,9 @@ import { slideInRight } from "react-animations";
 import Map from "../../components/Map/Map";
 import { FcShop } from "react-icons/fc";
 import { FiArrowUp } from "react-icons/fi";
+import { LoginState } from "../../states/LoginState";
+import { useRecoilValue } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 const slideInAnimation = keyframes`${slideInRight}`;
 
@@ -309,7 +312,7 @@ const HomeMain = styled.main`
       }
       // 바로가기 버튼
       &:nth-child(3) {
-        right: 120px;
+        right: 125px;
       }
     }
   }
@@ -350,6 +353,8 @@ const HomePage = () => {
   const outerDivRef = useRef<HTMLElement>(null);
   const [scrollIndex, setScrollIndex] = useState(1);
   const navigate = useNavigate();
+  const isLogin = useRecoilValue(LoginState);
+  const setIsLogin = useSetRecoilState(LoginState);
 
   useEffect(() => {
     const outerDivRefCurrent = outerDivRef.current;
@@ -461,6 +466,14 @@ const HomePage = () => {
     });
   };
 
+  const handleClickLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("memberID");
+    localStorage.removeItem("role");
+    setIsLogin(false);
+    navigate("/");
+  };
+
   return (
     <HomeMain>
       <section ref={outerDivRef} className="outer">
@@ -483,10 +496,19 @@ const HomePage = () => {
               CU, GS25, 7ELEVEN 3사 편의점 PB상품의 제품 평점부터 리뷰까지 한
               곳에서 볼 수 있는 서비스를 제공합니다
             </p>
-            <section className="buttonSection">
-              <button onClick={() => navigate("/cu")}>바로 시작하기</button>
-              <button onClick={() => navigate("/login")}>로그인하기</button>
-            </section>
+            {isLogin ? (
+              <section className="buttonSection">
+                <button onClick={() => navigate("/mypage")}>
+                  마이페이지 바로가기
+                </button>
+                <button onClick={handleClickLogout}>로그아웃하기</button>
+              </section>
+            ) : (
+              <section className="buttonSection">
+                <button onClick={() => navigate("/cu")}>바로 시작하기</button>
+                <button onClick={() => navigate("/login")}>로그인하기</button>
+              </section>
+            )}
           </section>
         </section>
         <section className="inner pageTwo">
@@ -569,17 +591,31 @@ const HomePage = () => {
             </section>
           </section>
         </section>
-        <section className="fixedbtnSection">
-          <button className="scrollTopBtn" onClick={handleScrollTopBtnClick}>
-            <FiArrowUp size={35} />
-          </button>
-          <button className="scrollTopBtn" onClick={() => navigate("/login")}>
-            로그인
-          </button>
-          <button className="scrollTopBtn" onClick={() => navigate("/cu")}>
-            PB상품
-          </button>
-        </section>
+        {isLogin ? (
+          <section className="fixedbtnSection">
+            <button className="scrollTopBtn" onClick={handleScrollTopBtnClick}>
+              <FiArrowUp size={35} />
+            </button>
+            <button className="logoutBtn" onClick={handleClickLogout}>
+              로그아웃
+            </button>
+            <button className="pbBtn" onClick={() => navigate("/cu")}>
+              PB상품
+            </button>
+          </section>
+        ) : (
+          <section className="fixedbtnSection">
+            <button className="scrollTopBtn" onClick={handleScrollTopBtnClick}>
+              <FiArrowUp size={35} />
+            </button>
+            <button className="loginBtn" onClick={() => navigate("/login")}>
+              로그인
+            </button>
+            <button className="pbBtn" onClick={() => navigate("/cu")}>
+              PB상품
+            </button>
+          </section>
+        )}
       </section>
     </HomeMain>
   );
