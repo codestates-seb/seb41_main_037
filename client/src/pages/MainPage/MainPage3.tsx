@@ -219,17 +219,13 @@ const MainPage1 = () => {
 
   useEffect(() => {
     if (data) {
-      setProducts(data.data);
+      setProducts(
+        data.data.filter((item: any) => item.productCategory === "SEVEN")
+      );
     }
   }, [data]);
 
   console.log(products);
-
-  const filterItems = () => {
-    setProducts(
-      products.filter((item: any) => item.productCategory === "SEVEN")
-    );
-  };
 
   const [word, setWord] = useState<string>("");
   const onSubmit = async () => {
@@ -337,7 +333,7 @@ const MainPage1 = () => {
                   많은순
                 </button>
               </div>
-              <li className="itemList" onLoad={filterItems}>
+              <li className="itemList">
                 {products.map((item: any) => (
                   <Item
                     id={item.productId}

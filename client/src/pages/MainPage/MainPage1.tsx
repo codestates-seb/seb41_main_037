@@ -200,7 +200,7 @@ const Item = ({ id, img, name, price }: ItemProps) => {
         }}>
         {like ? <HiHeart /> : <HiOutlineHeart />}
       </span>
-      <Link to="/itemList/:itemId">
+      <Link to={`/products/${id}`}>
         <div className="itemImg">
           <img src={img} alt="itemImg"></img>
         </div>
@@ -219,15 +219,13 @@ const MainPage1 = () => {
 
   useEffect(() => {
     if (data) {
-      setProducts(data.data);
+      setProducts(
+        data.data.filter((item: any) => item.productCategory === "CU")
+      );
     }
   }, [data]);
 
   console.log(products);
-
-  const filterItems = () => {
-    setProducts(products.filter((item: any) => item.productCategory === "CU"));
-  };
 
   const [word, setWord] = useState<string>("");
   const onSubmit = async () => {
@@ -331,7 +329,7 @@ const MainPage1 = () => {
                   많은순
                 </button>
               </div>
-              <li className="itemList" onLoad={filterItems}>
+              <li className="itemList">
                 {products.map((item: any) => (
                   <Item
                     id={item.productId}
