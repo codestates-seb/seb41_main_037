@@ -51,14 +51,19 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                                 .antMatchers(HttpMethod.POST, "/*/reviews").hasRole("USER")
                                 .antMatchers(HttpMethod.PATCH, "/*/reviews/**").hasRole("USER")
-                                .antMatchers(HttpMethod.DELETE, "/*/reviews/**").hasRole("USER")
-                                .antMatchers(HttpMethod.PATCH, "/*/products/**").hasRole("ADMIN")
-                                .antMatchers(HttpMethod.DELETE, "/*/products/**").hasRole("ADMIN")
+                                .antMatchers(HttpMethod.DELETE, "/*/reviews/**").hasAnyRole("USER", "ADMIN")
+                                .antMatchers(HttpMethod.GET, "/*/products/**").hasRole("USER")
                                 .antMatchers(HttpMethod.POST, "/*/favorite").hasRole("USER")
                                 .antMatchers(HttpMethod.POST, "/*/members").permitAll()
                                 .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
                                 .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
                                 .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")
+                                .antMatchers(HttpMethod.DELETE, "/*/admin/**").hasRole("ADMIN")
+                                .antMatchers(HttpMethod.POST, "/*/admin").hasRole("ADMIN")
+                                .antMatchers(HttpMethod.PATCH, "/*/admin/**").hasRole("ADMIN")
+
+
+
 
 
                         .anyRequest().permitAll()
