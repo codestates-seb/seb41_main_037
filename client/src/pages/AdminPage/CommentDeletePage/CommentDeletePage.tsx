@@ -5,6 +5,7 @@ import AdminNav from "../../../components/AdminNav/AdminNav";
 import { BsTrashFill } from "react-icons/bs";
 import { FcSearch } from "react-icons/fc";
 import useFetch from "../../../api/useFetch";
+import axios from "axios";
 
 const Main = styled.main`
   display: flex;
@@ -130,14 +131,6 @@ const CommentDeletePageMain = styled.main`
   }
 `;
 
-const onRemove = () => {
-  if (window.confirm("정말 삭제하시겠습니까?")) {
-    alert("삭제되었습니다.");
-  } else {
-    alert("취소합니다.");
-  }
-};
-
 const CommentDeletePage = () => {
   const [reviews, setReviews] = useState<any>(null);
   const { data } = useFetch("/reviews?page=1&size=50");
@@ -146,6 +139,22 @@ const CommentDeletePage = () => {
       setReviews(data.data);
     }
   }, [data]);
+
+  const onRemove = (id: number) => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      if (reviews) {
+        axios
+          .delete(
+            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`
+          )
+          .catch((err) => console.log(err));
+        setReviews(reviews.filter((review: any) => review.reviewId !== id));
+      }
+      alert("삭제되었습니다.");
+    } else {
+      alert("취소합니다.");
+    }
+  };
   return (
     <>
       <HomeHeader />
@@ -169,7 +178,10 @@ const CommentDeletePage = () => {
                     <p>{comment.createdAt}</p>
                   </section>
                   <div className="icon">
-                    <BsTrashFill size={12} onClick={onRemove} />
+                    <BsTrashFill
+                      size={12}
+                      onClick={() => onRemove(comment.reviewId)}
+                    />
                   </div>
                 </section>
               ))}

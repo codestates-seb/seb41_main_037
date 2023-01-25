@@ -120,12 +120,6 @@ const LoginPage = () => {
 
   const setIsLogin = useSetRecoilState(LoginState);
 
-  // const test = jwt.decode(
-  //   "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidGVzdDNAZ21haWwuY29tIiwic3ViIjoidGVzdDNAZ21haWwuY29tIiwiaWF0IjoxNjc0NjIzOTk3LCJleHAiOjE2NzQ2Mjc1OTd9.ixEJhFsrflleZg2cq7POZi4EkGLufcIelY0xCDpwRXfyorFE7G0u-2jOISlLHUYA"
-  // );
-
-  // console.log(test);
-
   useEffect(() => {
     if (email === "") {
       setIsEmailWarning(false);
