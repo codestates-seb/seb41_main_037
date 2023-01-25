@@ -1,7 +1,7 @@
 // import React from "react";
 import axios from "axios";
 import React, { useMemo, useRef, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import useFetch from "../../../api/useFetch";
 import HomeHeader from "../../../components/AdminHeader/AdminHeader";
@@ -137,11 +137,15 @@ const ItemUpdatePageMain = styled.main`
 const ItemUpdatePage = () => {
   const { productId } = useParams();
   const { data } = useFetch(`/products/${productId}`);
+  const [product, setProduct] = useState<any>(null);
+
   const fileInput = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<any>(null);
-  const [product, setProduct] = useState<any>(null);
+
   const [name, setName] = useState<any>(null);
   const [price, setPrice] = useState<any>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (data) {
@@ -207,10 +211,6 @@ const ItemUpdatePage = () => {
     );
   }, [imageFile, product]);
 
-  const handleCreate = () => {
-    console.log(imageFile);
-  };
-
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
     // console.log(product.productName);
@@ -218,6 +218,25 @@ const ItemUpdatePage = () => {
 
   const handlePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPrice(e.target.value);
+  };
+
+  const handleCreate = () => {
+    axios
+      .patch(
+        `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/admin/${productId}`,
+        {
+          imgName: "img",
+          imgUrl: imageFile ? imageFile.thumbnail : product.imgUrl,
+          price: Number(price),
+          productName: name,
+        }
+      )
+      .then((res) => {
+        alert("상품 수정이 완료되었습니다");
+        navigate("/admin/search");
+      })
+      .catch((err) => alert("상품 수정에 실패했습니다"));
+    console.log(imageFile);
   };
 
   return (
