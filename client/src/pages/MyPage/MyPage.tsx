@@ -107,6 +107,7 @@ const MypageMain = styled.main`
       border-radius: 5px;
       margin: 1.5rem 0 1rem 0;
       padding: 1rem 1rem 0.5rem 1rem;
+      max-height: 300px;
       h3 {
         color: #fff;
         font-size: 18px;
@@ -114,30 +115,43 @@ const MypageMain = styled.main`
         margin-bottom: 0.5rem;
       }
       .commentSection {
-        display: flex;
-        background-color: rgb(244, 245, 249);
-        border-radius: 5px;
-        margin-bottom: 0.5rem;
-        box-shadow: inset 1px 1px 2px #7a7979;
-        align-items: center;
-        cursor: pointer;
-        .store {
-          display: flex;
-          justify-content: center;
-          min-width: 80px;
-          color: #58419c;
+        overflow-y: scroll;
+        &::-webkit-scrollbar {
+          width: 6px;
         }
-        .content {
+        &::-webkit-scrollbar-track {
+          background-color: transparent;
+        }
+        &::-webkit-scrollbar-thumb {
+          border-radius: 5px;
+          background-color: #58419c;
+        }
+        .comment {
+          display: flex;
+          background-color: rgb(244, 245, 249);
+          border-radius: 5px;
+          margin-bottom: 0.5rem;
           box-shadow: inset 1px 1px 2px #7a7979;
-          width: 100%;
-          border-radius: 0 5px 5px 0;
-          p {
-            font-size: 15px;
-            padding: 0.2rem 0.5rem;
-            line-height: 20px;
-            &:nth-child(2) {
-              font-size: 13px;
-              color: #7a7979;
+          align-items: center;
+          cursor: pointer;
+          .store {
+            display: flex;
+            justify-content: center;
+            min-width: 80px;
+            color: #58419c;
+          }
+          .content {
+            box-shadow: inset 1px 1px 2px #7a7979;
+            width: 100%;
+            border-radius: 0 5px 5px 0;
+            p {
+              font-size: 15px;
+              padding: 0.2rem 0.5rem;
+              line-height: 20px;
+              &:nth-child(2) {
+                font-size: 13px;
+                color: #7a7979;
+              }
             }
           }
         }
@@ -466,22 +480,24 @@ const MyPage = () => {
               </section>
               <section className="commentList">
                 <h3>Comment list</h3>
-                {reviews &&
-                  reviews.map((review: any) => (
-                    <section
-                      className="commentSection"
-                      key={review.reviewId}
-                      onClick={() => navigate("/itemList/:itemid")}
-                    >
-                      <section className="store">
-                        {review.productCategory}
+                <section className="commentSection">
+                  {reviews &&
+                    reviews.map((review: any) => (
+                      <section
+                        className="comment"
+                        key={review.reviewId}
+                        onClick={() => navigate("/itemList/:itemid")}
+                      >
+                        <section className="store">
+                          {review.productCategory}
+                        </section>
+                        <section className="content">
+                          <p>{review.content}</p>
+                          <p>{review.createdAt}</p>
+                        </section>
                       </section>
-                      <section className="content">
-                        <p>{review.content}</p>
-                        <p>{review.createdAt}</p>
-                      </section>
-                    </section>
-                  ))}
+                    ))}
+                </section>
               </section>
               <section className="wishList">
                 <h3>Wish list</h3>
