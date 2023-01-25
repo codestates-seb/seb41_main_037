@@ -5,7 +5,7 @@ import HomeHeader from "../../../components/AdminHeader/AdminHeader";
 import { BsTrashFill } from "react-icons/bs";
 import { BiEdit } from "react-icons/bi";
 import { FcSearch } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useFetch from "../../../api/useFetch";
 import axios from "axios";
 
@@ -138,20 +138,8 @@ const ItemSearchPageMain = styled.main`
   }
 `;
 
-// const dummyItems = [
-//   "미네랄워터",
-//   "청양고추짬뽕컵",
-//   "속초홍게라면",
-//   "콘소메맛팝콘",
-//   "버터스틱쿠키",
-//   "마늘콘스택",
-//   "까르보불닭면",
-//   "아메리카노원컵",
-//   "오렌지주스",
-//   "계란샐러드",
-// ];
-
 const ItemSearchPage = () => {
+  const navigate = useNavigate();
   const [currentTab, clickTab] = useState(0);
   const { data } = useFetch("/products?page=1&size=30");
   const [products, setProducts] = useState<any>(null);
@@ -161,7 +149,7 @@ const ItemSearchPage = () => {
     }
   }, [data]);
 
-  console.log(products);
+  // console.log(products);
 
   const menuArr = [
     { name: "전체" },
@@ -191,18 +179,15 @@ const ItemSearchPage = () => {
     }
   };
 
-  // const onRemove = () => {
-  //   if (window.confirm("정말 삭제하시겠습니까?")) {
-  //     alert("삭제되었습니다.");
-  //   } else {
-  //     alert("취소합니다.");
-  //   }
-  // };
   const deleteProduct = (id: number) => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
       console.log(id);
       if (products) {
-        axios.delete(`/admin/${id}`);
+        axios
+          .delete(
+            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/admin/${id}`
+          )
+          .catch((err) => console.log(err));
         setProducts(products.filter((item: any) => item.productId !== id));
       }
       alert("삭제되었습니다.");
@@ -241,28 +226,18 @@ const ItemSearchPage = () => {
             </section>
           </section>
           <section className="itemListSection">
-            {/* {dummyItems.map((item, idx) => (
-              <section className="item" key={idx}>
-                <p>{item}</p>
-                <Link to="/admin/update">
-                  <div className="icon">
-                    <BiEdit size={12} />
-                  </div>
-                </Link>
-                <div className="icon">
-                  <BsTrashFill size={12} onClick={onRemove} />
-                </div>
-              </section>
-            ))} */}
             {products &&
               products.map((item: any) => (
                 <section className="item" key={item.productId}>
                   <p>{item.productName}</p>
-                  <Link to="/admin/update">
-                    <div className="icon">
-                      <BiEdit size={12} />
-                    </div>
-                  </Link>
+                  <div className="icon">
+                    <BiEdit
+                      size={12}
+                      onClick={() =>
+                        navigate(`/admin/update/${item.productId}`)
+                      }
+                    />
+                  </div>
                   <div className="icon">
                     <BsTrashFill
                       size={12}

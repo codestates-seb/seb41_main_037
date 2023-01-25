@@ -1,6 +1,8 @@
 // import React from "react";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import useFetch from "../../../api/useFetch";
 import HomeHeader from "../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../components/AdminNav/AdminNav";
 
@@ -132,8 +134,22 @@ interface UploadImage {
 }
 
 const ItemUpdatePage = () => {
+  const { productId } = useParams();
+  const { data } = useFetch(`/products/${productId}`);
   const fileInput = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<UploadImage | null>(null);
+  const [product, setProduct] = useState<any>(null);
+  const [name, setName] = useState<any>(null);
+  const [price, setPrice] = useState<any>(null);
+
+  useEffect(() => {
+    if (data) {
+      setProduct(data.data);
+      setName(data.data.productName);
+      setPrice(data.data.price);
+      console.log(data);
+    }
+  }, [data]);
 
   const handleClinkFileInput = () => {
     fileInput.current?.click();
@@ -156,10 +172,7 @@ const ItemUpdatePage = () => {
     if (!imageFile && imageFile === null) {
       return (
         <section>
-          <img
-            src="https://tqklhszfkvzk6518638.cdn.ntruss.com/product/8801728106584.jpg"
-            alt="비어있는 프로필"
-          />
+          <img src={product && product.imgUrl} alt="비어있는 프로필" />
         </section>
       );
     }
@@ -170,17 +183,17 @@ const ItemUpdatePage = () => {
         onClick={handleClinkFileInput}
       />
     );
-  }, [imageFile]);
+  }, [imageFile, product]);
 
   const handleCreate = () => {
     console.log(imageFile);
   };
 
-  const [name, setName] = useState("HEYROO버터스틱쿠키");
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
+    // console.log(product.productName);
   };
-  const [price, setPrice] = useState("2000");
+
   const handlePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPrice(e.target.value);
   };
@@ -200,7 +213,7 @@ const ItemUpdatePage = () => {
                 <div>상품명</div>
                 <input
                   type="text"
-                  value={name}
+                  value={name || ""}
                   placeholder="수정할 상품명을 입력하세요"
                   onChange={handleName}
                 />
@@ -209,7 +222,7 @@ const ItemUpdatePage = () => {
                 <div>가격</div>
                 <input
                   type="text"
-                  value={price}
+                  value={price || ""}
                   placeholder="수정할 상품의 가격을 입력하세요"
                   onChange={handlePrice}
                 />
