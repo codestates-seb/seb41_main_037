@@ -241,11 +241,20 @@ const Main = styled.main`
 `;
 
 interface ItemProps {
-  [key: string]: any;
+  img: string;
+  name: string;
+  price: number;
+  fav: number;
+  comment: number;
+  convertPrice: void;
 }
 
-const Item = ({ id, img, name, price, fav, comment }: ItemProps) => {
+const Item = ({ img, name, price, fav, comment }: ItemProps) => {
   const [like, setLike] = useState(false);
+
+  const convertPrice = (price: any) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
 
   return (
     <>
@@ -255,7 +264,7 @@ const Item = ({ id, img, name, price, fav, comment }: ItemProps) => {
           <p>{name}</p>
         </section>
         <section className="priceSection">
-          <p>가격 : {price}원</p>
+          <p>가격 : {convertPrice(price)}원</p>
         </section>
         <section
           className="likeSection"
@@ -279,7 +288,10 @@ const Item = ({ id, img, name, price, fav, comment }: ItemProps) => {
 };
 
 interface CommentProps {
-  [key: string]: any;
+  score: any;
+  name: string;
+  comment: string;
+  date: string;
 }
 
 const Comment = ({ score, name, comment, date }: CommentProps) => {
@@ -364,12 +376,12 @@ const DetailPage = () => {
               {product &&
                 product.map((item: any) => (
                   <Item
-                    id={item.productId}
                     img={item.imgUrl}
                     name={item.productName}
                     price={item.price}
                     fav={item.favoriteCount}
                     comment={item.reviewCount}
+                    convertPrice={item.price}
                   />
                 ))}
             </section>
@@ -404,7 +416,6 @@ const DetailPage = () => {
                 {reviews &&
                   reviews.map((comment: any) => (
                     <Comment
-                      id={comment.reviewId}
                       score={starRender(comment.rating)}
                       name={comment.username}
                       comment={comment.content}
