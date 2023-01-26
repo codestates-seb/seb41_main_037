@@ -143,13 +143,13 @@ const ItemSearchPage = () => {
   const [currentTab, clickTab] = useState(0);
   const { data } = useFetch("/products?page=1&size=30");
   const [products, setProducts] = useState<any>(null);
+
+  const [productName, setProductName] = useState("");
   useEffect(() => {
     if (data) {
       setProducts(data.data);
     }
   }, [data]);
-
-  // console.log(products);
 
   const menuArr = [
     { name: "전체" },
@@ -176,6 +176,18 @@ const ItemSearchPage = () => {
       } else {
         setProducts(data.data);
       }
+    }
+  };
+
+  const handleProductName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProductName(e.target.value);
+  };
+
+  const handleSearchKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === "Enter") {
+      setProducts(
+        data.data.filter((item: any) => item.productName.includes(productName))
+      );
     }
   };
 
@@ -212,7 +224,13 @@ const ItemSearchPage = () => {
               <h2>상품검색</h2>
             </section>
             <section className="searchBarSection">
-              <input type="text" placeholder="상품명을 입력하세요." />
+              <input
+                type="text"
+                placeholder="상품명을 입력하세요."
+                value={productName}
+                onChange={handleProductName}
+                onKeyUp={handleSearchKeyUp}
+              />
               <FcSearch className="search icon" size={25} />
             </section>
             <section>
