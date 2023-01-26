@@ -285,21 +285,6 @@ const StyledSlider = styled(Slider)`
   }
 `;
 
-interface ProfileProps {
-  classname: string;
-  title: string;
-  content: string;
-  placeholder: string;
-  state: boolean;
-  setState: (state: boolean) => void;
-}
-
-// interface CommentProps {
-//   store: string;
-//   date: string;
-//   comment: string;
-// }
-
 interface WishProps {
   id: number;
   image: string;
@@ -309,65 +294,31 @@ interface WishProps {
   productId: number;
 }
 
-// interface ReviewProps {
-//   reviewId: number;
-//   content: string;
-//   createdAt: string;
-//   modifiedAt: string;
-//   rating: number;
-//   username: "전인종";
-//   memberId: number;
-//   productId: number;
-// }
-
 const MyPage = () => {
   const navigate = useNavigate();
-  const [isNameFocus, setIsNameFocus] = useState(false);
-  const [isEmailFocus, setIsEmailFocus] = useState(false);
-  const [isPasswordFocus, setIsPasswordFocus] = useState(false);
-  const [isPasswordConfirmFocus, setIsPasswordConfirmFocus] = useState(false);
 
   const { data } = useFetch(`/members/${localStorage.getItem("memberID")}`);
-  // const { data } = useFetch(`/members/1`);
   const [member, setMember] = useState<any>(null);
   const [reviews, setReviews] = useState<any>(null);
   const [favorites, setFavorites] = useState<any>(null);
+
+  const [nickname, setNickname] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  const [isModify, setIsModify] = useState(false);
   useEffect(() => {
     if (data) {
       setMember(data);
       setReviews(data.reviews);
       setFavorites(data.favorites);
+      setNickname(data.nickname);
     }
   }, [data]);
 
   console.log(member);
   console.log(reviews);
   console.log(favorites);
-
-  const ProfileElementCard = ({
-    classname,
-    title,
-    content,
-    placeholder,
-    state,
-    setState,
-  }: ProfileProps) => {
-    return (
-      <section className={classname}>
-        <h3>{title}</h3>
-        {state ? (
-          <input
-            type="text"
-            placeholder={placeholder}
-            onKeyUp={(e) => e.key === "Enter" && setState(!state)}
-            autoFocus
-          />
-        ) : (
-          <p onClick={() => setState(!state)}>{content}</p>
-        )}
-      </section>
-    );
-  };
 
   const WishItemCard = ({
     id,
@@ -395,6 +346,7 @@ const MyPage = () => {
   const [image, setImage] = useState(
     "https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800"
   );
+
   const fileInput = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -403,8 +355,57 @@ const MyPage = () => {
     }
   };
 
+  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNickname(e.target.value);
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const handlePasswordConfirmChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setPasswordConfirm(e.target.value);
+  };
+
   const handleUpdate = () => {
+    setIsModify(!isModify);
     console.log(image);
+  };
+
+  const handleUpdateDone = () => {
+    if (
+      nickname &&
+      password &&
+      passwordConfirm &&
+      password === passwordConfirm &&
+      password.match(/^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,}$/)
+    ) {
+      axios
+        .patch(
+          `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/members/${localStorage.getItem(
+            "memberID"
+          )}`,
+          {
+            image_name: "myimg",
+            image_path:
+              "https://blog.kakaocdn.net/dn/GHYFr/btrsSwcSDQV/UQZxkayGyAXrPACyf0MaV1/img.jpg",
+            memberId: localStorage.getItem("memberID"),
+            nickname: nickname,
+            password: password,
+            role: 0,
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        )
+        .then(() => window.location.reload())
+        .catch((err) => alert("회원정보 수정에 실패했습니다"));
+    }
+    setIsModify(!isModify);
   };
 
   const handleDelete = (id: number) => {
@@ -473,40 +474,51 @@ const MyPage = () => {
                   style={{ display: "none" }}
                 />
                 <section className="userIntroduction">
-                  <ProfileElementCard
-                    classname="nickname"
-                    title="Nickname"
-                    content={member && member.nickname}
-                    placeholder="Enter your nickname"
-                    state={isNameFocus}
-                    setState={setIsNameFocus}
-                  />
-                  <ProfileElementCard
-                    classname="email"
-                    title="Email"
-                    content={member && member.email}
-                    placeholder="Enter your email"
-                    state={isEmailFocus}
-                    setState={setIsEmailFocus}
-                  />
+                  <section className="nickname">
+                    <h3>Nickname</h3>
+                    {isModify ? (
+                      <input
+                        type="text"
+                        placeholder="Enter your nickname"
+                        value={nickname || ""}
+                        onChange={handleNicknameChange}
+                      />
+                    ) : (
+                      <p>{member && member.nickname}</p>
+                    )}
+                  </section>
+                  <section className="email">
+                    <h3>Email</h3>
+                    <p>{member && member.email}</p>
+                  </section>
                 </section>
                 <section className="changePassword">
-                  <ProfileElementCard
-                    classname="password"
-                    title="Password"
-                    content="***********"
-                    placeholder="Enter your password"
-                    state={isPasswordFocus}
-                    setState={setIsPasswordFocus}
-                  />
-                  <ProfileElementCard
-                    classname="passwordComfirm"
-                    title="Password Confirm"
-                    content="***********"
-                    placeholder="Enter your password"
-                    state={isPasswordConfirmFocus}
-                    setState={setIsPasswordConfirmFocus}
-                  />
+                  <section className="password">
+                    <h3>Password</h3>
+                    {isModify ? (
+                      <input
+                        type="password"
+                        placeholder="Enter your password"
+                        value={password}
+                        onChange={handlePasswordChange}
+                      />
+                    ) : (
+                      <p>***********</p>
+                    )}
+                  </section>
+                  <section className="passwordComfirm">
+                    <h3>Password Confirm</h3>
+                    {isModify ? (
+                      <input
+                        type="password"
+                        placeholder="Enter your password"
+                        value={passwordConfirm}
+                        onChange={handlePasswordConfirmChange}
+                      />
+                    ) : (
+                      <p>***********</p>
+                    )}
+                  </section>
                 </section>
               </section>
               <section className="commentList">
@@ -554,7 +566,11 @@ const MyPage = () => {
                 </section>
               </section>
               <section className="buttonSection">
-                <button onClick={handleUpdate}>수정하기</button>
+                {isModify ? (
+                  <button onClick={handleUpdateDone}>수정완료</button>
+                ) : (
+                  <button onClick={handleUpdate}>수정하기</button>
+                )}
                 <button>탈퇴하기</button>
               </section>
             </section>
