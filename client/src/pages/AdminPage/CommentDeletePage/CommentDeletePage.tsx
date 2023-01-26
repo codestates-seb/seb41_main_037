@@ -86,7 +86,7 @@ const CommentDeletePageMain = styled.main`
         display: flex;
         justify-content: center;
         align-items: center;
-        max-width: 45px;
+        max-width: 50px;
         max-height: 20px;
         border-radius: 5px;
         font-size: 15px;
@@ -134,6 +134,7 @@ const CommentDeletePageMain = styled.main`
 const CommentDeletePage = () => {
   const [reviews, setReviews] = useState<any>(null);
   const { data } = useFetch("/reviews?page=1&size=50");
+  const [review, setReview] = useState("");
   useEffect(() => {
     if (data) {
       setReviews(data.data);
@@ -160,6 +161,20 @@ const CommentDeletePage = () => {
       alert("취소합니다.");
     }
   };
+
+  const handleReview = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setReview(e.target.value);
+  };
+
+  const handleSearchKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === "Enter") {
+      setReviews(
+        data.data.filter((item: any) =>
+          item.content.toUpperCase().includes(review.toUpperCase())
+        )
+      );
+    }
+  };
   return (
     <>
       <HomeHeader />
@@ -170,7 +185,13 @@ const CommentDeletePage = () => {
             <h2>리뷰삭제</h2>
           </section>
           <section className="searchBarSection">
-            <input type="text" placeholder="검색어를 입력하세요." />
+            <input
+              type="text"
+              placeholder="검색어를 입력하세요. (전체 목록 보기: 검색창 비운 뒤 Enter)"
+              value={review}
+              onChange={handleReview}
+              onKeyUp={handleSearchKeyUp}
+            />
             <FcSearch className="search icon" size={25} />
           </section>
           <section className="commentSection">

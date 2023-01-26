@@ -186,7 +186,9 @@ const ItemSearchPage = () => {
   const handleSearchKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter") {
       setProducts(
-        data.data.filter((item: any) => item.productName.includes(productName))
+        data.data.filter((item: any) =>
+          item.productName.toUpperCase().includes(productName.toUpperCase())
+        )
       );
     }
   };
