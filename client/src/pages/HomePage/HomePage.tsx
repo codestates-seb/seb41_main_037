@@ -474,6 +474,14 @@ const HomePage = () => {
     navigate("/");
   };
 
+  const handleClickMypage = () => {
+    if (localStorage.getItem("role") === "ADMIN") {
+      alert("접근 권한이 없습니다");
+    } else {
+      navigate("/mypage");
+    }
+  };
+
   return (
     <HomeMain>
       <section ref={outerDivRef} className="outer">
@@ -498,9 +506,7 @@ const HomePage = () => {
             </p>
             {isLogin ? (
               <section className="buttonSection">
-                <button onClick={() => navigate("/mypage")}>
-                  마이페이지 바로가기
-                </button>
+                <button onClick={handleClickMypage}>마이페이지 바로가기</button>
                 <button onClick={handleClickLogout}>로그아웃하기</button>
               </section>
             ) : (

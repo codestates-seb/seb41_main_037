@@ -108,6 +108,14 @@ const Nav = () => {
     navigate("/");
   };
 
+  const handleClickMypage = () => {
+    if (localStorage.getItem("role") === "ADMIN") {
+      alert("접근 권한이 없습니다");
+    } else {
+      navigate("/mypage");
+    }
+  };
+
   return (
     <NavBar>
       <section className="homeBtn">
@@ -135,8 +143,8 @@ const Nav = () => {
       </section>
       {isLogin ? (
         <section className="userBtn">
-          <button className="mypageBtn">
-            <Link to="/mypage">Mypage</Link>
+          <button className="mypageBtn" onClick={handleClickMypage}>
+            Mypage
           </button>
           <button className="logoutBtn" onClick={handleClickLogout}>
             <Link to="/">Logout</Link>

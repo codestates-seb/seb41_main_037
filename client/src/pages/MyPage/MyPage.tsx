@@ -316,9 +316,9 @@ const MyPage = () => {
     }
   }, [data]);
 
-  console.log(member);
-  console.log(reviews);
-  console.log(favorites);
+  // console.log(member);
+  // console.log(reviews);
+  // console.log(favorites);
 
   const WishItemCard = ({
     id,

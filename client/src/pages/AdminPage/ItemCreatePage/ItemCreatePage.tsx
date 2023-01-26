@@ -179,6 +179,8 @@ const ItemCreatePage = () => {
       setImage(URL.createObjectURL(e.target.files[0]));
       console.log(e.target.files);
       console.log(e.target.files[0]);
+      console.log(URL.createObjectURL(e.target.files[0]));
+      console.log(typeof URL.createObjectURL(e.target.files[0]));
       // reader.onload = function (e) {
       //   console.log(typeof e.target?.result);
       //   if (typeof e.target?.result === "string") {

@@ -270,7 +270,8 @@ const Item = ({ img, name, price, fav, comment }: ItemProps) => {
           className="likeSection"
           onClick={() => {
             setLike(!like);
-          }}>
+          }}
+        >
           {like ? (
             <HiHeart className="likeButton" />
           ) : (
@@ -404,7 +405,8 @@ const DetailPage = () => {
               <textarea
                 onChange={(e) => {
                   console.log(e.target.value);
-                }}></textarea>
+                }}
+              ></textarea>
               <button onClick={() => console.log(starRating)}>
                 리뷰
                 <br />
