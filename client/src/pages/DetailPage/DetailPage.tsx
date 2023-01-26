@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-redeclare */
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Nav from "../../components/Nav/Nav";
@@ -11,9 +10,10 @@ import {
   HiOutlinePencilAlt,
   HiOutlineTrash,
 } from "react-icons/hi";
-import { FaProductHunt, FaRegCommentDots } from "react-icons/fa";
+import { FaRegCommentDots } from "react-icons/fa";
 import useFetch from "../../api/useFetch";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const Main = styled.main`
   display: flex;
@@ -270,8 +270,7 @@ const Item = ({ img, name, price, fav, comment }: ItemProps) => {
           className="likeSection"
           onClick={() => {
             setLike(!like);
-          }}
-        >
+          }}>
           {like ? (
             <HiHeart className="likeButton" />
           ) : (
@@ -289,13 +288,14 @@ const Item = ({ img, name, price, fav, comment }: ItemProps) => {
 };
 
 interface CommentProps {
+  id: number;
   score: any;
   name: string;
   comment: string;
   date: string;
 }
 
-const Comment = ({ score, name, comment, date }: CommentProps) => {
+const Comment = ({ id, score, name, comment, date }: CommentProps) => {
   return (
     <>
       <section className="resultStarRating">
@@ -329,10 +329,74 @@ const DetailPage = () => {
     setCliked(clickStates);
   };
 
-  // 별점 => post할 때 이 변수 이용할 것
   let starRating = clicked.filter(Boolean).length;
 
-  const { id } = useParams<any>();
+  const [input, setInput] = useState("");
+
+  const onChange = (e: any) => setInput(e.target.value);
+  const { id } = useParams();
+
+  // 댓글 추가
+  const addComment = (e: any) => {
+    axios
+      .post(
+        `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`,
+        {
+          content: input,
+          rating: starRating,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((res) => console.log(res))
+      .catch((err) => alert("5자 이상 작성하세요."));
+    window.location.replace(`/products/${id}`);
+  };
+
+  // 댓글 수정
+  const editComment = (e: any) => {
+    axios
+      .patch(
+        `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`,
+        {
+          content: input,
+          rating: starRating,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((res) => console.log(res))
+      .catch((err) => alert("리뷰 수정에 실패했습니다."));
+  };
+
+  //댓글 삭제
+  const removeComment = (id: number) => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      if (reviews) {
+        axios
+          .delete(
+            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`,
+            {
+              headers: {
+                Authorization: localStorage.getItem("token"),
+              },
+            }
+          )
+          .catch((err) => alert("리뷰 삭제에 실패했습니다"));
+        setReviews(reviews.filter((review: any) => review.reviewId !== id));
+      }
+      alert("삭제되었습니다.");
+    } else {
+      alert("취소합니다.");
+    }
+  };
+
   const { data: productData } = useFetch("/products?page=1&size=24");
   const { data: reviewData } = useFetch("/reviews?page=1&size=50");
   const [product, setProduct] = useState<any>(null);
@@ -403,11 +467,9 @@ const DetailPage = () => {
                 )}
               </p>
               <textarea
-                onChange={(e) => {
-                  console.log(e.target.value);
-                }}
-              ></textarea>
-              <button onClick={() => console.log(starRating)}>
+                placeholder="리뷰를 작성하세요."
+                onChange={onChange}></textarea>
+              <button onClick={addComment}>
                 리뷰
                 <br />
                 등록
@@ -418,6 +480,7 @@ const DetailPage = () => {
                 {reviews &&
                   reviews.map((comment: any) => (
                     <Comment
+                      id={comment.reviewId}
                       score={starRender(comment.rating)}
                       name={comment.username}
                       comment={comment.content}
