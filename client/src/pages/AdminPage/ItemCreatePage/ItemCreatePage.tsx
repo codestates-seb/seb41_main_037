@@ -164,7 +164,7 @@ const ItemCreatePageMain = styled.main`
 
 const ItemCreatePage = () => {
   const fileInput = useRef<HTMLInputElement>(null);
-  const [image, setImage] = useState(
+  const [image, setImage] = useState<any>(
     "https://cdn-icons-png.flaticon.com/512/5578/5578817.png"
   );
   // 선택된 편의점 이름을 담는 변수
@@ -172,9 +172,21 @@ const ItemCreatePage = () => {
   const [price, setPrice] = useState("");
   const [productName, setProductName] = useState("");
 
+  // const reader = new FileReader();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setImage(URL.createObjectURL(e.target.files[0]));
+      console.log(e.target.files);
+      console.log(e.target.files[0]);
+      // reader.onload = function (e) {
+      //   console.log(typeof e.target?.result);
+      //   if (typeof e.target?.result === "string") {
+      //     setImage(e.target.result);
+      //     console.log(e.target.result);
+      //   }
+      // };
+      // reader.readAsDataURL(e.target.files[0]);
     }
   };
 
@@ -205,10 +217,15 @@ const ItemCreatePage = () => {
             imgName: "img",
             imgUrl: image,
             productCategory: selectedStore,
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
           }
         )
-        .catch((err) => console.log(err));
-      alert("상품이 등록되었습니다");
+        .then((res) => alert("상품이 등록되었습니다"))
+        .catch((err) => alert("상품이 등록에 실패했습니다"));
     }
   };
 

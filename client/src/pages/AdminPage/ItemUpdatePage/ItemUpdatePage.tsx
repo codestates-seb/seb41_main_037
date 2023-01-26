@@ -152,7 +152,7 @@ const ItemUpdatePage = () => {
       setProduct(data.data);
       setName(data.data.productName);
       setPrice(data.data.price);
-      console.log(data);
+      // console.log(data);
     }
   }, [data]);
 
@@ -176,21 +176,26 @@ const ItemUpdatePage = () => {
 
   // const reader = new FileReader();
 
-  // reader.onload = function () {
-  //   console.log(reader.result);
-  // };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
     if (fileList && fileList[0]) {
+      // console.log(fileList[0]);
       const url = URL.createObjectURL(fileList[0]);
+      console.log(fileList[0]);
+      console.log(url);
 
-      setImageFile({
-        file: fileList[0],
-        thumbnail: url,
-        type: fileList[0].type.slice(0, 5),
-      });
+      // reader.onload = function () {
+      //   console.log(reader.result);
+      // };
+
+      // setImageFile({
+      //   file: fileList[0],
+      //   thumbnail: url,
+      //   type: fileList[0].type.slice(0, 5),
+      // });
+      setImageFile(url);
       // reader.readAsDataURL(fileList[0]);
+      // reader.readAsText(fileList[0]);
     }
   };
 
@@ -202,13 +207,7 @@ const ItemUpdatePage = () => {
         </section>
       );
     }
-    return (
-      <img
-        src={imageFile.thumbnail}
-        alt={imageFile.type}
-        onClick={handleClinkFileInput}
-      />
-    );
+    return <img src={imageFile} alt="img" onClick={handleClinkFileInput} />;
   }, [imageFile, product]);
 
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -226,9 +225,14 @@ const ItemUpdatePage = () => {
         `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/admin/${productId}`,
         {
           imgName: "img",
-          imgUrl: imageFile ? imageFile.thumbnail : product.imgUrl,
+          imgUrl: imageFile ? imageFile : product.imgUrl,
           price: Number(price),
           productName: name,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
         }
       )
       .then((res) => {
@@ -264,7 +268,7 @@ const ItemUpdatePage = () => {
                 <input
                   type="text"
                   value={price || ""}
-                  placeholder="수정할 상품의 가격을 입력하세요"
+                  placeholder="수정할 상품의 가격을 입력하세요(숫자만 입력)"
                   onChange={handlePrice}
                 />
               </section>

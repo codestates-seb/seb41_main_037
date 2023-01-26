@@ -145,9 +145,14 @@ const CommentDeletePage = () => {
       if (reviews) {
         axios
           .delete(
-            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`
+            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/admin/reviews/${id}`,
+            {
+              headers: {
+                Authorization: localStorage.getItem("token"),
+              },
+            }
           )
-          .catch((err) => console.log(err));
+          .catch((err) => alert("리뷰 삭제에 실패했습니다"));
         setReviews(reviews.filter((review: any) => review.reviewId !== id));
       }
       alert("삭제되었습니다.");
