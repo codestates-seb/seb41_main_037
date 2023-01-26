@@ -10,6 +10,7 @@ import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../api/useFetch";
+import axios from "axios";
 
 const Container = styled.main`
   display: flex;
@@ -284,19 +285,6 @@ const StyledSlider = styled(Slider)`
   }
 `;
 
-const WishItemCard = ({ id, image, name, price, alt }: WishProps) => {
-  return (
-    <div className="wishItem" key={id}>
-      <div className="closeIcon">
-        <AiFillCloseCircle size="20" />
-      </div>
-      <img src={image} alt={alt} />
-      <span className="itemName">{name}</span>
-      <span className="itemPrice">{price}원</span>
-    </div>
-  );
-};
-
 interface ProfileProps {
   classname: string;
   title: string;
@@ -318,6 +306,7 @@ interface WishProps {
   name: string;
   price?: string;
   alt: string;
+  productId: number;
 }
 
 // interface ReviewProps {
@@ -338,7 +327,8 @@ const MyPage = () => {
   const [isPasswordFocus, setIsPasswordFocus] = useState(false);
   const [isPasswordConfirmFocus, setIsPasswordConfirmFocus] = useState(false);
 
-  const { data } = useFetch("/members/1");
+  const { data } = useFetch(`/members/${localStorage.getItem("memberID")}`);
+  // const { data } = useFetch(`/members/1`);
   const [member, setMember] = useState<any>(null);
   const [reviews, setReviews] = useState<any>(null);
   const [favorites, setFavorites] = useState<any>(null);
@@ -379,6 +369,29 @@ const MyPage = () => {
     );
   };
 
+  const WishItemCard = ({
+    id,
+    image,
+    name,
+    price,
+    alt,
+    productId,
+  }: WishProps) => {
+    return (
+      <div className="wishItem" key={id}>
+        <div className="closeIcon">
+          <AiFillCloseCircle
+            onClick={() => handleDelete(productId)}
+            size="20"
+          />
+        </div>
+        <img src={image} alt={alt} />
+        <span className="itemName">{name}</span>
+        <span className="itemPrice">{price}원</span>
+      </div>
+    );
+  };
+
   const [image, setImage] = useState(
     "https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800"
   );
@@ -392,6 +405,24 @@ const MyPage = () => {
 
   const handleUpdate = () => {
     console.log(image);
+  };
+
+  const handleDelete = (id: number) => {
+    axios
+      .get(
+        `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/favorite/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((res) => {
+        setFavorites(
+          favorites.filter((favorite: any) => favorite.productId !== id)
+        );
+      })
+      .catch((err) => alert("찜 목록 삭제에 실패했습니다"));
   };
 
   const settings = {
@@ -488,7 +519,8 @@ const MyPage = () => {
                         key={review.reviewId}
                         onClick={() =>
                           navigate(`/products/${review.productId}`)
-                        }>
+                        }
+                      >
                         <section className="store">
                           {review.productCategory}
                         </section>
@@ -512,6 +544,7 @@ const MyPage = () => {
                             image={wishItem.imgUrl}
                             name={wishItem.productName}
                             price={wishItem.price}
+                            productId={wishItem.productId}
                             alt="img"
                           />
                         );
