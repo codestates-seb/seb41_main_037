@@ -1,4 +1,4 @@
-package com.lifo.CVSreview.member.mapper;
+package com.lifo.CVSreview.member.repository.mapper;
 
 import com.lifo.CVSreview.member.Entity.Member;
 import com.lifo.CVSreview.member.dto.request.MemberPatchReqDto;

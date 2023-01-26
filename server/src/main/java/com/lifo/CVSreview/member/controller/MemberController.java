@@ -1,10 +1,9 @@
 package com.lifo.CVSreview.member.controller;
 
-import com.lifo.CVSreview.auth.utils.SecurityUtil;
 import com.lifo.CVSreview.member.Entity.Member;
 import com.lifo.CVSreview.member.dto.request.MemberPatchReqDto;
 import com.lifo.CVSreview.member.dto.request.MemberPostReqDto;
-import com.lifo.CVSreview.member.mapper.MemberMapper;
+import com.lifo.CVSreview.member.repository.mapper.MemberMapper;
 import com.lifo.CVSreview.member.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

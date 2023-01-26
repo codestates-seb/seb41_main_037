@@ -11,7 +11,7 @@ import com.lifo.CVSreview.favorite.mapper.FavoriteMapper;
 import com.lifo.CVSreview.favorite.service.FavoriteService;
 import com.lifo.CVSreview.member.Entity.Member;
 import com.lifo.CVSreview.member.dto.response.MemberMyPageDto;
-import com.lifo.CVSreview.member.mapper.MemberMapper;
+import com.lifo.CVSreview.member.repository.mapper.MemberMapper;
 import com.lifo.CVSreview.member.repository.MemberRepository;
 import com.lifo.CVSreview.review.dto.ReviewResponseDto;
 import com.lifo.CVSreview.review.entity.Review;

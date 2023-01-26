@@ -14,8 +14,7 @@ INSERT INTO MEMBER (email, password, nickname,member_created_at) VALUES
 ('admQin@gmail.com','!12dfadas44ds1dasdad','유재석',current_time),
 ('admWin@gmail.com','!12dfadas44ds1dasdad','BTS',current_time),
 ('admZin@gmail.com','!12dfadas44ds1dasdad','핑크',current_time),
-('aaaXa@gmail.com', '###dadasdsad2133331','심사임당',current_time),
-('admin@gmail.com', '###dadasdsad2133331','관리자',current_time);
+('aaaXa@gmail.com', '###dadasdsad2133331','심사임당',current_time);
 
 INSERT INTO PRODUCT (FAVORITE_COUNT ,PRODUCT_NAME, price, IMG_NAME, IMG_URL, PRODUCT_CATEGORY,CREATED_AT,RATING,REVIEW_COUNT) VALUES
 (1,'HEYROO속초홍게라면', 1800, 'image','//tqklhszfkvzk6518638.cdn.ntruss.com/product/8809296883074.jpg','CU',current_time,3,4),
