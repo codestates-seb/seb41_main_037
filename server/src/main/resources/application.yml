@@ -6,12 +6,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: admin
-    url: jdbc:mysql://database-1.cu34yawadyid.ap-northeast-2.rds.amazonaws.com:13306/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://database-1.cu34yawadyid.ap-northeast-2.rds.amazonaws.com:13306/test
     password: 12341234
-  sql:
-    init:
-      data-locations: classpath*:data.sql
-      mode: always
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
