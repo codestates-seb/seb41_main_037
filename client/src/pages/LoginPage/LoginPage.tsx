@@ -147,7 +147,6 @@ const LoginPage = () => {
   }, [email, password]);
 
   const handleLogin = () => {
-    // 서버 통신 후 다시 작성!
     if (emailState && passwordState) {
       // 로그인 성공 시
       axios
@@ -164,18 +163,17 @@ const LoginPage = () => {
             let base64Payload = token.split(".")[1]; //value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
             let payload = Buffer.from(base64Payload, "base64");
             let memberInformation = JSON.parse(payload.toString());
-            // console.log(memberInformation);
             localStorage.setItem("token", token);
             localStorage.setItem("memberID", memberInformation.memberID);
             localStorage.setItem("role", memberInformation.roles[0]);
             setIsLogin(true);
           }
-          // console.log(res);
-          // console.log(res.headers);
-          // console.log(res.headers.authorization);
           navigate("/");
         })
-        .catch((err) => alert("일치하는 회원정보가 없습니다"));
+        .catch((err) => {
+          alert("일치하는 회원정보가 없습니다");
+          console.log(err);
+        });
     } else {
       // 로그인 실패 시
       alert("이메일과 비밀번호를 올바르게 입력해주세요");

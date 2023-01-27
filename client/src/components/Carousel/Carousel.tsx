@@ -10,7 +10,6 @@ const StyledSlider = styled(Slider)`
   display: flex;
   height: 314px;
   width: 840px;
-  /* justify-content: center; */
   .slick-slide div {
     cursor: pointer;
   }
@@ -59,8 +58,6 @@ const Carousel = () => {
       setBestItems(data);
     }
   }, [data]);
-
-  // console.log(bestItems);
 
   const settings = {
     arrows: true,

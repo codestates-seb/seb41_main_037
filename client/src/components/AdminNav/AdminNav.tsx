@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-// import { useRecoilValue } from "recoil";
 import { LoginState } from "../../states/LoginState";
 import { useSetRecoilState } from "recoil";
 
@@ -75,11 +74,8 @@ const AdminNavBar = styled.nav`
 
 const AdminNav = () => {
   const navigate = useNavigate();
-  let location = window.location.pathname;
-  // const isLogin = useRecoilValue(LoginState);
   const setIsLogin = useSetRecoilState(LoginState);
-
-  // console.log(isLogin);
+  let location = window.location.pathname;
 
   const handleClickLogout = () => {
     localStorage.removeItem("token");

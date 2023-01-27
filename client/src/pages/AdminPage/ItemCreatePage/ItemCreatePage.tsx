@@ -1,4 +1,3 @@
-// import React from "react";
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import HomeHeader from "../../../components/AdminHeader/AdminHeader";
@@ -172,23 +171,9 @@ const ItemCreatePage = () => {
   const [price, setPrice] = useState("");
   const [productName, setProductName] = useState("");
 
-  // const reader = new FileReader();
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setImage(URL.createObjectURL(e.target.files[0]));
-      console.log(e.target.files);
-      console.log(e.target.files[0]);
-      console.log(URL.createObjectURL(e.target.files[0]));
-      console.log(typeof URL.createObjectURL(e.target.files[0]));
-      // reader.onload = function (e) {
-      //   console.log(typeof e.target?.result);
-      //   if (typeof e.target?.result === "string") {
-      //     setImage(e.target.result);
-      //     console.log(e.target.result);
-      //   }
-      // };
-      // reader.readAsDataURL(e.target.files[0]);
     }
   };
 

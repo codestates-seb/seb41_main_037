@@ -1,4 +1,3 @@
-// import React from "react";
 import { useState, useMemo } from "react";
 import Location from "./Location";
 

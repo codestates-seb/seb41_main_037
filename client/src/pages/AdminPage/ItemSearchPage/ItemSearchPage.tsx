@@ -210,6 +210,7 @@ const ItemSearchPage = () => {
         setProducts(products.filter((item: any) => item.productId !== id));
       }
       alert("삭제되었습니다.");
+      window.location.reload();
     } else {
       alert("취소합니다.");
     }

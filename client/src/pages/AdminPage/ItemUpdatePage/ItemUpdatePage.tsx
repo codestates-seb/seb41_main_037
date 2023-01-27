@@ -1,6 +1,5 @@
-// import React from "react";
-import axios from "axios";
 import React, { useMemo, useRef, useState, useEffect } from "react";
+import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import useFetch from "../../../api/useFetch";
@@ -128,12 +127,6 @@ const ItemUpdatePageMain = styled.main`
   }
 `;
 
-// interface UploadImage {
-//   file: File;
-//   thumbnail: string;
-//   type: string;
-// }
-
 const ItemUpdatePage = () => {
   const { productId } = useParams();
   const { data } = useFetch(`/products/${productId}`);
@@ -152,7 +145,6 @@ const ItemUpdatePage = () => {
       setProduct(data.data);
       setName(data.data.productName);
       setPrice(data.data.price);
-      // console.log(data);
     }
   }, [data]);
 
@@ -160,42 +152,9 @@ const ItemUpdatePage = () => {
     fileInput.current?.click();
   };
 
-  // const getBlob = async () => {
-  //   let blob = await fetch(imageFile.thumbnail).then((r) => r.blob());
-  //   if (blob) {
-  //     let data = new FormData();
-  //     data.append("image", blob, "image.jpg");
-  //   }
-  //   console.log(data);
-  // };
-
-  // let blob =  axios.get(imageFile.thumbnail).then((r) => {
-  //   r.blob()
-  // });
-  // console.log(blob);
-
-  // const reader = new FileReader();
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileList = e.target.files;
-    if (fileList && fileList[0]) {
-      // console.log(fileList[0]);
-      const url = URL.createObjectURL(fileList[0]);
-      console.log(fileList[0]);
-      console.log(url);
-
-      // reader.onload = function () {
-      //   console.log(reader.result);
-      // };
-
-      // setImageFile({
-      //   file: fileList[0],
-      //   thumbnail: url,
-      //   type: fileList[0].type.slice(0, 5),
-      // });
-      setImageFile(url);
-      // reader.readAsDataURL(fileList[0]);
-      // reader.readAsText(fileList[0]);
+    if (e.target.files && e.target.files[0]) {
+      setImageFile(URL.createObjectURL(e.target.files[0]));
     }
   };
 
@@ -212,7 +171,6 @@ const ItemUpdatePage = () => {
 
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
-    // console.log(product.productName);
   };
 
   const handlePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
