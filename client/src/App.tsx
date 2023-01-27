@@ -4,9 +4,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
-import MainPage1 from "./pages/MainPage/MainPage1";
-import MainPage2 from "./pages/MainPage/MainPage2";
-import MainPage3 from "./pages/MainPage/MainPage3";
+import CuMainPage from "./pages/MainPage/CuMainPage";
+import GsMainPage from "./pages/MainPage/GsMainPage";
+import SevenMainPage from "./pages/MainPage/SevenMainPage";
 import DetailPage from "./pages/DetailPage/DetailPage";
 import MyPage from "./pages/MyPage/MyPage";
 import ItemCreatePage from "./pages/AdminPage/ItemCreatePage/ItemCreatePage";
@@ -30,15 +30,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/cu",
-    element: <MainPage1 />,
+    element: <CuMainPage />,
   },
   {
     path: "/gs25",
-    element: <MainPage2 />,
+    element: <GsMainPage />,
   },
   {
     path: "/seveneleven",
-    element: <MainPage3 />,
+    element: <SevenMainPage />,
   },
   {
     path: "/products/:id",
