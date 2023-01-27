@@ -7,6 +7,10 @@ spring:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+
   #        globally_quoted_identifiers: true
 
   h2:
@@ -16,7 +20,10 @@ spring:
       settings:
         web-allow-others: true
   datasource:
-    url: jdbc:h2:mem:cvsreviewproject
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: admin
+    url: jdbc:mysql://database-1.cu34yawadyid.ap-northeast-2.rds.amazonaws.com:13306/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=KST
+    password: 12341234
   sql:
     init:
       data-locations: classpath*:data.sql
@@ -33,3 +40,6 @@ jwt:
   key: kevin123412341234123412341234123412341234123412341234
   access-token-expiration-minutes: 60
   refresh-token-expiration-minutes: 360
+
+config:
+  domain: http://main-037-deploy-practice.s3-website.ap-northeast-2.amazonaws.com
