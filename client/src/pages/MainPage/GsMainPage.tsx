@@ -6,7 +6,7 @@ import { HiOutlineHeart, HiHeart } from "react-icons/hi";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
-import useFetch from "../.././api/useFetch";
+import useFetch from "../../api/useFetch";
 
 const Container = styled.main`
   display: flex;
@@ -131,8 +131,8 @@ const Container = styled.main`
           margin: 0 auto;
           margin-bottom: 10px;
           > img {
-            width: 200px;
-            height: 200px;
+            width: 160px;
+            height: 160px;
           }
         }
 
@@ -213,14 +213,14 @@ const Item = ({ id, img, name, price }: ItemProps) => {
   );
 };
 
-const MainPage1 = () => {
+const GsMainPage = () => {
   const { data } = useFetch("/products?page=1&size=24");
   const [products, setProducts] = useState<any>(null);
 
   useEffect(() => {
     if (data) {
       setProducts(
-        data.data.filter((item: any) => item.productCategory === "CU")
+        data.data.filter((item: any) => item.productCategory === "GS")
       );
     }
   }, [data]);
@@ -229,8 +229,8 @@ const MainPage1 = () => {
 
   const [word, setWord] = useState<string>("");
   const onSubmit = async () => {
-    // window.location.href = "/search?key=" + word + "&category=CU";
-    window.history.pushState("", word, "/search?key=" + word + "&category=CU");
+    // window.location.href = "/search?key=" + word + "&category=GS";
+    window.history.pushState("", word, "/search?key=" + word + "&category=GS");
     setProducts(
       products.filter((item: any) =>
         item.productName.toUpperCase().includes(word.toUpperCase())
@@ -362,4 +362,4 @@ const MainPage1 = () => {
   );
 };
 
-export default MainPage1;
+export default GsMainPage;

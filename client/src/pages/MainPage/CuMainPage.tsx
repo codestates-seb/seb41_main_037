@@ -6,7 +6,7 @@ import { HiOutlineHeart, HiHeart } from "react-icons/hi";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
-import useFetch from "../.././api/useFetch";
+import useFetch from "../../api/useFetch";
 
 const Container = styled.main`
   display: flex;
@@ -131,8 +131,8 @@ const Container = styled.main`
           margin: 0 auto;
           margin-bottom: 10px;
           > img {
-            width: 160px;
-            height: 160px;
+            width: 200px;
+            height: 200px;
           }
         }
 
@@ -213,14 +213,14 @@ const Item = ({ id, img, name, price }: ItemProps) => {
   );
 };
 
-const MainPage3 = () => {
+const CuMainPage = () => {
   const { data } = useFetch("/products?page=1&size=24");
   const [products, setProducts] = useState<any>(null);
 
   useEffect(() => {
     if (data) {
       setProducts(
-        data.data.filter((item: any) => item.productCategory === "SEVEN")
+        data.data.filter((item: any) => item.productCategory === "CU")
       );
     }
   }, [data]);
@@ -229,12 +229,8 @@ const MainPage3 = () => {
 
   const [word, setWord] = useState<string>("");
   const onSubmit = async () => {
-    // window.location.href = "/search?key=" + word + "&category=ELEVEN";
-    window.history.pushState(
-      "",
-      word,
-      "/search?key=" + word + "&category=ELEVEN"
-    );
+    // window.location.href = "/search?key=" + word + "&category=CU";
+    window.history.pushState("", word, "/search?key=" + word + "&category=CU");
     setProducts(
       products.filter((item: any) =>
         item.productName.toUpperCase().includes(word.toUpperCase())
@@ -366,4 +362,4 @@ const MainPage3 = () => {
   );
 };
 
-export default MainPage3;
+export default CuMainPage;
