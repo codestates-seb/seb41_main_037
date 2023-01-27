@@ -170,7 +170,7 @@ const LoginPage = () => {
           navigate("/");
         })
         .catch((err) => {
-          alert("일치하는 회원정보가 없습니다");
+          alert("로그인에 실패했습니다");
         });
     } else {
       // 로그인 실패 시

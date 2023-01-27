@@ -7,6 +7,8 @@ import Footer from "../../components/Footer/Footer";
 import useFetch from "../../api/useFetch";
 import axios from "axios";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { useSetRecoilState } from "recoil";
+import { LoginState } from "../../states/LoginState";
 
 const Container = styled.main`
   display: flex;
@@ -269,6 +271,8 @@ const MyPage = () => {
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
   const [isModify, setIsModify] = useState(false);
+
+  const setIsLogin = useSetRecoilState(LoginState);
   useEffect(() => {
     if (data) {
       setMember(data);
@@ -324,9 +328,18 @@ const MyPage = () => {
 
   const fileInput = useRef<HTMLInputElement>(null);
 
+  const reader = new FileReader();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setImage(URL.createObjectURL(e.target.files[0]));
+      reader.onload = function (e) {
+        console.log(typeof e.target?.result);
+        if (typeof e.target?.result === "string") {
+          setImage(e.target.result);
+          console.log(e.target.result);
+        }
+      };
+      reader.readAsDataURL(e.target.files[0]);
     }
   };
 
@@ -364,8 +377,7 @@ const MyPage = () => {
           )}`,
           {
             image_name: "myimg",
-            image_path:
-              "https://blog.kakaocdn.net/dn/GHYFr/btrsSwcSDQV/UQZxkayGyAXrPACyf0MaV1/img.jpg",
+            image_path: image,
             memberId: localStorage.getItem("memberID"),
             nickname: nickname,
             password: password,
@@ -383,6 +395,28 @@ const MyPage = () => {
     setIsModify(!isModify);
   };
 
+  const handleDeleteAccount = (id: number) => {
+    axios
+      .delete(
+        `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/members/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      )
+      .then(() => {
+        alert("탈퇴에 성공했습니다");
+        localStorage.removeItem("token");
+        localStorage.removeItem("memberID");
+        localStorage.removeItem("role");
+        setIsLogin(false);
+        navigate("/");
+      })
+      .catch((err) => alert("탈퇴에 실패했습니다"));
+  };
+  console.log(member);
+
   return (
     <>
       <Container>
@@ -393,7 +427,7 @@ const MyPage = () => {
             <section className="mypageSection">
               <section className="userProfile">
                 <img
-                  src={image}
+                  src={member && member.image_path ? member.image_path : image}
                   alt="userImage"
                   onClick={() => fileInput.current?.click()}
                 />
@@ -499,7 +533,9 @@ const MyPage = () => {
                 ) : (
                   <button onClick={handleUpdate}>수정하기</button>
                 )}
-                <button>탈퇴하기</button>
+                <button onClick={() => handleDeleteAccount(member.memberId)}>
+                  탈퇴하기
+                </button>
               </section>
             </section>
           </MypageMain>
