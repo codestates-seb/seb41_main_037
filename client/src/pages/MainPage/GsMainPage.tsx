@@ -66,6 +66,7 @@ const Container = styled.main`
     flex-wrap: wrap;
 
     .sortBtnGroup {
+      display: flex;
       margin-right: 150px;
       margin-bottom: 50px;
 
@@ -97,7 +98,9 @@ const Container = styled.main`
     .itemList {
       display: flex;
       justify-content: center;
+      align-items: center;
       flex-wrap: wrap;
+      width: 100%;
       margin-bottom: 50px;
 
       .itemBox {
