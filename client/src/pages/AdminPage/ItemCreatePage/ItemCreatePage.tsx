@@ -3,6 +3,7 @@ import styled from "styled-components";
 import HomeHeader from "../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../components/AdminNav/AdminNav";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Main = styled.main`
   display: flex;
@@ -162,6 +163,7 @@ const ItemCreatePageMain = styled.main`
 `;
 
 const ItemCreatePage = () => {
+  const navigate = useNavigate();
   const fileInput = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<any>(
     "https://cdn-icons-png.flaticon.com/512/5578/5578817.png"
@@ -178,12 +180,10 @@ const ItemCreatePage = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      // setImage(URL.createObjectURL(e.target.files[0]));
       reader.onload = function (e) {
         console.log(typeof e.target?.result);
         if (typeof e.target?.result === "string") {
           setImage(e.target.result);
-          console.log(e.target.result);
         }
       };
       reader.readAsDataURL(e.target.files[0]);
@@ -220,7 +220,10 @@ const ItemCreatePage = () => {
             },
           }
         )
-        .then((res) => alert("상품이 등록되었습니다"))
+        .then((res) => {
+          alert("상품이 등록되었습니다");
+          navigate("/admin/search");
+        })
         .catch((err) => alert("상품이 등록에 실패했습니다"));
     }
   };

@@ -143,6 +143,7 @@ const ItemSearchPage = () => {
   const [currentTab, clickTab] = useState(0);
   const { data } = useFetch("/products?page=1&size=30");
   const [products, setProducts] = useState<any>(null);
+  // const [originalProducts, setOriginalProducts] = useState<any>(null);
 
   const [productName, setProductName] = useState("");
   useEffect(() => {
@@ -186,10 +187,11 @@ const ItemSearchPage = () => {
   const handleSearchKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter") {
       setProducts(
-        data.data.filter((item: any) =>
+        products.filter((item: any) =>
           item.productName.toUpperCase().includes(productName.toUpperCase())
         )
       );
+      setProductName("");
     }
   };
 
@@ -206,8 +208,10 @@ const ItemSearchPage = () => {
               },
             }
           )
+          .then(() =>
+            setProducts(products.filter((item: any) => item.productId !== id))
+          )
           .catch((err) => console.log(err));
-        setProducts(products.filter((item: any) => item.productId !== id));
       }
       alert("삭제되었습니다.");
       window.location.reload();
@@ -229,7 +233,7 @@ const ItemSearchPage = () => {
             <section className="searchBarSection">
               <input
                 type="text"
-                placeholder="상품명을 입력하세요."
+                placeholder="상품명을 입력하세요. (전체 목록 보기: 원하는 탭 Click)"
                 value={productName}
                 onChange={handleProductName}
                 onKeyUp={handleSearchKeyUp}
