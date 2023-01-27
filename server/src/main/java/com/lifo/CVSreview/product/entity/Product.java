@@ -34,7 +34,7 @@ public class Product extends BaseTimeEntity {
     @Column(nullable = false)
     private String imgName; // 상품 이미지 이름
 
-    @Column(nullable = false,length = 1000)
+    @Column(nullable = false,length = 999999999)
     private String imgUrl;  // 상품 이미지 경로
 
     @Column
