@@ -1,28 +1,12 @@
 spring:
   jpa:
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: create
-    show-sql: false
-    properties:
-      hibernate:
-        format_sql: true
-    defer-datasource-initialization: true
-    database: mysql
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-
-
-  #        globally_quoted_identifiers: true
-
-  h2:
-    console:
-      enabled: true
-      path: /h2
-      settings:
-        web-allow-others: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: admin
-    url: jdbc:mysql://database-1.cu34yawadyid.ap-northeast-2.rds.amazonaws.com:13306/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=KST
+    url: jdbc:mysql://database-1.cu34yawadyid.ap-northeast-2.rds.amazonaws.com:13306/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
     password: 12341234
   sql:
     init:
