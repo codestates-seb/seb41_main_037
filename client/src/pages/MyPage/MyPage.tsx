@@ -7,9 +7,6 @@ import Footer from "../../components/Footer/Footer";
 import useFetch from "../../api/useFetch";
 import axios from "axios";
 import { AiFillCloseCircle } from "react-icons/ai";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 const Container = styled.main`
   display: flex;
@@ -173,7 +170,7 @@ const MypageMain = styled.main`
       }
       .wishItems {
         display: flex;
-        justify-content: center;
+        overflow-x: scroll;
         &::-webkit-scrollbar {
           display: none;
         }
@@ -186,7 +183,7 @@ const MypageMain = styled.main`
           box-shadow: 2px 2px 3px #7a7979;
           padding: 0.5rem;
           margin-right: 1rem;
-          width: 150px;
+          min-width: 155px;
           height: 200px;
           border-radius: 10px;
           .closeIcon {
@@ -250,40 +247,6 @@ const MypageMain = styled.main`
   }
 `;
 
-const StyledSlider = styled(Slider)`
-  display: flex;
-  height: 230px;
-  @media screen and (max-width: 767px) {
-    width: 470px;
-  }
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
-    width: 620px;
-  }
-  @media screen and (min-width: 1024px) {
-    width: 650px;
-  }
-
-  justify-content: center;
-  .slick-slide div {
-    cursor: pointer;
-  }
-  .slick-prev,
-  .slick-next {
-    top: 45%;
-  }
-  .slick-dots {
-    bottom: -15px;
-  }
-  .slick-dots li button:before {
-    line-height: 0px;
-
-    color: #58419c;
-  }
-  .slick-dots li.slick-active button:before {
-    color: #58419c;
-  }
-`;
-
 interface WishProps {
   id: number;
   image: string;
@@ -314,10 +277,6 @@ const MyPage = () => {
       setNickname(data.nickname);
     }
   }, [data]);
-
-  // console.log(member);
-  // console.log(reviews);
-  // console.log(favorites);
 
   const WishItemCard = ({
     id,
@@ -424,32 +383,6 @@ const MyPage = () => {
     setIsModify(!isModify);
   };
 
-  const settings = {
-    arrows: true,
-    dots: true,
-    speed: 1000,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          dots: true,
-        },
-      },
-    ],
-  };
-
   return (
     <>
       <Container>
@@ -545,22 +478,19 @@ const MyPage = () => {
               <section className="wishList">
                 <h3>Wish list</h3>
                 <section className="wishItems">
-                  {favorites && (
-                    <StyledSlider {...settings}>
-                      {favorites.map((wishItem: any) => {
-                        return (
-                          <WishItemCard
-                            id={wishItem.favoriteId}
-                            image={wishItem.imgUrl}
-                            name={wishItem.productName}
-                            price={wishItem.price}
-                            productId={wishItem.productId}
-                            alt="img"
-                          />
-                        );
-                      })}
-                    </StyledSlider>
-                  )}
+                  {favorites &&
+                    favorites.map((wishItem: any) => {
+                      return (
+                        <WishItemCard
+                          id={wishItem.favoriteId}
+                          image={wishItem.imgUrl}
+                          name={wishItem.productName}
+                          price={wishItem.price}
+                          productId={wishItem.productId}
+                          alt="img"
+                        />
+                      );
+                    })}
                 </section>
               </section>
               <section className="buttonSection">
