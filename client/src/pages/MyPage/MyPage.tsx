@@ -35,8 +35,8 @@ const MypageMain = styled.main`
     @media screen and (min-width: 768px) and (max-width: 1024px) {
       width: 700px;
     }
-    @media screen and(min-width: 1024px) {
-      width: 850px;
+    @media screen and (min-width: 1024px) {
+      max-width: 822px;
     }
 
     .userProfile {
