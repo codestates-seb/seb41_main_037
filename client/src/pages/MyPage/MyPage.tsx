@@ -105,11 +105,11 @@ const MypageMain = styled.main`
       background-color: #ffcb5e;
       border-radius: 5px;
       margin: 1.5rem 0 1rem 0;
-      padding: 1rem 1rem 0.5rem 1rem;
+      padding: 1rem 1rem 0.5rem 1.5rem;
       max-height: 300px;
       h3 {
         color: #fff;
-        font-size: 18px;
+        font-size: 22px;
         font-weight: 600;
         margin-bottom: 0.5rem;
       }
@@ -162,11 +162,11 @@ const MypageMain = styled.main`
       background-color: #ffcb5e;
       border-radius: 5px;
       margin: 0.5rem 0;
-      padding: 1rem;
+      padding: 1rem 1.5rem;
 
       h3 {
         color: #fff;
-        font-size: 18px;
+        font-size: 22px;
         font-weight: 600;
         margin-bottom: 0.5rem;
       }
@@ -174,10 +174,18 @@ const MypageMain = styled.main`
         display: flex;
         overflow-x: scroll;
         &::-webkit-scrollbar {
-          display: none;
+          height: 6px;
+        }
+        &::-webkit-scrollbar-track {
+          background-color: transparent;
+        }
+        &::-webkit-scrollbar-thumb {
+          border-radius: 5px;
+          background-color: #58419c;
         }
         .wishItem {
           display: flex;
+          margin: 0.5rem 0;
           flex-direction: column;
           justify-content: space-between;
           align-items: center;
