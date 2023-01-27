@@ -39,7 +39,7 @@ public class Member {
     @Column
     private String image_name;
 
-    @Column
+    @Column(nullable = true,length = 1000)
     private String image_path;
 
     @Column(name = "member_created_at", nullable = false)
