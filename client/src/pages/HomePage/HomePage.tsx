@@ -464,6 +464,7 @@ const HomePage = () => {
       left: 0,
       behavior: "smooth",
     });
+    setScrollIndex(1);
   };
 
   const handleClickLogout = () => {

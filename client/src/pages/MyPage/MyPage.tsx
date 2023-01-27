@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
-import { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Header from "../../components/Header/Header";
+import Nav from "../../components/Nav/Nav";
+import Footer from "../../components/Footer/Footer";
+import useFetch from "../../api/useFetch";
+import axios from "axios";
 import { AiFillCloseCircle } from "react-icons/ai";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Header from "../../components/Header/Header";
-import Nav from "../../components/Nav/Nav";
-import Footer from "../../components/Footer/Footer";
-import { useNavigate } from "react-router-dom";
-import useFetch from "../../api/useFetch";
-import axios from "axios";
 
 const Container = styled.main`
   display: flex;
@@ -328,6 +327,23 @@ const MyPage = () => {
     alt,
     productId,
   }: WishProps) => {
+    const handleDelete = (id: number) => {
+      axios
+        .get(
+          `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/favorite/${id}`,
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        )
+        .then((res) => {
+          setFavorites(
+            favorites.filter((favorite: any) => favorite.productId !== id)
+          );
+        })
+        .catch((err) => alert("찜 목록 삭제에 실패했습니다"));
+    };
     return (
       <div className="wishItem" key={id}>
         <div className="closeIcon">
@@ -406,24 +422,6 @@ const MyPage = () => {
         .catch((err) => alert("회원정보 수정에 실패했습니다"));
     }
     setIsModify(!isModify);
-  };
-
-  const handleDelete = (id: number) => {
-    axios
-      .get(
-        `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/favorite/${id}`,
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      )
-      .then((res) => {
-        setFavorites(
-          favorites.filter((favorite: any) => favorite.productId !== id)
-        );
-      })
-      .catch((err) => alert("찜 목록 삭제에 실패했습니다"));
   };
 
   const settings = {

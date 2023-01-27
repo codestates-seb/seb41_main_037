@@ -1,14 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { InputCard } from "../SignupPage/SignupPage";
-import HomeHeader from "../../components/AdminHeader/AdminHeader";
 import { useNavigate } from "react-router-dom";
+import HomeHeader from "../../components/AdminHeader/AdminHeader";
 import LoginFooter from "../../components/LoginFooter/LoginFooter";
-import axios from "axios";
-import { Buffer } from "buffer";
+import { InputCard } from "../SignupPage/SignupPage";
 import { LoginState } from "../../states/LoginState";
 import { useSetRecoilState } from "recoil";
+import { Buffer } from "buffer";
+import axios from "axios";
 
 const Container = styled.section`
   font-family: "Do Hyeon", sans-serif;
@@ -172,7 +171,6 @@ const LoginPage = () => {
         })
         .catch((err) => {
           alert("일치하는 회원정보가 없습니다");
-          console.log(err);
         });
     } else {
       // 로그인 실패 시

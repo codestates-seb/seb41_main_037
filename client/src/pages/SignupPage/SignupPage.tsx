@@ -1,11 +1,10 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import HomeHeader from "../../components/AdminHeader/AdminHeader";
-import { RiErrorWarningFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import HomeHeader from "../../components/AdminHeader/AdminHeader";
 import LoginFooter from "../../components/LoginFooter/LoginFooter";
 import axios from "axios";
+import { RiErrorWarningFill } from "react-icons/ri";
 
 const Container = styled.section`
   font-family: "Do Hyeon", sans-serif;
@@ -227,10 +226,11 @@ const SignupPage = () => {
             role: 0,
           }
         )
-        .then((res) => console.log(res.data))
+        .then((res) => {
+          alert("회원가입이 완료되었습니다");
+          navigate("/login");
+        })
         .catch((err) => alert("이미 가입한 회원입니다"));
-      alert("회원가입이 완료되었습니다");
-      navigate("/login");
     } else {
       // 회원가입 실패 시(option)
       alert("다시 한 번 확인해주세요");

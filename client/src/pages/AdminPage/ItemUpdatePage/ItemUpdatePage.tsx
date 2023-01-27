@@ -152,9 +152,19 @@ const ItemUpdatePage = () => {
     fileInput.current?.click();
   };
 
+  const reader = new FileReader();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setImageFile(URL.createObjectURL(e.target.files[0]));
+      // setImageFile(URL.createObjectURL(e.target.files[0]));
+      reader.onload = function (e) {
+        console.log(typeof e.target?.result);
+        if (typeof e.target?.result === "string") {
+          setImageFile(e.target.result);
+          console.log(e.target.result);
+        }
+      };
+      reader.readAsDataURL(e.target.files[0]);
     }
   };
 

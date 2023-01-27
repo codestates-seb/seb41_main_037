@@ -7,6 +7,10 @@ import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
 import useFetch from "../../api/useFetch";
+import axios from "axios";
+
+import { useRecoilState } from "recoil";
+import { LikeState } from "../../states/LikeState";
 
 const Container = styled.main`
   display: flex;
@@ -186,22 +190,65 @@ interface ItemProps {
   name: string;
   price: number;
   convertPrice: void;
+  // memberID?: string;
 }
 
 const Item = ({ id, img, name, price }: ItemProps) => {
-  const [like, setLike] = useState(false);
+  const memberId = localStorage.getItem("memberID");
+  const [like, setLike] = useRecoilState(LikeState(id, memberId));
+  // const [like, setLike] = useState(false);
   const convertPrice = (price: any) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+  const { data } = useFetch(`/members/${localStorage.getItem("memberID")}`);
+  const [favorites, setFavorites] = useState<any>(null);
+  useEffect(() => {
+    if (data) {
+      setFavorites(data.favorites);
+    }
+  }, [data]);
+
+  const handlelikeClick = (id: number) => {
+    let includedFavorite = favorites.map(
+      (favorite: any) => favorite.productId === id
+    );
+    // if (favorites && !includedFavorite[0]) {
+    //   axios
+    //     .get(
+    //       `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/favorite/${id}`,
+    //       {
+    //         headers: {
+    //           Authorization: localStorage.getItem("token"),
+    //         },
+    //       }
+    //     )
+    //     .then(() => setLike(!like))
+    //     .catch((err) => console.log(err));
+    if (favorites && includedFavorite[0] && like === false) {
+      alert("이미 찜 목록에 있는 상품입니다");
+    } else {
+      axios
+        .get(
+          `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/favorite/${id}`,
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        )
+        .then(() => setLike(!like))
+        .catch((err) => console.log(err));
+    }
   };
 
   return (
     <div className="itemBox">
-      <span
-        className="itemLike"
-        onClick={() => {
-          setLike(!like);
-        }}>
-        {like ? <HiHeart /> : <HiOutlineHeart />}
+      <span className="itemLike">
+        {like ? (
+          <HiHeart onClick={() => handlelikeClick(id)} />
+        ) : (
+          <HiOutlineHeart onClick={() => handlelikeClick(id)} />
+        )}
       </span>
       <Link to={`/products/${id}`}>
         <div className="itemImg">
@@ -220,6 +267,8 @@ const CuMainPage = () => {
   const { data } = useFetch("/products?page=1&size=24");
   const [products, setProducts] = useState<any>(null);
 
+  // const memberId = localStorage.getItem("memberID");
+
   useEffect(() => {
     if (data) {
       setProducts(
@@ -228,7 +277,7 @@ const CuMainPage = () => {
     }
   }, [data]);
 
-  console.log(products);
+  // console.log(products);
 
   const [word, setWord] = useState<string>("");
   const onSubmit = async () => {
@@ -267,6 +316,7 @@ const CuMainPage = () => {
       setProducts(newProduct);
     }
   };
+  // console.log(typeof memberId);
 
   return (
     products && (
@@ -280,7 +330,8 @@ const CuMainPage = () => {
                   <img
                     className="cvsLogo"
                     src="/img/cvs logo.png"
-                    alt="logoImg"></img>
+                    alt="logoImg"
+                  ></img>
                 </Link>
               </header>
               <div className="searchBar">
@@ -308,7 +359,8 @@ const CuMainPage = () => {
                   className="sortBtn"
                   onClick={() => {
                     sortProduct("like");
-                  }}>
+                  }}
+                >
                   찜
                   <br />
                   많은순
@@ -317,7 +369,8 @@ const CuMainPage = () => {
                   className="sortBtn"
                   onClick={() => {
                     sortProduct("price");
-                  }}>
+                  }}
+                >
                   가격
                   <br />
                   높은순
@@ -326,7 +379,8 @@ const CuMainPage = () => {
                   className="sortBtn"
                   onClick={() => {
                     sortProduct("review");
-                  }}>
+                  }}
+                >
                   리뷰
                   <br />
                   많은순
@@ -340,6 +394,7 @@ const CuMainPage = () => {
                     name={item.productName}
                     price={item.price}
                     convertPrice={item.price}
+                    // memberID={memberId}
                   />
                 ))}
               </li>
