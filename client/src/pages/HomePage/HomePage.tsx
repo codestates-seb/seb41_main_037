@@ -160,7 +160,6 @@ const HomeMain = styled.main`
               height: 140px;
             }
             .itemName {
-              /* margin-bottom: 0.5rem; */
               font-weight: 600;
               font-size: 18px;
             }

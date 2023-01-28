@@ -6,16 +6,20 @@ import { BsTrashFill } from "react-icons/bs";
 import { FcSearch } from "react-icons/fc";
 import useFetch from "../../../api/useFetch";
 import axios from "axios";
+import AdminReviewsPagination from "../../../components/AdminReviewsPagination/AdminReviewsPagination";
+import { useSearchParams } from "react-router-dom";
 
 const Main = styled.main`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 80%;
+  height: 90%;
 `;
 
 const CommentDeletePageMain = styled.main`
   font-family: "Do Hyeon", sans-serif;
-  margin: 100px 0 0 100px;
+  margin: 50px 0 0 100px;
   .commentTitle {
     display: flex;
     justify-content: flex-start;
@@ -129,19 +133,54 @@ const CommentDeletePageMain = styled.main`
       }
     }
   }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
 `;
 
 const CommentDeletePage = () => {
+  const { data } = useFetch("/reviews?page=1&size=100");
   const [reviews, setReviews] = useState<any>(null);
-  const { data } = useFetch("/reviews?page=1&size=50");
   const [review, setReview] = useState("");
-  useEffect(() => {
-    if (data) {
-      setReviews(data.data);
-    }
-  }, [data]);
 
-  const onRemove = (id: number) => {
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const pageNum = searchParams.get("page");
+    console.log(pageNum);
+    if (data) {
+      console.log(data.pageInfo);
+      if (pageNum) {
+        axios
+          .get(
+            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews?page=${pageNum}&size=10`
+          )
+          .then((res) => {
+            setReviews(res.data.data);
+            setPage(res.data.pageInfo.page);
+            setTotalPages(res.data.pageInfo.totalPages);
+          })
+          .catch((err) => console.log(err));
+      } else {
+        axios
+          .get(
+            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews?page=1&size=10`
+          )
+          .then((res) => {
+            setReviews(res.data.data);
+            setPage(res.data.pageInfo.page);
+            setTotalPages(res.data.pageInfo.totalPages);
+          })
+          .catch((err) => console.log(err));
+      }
+    }
+  }, [data, searchParams]);
+
+  const handleDelete = (id: number) => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
       if (reviews) {
         axios
@@ -175,6 +214,7 @@ const CommentDeletePage = () => {
       );
     }
   };
+
   return (
     <>
       <HomeHeader />
@@ -206,11 +246,14 @@ const CommentDeletePage = () => {
                   <div className="icon">
                     <BsTrashFill
                       size={12}
-                      onClick={() => onRemove(comment.reviewId)}
+                      onClick={() => handleDelete(comment.reviewId)}
                     />
                   </div>
                 </section>
               ))}
+          </section>
+          <section className="pagination">
+            <AdminReviewsPagination page={page} totalPages={totalPages} />
           </section>
         </CommentDeletePageMain>
       </Main>

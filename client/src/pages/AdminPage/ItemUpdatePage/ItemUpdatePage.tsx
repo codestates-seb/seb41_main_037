@@ -9,12 +9,14 @@ import AdminNav from "../../../components/AdminNav/AdminNav";
 const Main = styled.main`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 80%;
+  height: 90%;
 `;
 
 const ItemUpdatePageMain = styled.main`
   font-family: "Do Hyeon", sans-serif;
-  margin: 100px 0 0 100px;
+  margin: 50px 0 0 100px;
   .itemCreate {
     width: 700px;
     .adminTitle {

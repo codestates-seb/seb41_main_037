@@ -8,12 +8,14 @@ import { useNavigate } from "react-router-dom";
 const Main = styled.main`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 80%;
+  height: 90%;
 `;
 
 const ItemCreatePageMain = styled.main`
   font-family: "Do Hyeon", sans-serif;
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: 100px;
   .itemCreate {
     width: 700px;

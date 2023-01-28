@@ -28,7 +28,7 @@ const HomePageHeader = styled.header`
     background-color: #7a7979;
     padding: 0.5rem 1rem;
     color: #fff;
-    top: 20px;
+    top: 21.25px;
     &:hover {
       cursor: pointer;
       box-shadow: 1px 1px 2px #464646;
