@@ -12,14 +12,12 @@ import axios from "axios";
 const Main = styled.main`
   display: flex;
   justify-content: space-between;
-  align-items: center;
   width: 80%;
-  height: 90%;
 `;
 
 const ItemSearchPageMain = styled.main`
   font-family: "Do Hyeon", sans-serif;
-  margin: 100px 0 0 100px;
+  margin: 122px 0 0 100px;
   .itemSearch {
     width: 700px;
     .adminTitle {
