@@ -26,7 +26,6 @@ const HomeMain = styled.main`
     width: 100vw;
     height: 100vh;
     overflow-y: auto;
-    /* 화면에서 스크롤바 안보이게 */
     &::-webkit-scrollbar {
       display: none;
     }
