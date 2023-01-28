@@ -1,7 +1,19 @@
+cloud:
+  aws:
+    region: #S3 지역
+      static: ap-northeast-2
+    stack:
+      auto: false
+
 spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: false
     properties:
       hibernate:
@@ -9,18 +21,16 @@ spring:
     defer-datasource-initialization: true
   #        globally_quoted_identifiers: true
 
-  h2:
-    console:
-      enabled: true
-      path: /h2
-      settings:
-        web-allow-others: true
   datasource:
-    url: jdbc:h2:mem:cvsreviewproject
-  sql:
-    init:
-      data-locations: classpath*:data.sql
-      mode: always
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: admin
+    url: jdbc:mysql://database-1.cu34yawadyid.ap-northeast-2.rds.amazonaws.com:13306/test
+    password: 12341234
+
+#  sql:
+#    init:
+#      data-locations: classpath*:data.sql
+#      mode: always
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
@@ -33,3 +43,7 @@ jwt:
   key: kevin123412341234123412341234123412341234123412341234
   access-token-expiration-minutes: 60
   refresh-token-expiration-minutes: 360
+
+config:
+  domain: http://main-037-deploy.s3-website.ap-northeast-2.amazonaws.com
+
