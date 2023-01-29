@@ -14,6 +14,7 @@ const PageButton = styled.div`
     padding: 2px 8px;
     color: #58419c;
     margin-right: 4px;
+    font-family: "Do Hyeon", sans-serif;
 
     span {
       width: 100%;
