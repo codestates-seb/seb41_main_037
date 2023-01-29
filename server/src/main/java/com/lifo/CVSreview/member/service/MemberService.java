@@ -21,6 +21,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,14 +66,16 @@ public class MemberService {
     public Member updateMember(Member member){
         Member findMember = findVerifiedMember(member.getMemberId());
 
+        if(getLoginMember().getMemberId() != findMember.getMemberId())
+            throw new BusinessLogicException(ExceptionCode.AUTHENTICATION_NOT_FOUND);
         Optional.ofNullable(member.getPassword())
-                .ifPresent(password -> findMember.setPassword(password));
+                .ifPresent(password -> findMember.setPassword(member.getPassword()));
         Optional.ofNullable(member.getNickname())
-                .ifPresent(nickname -> findMember.setNickname(nickname));
+                .ifPresent(nickname -> findMember.setNickname(member.getNickname()));
         Optional.ofNullable(member.getImage_name())
-                .ifPresent(image_name -> findMember.setImage_name(image_name));
+                .ifPresent(image_name -> findMember.setImage_name(member.getImage_name()));
         Optional.ofNullable(member.getImage_path())
-                .ifPresent(image_path -> findMember.setImage_path(image_path));
+                .ifPresent(image_path -> findMember.setImage_path(member.getImage_path()));
         return memberRepository.save(findMember);
     }
 
@@ -107,4 +111,16 @@ public class MemberService {
         Member findMember = findVerifiedMember(memberId);
         memberRepository.delete(findMember);
     }
+    public Member getLoginMember() { // 로그인된 유저 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if(authentication == null || authentication.getName() == null || authentication.getName().equals("anonymousUser"))
+            throw new BusinessLogicException(ExceptionCode.AUTHENTICATION_NOT_FOUND);
+
+        Optional<Member> optionalMember = memberRepository.findByEmail(authentication.getName());
+        Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        return member;
+    }
+
 }

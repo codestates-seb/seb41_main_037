@@ -5,6 +5,7 @@ import com.lifo.CVSreview.member.dto.request.MemberPatchReqDto;
 import com.lifo.CVSreview.member.dto.request.MemberPostReqDto;
 import com.lifo.CVSreview.member.repository.mapper.MemberMapper;
 import com.lifo.CVSreview.member.service.MemberService;
+import com.lifo.CVSreview.review.entity.Review;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
@@ -42,11 +43,10 @@ public class MemberController {
     @PatchMapping("/{member_id}")
     public ResponseEntity patchMember(@Valid @PathVariable("member_id") @Positive long memberId,
                                       @RequestBody MemberPatchReqDto memberPatchReqDto){
-        Member Member = memberMapper.memberPatchDtoToMember(memberPatchReqDto);
-        Member response = memberService.updateMember(Member);
+        memberPatchReqDto.setMemberId(memberId);
+        Member member = memberService.updateMember(memberMapper.memberPatchDtoToMember(memberPatchReqDto));
 
-        return new ResponseEntity<>(memberMapper.MemberToMemberResponse(response),HttpStatus.OK);
-
+        return new ResponseEntity<>(memberMapper.MemberToMemberResponse(member),HttpStatus.OK);
     }
 
 //    @GetMapping("/{member_id}")
