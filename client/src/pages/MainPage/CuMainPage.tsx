@@ -60,6 +60,7 @@ const Container = styled.main`
       right: 15px;
       color: #58419c;
       font-size: 30px;
+      cursor: pointer;
     }
   }
 
@@ -88,6 +89,7 @@ const Container = styled.main`
         font-size: 12px;
         font-weight: 600;
         font-family: "Do Hyeon", sans-serif;
+        cursor: pointer;
         &:hover {
           background-color: #58419c;
           color: white;
@@ -168,6 +170,7 @@ const Container = styled.main`
           right: 15px;
           color: #58419c;
           font-size: 25px;
+          cursor: pointer;
         }
       }
     }
@@ -287,19 +290,30 @@ const CuMainPage = () => {
   }, [data, searchParams]);
 
   const [word, setWord] = useState<string>("");
-  const onSubmit = async () => {
-    // window.location.href = "/search?key=" + word + "&category=CU";
-    window.history.pushState("", word, "/search?key=" + word + "&category=CU");
-    setProducts(
-      products.filter((item: any) =>
-        item.productName.toUpperCase().includes(word.toUpperCase())
+
+  const handleSearchClick = async () => {
+    window.history.pushState("", word, "/cu/search?key=" + word);
+    axios
+      .get(
+        `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/products/search?key=${word}&category=CU`
       )
-    );
+      .then((res) => {
+        setProducts(
+          products.filter((item: any) =>
+            item.productName.toUpperCase().includes(word.toUpperCase())
+          )
+        );
+      })
+      .catch((err) => console.log(err));
   };
 
-  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleProductName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setWord(e.target.value);
+  };
+
+  const searchKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      onSubmit();
+      handleSearchClick();
     }
   };
 
@@ -343,17 +357,14 @@ const CuMainPage = () => {
                 <input
                   type="text"
                   maxLength={30}
-                  onChange={(e) => {
-                    setWord(e.target.value);
-                    console.log(word);
-                  }}
-                  onKeyPress={handleKeyPress}
+                  onChange={handleProductName}
+                  onKeyPress={searchKeyPress}
                 />
                 <RxMagnifyingGlass
                   className="searchIcon"
                   type="button"
                   onClick={() => {
-                    onSubmit();
+                    handleSearchClick();
                   }}
                 />
               </div>
