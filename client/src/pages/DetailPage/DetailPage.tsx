@@ -14,6 +14,8 @@ import { FaRegCommentDots } from "react-icons/fa";
 import useFetch from "../../api/useFetch";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { LoginState } from "../../states/LoginState";
 
 const Main = styled.main`
   display: flex;
@@ -105,6 +107,11 @@ const Main = styled.main`
           border-bottom: 2px solid #ffcb5e;
           font-size: 30px;
           font-weight: 400;
+          -ms-user-select: none;
+          -moz-user-select: -moz-none;
+          -khtml-user-select: none;
+          -webkit-user-select: none;
+          user-select: none;
 
           .likeButton {
             margin-right: 5px;
@@ -217,6 +224,32 @@ const Main = styled.main`
           align-items: center;
           height: 100%;
           font-size: 18px;
+
+          > button {
+            background-color: #58419c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 13px;
+            font-family: "Do Hyeon", sans-serif;
+            cursor: pointer;
+            &:hover {
+              filter: brightness(1.2);
+              transition: 0.5s;
+              cursor: pointer;
+            }
+          }
+
+          .editBtn {
+            &:hover {
+              cursor: pointer;
+            }
+          }
+          .deleteBtn {
+            &:hover {
+              cursor: pointer;
+            }
+          }
         }
 
         .commentInfo {
@@ -229,7 +262,19 @@ const Main = styled.main`
             height: 100%;
             width: 80%;
             line-height: 20px;
+            > textarea {
+              height: 100%;
+              width: 100%;
+              border-color: #58419c;
+              border-radius: 5px;
+              resize: none;
+              font-family: "Do Hyeon", sans-serif;
+              &:focus {
+                outline-color: #58419c;
+              }
+            }
           }
+
           .commentDate {
             text-align: right;
             font-size: 15px;
@@ -240,87 +285,55 @@ const Main = styled.main`
   }
 `;
 
-interface ItemProps {
-  img: string;
-  name: string;
-  price: number;
-  fav: number;
-  comment: number;
-  convertPrice: void;
-}
+const DetailPage = () => {
+  const { data } = useFetch(`/members/${localStorage.getItem("memberID")}`);
+  const { id } = useParams();
+  const { data: productData } = useFetch("/products?page=1&size=24");
+  const { data: reviewData } = useFetch("/reviews?page=1&size=50");
+  const [product, setProduct] = useState<any>(null);
+  const [reviews, setReviews] = useState<any>(null);
 
-const Item = ({ img, name, price, fav, comment }: ItemProps) => {
-  const [like, setLike] = useState(false);
+  const [input, setInput] = useState("");
+  const [comment, setComment] = useState("");
 
-  const convertPrice = (price: any) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const isLogin = useRecoilValue(LoginState);
+  const [member, setMember] = useState<any>(null);
+  const [isModify, setIsModify] = useState(false);
+  const [isEditSelect, setIsEditSelect] = useState<any>(false);
+
+  useEffect(() => {
+    if (productData) {
+      setProduct(
+        productData.data.filter((item: any) => item.productId === Number(id))
+      );
+      setReviews(
+        reviewData.data.filter((item: any) => item.productId === Number(id))
+      );
+    } else if (data) {
+      setMember(data);
+    }
+  }, [productData, reviewData, data, id]);
+
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setInput(e.target.value);
+
+  const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(e.target.value);
   };
 
-  return (
-    <>
-      <img src={img} alt="itemImage" />
-      <section className="contentSection">
-        <section className="titleSection">
-          <p>{name}</p>
-        </section>
-        <section className="priceSection">
-          <p>가격 : {convertPrice(price)}원</p>
-        </section>
-        <section
-          className="likeSection"
-          onClick={() => {
-            setLike(!like);
-          }}>
-          {like ? (
-            <HiHeart className="likeButton" />
-          ) : (
-            <HiOutlineHeart className="likeButton" />
-          )}
-          <div className="likeCountNum">{fav}</div>
-          <section className="countComment">
-            <FaRegCommentDots className="commentIcon" />
-            <div className="commentCountNum">{comment}</div>
-          </section>
-        </section>
-      </section>
-    </>
-  );
-};
+  const handleUpdate = (idx: number) => {
+    const newArr = Array(reviews.length).fill(false);
+    newArr[idx] = true;
+    setIsEditSelect(newArr);
+    setIsModify(!isModify);
+  };
 
-interface CommentProps {
-  id: number;
-  score: any;
-  name: string;
-  comment: string;
-  date: string;
-}
+  console.log(comment);
 
-const Comment = ({ id, score, name, comment, date }: CommentProps) => {
-  return (
-    <>
-      <section className="resultStarRating">
-        <p className="resultStarRating">{score}</p>
-      </section>
-      <section className="commentBox">
-        <section className="userInfo">
-          <div className="userName">{name}</div>
-          <div className="userEdit">
-            <HiOutlinePencilAlt />
-            <HiOutlineTrash />
-          </div>
-        </section>
-        <section className="commentInfo">
-          <div className="comment">{comment}</div>
-          <div className="commentDate">{date}</div>
-        </section>
-      </section>
-    </>
-  );
-};
-
-const DetailPage = () => {
+  // 별점 추가
   const [clicked, setCliked] = useState([false, false, false, false, false]);
   const starArr = [0, 1, 2, 3, 4];
+
   const handleStarClick = (idx: number) => {
     let clickStates = [...clicked];
     for (let i = 0; i < 5; i++) {
@@ -331,10 +344,22 @@ const DetailPage = () => {
 
   let starRating = clicked.filter(Boolean).length;
 
-  const [input, setInput] = useState("");
-
-  const onChange = (e: any) => setInput(e.target.value);
-  const { id } = useParams();
+  const starRender = (rating: any) => {
+    return (
+      <>
+        {Array(parseInt(rating))
+          .fill(2)
+          .map((el, i) => (
+            <AiFillStar key={i} />
+          ))}
+        {Array(Math.floor(5 - rating))
+          .fill(2)
+          .map((el, i) => (
+            <AiFillStar key={i} color="#E3E3E3" />
+          ))}
+      </>
+    );
+  };
 
   // 댓글 추가
   const addComment = (e: any) => {
@@ -357,22 +382,25 @@ const DetailPage = () => {
   };
 
   // 댓글 수정
-  const editComment = (e: any) => {
-    axios
-      .patch(
-        `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`,
-        {
-          content: input,
-          rating: starRating,
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
+  const editComment = (id: number) => {
+    if (reviews) {
+      axios
+        .patch(
+          `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`,
+          {
+            content: comment,
+            rating: starRating,
           },
-        }
-      )
-      .then((res) => console.log(res))
-      .catch((err) => alert("리뷰 수정에 실패했습니다."));
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        )
+        .then(() => window.location.reload())
+        .catch((err) => alert("리뷰 수정에 실패했습니다."));
+    }
+    setIsModify(!isModify);
   };
 
   //댓글 삭제
@@ -397,35 +425,145 @@ const DetailPage = () => {
     }
   };
 
-  const { data: productData } = useFetch("/products?page=1&size=24");
-  const { data: reviewData } = useFetch("/reviews?page=1&size=50");
-  const [product, setProduct] = useState<any>(null);
-  const [reviews, setReviews] = useState<any>(null);
+  interface ItemProps {
+    img: string;
+    name: string;
+    price: number;
+    fav: number;
+    comment: number;
+    convertPrice: void;
+  }
 
-  useEffect(() => {
-    if (productData) {
-      setProduct(
-        productData.data.filter((item: any) => item.productId === Number(id))
-      );
-      setReviews(
-        reviewData.data.filter((item: any) => item.productId === Number(id))
-      );
-    }
-  }, [productData, reviewData, id]);
+  const Item = ({ img, name, price, fav, comment }: ItemProps) => {
+    const [like, setLike] = useState(false);
 
-  const starRender = (rating: any) => {
+    const convertPrice = (price: any) => {
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+
     return (
       <>
-        {Array(parseInt(rating))
-          .fill(2)
-          .map((el, i) => (
-            <AiFillStar key={i} />
-          ))}
-        {Array(Math.floor(5 - rating))
-          .fill(2)
-          .map((el, i) => (
-            <AiFillStar key={i} color="#E3E3E3" />
-          ))}
+        <img src={img} alt="itemImage" />
+        <section className="contentSection">
+          <section className="titleSection">
+            <p>{name}</p>
+          </section>
+          <section className="priceSection">
+            <p>가격 : {convertPrice(price)}원</p>
+          </section>
+          <section className="likeSection">
+            {like ? (
+              <HiHeart
+                className="likeButton"
+                onClick={() => {
+                  setLike(!like);
+                }}
+              />
+            ) : (
+              <HiOutlineHeart
+                className="likeButton"
+                onClick={() => {
+                  setLike(!like);
+                }}
+              />
+            )}
+            <div className="likeCountNum">{fav}</div>
+            <section className="countComment">
+              <FaRegCommentDots className="commentIcon" />
+              <div className="commentCountNum">{comment}</div>
+            </section>
+          </section>
+        </section>
+      </>
+    );
+  };
+
+  interface CommentProps {
+    isSelected: any;
+    elementIndex: any;
+    id: number;
+    userId: any;
+    score: any;
+    name: string;
+    comment: any;
+    date: string;
+    onEdit: any;
+    onRemove: any;
+  }
+
+  const Comment = ({
+    isSelected,
+    elementIndex,
+    id,
+    userId,
+    score,
+    name,
+    comment,
+    date,
+    onEdit,
+    onRemove,
+  }: CommentProps) => {
+    return (
+      <>
+        <section className="resultStarRating">
+          {isLogin && isModify && isSelected ? (
+            <p className="resultStarRating">
+              {starArr.map((star) =>
+                clicked[star] ? (
+                  <AiFillStar
+                    key={star}
+                    onClick={() => handleStarClick(star)}
+                  />
+                ) : (
+                  <AiOutlineStar
+                    key={star}
+                    onClick={() => handleStarClick(star)}
+                  />
+                )
+              )}
+            </p>
+          ) : (
+            <p className="resultStarRating">{score}</p>
+          )}
+        </section>
+        <section className="commentBox">
+          <section className="userInfo">
+            <div className="userName">{name}</div>
+            {isLogin && isModify && isSelected ? (
+              <div className="userEdit">
+                <button onClick={onEdit}>수정</button>
+                <HiOutlineTrash className="deleteBtn" onClick={onRemove} />
+              </div>
+            ) : (
+              isLogin &&
+              userId === member.memberId && (
+                <div className="userEdit">
+                  <HiOutlinePencilAlt
+                    className="editBtn"
+                    onClick={() => handleUpdate(elementIndex)}
+                  />
+                  <HiOutlineTrash className="deleteBtn" onClick={onRemove} />
+                </div>
+              )
+            )}
+          </section>
+          <section className="commentInfo">
+            <div className="comment">
+              {isLogin && isModify && isSelected ? (
+                <textarea
+                  value={comment}
+                  key={comment}
+                  maxLength={300}
+                  onChange={handleCommentChange}>
+                  {comment}
+                </textarea>
+              ) : (
+                <pre>{comment}</pre>
+              )}
+            </div>
+            <div className="commentDate">{date}</div>
+          </section>
+        </section>
       </>
     );
   };
@@ -468,6 +606,7 @@ const DetailPage = () => {
               </p>
               <textarea
                 placeholder="리뷰를 작성하세요."
+                maxLength={300}
                 onChange={onChange}></textarea>
               <button onClick={addComment}>
                 리뷰
@@ -478,13 +617,19 @@ const DetailPage = () => {
             <section className="commentSection">
               <section className="commentList">
                 {reviews &&
-                  reviews.map((comment: any) => (
+                  reviews.map((comment: any, index: number) => (
                     <Comment
+                      key={index}
+                      isSelected={isEditSelect[index]}
+                      elementIndex={index}
                       id={comment.reviewId}
+                      userId={comment.memberId}
                       score={starRender(comment.rating)}
                       name={comment.username}
                       comment={comment.content}
                       date={comment.createdAt}
+                      onEdit={() => editComment(comment.reviewId)}
+                      onRemove={() => removeComment(comment.reviewId)}
                     />
                   ))}
               </section>
