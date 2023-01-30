@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { useSetRecoilState } from "recoil";
 import { LoginState } from "../../states/LoginState";
+import { FcShop } from "react-icons/fc";
 
 const NavBar = styled.main`
   position: fixed;
@@ -13,7 +14,7 @@ const NavBar = styled.main`
   background-color: #ffcb5e;
   .homeBtn {
     margin-top: 10px;
-    margin-bottom: 70px;
+    margin-bottom: 40px;
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -80,17 +81,22 @@ const Nav = () => {
 
   const menuItem = [
     {
-      path: "/cu",
+      path: "/products",
+      img1: <FcShop size={60} />,
+      img2: <FcShop size={60} />,
+    },
+    {
+      path: "/products/cu",
       img1: <img src="/img/cu logo.png" alt="CU"></img>,
       img2: <img src="/img/cu logo_white.png" alt="CU"></img>,
     },
     {
-      path: "/gs25",
+      path: "/products/gs25",
       img1: <img src="/img/gs25 logo.png" alt="GS25"></img>,
       img2: <img src="/img/gs25 logo_white.png" alt="GS25"></img>,
     },
     {
-      path: "/seveneleven",
+      path: "/products/seveneleven",
       img1: <img src="/img/seveneleven logo.png" alt="7-ELEVEN"></img>,
       img2: <img src="/img/seveneleven logo_white.png" alt="7-ELEVEN"></img>,
     },
@@ -123,8 +129,7 @@ const Nav = () => {
           className="home"
           src="/img/cvs logo2.png"
           alt="HOME"
-          onClick={() => navigate("/")}
-        ></img>
+          onClick={() => navigate("/")}></img>
       </section>
       <section className="menuBtn">
         {menuItem.map((item, index) => (
@@ -135,8 +140,7 @@ const Nav = () => {
             }}
             className={
               location.pathname === item.path ? "cvsLogo focused" : "cvsLogo"
-            }
-          >
+            }>
             {location.pathname === item.path ? item.img1 : item.img2}
           </div>
         ))}

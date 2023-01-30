@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
+import MainPage from "./pages/MainPage/MainPage";
 import CuMainPage from "./pages/MainPage/CuMainPage";
 import GsMainPage from "./pages/MainPage/GsMainPage";
 import SevenMainPage from "./pages/MainPage/SevenMainPage";
@@ -29,15 +30,19 @@ const router = createBrowserRouter([
     element: <SignupPage />,
   },
   {
-    path: "/cu",
+    path: "/products",
+    element: <MainPage />,
+  },
+  {
+    path: "/products/cu",
     element: <CuMainPage />,
   },
   {
-    path: "/gs25",
+    path: "/products/gs25",
     element: <GsMainPage />,
   },
   {
-    path: "/seveneleven",
+    path: "/products/seveneleven",
     element: <SevenMainPage />,
   },
   {
