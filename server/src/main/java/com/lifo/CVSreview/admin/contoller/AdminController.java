@@ -32,14 +32,14 @@ public class AdminController {
         reviewService.deleteReview(reviewId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
+    @ApiOperation(value = "상품 정보 등록", notes = "관리자가 상품 정보를 등록합니다.")
     @PostMapping
     public ResponseEntity post(@Valid @RequestBody ProductDto.Post post) {
         Product product = productService.create(mapper.postToEntity(post));
 
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.entityToResponse(product)), HttpStatus.CREATED);
     }
-
+    @ApiOperation(value = "상품 정보 수정", notes = "관리자가 ProductId를 이용하여 상품 정보를 수정합니다.")
     @PatchMapping("/{product-id}")
     public ResponseEntity patch(@PathVariable("product-id") @Positive long productId,
                                 @Valid @RequestBody ProductDto.Patch patch) {
@@ -49,7 +49,7 @@ public class AdminController {
 
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.entityToResponse(update)), HttpStatus.OK);
     }
-
+    @ApiOperation(value = "상품 정보 삭제", notes = "관리자가 ProductId를 이용하여 상품 정보를 삭제합니다.")
     @DeleteMapping("/{product-id}")
     public ResponseEntity delete(@PathVariable("product-id") @Positive long productId) {
         productService.delete(productId);

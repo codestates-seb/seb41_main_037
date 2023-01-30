@@ -7,6 +7,7 @@ import com.lifo.CVSreview.product.repository.ProductRepository;
 import com.lifo.CVSreview.product.service.ProductService;
 import com.lifo.CVSreview.response.MultiResponseDto;
 import com.lifo.CVSreview.response.SingleResponseDto;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 
@@ -33,14 +34,16 @@ public class ProductController {
     private final ProductService productService;
     private final ProductMapper mapper;
 
-
+    @ApiOperation(value = "한 개의 상품 정보 조회", notes = "ProductId를 이용하여 상품 정보를 조회합니다.")
     @GetMapping("/{product-id}")
     public ResponseEntity get(@PathVariable("product-id") @Positive long productId) {
+
         Product product = productService.find(productId);
 
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.entityToResponse(product)), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "상품 목록 조회", notes =  "전체 상품 목록을 조회합니다.")
     @GetMapping
     public ResponseEntity gets(@Positive @RequestParam(defaultValue = "1") int page,
                                @Positive @RequestParam(defaultValue = "10") int size) {
@@ -52,6 +55,7 @@ public class ProductController {
 
 
     /*search*/
+    @ApiOperation(value = "상품 검색", notes = "상품을 키워드와 편의점 카테고리 별로 검색합니다.")
     @GetMapping("/search")
     public ResponseEntity productSearch(
             @RequestParam Map<String, String> params,
