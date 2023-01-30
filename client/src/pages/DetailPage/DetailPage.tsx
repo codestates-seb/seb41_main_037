@@ -21,7 +21,6 @@ const Main = styled.main`
   display: flex;
   width: 100%;
   margin-bottom: 100px;
-
   .container {
     display: flex;
     flex-direction: column;
@@ -33,17 +32,14 @@ const Main = styled.main`
     height: 100%;
     margin-left: 100px;
   }
-
   header {
     height: 150px;
     margin-top: 50px;
     margin-bottom: 50px;
-
     .cvsLogo {
       width: 150px;
     }
   }
-
   .detailPageMain {
     display: flex;
     flex-direction: column;
@@ -52,7 +48,6 @@ const Main = styled.main`
     text-align: left;
     height: 100%;
     margin-top: 5rem;
-
     .itemSection {
       display: flex;
       justify-content: center;
@@ -61,7 +56,6 @@ const Main = styled.main`
       height: 350px;
       border: 3px solid #ffcb5e;
       border-radius: 20px;
-
       img {
         width: 250px;
         height: 250px;
@@ -76,7 +70,6 @@ const Main = styled.main`
         margin-right: 30px;
         border-radius: 20px;
         font-family: "Do Hyeon", sans-serif;
-
         .titleSection {
           display: flex;
           align-items: flex-end;
@@ -97,7 +90,6 @@ const Main = styled.main`
           font-size: 25px;
           font-weight: 400;
         }
-
         .likeSection {
           display: flex;
           align-items: flex-end;
@@ -112,7 +104,6 @@ const Main = styled.main`
           -khtml-user-select: none;
           -webkit-user-select: none;
           user-select: none;
-
           .likeButton {
             margin-right: 5px;
             cursor: pointer;
@@ -120,7 +111,6 @@ const Main = styled.main`
           .likeCountNum {
             font-size: 25px;
           }
-
           .countComment {
             display: flex;
             align-items: flex-end;
@@ -145,7 +135,6 @@ const Main = styled.main`
       height: 200px;
       margin-bottom: 30px;
       border-bottom: 5px solid #58419c;
-
       .addStarRating {
         margin: 20px;
         color: #ffcb5e;
@@ -192,7 +181,6 @@ const Main = styled.main`
       margin-bottom: 20px;
       font-family: "Do Hyeon", sans-serif;
       letter-spacing: 0.3px;
-
       .resultStarRating {
         margin-bottom: 5px;
         color: #ffcb5e;
@@ -205,7 +193,6 @@ const Main = styled.main`
         height: 70%;
         margin-bottom: 20px;
         border-bottom: solid 2px #f5f5f5;
-
         .userInfo {
           display: flex;
           justify-content: space-between;
@@ -218,13 +205,11 @@ const Main = styled.main`
           font-size: 15px;
           font-weight: bold;
         }
-
         .userEdit {
           display: flex;
           align-items: center;
           height: 100%;
           font-size: 18px;
-
           > button {
             background-color: #58419c;
             color: white;
@@ -239,7 +224,6 @@ const Main = styled.main`
               cursor: pointer;
             }
           }
-
           .editBtn {
             &:hover {
               cursor: pointer;
@@ -251,13 +235,11 @@ const Main = styled.main`
             }
           }
         }
-
         .commentInfo {
           display: flex;
           justify-content: space-between;
           margin-bottom: 20px;
           font-size: 15px;
-
           .comment {
             height: 100%;
             width: 80%;
@@ -274,7 +256,6 @@ const Main = styled.main`
               }
             }
           }
-
           .commentDate {
             text-align: right;
             font-size: 15px;
@@ -294,7 +275,6 @@ const DetailPage = () => {
   const [reviews, setReviews] = useState<any>(null);
 
   const [input, setInput] = useState("");
-  const [comment, setComment] = useState("");
 
   const isLogin = useRecoilValue(LoginState);
   const [member, setMember] = useState<any>(null);
@@ -317,18 +297,12 @@ const DetailPage = () => {
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     setInput(e.target.value);
 
-  const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setComment(e.target.value);
-  };
-
   const handleUpdate = (idx: number) => {
     const newArr = Array(reviews.length).fill(false);
     newArr[idx] = true;
     setIsEditSelect(newArr);
     setIsModify(!isModify);
   };
-
-  console.log(comment);
 
   // 별점 추가
   const [clicked, setCliked] = useState([false, false, false, false, false]);
@@ -381,31 +355,10 @@ const DetailPage = () => {
     window.location.replace(`/products/${id}`);
   };
 
-  // 댓글 수정
-  const editComment = (id: number) => {
-    if (reviews) {
-      axios
-        .patch(
-          `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`,
-          {
-            content: comment,
-            rating: starRating,
-          },
-          {
-            headers: {
-              Authorization: localStorage.getItem("token"),
-            },
-          }
-        )
-        .then(() => window.location.reload())
-        .catch((err) => alert("리뷰 수정에 실패했습니다."));
-    }
-    setIsModify(!isModify);
-  };
-
   //댓글 삭제
   const removeComment = (id: number) => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
+      // 댓글 수정
       if (reviews) {
         axios
           .delete(
@@ -485,9 +438,8 @@ const DetailPage = () => {
     userId: any;
     score: any;
     name: string;
-    comment: any;
+    review: any;
     date: string;
-    onEdit: any;
     onRemove: any;
   }
 
@@ -498,11 +450,37 @@ const DetailPage = () => {
     userId,
     score,
     name,
-    comment,
+    review,
     date,
-    onEdit,
     onRemove,
   }: CommentProps) => {
+    const [modifiedComment, setModifiedCommnt] = useState(review);
+
+    const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setModifiedCommnt(e.target.value);
+    };
+
+    const editComment = (id: number) => {
+      if (reviews) {
+        axios
+          .patch(
+            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`,
+            {
+              content: modifiedComment,
+              rating: starRating,
+            },
+            {
+              headers: {
+                Authorization: localStorage.getItem("token"),
+              },
+            }
+          )
+          .then(() => window.location.reload())
+          .catch((err) => alert("리뷰 수정에 실패했습니다."));
+      }
+      setIsModify(!isModify);
+    };
+
     return (
       <>
         <section className="resultStarRating">
@@ -531,7 +509,7 @@ const DetailPage = () => {
             <div className="userName">{name}</div>
             {isLogin && isModify && isSelected ? (
               <div className="userEdit">
-                <button onClick={onEdit}>수정</button>
+                <button onClick={() => editComment(id)}>수정</button>
                 <HiOutlineTrash className="deleteBtn" onClick={onRemove} />
               </div>
             ) : (
@@ -551,14 +529,13 @@ const DetailPage = () => {
             <div className="comment">
               {isLogin && isModify && isSelected ? (
                 <textarea
-                  value={comment}
-                  key={comment}
+                  value={modifiedComment}
+                  key={id}
                   maxLength={300}
-                  onChange={handleCommentChange}>
-                  {comment}
-                </textarea>
+                  onChange={handleCommentChange}
+                ></textarea>
               ) : (
-                <pre>{comment}</pre>
+                <pre>{review}</pre>
               )}
             </div>
             <div className="commentDate">{date}</div>
@@ -607,7 +584,8 @@ const DetailPage = () => {
               <textarea
                 placeholder="리뷰를 작성하세요."
                 maxLength={300}
-                onChange={onChange}></textarea>
+                onChange={onChange}
+              ></textarea>
               <button onClick={addComment}>
                 리뷰
                 <br />
@@ -617,19 +595,18 @@ const DetailPage = () => {
             <section className="commentSection">
               <section className="commentList">
                 {reviews &&
-                  reviews.map((comment: any, index: number) => (
+                  reviews.map((review: any, index: number) => (
                     <Comment
                       key={index}
                       isSelected={isEditSelect[index]}
                       elementIndex={index}
-                      id={comment.reviewId}
-                      userId={comment.memberId}
-                      score={starRender(comment.rating)}
-                      name={comment.username}
-                      comment={comment.content}
-                      date={comment.createdAt}
-                      onEdit={() => editComment(comment.reviewId)}
-                      onRemove={() => removeComment(comment.reviewId)}
+                      id={review.reviewId}
+                      userId={review.memberId}
+                      score={starRender(review.rating)}
+                      name={review.username}
+                      review={review.content}
+                      date={review.createdAt}
+                      onRemove={() => removeComment(review.reviewId)}
                     />
                   ))}
               </section>
