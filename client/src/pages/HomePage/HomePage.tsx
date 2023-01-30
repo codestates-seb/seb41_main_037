@@ -510,7 +510,9 @@ const HomePage = () => {
               </section>
             ) : (
               <section className="buttonSection">
-                <button onClick={() => navigate("/cu")}>바로 시작하기</button>
+                <button onClick={() => navigate("/products")}>
+                  바로 시작하기
+                </button>
                 <button onClick={() => navigate("/login")}>로그인하기</button>
               </section>
             )}
@@ -616,7 +618,7 @@ const HomePage = () => {
             <button className="loginBtn" onClick={() => navigate("/login")}>
               로그인
             </button>
-            <button className="pbBtn" onClick={() => navigate("/cu")}>
+            <button className="pbBtn" onClick={() => navigate("/products")}>
               PB상품
             </button>
           </section>
