@@ -37,14 +37,14 @@ const BestItemCard = ({
   onClick,
 }: BestItemProps) => {
   return (
-    <div className="bestItemCard" onClick={onClick} key={id}>
+    <li className="bestItemCard" onClick={onClick} key={id}>
       <div className="itemRanking">
         <h2>Top{top + 1}</h2>
       </div>
       <img src={image} alt={top.toString()} />
       <span className="itemName">{name}</span>
       <span className="itemPrice">{price}원</span>
-    </div>
+    </li>
   );
 };
 
@@ -55,7 +55,11 @@ const Carousel = () => {
 
   useEffect(() => {
     if (data) {
-      setBestItems(data);
+      setBestItems(
+        data.sort((a: any, b: any): number => {
+          return b.rating - a.rating;
+        })
+      );
     }
   }, [data]);
 
@@ -68,7 +72,7 @@ const Carousel = () => {
     slidesToScroll: 3,
   };
   return (
-    <section className="page-carousel">
+    <ul className="page-carousel">
       {bestItems && (
         <StyledSlider {...settings}>
           {bestItems.map((item: any, idx: number) => {
@@ -85,7 +89,7 @@ const Carousel = () => {
           })}
         </StyledSlider>
       )}
-    </section>
+    </ul>
   );
 };
 
