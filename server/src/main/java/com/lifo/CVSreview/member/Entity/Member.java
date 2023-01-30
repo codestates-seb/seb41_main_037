@@ -5,6 +5,8 @@ import com.lifo.CVSreview.review.entity.Review;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -46,13 +48,13 @@ public class Member {
     private LocalDateTime member_created_at = LocalDateTime.now();
 
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member",fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.ALL})
     private List<Review> review;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member",fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.ALL})
     private List<Favorite> favorite;
 
 }

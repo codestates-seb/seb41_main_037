@@ -40,7 +40,6 @@ public class ReviewService {
     //리뷰작성
     //
     public Review createReview(Review review,long product_id) {
-        System.out.println(SecurityUtil.getCurrentMemberId());
         verifyExistReview(review.getReviewId());//새로운 리뷰인지 확인
         review.setMember(memberRepository.findByEmail(SecurityUtil.getCurrentMemberId()).get());
         Product product2 = productService.find(product_id);
@@ -54,7 +53,7 @@ public class ReviewService {
     }
 
     //리뷰수정
-    //내용만 수정할 수도 있고, 평점만 수정할 수 도 있기에 Optional를 이용해 null값을 받을 수 있도록 설정.
+    //내용만 수정할 수도 있고, 평점만 수정할 수도 있기에 Optional를 이용해 null값을 받을 수 있도록 설정.
     public Review updateReview(Review review) {
         Review findReview = findVerifiedReview(review.getReviewId());
 

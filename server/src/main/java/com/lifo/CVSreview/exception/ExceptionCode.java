@@ -9,7 +9,7 @@ public enum ExceptionCode {
     MEMBER_NOT_FOUND(404, "Member Not Found"),
 
     PRODUCT_NOT_FOUND(404, "Product Not Found"),
-    AUTHENTICATION_NOT_FOUND(404, "Authentication not found in SecurityContextHolder"),
+    AUTHENTICATION_NOT_FOUND(404, "Authentication Not Found"),
     UNAUTHORIZED_Member(404, "Unauthorized Member");
 
     @Getter
