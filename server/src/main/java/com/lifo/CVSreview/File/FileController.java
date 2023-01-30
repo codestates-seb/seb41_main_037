@@ -6,6 +6,7 @@ import java.util.List;
 import com.lifo.CVSreview.auth.utils.SecurityUtil;
 import com.lifo.CVSreview.member.Entity.Member;
 import com.lifo.CVSreview.member.repository.MemberRepository;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,7 @@ public class FileController {
     }
 
     @GetMapping("/upload")
+    @ApiOperation(value="프로필 사진 업로드", notes="프로필 사진을 선택 후 저장하면 s3에 이미지 저장 후 그 사진의 url을 해당하는 멤버 img_path에 저장 후 url 리턴.")
     public ResponseEntity<Object> upload(MultipartFile[] multipartFileList) throws Exception {
         List<String> imagePathList = new ArrayList<>();
 

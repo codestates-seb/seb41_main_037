@@ -13,6 +13,7 @@ import com.lifo.CVSreview.product.mapper.ProductMapper;
 import com.lifo.CVSreview.product.repository.ProductRepository;
 import com.lifo.CVSreview.review.dto.ReviewPostDto;
 import com.lifo.CVSreview.review.entity.Review;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,7 @@ public class FavoriteController {
     final private MemberRepository memberRepository;
 
     @GetMapping("/favorite/{product-id}")
+    @ApiOperation(value="좋아요 등록/취소", notes="좋아요를 등록 및 취소하는 api입니다. 등록 시 200 ok, 취소 시 204 No_Content")
     public ResponseEntity postFavorite(@PathVariable("product-id") long productId) {
         if (favoriteService.createFavorite(productId, memberRepository.findByEmail(SecurityUtil.getCurrentMemberId()).get())){
             return new ResponseEntity<>(HttpStatus.OK); //좋아요를 눌렀다면 
@@ -44,6 +46,7 @@ public class FavoriteController {
     }
 
     @GetMapping(value = "/getFavorites")
+    @ApiOperation(value="주간 베스트상품", notes="일주일 간 좋아요를 제일 많이 받은 상품 10개를 가져옵니다.")
     public ResponseEntity<List<ProductDto.Response>> getFavorites() {
 
         LocalDateTime before7Days = LocalDateTime.now().minusDays(7); // 현재날짜에서 -7
