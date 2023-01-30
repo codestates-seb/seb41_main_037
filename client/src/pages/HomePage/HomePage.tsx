@@ -606,7 +606,7 @@ const HomePage = () => {
             <button className="logoutBtn" onClick={handleClickLogout}>
               로그아웃
             </button>
-            <button className="pbBtn" onClick={() => navigate("/cu")}>
+            <button className="pbBtn" onClick={() => navigate("/products")}>
               PB상품
             </button>
           </section>
