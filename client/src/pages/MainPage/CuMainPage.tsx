@@ -263,10 +263,10 @@ const CuMainPage = () => {
             `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/products?page=${pageNum}&size=8`
           )
           .then((res) => {
-            // setProducts(
-            //   res.data.data.filter((item: any) => item.productCategory === "CU")
-            // );
-            setProducts(res.data.data);
+            setProducts(
+              res.data.data.filter((item: any) => item.productCategory === "CU")
+            );
+            //setProducts(res.data.data);
             setPage(res.data.pageInfo.page);
             setTotalPages(res.data.pageInfo.totalPages);
           })
@@ -277,10 +277,10 @@ const CuMainPage = () => {
             `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/products?page=1&size=8`
           )
           .then((res) => {
-            // setProducts(
-            //   res.data.data.filter((item: any) => item.productCategory === "CU")
-            // );
-            setProducts(res.data.data);
+            setProducts(
+              res.data.data.filter((item: any) => item.productCategory === "CU")
+            );
+            //setProducts(res.data.data);
             setPage(res.data.pageInfo.page);
             setTotalPages(res.data.pageInfo.totalPages);
           })
