@@ -351,7 +351,7 @@ const DetailPage = () => {
         }
       )
       .then((res) => console.log(res))
-      .catch((err) => alert("5자 이상 작성하세요."));
+      .catch((err) => alert("리뷰를 5자 이상 작성하세요."));
     window.location.replace(`/products/${id}`);
   };
 
@@ -476,7 +476,7 @@ const DetailPage = () => {
             }
           )
           .then(() => window.location.reload())
-          .catch((err) => alert("리뷰 수정에 실패했습니다."));
+          .catch((err) => alert("리뷰를 5자 이상 작성하세요."));
       }
       setIsModify(!isModify);
     };
@@ -532,8 +532,7 @@ const DetailPage = () => {
                   value={modifiedComment}
                   key={id}
                   maxLength={300}
-                  onChange={handleCommentChange}
-                ></textarea>
+                  onChange={handleCommentChange}></textarea>
               ) : (
                 <pre>{review}</pre>
               )}
@@ -584,8 +583,7 @@ const DetailPage = () => {
               <textarea
                 placeholder="리뷰를 작성하세요."
                 maxLength={300}
-                onChange={onChange}
-              ></textarea>
+                onChange={onChange}></textarea>
               <button onClick={addComment}>
                 리뷰
                 <br />
