@@ -336,7 +336,7 @@ const DetailPage = () => {
   };
 
   // 댓글 추가
-  const addComment = (e: any) => {
+  const addComment = () => {
     axios
       .post(
         `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`,
