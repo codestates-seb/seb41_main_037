@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
+
 @Controller
 @RestController
 @RequestMapping("members")
@@ -77,6 +78,7 @@ public class MemberController {
 //                HttpStatus.OK);
 //    }
 //
+    @ApiOperation(value = "회원 탈퇴")
     @DeleteMapping("/{member_id}")
     public ResponseEntity deleteMember(@PathVariable("member_id")@Positive long memberId) {
         memberService.deleteMember(memberId);

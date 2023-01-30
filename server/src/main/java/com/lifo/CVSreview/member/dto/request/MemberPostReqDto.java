@@ -1,5 +1,6 @@
 package com.lifo.CVSreview.member.dto.request;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,14 +16,17 @@ public class MemberPostReqDto {
 
     @NotBlank
     @Email
+    @ApiModelProperty(value = "email")
     private String email;
 
     @NotBlank
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{8,20}$"
             , message = "8자 이상, 영문, 숫자, 특수문자가 포함되어야 합니다.")
+    @ApiModelProperty(value = "비밀번호")
     private String password;
 
     @NotBlank
+    @ApiModelProperty(value = "닉네임")
     private String nickname;
 
     private String image_name;
