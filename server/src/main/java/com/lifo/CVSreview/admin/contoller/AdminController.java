@@ -8,6 +8,7 @@ import com.lifo.CVSreview.product.service.ProductService;
 import com.lifo.CVSreview.response.SingleResponseDto;
 import com.lifo.CVSreview.review.mapper.ReviewMapper;
 import com.lifo.CVSreview.review.service.ReviewService;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ public class AdminController {
     private final ProductMapper mapper;
 
     @DeleteMapping("/reviews/{review-id}")
+    @ApiOperation(value="관리자가 리뷰 삭제", notes="관리자가 직접 회원이 작성한 리뷰를 삭제하는 api입니다.")
     public ResponseEntity deleteReview(@PathVariable("review-id") int reviewId) {
         reviewService.deleteReview(reviewId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

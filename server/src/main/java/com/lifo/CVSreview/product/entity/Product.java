@@ -34,7 +34,7 @@ public class Product extends BaseTimeEntity {
     @Column(nullable = false)
     private String imgName; // 상품 이미지 이름
 
-    @Column(nullable = false,length = 999999999)
+    @Column(nullable = false, length = 999999999)
     private String imgUrl;  // 상품 이미지 경로
 
     @Column
@@ -58,27 +58,28 @@ public class Product extends BaseTimeEntity {
     }
 
 
-
     //상품과 찜은 1 : N 관계
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Favorite> favorites = new ArrayList<>();
 
     public void setFavorite(Favorite favorite) {
-      favorites.add(favorite);
-      if (favorite.getProduct() != this) {
-          favorite.setProduct(this);
-      }
-   }
+        favorites.add(favorite);
+        if (favorite.getProduct() != this) {
+            favorite.setProduct(this);
+        }
+    }
 
-   public enum ProductCategory {
+    public enum ProductCategory {
         CU("CU"),
-       GS("GS"),
-       SEVEN("SEVEN");
+        GS("GS"),
+        SEVEN("SEVEN");
 
-       @Getter
-       private String category;
+        @Getter
+        private String category;
 
-       ProductCategory(String category) {this.category = category;}
+        ProductCategory(String category) {
+            this.category = category;
+        }
 
-   }
+    }
 } //

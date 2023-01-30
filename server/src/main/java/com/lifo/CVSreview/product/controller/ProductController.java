@@ -53,17 +53,17 @@ public class ProductController {
 
     /*search*/
     @GetMapping("/search")
-   public ResponseEntity productSearch(
-            Product.ProductCategory category,
+    public ResponseEntity productSearch(
             @RequestParam Map<String, String> params,
             @PageableDefault(page = 0, size = 8, direction = Sort.Direction.DESC)
-           Pageable pageable) {
-        Page<Product> search = productService.search(category, params, pageable);
+            Pageable pageable
+    ) {
+        Page<Product> search = productService.search(params, pageable);
         List<ProductDto.Response> list = mapper.entitysToResponses(search.getContent());
-        return new ResponseEntity<>(new MultiResponseDto(list,search), HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto(list, search), HttpStatus.OK);
     }
 
-}//
+}
 
 
 
