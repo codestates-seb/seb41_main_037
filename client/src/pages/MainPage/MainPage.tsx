@@ -207,14 +207,11 @@ const Item = ({ id, img, name, price }: ItemProps) => {
       alert("이미 찜 목록에 있는 상품입니다");
     } else {
       axios
-        .get(
-          `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/favorite/${id}`,
-          {
-            headers: {
-              Authorization: localStorage.getItem("token"),
-            },
-          }
-        )
+        .get(`http://43.201.135.238:8080/favorite/${id}`, {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        })
         .then(() => setLike(!like))
         .catch((err) => console.log(err));
     }
@@ -259,9 +256,7 @@ const CuMainPage = () => {
       // );
       if (pageNum) {
         axios
-          .get(
-            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/products?page=${pageNum}&size=8`
-          )
+          .get(`http://43.201.135.238:8080/products?page=${pageNum}&size=8`)
           .then((res) => {
             // setProducts(
             //   res.data.data.filter((item: any) => item.productCategory === "CU")
@@ -273,9 +268,7 @@ const CuMainPage = () => {
           .catch((err) => console.log(err));
       } else {
         axios
-          .get(
-            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/products?page=1&size=8`
-          )
+          .get(`http://43.201.135.238:8080/products?page=1&size=8`)
           .then((res) => {
             // setProducts(
             //   res.data.data.filter((item: any) => item.productCategory === "CU")
@@ -294,9 +287,7 @@ const CuMainPage = () => {
   const handleSearchClick = async () => {
     window.history.pushState("", word, "/cu/search?key=" + word);
     axios
-      .get(
-        `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/products/search?key=${word}&category=CU`
-      )
+      .get(`http://43.201.135.238:8080/products/search?key=${word}&category=CU`)
       .then((res) => {
         setProducts(
           products.filter((item: any) =>

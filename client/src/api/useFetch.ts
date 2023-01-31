@@ -10,9 +10,7 @@ const useFetch = (url: string) => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(
-        `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080${url}`
-      )
+      .get(`http://43.201.135.238:8080${url}`)
       .then((response) => {
         setData(response.data);
       })
