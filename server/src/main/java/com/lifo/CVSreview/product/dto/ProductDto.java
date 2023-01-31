@@ -2,6 +2,7 @@ package com.lifo.CVSreview.product.dto;
 
 import com.lifo.CVSreview.review.dto.ReviewResponseDto;
 import com.lifo.CVSreview.review.entity.Review;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -4,6 +4,8 @@ import com.lifo.CVSreview.audit.BaseTimeEntity;
 import com.lifo.CVSreview.favorite.entity.Favorite;
 
 import com.lifo.CVSreview.review.entity.Review;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,6 +25,7 @@ public class Product extends BaseTimeEntity {
     private Long productId;
 
     @Column(length = 500, nullable = false)
+    @ApiModelProperty(required = true, value="상품명")
     private String productName; // 상품명
 
     @Column(length = 15, nullable = false)
@@ -80,6 +83,7 @@ public class Product extends BaseTimeEntity {
         ProductCategory(String category) {
             this.category = category;
         }
-
     }
-} //
+
+}
+

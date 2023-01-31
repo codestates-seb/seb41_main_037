@@ -43,11 +43,13 @@ public class ProductController {
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.entityToResponse(product)), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "상품 목록 조회", notes =  "전체 상품 목록을 조회합니다.")
+    @ApiOperation(value = "상품 목록 조회", notes = "전체 상품 목록을 조회합니다.")
     @GetMapping
-    public ResponseEntity gets(@Positive @RequestParam(defaultValue = "1") int page,
-                               @Positive @RequestParam(defaultValue = "10") int size) {
-        Page<Product> pageProduct = productService.findAll(page - 1, size);
+    public ResponseEntity gets(
+            @PageableDefault(page = 0, size = 8, sort = "productId", direction = Sort.Direction.DESC)
+            Pageable pageable
+    ) {
+        Page<Product> pageProduct = productService.findAll(pageable);
         List<Product> products = pageProduct.getContent();
 
         return new ResponseEntity<>(new MultiResponseDto<>(mapper.entitysToResponses(products), pageProduct), HttpStatus.OK);
@@ -55,11 +57,11 @@ public class ProductController {
 
 
     /*search*/
-    @ApiOperation(value = "상품 검색", notes = "상품을 키워드와 편의점 카테고리 별로 검색합니다.")
+
     @GetMapping("/search")
     public ResponseEntity productSearch(
             @RequestParam Map<String, String> params,
-            @PageableDefault(page = 0, size = 8, direction = Sort.Direction.DESC)
+            @PageableDefault(page = 0, size = 8, sort = "productId", direction = Sort.Direction.DESC)
             Pageable pageable
     ) {
         Page<Product> search = productService.search(params, pageable);
