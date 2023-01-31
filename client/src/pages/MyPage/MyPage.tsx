@@ -300,14 +300,11 @@ const MyPage = () => {
   }: WishProps) => {
     const handleDelete = (id: number) => {
       axios
-        .get(
-          `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/favorite/${id}`,
-          {
-            headers: {
-              Authorization: localStorage.getItem("token"),
-            },
-          }
-        )
+        .get(`http://43.201.135.238:8080/favorite/${id}`, {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        })
         .then((res) => {
           setFavorites(
             favorites.filter((favorite: any) => favorite.productId !== id)
@@ -405,14 +402,11 @@ const MyPage = () => {
 
   const handleDeleteAccount = (id: number) => {
     axios
-      .delete(
-        `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/members/${id}`,
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      )
+      .delete(`http://43.201.135.238:8080/members/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
       .then(() => {
         alert("탈퇴에 성공했습니다");
         localStorage.removeItem("token");
