@@ -440,6 +440,7 @@ const DetailPage = () => {
     name: string;
     review: any;
     date: string;
+    star: number;
     onRemove: any;
   }
 
@@ -452,22 +453,48 @@ const DetailPage = () => {
     name,
     review,
     date,
+    star,
     onRemove,
   }: CommentProps) => {
+    // 수정된 댓글을 담는 상태
     const [modifiedComment, setModifiedCommnt] = useState(review);
 
+    // 초기 별점의 상태를 설정
+    let defaultStar = [false, false, false, false, false];
+    for (let i = 0; i < star; i++) {
+      defaultStar[i] = true;
+    }
+
+    // 수정된 별점의 상태를 담는 상태
+    const [clickedStar, setClikedStar] = useState(defaultStar);
+    const modifiedStarArr = [0, 1, 2, 3, 4];
+
+    // 별점의 상태를 수정하는 핸들러
+    const handlemodifiedStarClick = (idx: number) => {
+      let clickStates = [...clickedStar];
+      for (let i = 0; i < 5; i++) {
+        clickStates[i] = i <= idx ? true : false;
+      }
+      setClikedStar(clickStates);
+    };
+
+    // 수정된 별점을 담는 변수
+    let modifiedStarRating = clickedStar.filter(Boolean).length;
+
+    // 댓글 상태를 수정하는 핸들러
     const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setModifiedCommnt(e.target.value);
     };
 
     const editComment = (id: number) => {
       if (reviews) {
+        console.log(modifiedStarRating);
         axios
           .patch(
             `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`,
             {
               content: modifiedComment,
-              rating: starRating,
+              rating: modifiedStarRating,
             },
             {
               headers: {
@@ -486,16 +513,16 @@ const DetailPage = () => {
         <section className="resultStarRating">
           {isLogin && isModify && isSelected ? (
             <p className="resultStarRating">
-              {starArr.map((star) =>
-                clicked[star] ? (
+              {modifiedStarArr.map((star) =>
+                clickedStar[star] ? (
                   <AiFillStar
                     key={star}
-                    onClick={() => handleStarClick(star)}
+                    onClick={() => handlemodifiedStarClick(star)}
                   />
                 ) : (
                   <AiOutlineStar
                     key={star}
-                    onClick={() => handleStarClick(star)}
+                    onClick={() => handlemodifiedStarClick(star)}
                   />
                 )
               )}
@@ -532,7 +559,8 @@ const DetailPage = () => {
                   value={modifiedComment}
                   key={id}
                   maxLength={300}
-                  onChange={handleCommentChange}></textarea>
+                  onChange={handleCommentChange}
+                ></textarea>
               ) : (
                 <pre>{review}</pre>
               )}
@@ -583,7 +611,8 @@ const DetailPage = () => {
               <textarea
                 placeholder="리뷰를 작성하세요."
                 maxLength={300}
-                onChange={onChange}></textarea>
+                onChange={onChange}
+              ></textarea>
               <button onClick={addComment}>
                 리뷰
                 <br />
@@ -604,6 +633,7 @@ const DetailPage = () => {
                       name={review.username}
                       review={review.content}
                       date={review.createdAt}
+                      star={review.rating}
                       onRemove={() => removeComment(review.reviewId)}
                     />
                   ))}
