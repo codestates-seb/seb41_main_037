@@ -7,6 +7,7 @@ import com.lifo.CVSreview.member.Entity.Member;
 import com.lifo.CVSreview.member.repository.MemberRepository;
 import com.lifo.CVSreview.member.service.MemberService;
 import com.lifo.CVSreview.product.entity.Product;
+import com.lifo.CVSreview.product.repository.ProductRepository;
 import com.lifo.CVSreview.product.service.ProductService;
 import com.lifo.CVSreview.review.entity.Review;
 import com.lifo.CVSreview.review.mapper.ReviewMapper;
@@ -28,13 +29,16 @@ public class ReviewService {
     private final MemberService memberService;
 
     private final MemberRepository memberRepository;
+    private final ProductRepository productRepository;
 
-    public ReviewService(ReviewRepository reviewRepository, ReviewMapper reviewMapper, ProductService productService, MemberService memberService, MemberRepository memberRepository) {
+    public ReviewService(ReviewRepository reviewRepository, ReviewMapper reviewMapper, ProductService productService, MemberService memberService, MemberRepository memberRepository,
+                         ProductRepository productRepository) {
         this.reviewRepository = reviewRepository;
         this.reviewMapper = reviewMapper;
         this.productService = productService;
         this.memberService = memberService;
         this.memberRepository = memberRepository;
+        this.productRepository = productRepository;
     }
 
     //리뷰작성
@@ -62,9 +66,10 @@ public class ReviewService {
         Optional.ofNullable(review.getRating())
                 .ifPresent(rating -> findReview.setRating(rating));
 
+
         reviewRepository.save(findReview);
-        Product product = review.getProduct();
-        findProductAvgRating(product);
+        Review review2 = reviewRepository.findById(review.getReviewId()).get();
+        Product product = review2.getProduct();
         product.setRating(findProductAvgRating(product));
         productService.updateProduct(product);
         return findReview;
