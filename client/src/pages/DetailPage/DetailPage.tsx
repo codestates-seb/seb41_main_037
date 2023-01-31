@@ -269,7 +269,7 @@ const Main = styled.main`
 const DetailPage = () => {
   const { data } = useFetch(`/members/${localStorage.getItem("memberID")}`);
   const { id } = useParams();
-  const { data: productData } = useFetch("/products?page=1&size=24");
+  const { data: productData } = useFetch("/products");
   const { data: reviewData } = useFetch("/reviews?page=1&size=50");
   const [product, setProduct] = useState<any>(null);
   const [reviews, setReviews] = useState<any>(null);
@@ -559,8 +559,7 @@ const DetailPage = () => {
                   value={modifiedComment}
                   key={id}
                   maxLength={300}
-                  onChange={handleCommentChange}
-                ></textarea>
+                  onChange={handleCommentChange}></textarea>
               ) : (
                 <pre>{review}</pre>
               )}
@@ -611,8 +610,7 @@ const DetailPage = () => {
               <textarea
                 placeholder="리뷰를 작성하세요."
                 maxLength={300}
-                onChange={onChange}
-              ></textarea>
+                onChange={onChange}></textarea>
               <button onClick={addComment}>
                 리뷰
                 <br />
