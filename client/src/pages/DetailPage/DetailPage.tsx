@@ -269,7 +269,7 @@ const Main = styled.main`
 const DetailPage = () => {
   const { data } = useFetch(`/members/${localStorage.getItem("memberID")}`);
   const { id } = useParams();
-  const { data: productData } = useFetch("/products");
+  const { data: productData } = useFetch("/products?page=0&size=200");
   const { data: reviewData } = useFetch("/reviews?page=1&size=50");
   const [product, setProduct] = useState<any>(null);
   const [reviews, setReviews] = useState<any>(null);
@@ -339,7 +339,7 @@ const DetailPage = () => {
   const addComment = () => {
     axios
       .post(
-        `http://43.201.135.238:8080/reviews/${id}`,
+        `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`,
         {
           content: input,
           rating: starRating,
@@ -361,11 +361,14 @@ const DetailPage = () => {
       // 댓글 수정
       if (reviews) {
         axios
-          .delete(`http://43.201.135.238:8080/reviews/${id}`, {
-            headers: {
-              Authorization: localStorage.getItem("token"),
-            },
-          })
+          .delete(
+            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`,
+            {
+              headers: {
+                Authorization: localStorage.getItem("token"),
+              },
+            }
+          )
           .catch((err) => alert("리뷰 삭제에 실패했습니다"));
         setReviews(reviews.filter((review: any) => review.reviewId !== id));
       }
