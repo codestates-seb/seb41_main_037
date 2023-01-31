@@ -149,13 +149,10 @@ const LoginPage = () => {
     if (emailState && passwordState) {
       // 로그인 성공 시
       axios
-        .post(
-          "http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/v1/auth/login",
-          {
-            username: email,
-            password: password,
-          }
-        )
+        .post("http://43.201.135.238:8080/v1/auth/login", {
+          username: email,
+          password: password,
+        })
         .then((res) => {
           if (res.headers.authorization) {
             let token = res.headers.authorization;

@@ -217,15 +217,12 @@ const SignupPage = () => {
     if (nicknameState && emailState && passwordState && passwordConfirmState) {
       // 회원가입 성공 시
       axios
-        .post(
-          "http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/members",
-          {
-            email: email,
-            nickname: nickname,
-            password: password,
-            role: 0,
-          }
-        )
+        .post("http://43.201.135.238:8080/members", {
+          email: email,
+          nickname: nickname,
+          password: password,
+          role: 0,
+        })
         .then((res) => {
           alert("회원가입이 완료되었습니다");
           navigate("/login");

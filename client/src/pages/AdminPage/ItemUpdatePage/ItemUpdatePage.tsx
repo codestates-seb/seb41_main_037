@@ -192,7 +192,7 @@ const ItemUpdatePage = () => {
   const handleCreate = () => {
     axios
       .patch(
-        `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/admin/${productId}`,
+        `http://43.201.135.238:8080/admin/${productId}`,
         {
           imgName: "img",
           imgUrl: imageFile ? imageFile : product.imgUrl,

@@ -129,7 +129,8 @@ const Nav = () => {
           className="home"
           src="/img/cvs logo2.png"
           alt="HOME"
-          onClick={() => navigate("/")}></img>
+          onClick={() => navigate("/")}
+        ></img>
       </section>
       <section className="menuBtn">
         {menuItem.map((item, index) => (
@@ -140,7 +141,8 @@ const Nav = () => {
             }}
             className={
               location.pathname === item.path ? "cvsLogo focused" : "cvsLogo"
-            }>
+            }
+          >
             {location.pathname === item.path ? item.img1 : item.img2}
           </div>
         ))}

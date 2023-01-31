@@ -380,7 +380,7 @@ const MyPage = () => {
     ) {
       axios
         .patch(
-          `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/members/${localStorage.getItem(
+          `http://43.201.135.238:8080/members/${localStorage.getItem(
             "memberID"
           )}`,
           {

@@ -156,9 +156,7 @@ const CommentDeletePage = () => {
       console.log(data.pageInfo);
       if (pageNum) {
         axios
-          .get(
-            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews?page=${pageNum}&size=8`
-          )
+          .get(`http://43.201.135.238:8080/reviews?page=${pageNum}&size=8`)
           .then((res) => {
             setReviews(res.data.data);
             setPage(res.data.pageInfo.page);
@@ -167,9 +165,7 @@ const CommentDeletePage = () => {
           .catch((err) => console.log(err));
       } else {
         axios
-          .get(
-            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews?page=1&size=8`
-          )
+          .get(`http://43.201.135.238:8080/reviews?page=1&size=8`)
           .then((res) => {
             setReviews(res.data.data);
             setPage(res.data.pageInfo.page);
@@ -184,14 +180,11 @@ const CommentDeletePage = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
       if (reviews) {
         axios
-          .delete(
-            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/admin/reviews/${id}`,
-            {
-              headers: {
-                Authorization: localStorage.getItem("token"),
-              },
-            }
-          )
+          .delete(`http://43.201.135.238:8080/admin/reviews/${id}`, {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          })
           .catch((err) => alert("리뷰 삭제에 실패했습니다"));
         setReviews(reviews.filter((review: any) => review.reviewId !== id));
       }

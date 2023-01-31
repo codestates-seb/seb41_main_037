@@ -200,14 +200,11 @@ const ItemSearchPage = () => {
       console.log(id);
       if (products) {
         axios
-          .delete(
-            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/admin/${id}`,
-            {
-              headers: {
-                Authorization: localStorage.getItem("token"),
-              },
-            }
-          )
+          .delete(`http://43.201.135.238:8080/admin/${id}`, {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          })
           .then(() =>
             setProducts(products.filter((item: any) => item.productId !== id))
           )

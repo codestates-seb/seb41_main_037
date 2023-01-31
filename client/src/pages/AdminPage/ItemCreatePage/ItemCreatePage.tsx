@@ -208,7 +208,7 @@ const ItemCreatePage = () => {
     if (selectedStore && productName && price && image) {
       axios
         .post(
-          "http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/admin",
+          "http://43.201.135.238:8080/admin",
           {
             productName: productName,
             price: Number(price),
