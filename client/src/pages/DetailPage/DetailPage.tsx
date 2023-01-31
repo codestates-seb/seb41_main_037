@@ -281,6 +281,7 @@ const DetailPage = () => {
   useEffect(() => {
     if (data) {
       setProduct(data.data);
+      // console.log(product);
       setReviews(
         data.data.reviews.filter((item: any) => item.productId === Number(id))
       );
@@ -481,7 +482,7 @@ const DetailPage = () => {
         console.log(modifiedStarRating);
         axios
           .patch(
-            `http://43.201.135.238:8080/${id}`,
+            `http://43.201.135.238:8080/reviews/${id}`,
             {
               content: modifiedComment,
               rating: modifiedStarRating,
@@ -492,8 +493,15 @@ const DetailPage = () => {
               },
             }
           )
-          .then(() => window.location.reload())
-          .catch((err) => alert("리뷰를 5자 이상 작성하세요."));
+          .then((res) => {
+            console.log(res.data);
+            // window.location.reload();
+          })
+          .catch((err) => {
+            console.log(err);
+            window.location.reload();
+            // alert("리뷰를 5자 이상 작성하세요.");
+          });
       }
       setIsModify(!isModify);
     };
