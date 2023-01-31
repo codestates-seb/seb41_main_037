@@ -6,7 +6,7 @@ import { HiOutlineHeart, HiHeart } from "react-icons/hi";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
 import useFetch from "../../api/useFetch";
-import Pagination from "../../components/Pagination/Pagination";
+import CuPagination from "../../components/Pagination/CuPagination";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { LikeState } from "../../states/LikeState";
@@ -207,14 +207,11 @@ const Item = ({ id, img, name, price }: ItemProps) => {
       alert("이미 찜 목록에 있는 상품입니다");
     } else {
       axios
-        .get(
-          `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/favorite/${id}`,
-          {
-            headers: {
-              Authorization: localStorage.getItem("token"),
-            },
-          }
-        )
+        .get(`http://43.201.135.238:8080/favorite/${id}`, {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        })
         .then(() => setLike(!like))
         .catch((err) => console.log(err));
     }
@@ -260,13 +257,13 @@ const CuMainPage = () => {
       if (pageNum) {
         axios
           .get(
-            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/products?page=${pageNum}&size=8`
+            `http://43.201.135.238:8080/products/search?key=&category=CU?page=${pageNum}&size=8`
           )
           .then((res) => {
-            setProducts(
-              res.data.data.filter((item: any) => item.productCategory === "CU")
-            );
-            //setProducts(res.data.data);
+            // setProducts(
+            //   res.data.data.filter((item: any) => item.productCategory === "CU")
+            // );
+            setProducts(res.data.data);
             setPage(res.data.pageInfo.page);
             setTotalPages(res.data.pageInfo.totalPages);
           })
@@ -274,13 +271,13 @@ const CuMainPage = () => {
       } else {
         axios
           .get(
-            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/products?page=1&size=8`
+            `http://43.201.135.238:8080/products/search?key=&category=CU?page=0&size=8`
           )
           .then((res) => {
-            setProducts(
-              res.data.data.filter((item: any) => item.productCategory === "CU")
-            );
-            //setProducts(res.data.data);
+            // setProducts(
+            //   res.data.data.filter((item: any) => item.productCategory === "CU")
+            // );
+            setProducts(res.data.data);
             setPage(res.data.pageInfo.page);
             setTotalPages(res.data.pageInfo.totalPages);
           })
@@ -294,9 +291,7 @@ const CuMainPage = () => {
   const handleSearchClick = async () => {
     window.history.pushState("", word, "/cu/search?key=" + word);
     axios
-      .get(
-        `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/products/search?key=${word}&category=CU`
-      )
+      .get(`http://43.201.135.238:8080/products/search?key=${word}&category=CU`)
       .then((res) => {
         setProducts(
           products.filter((item: any) =>
@@ -412,7 +407,7 @@ const CuMainPage = () => {
               </li>
             </section>
             <div className="pageBtnGroup">
-              <Pagination page={page} totalPages={totalPages} />
+              <CuPagination page={page} totalPages={totalPages} />
             </div>
           </section>
         </Container>
