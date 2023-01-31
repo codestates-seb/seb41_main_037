@@ -141,7 +141,7 @@ const ItemSearchPageMain = styled.main`
 const ItemSearchPage = () => {
   const navigate = useNavigate();
   const [currentTab, clickTab] = useState(0);
-  const { data } = useFetch("/products?page=1&size=30");
+  const { data } = useFetch("/products?page=0&size=100");
   const [products, setProducts] = useState<any>(null);
   // const [originalProducts, setOriginalProducts] = useState<any>(null);
 

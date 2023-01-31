@@ -339,7 +339,7 @@ const DetailPage = () => {
   const addComment = () => {
     axios
       .post(
-        `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`,
+        `http://43.201.135.238:8080/reviews/${id}`,
         {
           content: input,
           rating: starRating,
@@ -361,14 +361,11 @@ const DetailPage = () => {
       // 댓글 수정
       if (reviews) {
         axios
-          .delete(
-            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`,
-            {
-              headers: {
-                Authorization: localStorage.getItem("token"),
-              },
-            }
-          )
+          .delete(`http://43.201.135.238:8080/reviews/${id}`, {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          })
           .catch((err) => alert("리뷰 삭제에 실패했습니다"));
         setReviews(reviews.filter((review: any) => review.reviewId !== id));
       }
@@ -559,7 +556,8 @@ const DetailPage = () => {
                   value={modifiedComment}
                   key={id}
                   maxLength={300}
-                  onChange={handleCommentChange}></textarea>
+                  onChange={handleCommentChange}
+                ></textarea>
               ) : (
                 <pre>{review}</pre>
               )}
@@ -610,7 +608,8 @@ const DetailPage = () => {
               <textarea
                 placeholder="리뷰를 작성하세요."
                 maxLength={300}
-                onChange={onChange}></textarea>
+                onChange={onChange}
+              ></textarea>
               <button onClick={addComment}>
                 리뷰
                 <br />

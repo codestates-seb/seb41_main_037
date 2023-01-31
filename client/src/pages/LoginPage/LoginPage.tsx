@@ -156,7 +156,8 @@ const LoginPage = () => {
         .then((res) => {
           if (res.headers.authorization) {
             let token = res.headers.authorization;
-            let base64Payload = token.split(".")[1]; //value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
+            // value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
+            let base64Payload = token.split(".")[1];
             let payload = Buffer.from(base64Payload, "base64");
             let memberInformation = JSON.parse(payload.toString());
             localStorage.setItem("token", token);
@@ -167,6 +168,7 @@ const LoginPage = () => {
           navigate("/");
         })
         .catch((err) => {
+          console.log(err);
           alert("로그인에 실패했습니다");
         });
     } else {
