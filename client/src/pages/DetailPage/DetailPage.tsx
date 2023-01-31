@@ -269,7 +269,7 @@ const Main = styled.main`
 const DetailPage = () => {
   const { data } = useFetch(`/members/${localStorage.getItem("memberID")}`);
   const { id } = useParams();
-  const { data: productData } = useFetch("/products?page=0&size=200");
+  const { data: productData } = useFetch(`/products/${id}`);
   const { data: reviewData } = useFetch("/reviews?page=1&size=50");
   const [product, setProduct] = useState<any>(null);
   const [reviews, setReviews] = useState<any>(null);
@@ -283,9 +283,7 @@ const DetailPage = () => {
 
   useEffect(() => {
     if (productData) {
-      setProduct(
-        productData.data.filter((item: any) => item.productId === Number(id))
-      );
+      setProduct(productData.data);
       setReviews(
         reviewData.data.filter((item: any) => item.productId === Number(id))
       );
@@ -339,7 +337,7 @@ const DetailPage = () => {
   const addComment = () => {
     axios
       .post(
-        `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`,
+        `http://43.201.135.238:8080/reviews/${id}`,
         {
           content: input,
           rating: starRating,
@@ -361,14 +359,11 @@ const DetailPage = () => {
       // 댓글 수정
       if (reviews) {
         axios
-          .delete(
-            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`,
-            {
-              headers: {
-                Authorization: localStorage.getItem("token"),
-              },
-            }
-          )
+          .delete(`http://43.201.135.238:8080/reviews/${id}`, {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          })
           .catch((err) => alert("리뷰 삭제에 실패했습니다"));
         setReviews(reviews.filter((review: any) => review.reviewId !== id));
       }
@@ -384,13 +379,13 @@ const DetailPage = () => {
     price: number;
     fav: number;
     comment: number;
-    convertPrice: void;
+    convertPrice: number;
   }
 
   const Item = ({ img, name, price, fav, comment }: ItemProps) => {
     const [like, setLike] = useState(false);
 
-    const convertPrice = (price: any) => {
+    const convertPrice = (price: number) => {
       return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
@@ -491,7 +486,7 @@ const DetailPage = () => {
         console.log(modifiedStarRating);
         axios
           .patch(
-            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews/${id}`,
+            `http://43.201.135.238:8080/${id}`,
             {
               content: modifiedComment,
               rating: modifiedStarRating,
@@ -559,7 +554,8 @@ const DetailPage = () => {
                   value={modifiedComment}
                   key={id}
                   maxLength={300}
-                  onChange={handleCommentChange}></textarea>
+                  onChange={handleCommentChange}
+                ></textarea>
               ) : (
                 <pre>{review}</pre>
               )}
@@ -579,17 +575,16 @@ const DetailPage = () => {
           <Header />
           <section className="detailPageMain">
             <section className="itemSection">
-              {product &&
-                product.map((item: any) => (
-                  <Item
-                    img={item.imgUrl}
-                    name={item.productName}
-                    price={item.price}
-                    fav={item.favoriteCount}
-                    comment={item.reviewCount}
-                    convertPrice={item.price}
-                  />
-                ))}
+              {product && (
+                <Item
+                  img={product.imgUrl}
+                  name={product.productName}
+                  price={product.price}
+                  fav={product.favoriteCount}
+                  comment={product.reviewCount}
+                  convertPrice={product.price}
+                />
+              )}
             </section>
             <section className="addCommentSection">
               <p className="addStarRating">
@@ -610,7 +605,8 @@ const DetailPage = () => {
               <textarea
                 placeholder="리뷰를 작성하세요."
                 maxLength={300}
-                onChange={onChange}></textarea>
+                onChange={onChange}
+              ></textarea>
               <button onClick={addComment}>
                 리뷰
                 <br />
