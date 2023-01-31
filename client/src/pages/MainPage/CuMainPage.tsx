@@ -251,18 +251,12 @@ const CuMainPage = () => {
     const pageNum = searchParams.get("page");
 
     if (data) {
-      // setProducts(
-      //   data.data.filter((item: any) => item.productCategory === "CU")
-      // );
       if (pageNum) {
         axios
           .get(
-            `http://43.201.135.238:8080/products/search?key=&category=CU?page=${pageNum}&size=8`
+            `http://43.201.135.238:8080/products/search?key=&category=CU&page=${pageNum}&size=8`
           )
           .then((res) => {
-            // setProducts(
-            //   res.data.data.filter((item: any) => item.productCategory === "CU")
-            // );
             setProducts(res.data.data);
             setPage(res.data.pageInfo.page);
             setTotalPages(res.data.pageInfo.totalPages);
@@ -271,12 +265,9 @@ const CuMainPage = () => {
       } else {
         axios
           .get(
-            `http://43.201.135.238:8080/products/search?key=&category=CU?page=0&size=8`
+            `http://43.201.135.238:8080/products/search?key=&category=CU&page=0&size=8`
           )
           .then((res) => {
-            // setProducts(
-            //   res.data.data.filter((item: any) => item.productCategory === "CU")
-            // );
             setProducts(res.data.data);
             setPage(res.data.pageInfo.page);
             setTotalPages(res.data.pageInfo.totalPages);
@@ -289,7 +280,7 @@ const CuMainPage = () => {
   const [word, setWord] = useState<string>("");
 
   const handleSearchClick = async () => {
-    window.history.pushState("", word, "/cu/search?key=" + word);
+    //window.history.pushState("", word, "/cu/search?key=" + word);
     axios
       .get(`http://43.201.135.238:8080/products/search?key=${word}&category=CU`)
       .then((res) => {

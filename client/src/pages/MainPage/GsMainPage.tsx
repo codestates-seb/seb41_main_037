@@ -1,20 +1,18 @@
 import React, { useState, useEffect, KeyboardEvent } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { HiOutlineHeart, HiHeart } from "react-icons/hi";
-import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
 import useFetch from "../../api/useFetch";
-
+import GsPagination from "../../components/Pagination/GsPagination";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { LikeState } from "../../states/LikeState";
 
 const Container = styled.main`
   display: flex;
-  width: 100%;
   margin-bottom: 100px;
 
   .mainContainer {
@@ -24,6 +22,7 @@ const Container = styled.main`
     align-items: center;
     text-align: center;
     flex-wrap: wrap;
+    width: 100%;
     margin-left: 100px;
   }
 
@@ -61,6 +60,7 @@ const Container = styled.main`
       right: 15px;
       color: #58419c;
       font-size: 30px;
+      cursor: pointer;
     }
   }
 
@@ -68,6 +68,7 @@ const Container = styled.main`
     display: flex;
     justify-content: right;
     flex-wrap: wrap;
+    width: 1300px;
 
     .sortBtnGroup {
       display: flex;
@@ -88,6 +89,7 @@ const Container = styled.main`
         font-size: 12px;
         font-weight: 600;
         font-family: "Do Hyeon", sans-serif;
+        cursor: pointer;
         &:hover {
           background-color: #58419c;
           color: white;
@@ -168,18 +170,9 @@ const Container = styled.main`
           right: 15px;
           color: #58419c;
           font-size: 25px;
+          cursor: pointer;
         }
       }
-    }
-  }
-  .pageBtnGroup {
-    display: flex;
-    .pageBtn {
-      display: flex;
-      background-color: white;
-      color: #58419c;
-      border: none;
-      font-size: 17px;
     }
   }
 `;
@@ -214,14 +207,11 @@ const Item = ({ id, img, name, price }: ItemProps) => {
       alert("이미 찜 목록에 있는 상품입니다");
     } else {
       axios
-        .get(
-          `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/favorite/${id}`,
-          {
-            headers: {
-              Authorization: localStorage.getItem("token"),
-            },
-          }
-        )
+        .get(`http://43.201.135.238:8080/favorite/${id}`, {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        })
         .then(() => setLike(!like))
         .catch((err) => console.log(err));
     }
@@ -250,33 +240,66 @@ const Item = ({ id, img, name, price }: ItemProps) => {
 };
 
 const GsMainPage = () => {
-  const { data } = useFetch("/products?page=1&size=24");
+  const { data } = useFetch("/products");
   const [products, setProducts] = useState<any>(null);
 
-  useEffect(() => {
-    if (data) {
-      setProducts(
-        data.data.filter((item: any) => item.productCategory === "GS")
-      );
-    }
-  }, [data]);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [searchParams] = useSearchParams();
 
-  console.log(products);
+  useEffect(() => {
+    const pageNum = searchParams.get("page");
+
+    if (data) {
+      if (pageNum) {
+        axios
+          .get(
+            `http://43.201.135.238:8080/products/search?key=&category=GS&page=${pageNum}&size=8`
+          )
+          .then((res) => {
+            setProducts(res.data.data);
+            setPage(res.data.pageInfo.page);
+            setTotalPages(res.data.pageInfo.totalPages);
+          })
+          .catch((err) => console.log(err));
+      } else {
+        axios
+          .get(
+            `http://43.201.135.238:8080/products/search?key=&category=GS&page=0&size=8`
+          )
+          .then((res) => {
+            setProducts(res.data.data);
+            setPage(res.data.pageInfo.page);
+            setTotalPages(res.data.pageInfo.totalPages);
+          })
+          .catch((err) => console.log(err));
+      }
+    }
+  }, [data, searchParams]);
 
   const [word, setWord] = useState<string>("");
-  const onSubmit = async () => {
-    // window.location.href = "/search?key=" + word + "&category=GS";
-    window.history.pushState("", word, "/search?key=" + word + "&category=GS");
-    setProducts(
-      products.filter((item: any) =>
-        item.productName.toUpperCase().includes(word.toUpperCase())
-      )
-    );
+
+  const handleSearchClick = async () => {
+    window.history.pushState("", word, "/gs25/search?key=" + word);
+    axios
+      .get(`http://43.201.135.238:8080/products/search?key=${word}&category=GS`)
+      .then((res) => {
+        setProducts(
+          products.filter((item: any) =>
+            item.productName.toUpperCase().includes(word.toUpperCase())
+          )
+        );
+      })
+      .catch((err) => console.log(err));
   };
 
-  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleProductName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setWord(e.target.value);
+  };
+
+  const searchKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      onSubmit();
+      handleSearchClick();
     }
   };
 
@@ -313,25 +336,21 @@ const GsMainPage = () => {
                   <img
                     className="cvsLogo"
                     src="/img/cvs logo.png"
-                    alt="logoImg"
-                  ></img>
+                    alt="logoImg"></img>
                 </Link>
               </header>
               <div className="searchBar">
                 <input
                   type="text"
                   maxLength={30}
-                  onChange={(e) => {
-                    setWord(e.target.value);
-                    console.log(word);
-                  }}
-                  onKeyPress={handleKeyPress}
+                  onChange={handleProductName}
+                  onKeyPress={searchKeyPress}
                 />
                 <RxMagnifyingGlass
                   className="searchIcon"
                   type="button"
                   onClick={() => {
-                    onSubmit();
+                    handleSearchClick();
                   }}
                 />
               </div>
@@ -342,8 +361,7 @@ const GsMainPage = () => {
                   className="sortBtn"
                   onClick={() => {
                     sortProduct("like");
-                  }}
-                >
+                  }}>
                   찜
                   <br />
                   많은순
@@ -352,8 +370,7 @@ const GsMainPage = () => {
                   className="sortBtn"
                   onClick={() => {
                     sortProduct("price");
-                  }}
-                >
+                  }}>
                   가격
                   <br />
                   높은순
@@ -362,8 +379,7 @@ const GsMainPage = () => {
                   className="sortBtn"
                   onClick={() => {
                     sortProduct("review");
-                  }}
-                >
+                  }}>
                   리뷰
                   <br />
                   많은순
@@ -382,17 +398,7 @@ const GsMainPage = () => {
               </li>
             </section>
             <div className="pageBtnGroup">
-              <button className="pageBtn">
-                <IoMdArrowDropleft />
-              </button>
-              <button className="pageBtn">1</button>
-              <button className="pageBtn">2</button>
-              <button className="pageBtn">3</button>
-              <button className="pageBtn">4</button>
-              <button className="pageBtn">5</button>
-              <button className="pageBtn">
-                <IoMdArrowDropright />
-              </button>
+              <GsPagination page={page} totalPages={totalPages} />
             </div>
           </section>
         </Container>

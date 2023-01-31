@@ -251,16 +251,10 @@ const CuMainPage = () => {
     const pageNum = searchParams.get("page");
 
     if (data) {
-      // setProducts(
-      //   data.data.filter((item: any) => item.productCategory === "CU")
-      // );
       if (pageNum) {
         axios
           .get(`http://43.201.135.238:8080/products?page=${pageNum}&size=8`)
           .then((res) => {
-            // setProducts(
-            //   res.data.data.filter((item: any) => item.productCategory === "CU")
-            // );
             setProducts(res.data.data);
             setPage(res.data.pageInfo.page);
             setTotalPages(res.data.pageInfo.totalPages);
@@ -270,9 +264,6 @@ const CuMainPage = () => {
         axios
           .get(`http://43.201.135.238:8080/products?page=1&size=8`)
           .then((res) => {
-            // setProducts(
-            //   res.data.data.filter((item: any) => item.productCategory === "CU")
-            // );
             setProducts(res.data.data);
             setPage(res.data.pageInfo.page);
             setTotalPages(res.data.pageInfo.totalPages);

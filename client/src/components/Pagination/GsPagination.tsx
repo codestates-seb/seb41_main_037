@@ -34,7 +34,7 @@ interface Props {
   totalPages: number;
 }
 
-const CuPagination = ({ page, totalPages }: Props) => {
+const GsPagination = ({ page, totalPages }: Props) => {
   const search = window.location.search;
 
   const arrayTotalPages = [];
@@ -47,8 +47,8 @@ const CuPagination = ({ page, totalPages }: Props) => {
       <a
         href={
           page === 0
-            ? `/products/cu`
-            : `/products/search?key=&category=CU&page=${page - 1}`
+            ? `/products/search?key=&category=GS`
+            : `/products/search?key=&category=GS&page=${page - 1}`
         }>
         <span>
           <IoMdArrowDropleft />
@@ -58,8 +58,8 @@ const CuPagination = ({ page, totalPages }: Props) => {
         return (
           <a
             key={idx}
-            href={`/products/search?key=&category=CU&page=${el}`}
-            className={search === `&page=${el}` ? "active" : ""}>
+            href={`/products/search?key=&category=GS&page=${el}`}
+            className={search === `?page=${el}` ? "active" : ""}>
             <span>{el}</span>
           </a>
         );
@@ -67,10 +67,10 @@ const CuPagination = ({ page, totalPages }: Props) => {
       <a
         href={
           page === arrayTotalPages[arrayTotalPages.length - 1]
-            ? `/products/search?key=&category=CU&page=${
+            ? `/products/search?key=&category=GS&page=${
                 arrayTotalPages[arrayTotalPages.length - 1]
               }`
-            : `/products/search?key=&category=CU&page=${page + 1}`
+            : `/products/search?key=&category=GS&page=${page + 1}`
         }>
         <span>
           <IoMdArrowDropright />
@@ -80,4 +80,4 @@ const CuPagination = ({ page, totalPages }: Props) => {
   );
 };
 
-export default CuPagination;
+export default GsPagination;
