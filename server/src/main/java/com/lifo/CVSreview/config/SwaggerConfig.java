@@ -25,7 +25,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("preproject Spring Boot REST API")
+                .title(" Spring Boot REST API")
                 .version("1.0.0")
                 .description("swagger api 입니다.")
                 .build();
