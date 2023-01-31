@@ -267,30 +267,32 @@ const Main = styled.main`
 `;
 
 const DetailPage = () => {
-  const { data } = useFetch(`/members/${localStorage.getItem("memberID")}`);
+  // const { data } = useFetch(`/members/${localStorage.getItem("memberID")}`);
   const { id } = useParams();
-  const { data: productData } = useFetch(`/products/${id}`);
-  const { data: reviewData } = useFetch("/reviews?page=1&size=50");
+  const { data } = useFetch(`/products/${id}`);
+  // const { data: reviewData } = useFetch("/reviews?page=1&size=50");
   const [product, setProduct] = useState<any>(null);
   const [reviews, setReviews] = useState<any>(null);
 
   const [input, setInput] = useState("");
 
   const isLogin = useRecoilValue(LoginState);
-  const [member, setMember] = useState<any>(null);
+  // const [member, setMember] = useState<any>(null);
   const [isModify, setIsModify] = useState(false);
   const [isEditSelect, setIsEditSelect] = useState<any>(false);
 
   useEffect(() => {
-    if (productData) {
-      setProduct(productData.data);
+    if (data) {
+      setProduct(data.data);
+      // console.log(product);
       setReviews(
-        reviewData.data.filter((item: any) => item.productId === Number(id))
+        data.data.reviews.filter((item: any) => item.productId === Number(id))
       );
-    } else if (data) {
-      setMember(data);
     }
-  }, [productData, reviewData, data, id]);
+    // else if (data) {
+    //   setMember(data);
+    // }
+  }, [data, id]);
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     setInput(e.target.value);
@@ -536,7 +538,7 @@ const DetailPage = () => {
               </div>
             ) : (
               isLogin &&
-              userId === member.memberId && (
+              userId === localStorage.getItem("memberID") && (
                 <div className="userEdit">
                   <HiOutlinePencilAlt
                     className="editBtn"
