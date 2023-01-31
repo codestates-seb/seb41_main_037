@@ -42,6 +42,7 @@ SEB 41기 Main-Project 37조 '편의점PB 상품 솔직 추천 & 리뷰'
 | 이유진 | Front-end |
 
 # **🔗** 배포 링크
+[CVS Review] (http://main-037-deploy.s3-website.ap-northeast-2.amazonaws.com/)
 
 ---
 
