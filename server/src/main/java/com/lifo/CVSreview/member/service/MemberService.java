@@ -114,7 +114,7 @@ public class MemberService {
     public Member getLoginMember() { // 로그인된 유저 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if(authentication == null || authentication.getName() == null || authentication.getName().equals("anonymousUser"))
+        if(authentication == null || authentication.getName() == null)
             throw new BusinessLogicException(ExceptionCode.AUTHENTICATION_NOT_FOUND);
 
         Optional<Member> optionalMember = memberRepository.findByEmail(authentication.getName());
