@@ -62,7 +62,12 @@ public class ReviewService {
         Optional.ofNullable(review.getRating())
                 .ifPresent(rating -> findReview.setRating(rating));
 
-        return reviewRepository.save(findReview);
+        reviewRepository.save(findReview);
+        Product product = review.getProduct();
+        findProductAvgRating(product);
+        product.setRating(findProductAvgRating(product));
+        productService.updateProduct(product);
+        return findReview;
     }
 
     //리뷰 1개 찾아오기
@@ -72,7 +77,7 @@ public class ReviewService {
         return findVerifiedReview(reviewId);
     }
 
-    //매개변수로 넘어온 productId를 가진 리뷰의 평점을 반환.
+    //매개변수로 넘어온 product를 가진 리뷰의 평점을 반환.
     //Stream으로 멋있게 하고 싶었으나 머리가 안되서 일단 초딩수준으로 구현.
     //추후 Stream 공부 후 변경예정
     public int findProductAvgRating(Product product) {
