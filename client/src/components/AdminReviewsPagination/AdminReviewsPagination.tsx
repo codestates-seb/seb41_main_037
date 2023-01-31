@@ -2,15 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 const PaginationButton = styled.div`
-  /* padding-left: 24px; */
-  /* margin: 20px 0; */
-  /* display: flex; */
-
   a {
     height: 30px;
     padding: 2px 8px;
     background-color: #7a7979;
-    /* border: 1px solid #d6d9dc; */
     border-radius: 3px;
     color: #fff;
     margin-right: 4px;
@@ -23,6 +18,9 @@ const PaginationButton = styled.div`
       background-color: #383838;
       transition: 0.2s;
       color: #fff;
+    }
+    .test {
+      background-color: transparent;
     }
   }
 
@@ -55,7 +53,7 @@ const AdminReviewsPagination = ({ page, totalPages }: Props) => {
             : `/admin/comment/delete?page=${page - 1}`
         }
       >
-        <span>Prev</span>
+        <span>이전</span>
       </a>
       {arrayTotalPages.map((el, idx) => {
         return (
@@ -69,6 +67,7 @@ const AdminReviewsPagination = ({ page, totalPages }: Props) => {
         );
       })}
       <a
+        className="test"
         href={
           page === arrayTotalPages[arrayTotalPages.length - 1]
             ? `/admin/comment/delete?page=${
@@ -77,7 +76,7 @@ const AdminReviewsPagination = ({ page, totalPages }: Props) => {
             : `/admin/comment/delete?page=${page + 1}`
         }
       >
-        <span>Next</span>
+        <span>다음</span>
       </a>
     </PaginationButton>
   );

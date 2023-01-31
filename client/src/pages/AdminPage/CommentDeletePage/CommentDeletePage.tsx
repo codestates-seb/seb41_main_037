@@ -7,19 +7,17 @@ import { FcSearch } from "react-icons/fc";
 import useFetch from "../../../api/useFetch";
 import axios from "axios";
 import AdminReviewsPagination from "../../../components/AdminReviewsPagination/AdminReviewsPagination";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const Main = styled.main`
   display: flex;
   justify-content: space-between;
-  align-items: center;
   width: 80%;
-  height: 90%;
 `;
 
 const CommentDeletePageMain = styled.main`
   font-family: "Do Hyeon", sans-serif;
-  margin: 50px 0 0 100px;
+  margin: 122px 0 0 100px;
   .commentTitle {
     display: flex;
     justify-content: flex-start;
@@ -62,7 +60,7 @@ const CommentDeletePageMain = styled.main`
   }
   .commentSection {
     width: 700px;
-    max-height: 500px;
+    max-height: 600px;
     border-radius: 5px;
     background-color: #d9d9d9;
     padding: 0.5rem;
@@ -141,6 +139,8 @@ const CommentDeletePageMain = styled.main`
 `;
 
 const CommentDeletePage = () => {
+  const navigate = useNavigate();
+
   const { data } = useFetch("/reviews?page=1&size=100");
   const [reviews, setReviews] = useState<any>(null);
   const [review, setReview] = useState("");
@@ -157,7 +157,7 @@ const CommentDeletePage = () => {
       if (pageNum) {
         axios
           .get(
-            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews?page=${pageNum}&size=10`
+            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews?page=${pageNum}&size=8`
           )
           .then((res) => {
             setReviews(res.data.data);
@@ -168,7 +168,7 @@ const CommentDeletePage = () => {
       } else {
         axios
           .get(
-            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews?page=1&size=10`
+            `http://ec2-13-124-162-199.ap-northeast-2.compute.amazonaws.com:8080/reviews?page=1&size=8`
           )
           .then((res) => {
             setReviews(res.data.data);
@@ -207,6 +207,7 @@ const CommentDeletePage = () => {
 
   const handleSearchKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter") {
+      navigate("/admin/comment/delete");
       setReviews(
         data.data.filter((item: any) =>
           item.content.toUpperCase().includes(review.toUpperCase())
