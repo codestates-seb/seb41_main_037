@@ -480,7 +480,6 @@ const DetailPage = () => {
 
     const editComment = (id: number) => {
       if (reviews) {
-        console.log(modifiedStarRating);
         axios
           .patch(
             `http://43.201.135.238:8080/reviews/${id}`,
@@ -497,7 +496,7 @@ const DetailPage = () => {
           .then(() => {
             window.location.reload();
           })
-          .catch(() => {
+          .catch((err) => {
             alert("리뷰를 5자 이상 작성하세요.");
           });
       }
