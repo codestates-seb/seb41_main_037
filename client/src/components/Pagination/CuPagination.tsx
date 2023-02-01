@@ -46,9 +46,7 @@ const CuPagination = ({ page, totalPages }: Props) => {
     <PageButton>
       <a
         href={
-          page === 0
-            ? `/products/search?key=&category=CU`
-            : `/products/search?key=&category=CU&page=${page - 1}`
+          page === 1 ? `/products/cu?page=0` : `/products/cu?page=${page - 2}`
         }
       >
         <span>
@@ -59,8 +57,8 @@ const CuPagination = ({ page, totalPages }: Props) => {
         return (
           <a
             key={idx}
-            href={`/products/search?key=&category=CU&page=${el - 1}`}
-            className={search === `&page=${el - 1}` ? "active" : ""}
+            href={`/products/cu?page=${el - 1}`}
+            className={search === `?page=${el - 1}` ? "active" : ""}
           >
             <span>{el}</span>
           </a>
@@ -69,10 +67,8 @@ const CuPagination = ({ page, totalPages }: Props) => {
       <a
         href={
           page === arrayTotalPages[arrayTotalPages.length - 1]
-            ? `/products/search?key=&category=CU&page=${
-                arrayTotalPages[arrayTotalPages.length - 1]
-              }`
-            : `/products/search?key=&category=CU&page=${page + 1}`
+            ? `/products/cu?page=${arrayTotalPages[arrayTotalPages.length - 2]}`
+            : `/products/cu?page=${page}`
         }
       >
         <span>

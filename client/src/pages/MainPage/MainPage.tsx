@@ -239,7 +239,7 @@ const Item = ({ id, img, name, price }: ItemProps) => {
   );
 };
 
-const CuMainPage = () => {
+const MainPage = () => {
   const { data } = useFetch("/products");
   const [products, setProducts] = useState<any>(null);
 
@@ -262,7 +262,7 @@ const CuMainPage = () => {
           .catch((err) => console.log(err));
       } else {
         axios
-          .get(`http://43.201.135.238:8080/products?page=1&size=8`)
+          .get(`http://43.201.135.238:8080/products?page=0&size=8`)
           .then((res) => {
             setProducts(res.data.data);
             setPage(res.data.pageInfo.page);
@@ -404,4 +404,4 @@ const CuMainPage = () => {
   );
 };
 
-export default CuMainPage;
+export default MainPage;

@@ -46,10 +46,11 @@ const SevenPagination = ({ page, totalPages }: Props) => {
     <PageButton>
       <a
         href={
-          page === 0
-            ? `/products/search?key=&category=SEVEN`
-            : `/products/search?key=&category=SEVEN&page=${page - 1}`
-        }>
+          page === 1
+            ? `/products/seveneleven?page=0`
+            : `/products/seveneleven?page=${page - 2}`
+        }
+      >
         <span>
           <IoMdArrowDropleft />
         </span>
@@ -58,8 +59,9 @@ const SevenPagination = ({ page, totalPages }: Props) => {
         return (
           <a
             key={idx}
-            href={`/products/search?key=&category=SEVEN&page=${el}`}
-            className={search === `&page=${el}` ? "active" : ""}>
+            href={`/products/seveneleven?page=${el - 1}`}
+            className={search === `?page=${el - 1}` ? "active" : ""}
+          >
             <span>{el}</span>
           </a>
         );
@@ -67,11 +69,12 @@ const SevenPagination = ({ page, totalPages }: Props) => {
       <a
         href={
           page === arrayTotalPages[arrayTotalPages.length - 1]
-            ? `/products/search?key=&category=SEVEN&page=${
-                arrayTotalPages[arrayTotalPages.length - 1]
+            ? `/products/seveneleven?page=${
+                arrayTotalPages[arrayTotalPages.length - 2]
               }`
-            : `/products/search?key=&category=SEVEN&page=${page + 1}`
-        }>
+            : `/products/seveneleven?page=${page}`
+        }
+      >
         <span>
           <IoMdArrowDropright />
         </span>

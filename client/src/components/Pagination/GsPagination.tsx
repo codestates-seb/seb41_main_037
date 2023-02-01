@@ -46,10 +46,11 @@ const GsPagination = ({ page, totalPages }: Props) => {
     <PageButton>
       <a
         href={
-          page === 0
-            ? `/products/search?key=&category=GS`
-            : `/products/search?key=&category=GS&page=${page - 1}`
-        }>
+          page === 1
+            ? `/products/gs25?page=0`
+            : `/products/gs25?page=${page - 2}`
+        }
+      >
         <span>
           <IoMdArrowDropleft />
         </span>
@@ -58,8 +59,9 @@ const GsPagination = ({ page, totalPages }: Props) => {
         return (
           <a
             key={idx}
-            href={`/products/search?key=&category=GS&page=${el}`}
-            className={search === `?page=${el}` ? "active" : ""}>
+            href={`/products/gs25?page=${el - 1}`}
+            className={search === `?page=${el - 1}` ? "active" : ""}
+          >
             <span>{el}</span>
           </a>
         );
@@ -67,11 +69,12 @@ const GsPagination = ({ page, totalPages }: Props) => {
       <a
         href={
           page === arrayTotalPages[arrayTotalPages.length - 1]
-            ? `/products/search?key=&category=GS&page=${
-                arrayTotalPages[arrayTotalPages.length - 1]
+            ? `/products/gs25?page=${
+                arrayTotalPages[arrayTotalPages.length - 2]
               }`
-            : `/products/search?key=&category=GS&page=${page + 1}`
-        }>
+            : `/products/gs25?page=${page}`
+        }
+      >
         <span>
           <IoMdArrowDropright />
         </span>

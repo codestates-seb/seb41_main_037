@@ -44,7 +44,7 @@ const Pagination = ({ page, totalPages }: Props) => {
 
   return (
     <PageButton>
-      <a href={page === 1 ? `/products` : `/products?page=${page - 1}`}>
+      <a href={page === 1 ? `/products?page=0` : `/products?page=${page - 2}`}>
         <span>
           <IoMdArrowDropleft />
         </span>
@@ -53,8 +53,9 @@ const Pagination = ({ page, totalPages }: Props) => {
         return (
           <a
             key={idx}
-            href={`/products?page=${el}`}
-            className={search === `?page=${el}` ? "active" : ""}>
+            href={`/products?page=${el - 1}`}
+            className={search === `?page=${el - 1}` ? "active" : ""}
+          >
             <span>{el}</span>
           </a>
         );
@@ -62,9 +63,10 @@ const Pagination = ({ page, totalPages }: Props) => {
       <a
         href={
           page === arrayTotalPages[arrayTotalPages.length - 1]
-            ? `/products?page=${arrayTotalPages[arrayTotalPages.length - 1]}`
-            : `/products?page=${page + 1}`
-        }>
+            ? `/products?page=${arrayTotalPages[arrayTotalPages.length - 2]}`
+            : `/products?page=${page}`
+        }
+      >
         <span>
           <IoMdArrowDropright />
         </span>
