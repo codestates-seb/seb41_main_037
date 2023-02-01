@@ -151,9 +151,9 @@ const CommentDeletePage = () => {
 
   useEffect(() => {
     const pageNum = searchParams.get("page");
-    console.log(pageNum);
+    // console.log(pageNum);
     if (data) {
-      console.log(data.pageInfo);
+      // console.log(data.pageInfo);
       if (pageNum) {
         axios
           .get(`http://43.201.135.238:8080/reviews?page=${pageNum}&size=8`)
@@ -200,12 +200,10 @@ const CommentDeletePage = () => {
 
   const handleSearchKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter") {
-      navigate("/admin/comment/delete");
-      setReviews(
-        data.data.filter((item: any) =>
-          item.content.toUpperCase().includes(review.toUpperCase())
-        )
-      );
+      axios
+        .get(`http://43.201.135.238:8080/reviews/search/?search=${review}`)
+        .then((res) => setReviews(res.data))
+        .catch((err) => console.log(err));
     }
   };
 

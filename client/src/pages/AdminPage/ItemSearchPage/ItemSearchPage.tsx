@@ -143,7 +143,6 @@ const ItemSearchPage = () => {
   const [currentTab, clickTab] = useState(0);
   const { data } = useFetch("/products?page=0&size=500");
   const [products, setProducts] = useState<any>(null);
-  // const [originalProducts, setOriginalProducts] = useState<any>(null);
 
   const [productName, setProductName] = useState("");
   useEffect(() => {
