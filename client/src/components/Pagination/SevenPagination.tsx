@@ -58,8 +58,8 @@ const SevenPagination = ({ page, totalPages }: Props) => {
         return (
           <a
             key={idx}
-            href={`/products/search?key=&category=SEVEN&page=${el}`}
-            className={search === `&page=${el}` ? "active" : ""}>
+            href={`/products/search?key=&category=SEVEN&page=${el - 1}`}
+            className={search === `&page=${el - 1}` ? "active" : ""}>
             <span>{el}</span>
           </a>
         );

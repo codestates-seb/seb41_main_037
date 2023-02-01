@@ -47,7 +47,7 @@ const CuPagination = ({ page, totalPages }: Props) => {
       <a
         href={
           page === 0
-            ? `/products/cu`
+            ? `/products/search?key=&category=CU`
             : `/products/search?key=&category=CU&page=${page - 1}`
         }>
         <span>
@@ -58,8 +58,8 @@ const CuPagination = ({ page, totalPages }: Props) => {
         return (
           <a
             key={idx}
-            href={`/products/search?key=&category=CU&page=${el}`}
-            className={search === `&page=${el}` ? "active" : ""}>
+            href={`/products/search?key=&category=CU&page=${el - 1}`}
+            className={search === `&page=${el - 1}` ? "active" : ""}>
             <span>{el}</span>
           </a>
         );

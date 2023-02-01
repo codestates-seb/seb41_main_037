@@ -58,8 +58,8 @@ const GsPagination = ({ page, totalPages }: Props) => {
         return (
           <a
             key={idx}
-            href={`/products/search?key=&category=GS&page=${el}`}
-            className={search === `?page=${el}` ? "active" : ""}>
+            href={`/products/search?key=&category=GS&page=${el - 1}`}
+            className={search === `&page=${el - 1}` ? "active" : ""}>
             <span>{el}</span>
           </a>
         );
