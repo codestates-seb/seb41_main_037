@@ -281,9 +281,10 @@ const DetailPage = () => {
   useEffect(() => {
     if (data) {
       setProduct(data.data);
-      // console.log(product);
       setReviews(
-        data.data.reviews.filter((item: any) => item.productId === Number(id))
+        data.data.reviews.sort((a: any, b: any): number => {
+          return b.reviewId - a.reviewId;
+        })
       );
     }
   }, [data, id]);
@@ -493,14 +494,11 @@ const DetailPage = () => {
               },
             }
           )
-          .then((res) => {
-            console.log(res.data);
-            // window.location.reload();
-          })
-          .catch((err) => {
-            console.log(err);
+          .then(() => {
             window.location.reload();
-            // alert("리뷰를 5자 이상 작성하세요.");
+          })
+          .catch(() => {
+            alert("리뷰를 5자 이상 작성하세요.");
           });
       }
       setIsModify(!isModify);
