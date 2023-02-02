@@ -8,7 +8,9 @@ import useFetch from "../../api/useFetch";
 import axios from "axios";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { LoginState } from "../../states/LoginState";
+import { LikeState } from "../../states/LikeState";
 
 const Container = styled.main`
   display: flex;
@@ -324,6 +326,9 @@ const MyPage = () => {
     alt,
     productId,
   }: WishProps) => {
+    const [like, setLike] = useRecoilState(
+      LikeState(productId, localStorage.getItem("memberID"))
+    );
     const handleDelete = (id: number) => {
       axios
         .get(`http://43.201.135.238:8080/favorite/${id}`, {
@@ -335,6 +340,7 @@ const MyPage = () => {
           setFavorites(
             favorites.filter((favorite: any) => favorite.productId !== id)
           );
+          setLike(!like);
         })
         .catch((err) => alert("찜 목록 삭제에 실패했습니다"));
     };

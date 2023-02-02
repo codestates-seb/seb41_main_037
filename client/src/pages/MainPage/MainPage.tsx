@@ -217,13 +217,21 @@ const Item = ({ id, img, name, price }: ItemProps) => {
     }
   };
 
+  const handlePreventLikeClick = () => {
+    alert("찜 기능은 로그인 후 이용 가능합니다!");
+  };
+
   return (
     <div className="itemBox">
       <span className="itemLike">
-        {like ? (
-          <HiHeart onClick={() => handlelikeClick(id)} />
+        {memberId ? (
+          like ? (
+            <HiHeart onClick={() => handlelikeClick(id)} />
+          ) : (
+            <HiOutlineHeart onClick={() => handlelikeClick(id)} />
+          )
         ) : (
-          <HiOutlineHeart onClick={() => handlelikeClick(id)} />
+          <HiOutlineHeart onClick={handlePreventLikeClick} />
         )}
       </span>
       <Link to={`/products/${id}`}>
@@ -332,7 +340,8 @@ const MainPage = () => {
                   <img
                     className="cvsLogo"
                     src="/img/cvs logo.png"
-                    alt="logoImg"></img>
+                    alt="logoImg"
+                  ></img>
                 </Link>
               </header>
               <div className="searchBar">
@@ -357,7 +366,8 @@ const MainPage = () => {
                   className="sortBtn"
                   onClick={() => {
                     sortProduct("like");
-                  }}>
+                  }}
+                >
                   찜
                   <br />
                   많은순
@@ -366,7 +376,8 @@ const MainPage = () => {
                   className="sortBtn"
                   onClick={() => {
                     sortProduct("price");
-                  }}>
+                  }}
+                >
                   가격
                   <br />
                   높은순
@@ -375,7 +386,8 @@ const MainPage = () => {
                   className="sortBtn"
                   onClick={() => {
                     sortProduct("review");
-                  }}>
+                  }}
+                >
                   리뷰
                   <br />
                   많은순

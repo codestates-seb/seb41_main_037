@@ -16,6 +16,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { LoginState } from "../../states/LoginState";
+import { useRecoilState } from "recoil";
+import { LikeState } from "../../states/LikeState";
 
 const Main = styled.main`
   display: flex;
@@ -271,12 +273,15 @@ const DetailPage = () => {
   const { data } = useFetch(`/products/${id}`);
   const [product, setProduct] = useState<any>(null);
   const [reviews, setReviews] = useState<any>(null);
+  const [favoriteCount, setFavoriteCount] = useState(0);
 
   const [input, setInput] = useState("");
 
   const isLogin = useRecoilValue(LoginState);
   const [isModify, setIsModify] = useState(false);
   const [isEditSelect, setIsEditSelect] = useState<any>(false);
+
+  const memberID = localStorage.getItem("memberID");
 
   useEffect(() => {
     if (data) {
@@ -286,6 +291,7 @@ const DetailPage = () => {
           return b.reviewId - a.reviewId;
         })
       );
+      setFavoriteCount(data.data.favoriteCount);
     }
   }, [data, id]);
 
@@ -376,14 +382,51 @@ const DetailPage = () => {
     price: number;
     fav: number;
     comment: number;
-    convertPrice: number;
+    // id: number;
+    // memberID: number;
   }
 
   const Item = ({ img, name, price, fav, comment }: ItemProps) => {
-    const [like, setLike] = useState(false);
+    const [like, setLike] = useRecoilState(LikeState(Number(id), memberID));
+    const { data } = useFetch(`/members/${localStorage.getItem("memberID")}`);
+    const [favorites, setFavorites] = useState<any>(null);
+    useEffect(() => {
+      if (data) {
+        setFavorites(data.favorites);
+      }
+    }, [data]);
 
     const convertPrice = (price: number) => {
       return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+
+    const handleLikeClick = () => {
+      let includedFavorite = favorites.map(
+        (favorite: any) => favorite.productId === id
+      );
+      if (favorites && includedFavorite[0] && like === false) {
+        alert("이미 찜 목록에 있는 상품입니다");
+      } else {
+        axios
+          .get(`http://43.201.135.238:8080/favorite/${id}`, {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          })
+          .then(() => {
+            setLike(!like);
+            if (like) {
+              setFavoriteCount(fav - 1);
+            } else {
+              setFavoriteCount(fav + 1);
+            }
+          })
+          .catch((err) => console.log(err));
+      }
+    };
+
+    const handlePreventLikeClick = () => {
+      alert("찜 기능은 로그인 후 이용 가능합니다!");
     };
 
     return (
@@ -397,19 +440,19 @@ const DetailPage = () => {
             <p>가격 : {convertPrice(price)}원</p>
           </section>
           <section className="likeSection">
-            {like ? (
-              <HiHeart
-                className="likeButton"
-                onClick={() => {
-                  setLike(!like);
-                }}
-              />
+            {memberID ? (
+              like ? (
+                <HiHeart className="likeButton" onClick={handleLikeClick} />
+              ) : (
+                <HiOutlineHeart
+                  className="likeButton"
+                  onClick={handleLikeClick}
+                />
+              )
             ) : (
               <HiOutlineHeart
                 className="likeButton"
-                onClick={() => {
-                  setLike(!like);
-                }}
+                onClick={handlePreventLikeClick}
               />
             )}
             <div className="likeCountNum">{fav}</div>
@@ -536,7 +579,7 @@ const DetailPage = () => {
               </div>
             ) : (
               isLogin &&
-              userId === Number(localStorage.getItem("memberID")) && (
+              userId === Number(memberID) && (
                 <div className="userEdit">
                   <HiOutlinePencilAlt
                     className="editBtn"
@@ -580,9 +623,8 @@ const DetailPage = () => {
                   img={product.imgUrl}
                   name={product.productName}
                   price={product.price}
-                  fav={product.favoriteCount}
+                  fav={favoriteCount}
                   comment={product.reviewCount}
-                  convertPrice={product.price}
                 />
               )}
             </section>
