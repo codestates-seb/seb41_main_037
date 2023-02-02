@@ -109,6 +109,8 @@ public class MemberService {
     }
     public void deleteMember(long memberId){
         Member findMember = findVerifiedMember(memberId);
+        if(getLoginMember().getMemberId() != findMember.getMemberId())
+            throw new BusinessLogicException(ExceptionCode.AUTHENTICATION_NOT_FOUND);
         memberRepository.delete(findMember);
     }
     public Member getLoginMember() { // 로그인된 유저 가져오기
