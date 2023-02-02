@@ -1,6 +1,6 @@
 import React, { useState, useEffect, KeyboardEvent } from "react";
 import styled from "styled-components";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { HiOutlineHeart, HiHeart } from "react-icons/hi";
 import Nav from "../../components/Nav/Nav";
@@ -41,6 +41,7 @@ const Container = styled.main`
     margin-bottom: 50px;
 
     input {
+      font-family: "Do Hyeon", sans-serif;
       width: 500px;
       height: 50px;
       padding: 0.5rem 0 0.5rem 3rem;
@@ -242,10 +243,14 @@ const Item = ({ id, img, name, price }: ItemProps) => {
 const SevenMainPage = () => {
   const { data } = useFetch("/products");
   const [products, setProducts] = useState<any>(null);
+  const [searchProducts, setSearchProducts] = useState<any>(null);
 
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [searchParams] = useSearchParams();
+
+  const [word, setWord] = useState<string>("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const pageNum = searchParams.get("page");
@@ -277,20 +282,15 @@ const SevenMainPage = () => {
     }
   }, [data, searchParams]);
 
-  const [word, setWord] = useState<string>("");
-
   const handleSearchClick = async () => {
-    window.history.pushState("", word, "/seveneleven/search?key=" + word);
+    // window.history.pushState("", word, "/seveneleven/search?key=" + word);
+    navigate(`/products/seveneleven?key=${word}`);
     axios
       .get(
-        `http://43.201.135.238:8080/products/search?key=${word}&category=SEVEN`
+        `http://43.201.135.238:8080/products/search?key=${word}&category=SEVEN&page=0&size=100`
       )
       .then((res) => {
-        setProducts(
-          products.filter((item: any) =>
-            item.productName.toUpperCase().includes(word.toUpperCase())
-          )
-        );
+        setSearchProducts(res.data.data);
       })
       .catch((err) => console.log(err));
   };
@@ -301,7 +301,11 @@ const SevenMainPage = () => {
 
   const searchKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      handleSearchClick();
+      if (word === "") {
+        navigate("/products/seveneleven?page=0");
+      } else {
+        handleSearchClick();
+      }
     }
   };
 
@@ -338,7 +342,8 @@ const SevenMainPage = () => {
                   <img
                     className="cvsLogo"
                     src="/img/cvs logo.png"
-                    alt="logoImg"></img>
+                    alt="logoImg"
+                  ></img>
                 </Link>
               </header>
               <div className="searchBar">
@@ -347,6 +352,7 @@ const SevenMainPage = () => {
                   maxLength={30}
                   onChange={handleProductName}
                   onKeyPress={searchKeyPress}
+                  placeholder="전체 상품 검색: 검색창 비운 뒤 Click"
                 />
                 <RxMagnifyingGlass
                   className="searchIcon"
@@ -363,7 +369,8 @@ const SevenMainPage = () => {
                   className="sortBtn"
                   onClick={() => {
                     sortProduct("like");
-                  }}>
+                  }}
+                >
                   찜
                   <br />
                   많은순
@@ -372,7 +379,8 @@ const SevenMainPage = () => {
                   className="sortBtn"
                   onClick={() => {
                     sortProduct("price");
-                  }}>
+                  }}
+                >
                   가격
                   <br />
                   높은순
@@ -381,26 +389,39 @@ const SevenMainPage = () => {
                   className="sortBtn"
                   onClick={() => {
                     sortProduct("review");
-                  }}>
+                  }}
+                >
                   리뷰
                   <br />
                   많은순
                 </button>
               </div>
               <li className="itemList">
-                {products.map((item: any) => (
-                  <Item
-                    id={item.productId}
-                    img={item.imgUrl}
-                    name={item.productName}
-                    price={item.price}
-                    convertPrice={item.price}
-                  />
-                ))}
+                {!searchParams.get("key")
+                  ? products?.map((item: any) => (
+                      <Item
+                        id={item.productId}
+                        img={item.imgUrl}
+                        name={item.productName}
+                        price={item.price}
+                        convertPrice={item.price}
+                      />
+                    ))
+                  : searchProducts?.map((item: any) => (
+                      <Item
+                        id={item.productId}
+                        img={item.imgUrl}
+                        name={item.productName}
+                        price={item.price}
+                        convertPrice={item.price}
+                      />
+                    ))}
               </li>
             </section>
             <div className="pageBtnGroup">
-              <SevenPagination page={page} totalPages={totalPages} />
+              {!searchParams.get("key") && (
+                <SevenPagination page={page} totalPages={totalPages} />
+              )}
             </div>
           </section>
         </Container>

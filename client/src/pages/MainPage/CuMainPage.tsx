@@ -1,6 +1,6 @@
 import React, { useState, useEffect, KeyboardEvent } from "react";
 import styled from "styled-components";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { HiOutlineHeart, HiHeart } from "react-icons/hi";
 import Nav from "../../components/Nav/Nav";
@@ -41,6 +41,7 @@ const Container = styled.main`
     margin-bottom: 50px;
 
     input {
+      font-family: "Do Hyeon", sans-serif;
       width: 500px;
       height: 50px;
       padding: 0.5rem 0 0.5rem 3rem;
@@ -242,10 +243,14 @@ const Item = ({ id, img, name, price }: ItemProps) => {
 const CuMainPage = () => {
   const { data } = useFetch("/products");
   const [products, setProducts] = useState<any>(null);
+  const [searchProducts, setSearchProducts] = useState<any>(null);
 
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [searchParams] = useSearchParams();
+
+  const [word, setWord] = useState<string>("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const pageNum = searchParams.get("page");
@@ -277,18 +282,15 @@ const CuMainPage = () => {
     }
   }, [data, searchParams]);
 
-  const [word, setWord] = useState<string>("");
-
   const handleSearchClick = async () => {
     //window.history.pushState("", word, "/cu/search?key=" + word);
+    navigate(`/products/cu?key=${word}`);
     axios
-      .get(`http://43.201.135.238:8080/products/search?key=${word}&category=CU`)
+      .get(
+        `http://43.201.135.238:8080/products/search?key=${word}&category=CU&page=0&size=100`
+      )
       .then((res) => {
-        setProducts(
-          products.filter((item: any) =>
-            item.productName.toUpperCase().includes(word.toUpperCase())
-          )
-        );
+        setSearchProducts(res.data.data);
       })
       .catch((err) => console.log(err));
   };
@@ -299,7 +301,11 @@ const CuMainPage = () => {
 
   const searchKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      handleSearchClick();
+      if (word === "") {
+        navigate("/products/cu?page=0");
+      } else {
+        handleSearchClick();
+      }
     }
   };
 
@@ -336,7 +342,8 @@ const CuMainPage = () => {
                   <img
                     className="cvsLogo"
                     src="/img/cvs logo.png"
-                    alt="logoImg"></img>
+                    alt="logoImg"
+                  ></img>
                 </Link>
               </header>
               <div className="searchBar">
@@ -345,6 +352,7 @@ const CuMainPage = () => {
                   maxLength={30}
                   onChange={handleProductName}
                   onKeyPress={searchKeyPress}
+                  placeholder="전체 상품 검색: 검색창 비운 뒤 Click"
                 />
                 <RxMagnifyingGlass
                   className="searchIcon"
@@ -361,7 +369,8 @@ const CuMainPage = () => {
                   className="sortBtn"
                   onClick={() => {
                     sortProduct("like");
-                  }}>
+                  }}
+                >
                   찜
                   <br />
                   많은순
@@ -370,7 +379,8 @@ const CuMainPage = () => {
                   className="sortBtn"
                   onClick={() => {
                     sortProduct("price");
-                  }}>
+                  }}
+                >
                   가격
                   <br />
                   높은순
@@ -379,26 +389,39 @@ const CuMainPage = () => {
                   className="sortBtn"
                   onClick={() => {
                     sortProduct("review");
-                  }}>
+                  }}
+                >
                   리뷰
                   <br />
                   많은순
                 </button>
               </div>
               <li className="itemList">
-                {products.map((item: any) => (
-                  <Item
-                    id={item.productId}
-                    img={item.imgUrl}
-                    name={item.productName}
-                    price={item.price}
-                    convertPrice={item.price}
-                  />
-                ))}
+                {!searchParams.get("key")
+                  ? products?.map((item: any) => (
+                      <Item
+                        id={item.productId}
+                        img={item.imgUrl}
+                        name={item.productName}
+                        price={item.price}
+                        convertPrice={item.price}
+                      />
+                    ))
+                  : searchProducts?.map((item: any) => (
+                      <Item
+                        id={item.productId}
+                        img={item.imgUrl}
+                        name={item.productName}
+                        price={item.price}
+                        convertPrice={item.price}
+                      />
+                    ))}
               </li>
             </section>
             <div className="pageBtnGroup">
-              <CuPagination page={page} totalPages={totalPages} />
+              {!searchParams.get("key") && (
+                <CuPagination page={page} totalPages={totalPages} />
+              )}
             </div>
           </section>
         </Container>

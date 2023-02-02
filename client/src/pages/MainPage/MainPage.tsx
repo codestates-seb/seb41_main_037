@@ -1,6 +1,6 @@
 import React, { useState, useEffect, KeyboardEvent } from "react";
 import styled from "styled-components";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { HiOutlineHeart, HiHeart } from "react-icons/hi";
 import Nav from "../../components/Nav/Nav";
@@ -14,7 +14,6 @@ import { LikeState } from "../../states/LikeState";
 const Container = styled.main`
   display: flex;
   margin-bottom: 100px;
-
   .mainContainer {
     display: flex;
     flex-direction: column;
@@ -25,22 +24,19 @@ const Container = styled.main`
     width: 100%;
     margin-left: 100px;
   }
-
   header {
     height: 150px;
     margin-top: 50px;
     margin-bottom: 50px;
-
     .cvsLogo {
       width: 150px;
     }
   }
-
   .searchBar {
     position: relative;
     margin-bottom: 50px;
-
     input {
+      font-family: "Do Hyeon", sans-serif;
       width: 500px;
       height: 50px;
       padding: 0.5rem 0 0.5rem 3rem;
@@ -48,7 +44,6 @@ const Container = styled.main`
       border: none;
       border-radius: 30px;
       font-size: 15px;
-
       &:focus {
         outline-color: #58419c;
       }
@@ -63,18 +58,15 @@ const Container = styled.main`
       cursor: pointer;
     }
   }
-
   .contentContainer {
     display: flex;
     justify-content: right;
     flex-wrap: wrap;
     width: 1300px;
-
     .sortBtnGroup {
       display: flex;
       margin-right: 150px;
       margin-bottom: 50px;
-
       .sortBtn {
         vertical-align: middle;
         width: 50px;
@@ -100,7 +92,6 @@ const Container = styled.main`
         }
       }
     }
-
     .itemList {
       display: flex;
       justify-content: center;
@@ -108,7 +99,6 @@ const Container = styled.main`
       flex-wrap: wrap;
       width: 100%;
       margin-bottom: 50px;
-
       .itemBox {
         position: relative;
         flex-direction: column;
@@ -130,7 +120,6 @@ const Container = styled.main`
           outline-color: #ffcb5e;
           border-radius: 20px;
         }
-
         .itemImg {
           display: flex;
           justify-content: center;
@@ -144,27 +133,23 @@ const Container = styled.main`
             height: 200px;
           }
         }
-
         .itemInfo {
           flex-direction: column;
           position: absolute;
           left: 0;
           right: 0;
           bottom: 0;
-
           .itemName {
             margin-bottom: 10px;
             font-size: 17px;
             font-weight: 600;
           }
-
           .itemPrice {
             margin-bottom: 20px;
             font-size: 20px;
             font-weight: 800;
           }
         }
-
         .itemLike {
           position: absolute;
           right: 15px;
@@ -250,10 +235,14 @@ const Item = ({ id, img, name, price }: ItemProps) => {
 const MainPage = () => {
   const { data } = useFetch("/products");
   const [products, setProducts] = useState<any>(null);
+  const [searchProducts, setSearchProducts] = useState<any>(null);
 
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [searchParams] = useSearchParams();
+
+  const [word, setWord] = useState<string>("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const pageNum = searchParams.get("page");
@@ -281,18 +270,15 @@ const MainPage = () => {
     }
   }, [data, searchParams]);
 
-  const [word, setWord] = useState<string>("");
-
   const handleSearchClick = async () => {
-    window.history.pushState("", word, "/cu/search?key=" + word);
+    // window.history.pushState("", word, "/cu/search?key=" + word);
+    navigate(`/products?key=${word}`);
     axios
-      .get(`http://43.201.135.238:8080/products/search?key=${word}&category=CU`)
+      .get(
+        `http://43.201.135.238:8080/products/search?key=${word}&category=&page=0&size=100`
+      )
       .then((res) => {
-        setProducts(
-          products.filter((item: any) =>
-            item.productName.toUpperCase().includes(word.toUpperCase())
-          )
-        );
+        setSearchProducts(res.data.data);
       })
       .catch((err) => console.log(err));
   };
@@ -303,7 +289,11 @@ const MainPage = () => {
 
   const searchKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      handleSearchClick();
+      if (word === "") {
+        navigate("/products?page=0");
+      } else {
+        handleSearchClick();
+      }
     }
   };
 
@@ -350,6 +340,7 @@ const MainPage = () => {
                   maxLength={30}
                   onChange={handleProductName}
                   onKeyPress={searchKeyPress}
+                  placeholder="전체 상품 검색: 검색창 비운 뒤 Click"
                 />
                 <RxMagnifyingGlass
                   className="searchIcon"
@@ -394,19 +385,31 @@ const MainPage = () => {
                 </button>
               </div>
               <li className="itemList">
-                {products.map((item: any) => (
-                  <Item
-                    id={item.productId}
-                    img={item.imgUrl}
-                    name={item.productName}
-                    price={item.price}
-                    convertPrice={item.price}
-                  />
-                ))}
+                {!searchParams.get("key")
+                  ? products?.map((item: any) => (
+                      <Item
+                        id={item.productId}
+                        img={item.imgUrl}
+                        name={item.productName}
+                        price={item.price}
+                        convertPrice={item.price}
+                      />
+                    ))
+                  : searchProducts?.map((item: any) => (
+                      <Item
+                        id={item.productId}
+                        img={item.imgUrl}
+                        name={item.productName}
+                        price={item.price}
+                        convertPrice={item.price}
+                      />
+                    ))}
               </li>
             </section>
             <div className="pageBtnGroup">
-              <Pagination page={page} totalPages={totalPages} />
+              {!searchParams.get("key") && (
+                <Pagination page={page} totalPages={totalPages} />
+              )}
             </div>
           </section>
         </Container>
