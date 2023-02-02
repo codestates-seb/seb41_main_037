@@ -9,13 +9,12 @@
     - 백엔드 : 강예은, 전인종, 박영한
     - 프론트엔드 : 장예은, 이유진, 한지연
 
-### 깃허브
 
-[GitHub - codestates-seb/seb41_main_037](https://github.com/codestates-seb/seb41_main_037)
 
 ### 배포링크
 
 [CVS Review](http://main-037-deploy.s3-website.ap-northeast-2.amazonaws.com/)
+
 
 | test ID | test3@gmail.com |
 | --- | --- |
@@ -23,11 +22,16 @@
 | admin ID | admin@gmail.com |
 | admin Password | 777nnn@@ |
 
+
+
 ### 기술영상
 
 [41기 Team037 개인기술발표영상](https://youtu.be/c6GXonl9bFY)
 
-[https://www.youtube.com/watch?v=c6GXonl9bFY](https://www.youtube.com/watch?v=c6GXonl9bFY)
+
+
+
+
 
 # **🌐** 서비스 소개
 
@@ -40,6 +44,8 @@
 - 지도를 통해 가까운 편의점 위치를 확인하여 빠른 접근이 가능하도록 만들었습니다.
 - 관리자모드를 통해 새로 출시된 PB상품의 업데이트와 상품 수정, 삭제 및 남을 비방하는 글이나 욕설을 막기 위해 리뷰 삭제가 가능하도록 만들었습니다.
 
+
+
 # 💡 기획 의도
 
 ---
@@ -47,6 +53,8 @@
 - 모든 편의점에서 PB 상품을 판매중이고 각 편의점 브랜드만의 고유한 상품들을 확인할 수 있는 방법이 필요했습니다. 인기가 있는 PB 상품은 커뮤니티나 SNS 상에서 화제가 되어 재입고가 일어나기도 합니다. 이런 상품들을 한 곳에서 모아보고 인기 상품을 소개하며, 정보를 공유할 수 있는 공간을 만들기 위해 서비스를 기획하였습니다.
     - Ex) GS25 - 버터맥주, 원소주 / CU - 연세황치즈크림빵, 순후추콘 등
 - 현재 가장 많은 점포와 이용자 수를 보이는 주요 3사 편의점 홈페이지에 들어가면 PB 상품 섹션 메뉴가 있습니다. PB 상품을 자사의 차별화 상품으로 소개하고 있지만 모든 상품에 대한 정보를 제공하지 않았고 충분한 업데이트가 이루어지지 않고 있었습니다. 저희가 기획한 서비스를 통해 브랜드에서 활발한 업데이트를 제공하고 상품에 대한 다양한 정보를 제공하기를 기대한 측면도 있습니다.
+
+
 
 # 📍 기획 목표
 
@@ -66,6 +74,8 @@
 - 페이지네이션
 - 무한스크롤
 
+
+
 # 🔑 서비스 기능
 
 ---
@@ -81,6 +91,8 @@
 - 관리자 권한
     - 관리자 권한으로 사용자가 작성한 정보를 수정, 삭제하는 기능을 제공합니다.
     
+    
+    
 
 # 🔎 서비스 시연영상
 
@@ -93,37 +105,48 @@
 
 ### 🎬 전체 영상
 
-[1.mov](CVS%20Review%20WEB%20Service%20140c3ee031984405b632823d72ae3417/1.mov)
+
+https://user-images.githubusercontent.com/78696537/216271882-7ddeaeb8-6eba-4ddc-a65d-8d0475010c6e.mov
+
 
 ### 📌 홈 화면
 
-![ezgif.com-gif-maker.gif](CVS%20Review%20WEB%20Service%20140c3ee031984405b632823d72ae3417/ezgif.com-gif-maker.gif)
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/78696537/216272239-b39b4478-a271-4ed7-a473-857626aedd70.gif)
+
 
 ### 📌 메인 페이지
 
-![ezgif.com-gif-maker.gif](CVS%20Review%20WEB%20Service%20140c3ee031984405b632823d72ae3417/ezgif.com-gif-maker%201.gif)
+![ezgif com-gif-maker 1](https://user-images.githubusercontent.com/78696537/216272265-03ba5170-872e-459f-abcc-525403039d0f.gif)
+
 
 ### 📌 상세 페이지
 
-![ezgif.com-gif-maker.gif](CVS%20Review%20WEB%20Service%20140c3ee031984405b632823d72ae3417/ezgif.com-gif-maker%202.gif)
+![ezgif com-gif-maker 2](https://user-images.githubusercontent.com/78696537/216272299-2ab9e00d-8544-4e98-8abb-c591a32fecb4.gif)
+
 
 ### 📌 마이 페이지
 
-![ezgif.com-gif-maker.gif](CVS%20Review%20WEB%20Service%20140c3ee031984405b632823d72ae3417/ezgif.com-gif-maker%203.gif)
+![ezgif com-gif-maker 3](https://user-images.githubusercontent.com/78696537/216272335-9220fee0-8e13-4ffb-a0e8-b39d13f5d58a.gif)
+
 
 ### 📌 관리자 페이지
 
 **(CommnetDeletePage, ItemCreatePage, ItemSearchPage, ItemUpdatePage)**
 
-![ezgif.com-gif-maker.gif](CVS%20Review%20WEB%20Service%20140c3ee031984405b632823d72ae3417/ezgif.com-gif-maker%204.gif)
+![ezgif com-gif-maker 4](https://user-images.githubusercontent.com/78696537/216272420-6fe7ab77-da56-44f1-92c7-f48cf99ce3ad.gif)
+
 
 ### 📌 로그인 페이지
 
-![ezgif.com-gif-maker.gif](CVS%20Review%20WEB%20Service%20140c3ee031984405b632823d72ae3417/ezgif.com-gif-maker%205.gif)
+![ezgif com-gif-maker 5](https://user-images.githubusercontent.com/78696537/216272462-ebba2819-e674-4a92-b96d-82a3f0fb6ffc.gif)
+
 
 ### 📌 회원가입 페이지
 
-![ezgif.com-gif-maker.gif](CVS%20Review%20WEB%20Service%20140c3ee031984405b632823d72ae3417/ezgif.com-gif-maker%206.gif)
+![ezgif com-gif-maker 6](https://user-images.githubusercontent.com/78696537/216272487-82408e07-6503-46fb-9380-e5179ca1e24c.gif)
+
+
+
 
 # 😀 팀원 구성
 
@@ -188,57 +211,57 @@
 
 ### Back-end
 
-[https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white](https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white)
+<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> 
 
-[https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white](https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+<img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
 
-[https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white](https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
+<img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
 
-[https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white](https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> 
 
-[https://img.shields.io/badge/AMAZONEC2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white](https://img.shields.io/badge/AMAZONEC2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white)
+<img src="https://img.shields.io/badge/amazonec2-FF9900?style=for-the-badge&logo=/amazonec2&logoColor=white"> 
 
-[https://img.shields.io/badge/AmazonRDS-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white](https://img.shields.io/badge/AmazonRDS-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white)
+<img src="https://img.shields.io/badge/amazonrds-527FFF?style=for-the-badge&logo=/amazonrds&logoColor=white"> 
+
+
 
 ### Front-end
 
-[https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white](https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
 
-[https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white](https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+<img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
 
-[https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black](https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> 
 
-[https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white](https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+<img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
 
-[https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styled-components&logoColor=white](https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
+<img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
 
-[https://img.shields.io/badge/recoil-F26B00?style=for-the-badge&logo=recoil&logoColor=white](https://img.shields.io/badge/recoil-F26B00?style=for-the-badge&logo=recoil&logoColor=white)
+<img src="https://img.shields.io/badge/recoil-F26B00?style=for-the-badge&logo=recoil&logoColor=white">
 
-[https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white](https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
+<img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
 
-[https://img.shields.io/badge/amazons3-569A31?style=for-the-badge&logo=amazons3&logoColor=white](https://img.shields.io/badge/amazons3-569A31?style=for-the-badge&logo=amazons3&logoColor=white)
+<img src="https://img.shields.io/badge/amazons3-569A31?style=for-the-badge&logo=amazons3&logoColor=white">
+
+
 
 ### Collaboration Tools
 
-[https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white](https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white)
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
 
-[https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white](https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white)
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
 
-[https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white](https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)
+<img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white">
 
-[https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white](https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white)
+<img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
 
-[https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white](https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)
+<img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">
+
+
 
 # 📄 문서
 
 ---
-
-### [사용자 요구사항 정의서](https://www.notion.so/722fa463f97a488bbf2bd8c1cf44193b)
-
-### [User flow](https://www.figma.com/file/UrHiU5ecoKzON3Aysd8DE4/main-project-37%EC%A1%B0-(User-Flow)?t=nc3pHj3s5LTB7iZV-0)
-
-### [화면 정의서](https://www.notion.so/386552f0ad1e40c7aaca651c6839d664)
 
 [main project 37조](https://docs.google.com/spreadsheets/d/1n9VTIk_2t2yS7WlKVo4IkWiAfCURh7xVPhPliNOCAIU/edit#gid=0)
 
@@ -246,17 +269,14 @@
 
 [화면 정의서](https://www.figma.com/file/OoZIcLrukyXe7944tM2X0F/%ED%99%94%EB%A9%B4-%EC%A0%95%EC%9D%98%EC%84%9C?node-id=0%3A1)
 
-### [테이블 명세서 + ERD](https://www.erdcloud.com/)
-
-### [API 명세서](http://43.201.135.238:8080/swagger-ui.html#)
-
-### [프로젝트 메뉴얼](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7356bc4c-bc7f-4092-b6b5-19c5f554864a/41%EA%B8%B0-Team-037-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%A9%94%EB%89%B4%EC%96%BC.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230201%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230201T030737Z&X-Amz-Expires=86400&X-Amz-Signature=d9aafbdc0655cec027b96831845fac6943dfeaaa294ea7130307c7864e0a8b58&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%2241%25EA%25B8%25B0-Team-037-%25ED%2594%2584%25EB%25A1%259C%25EC%25A0%259D%25ED%258A%25B8%25EB%25A9%2594%25EB%2589%25B4%25EC%2596%25BC.pdf%22&x-id=GetObject)
-
 [ERD Sample - My Contacts](https://www.youtube.com/watch?v=jXu8zwEiVCw&t=243s)
 
 [Swagger UI](http://43.201.135.238:8080/swagger-ui.html#)
 
 [](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7356bc4c-bc7f-4092-b6b5-19c5f554864a/41%EA%B8%B0-Team-037-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%A9%94%EB%89%B4%EC%96%BC.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230202%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230202T031502Z&X-Amz-Expires=86400&X-Amz-Signature=81264191d5b5560d335306039e9a7e81b01d9139a96fbcb65cb59d701d94b7cc&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%2241%25EA%25B8%25B0-Team-037-%25ED%2594%2584%25EB%25A1%259C%25EC%25A0%259D%25ED%258A%25B8%25EB%25A9%2594%25EB%2589%25B4%25EC%2596%25BC.pdf%22&x-id=GetObject)
+
+
+
 
 # **✏️ 커밋 컨벤션**
 
@@ -278,3 +298,6 @@
 | build | 빌드 관련 설정 수정 |
 | deploy | 배포 관련 설정 수정 |
 | etc | 그 외 수정 |
+
+
+
