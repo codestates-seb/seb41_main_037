@@ -8,13 +8,9 @@ import com.lifo.CVSreview.review.entity.Review;
 import com.lifo.CVSreview.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -94,8 +90,8 @@ public class ProductService {
         // ?key=초코
         String key = params.get("key");
         String category = params.get("category");
-        Product.ProductCategory getCategory = Product.ProductCategory.valueOf(category);
-        if (category != null) {
+        if (category != null & category.length() > 0) {
+            Product.ProductCategory getCategory  = Product.ProductCategory.valueOf(category);
             return productRepository.findProductsByProductCategoryAndProductNameContaining(
                     getCategory,
                     key,
