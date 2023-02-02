@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { useSetRecoilState } from "recoil";
 import { LoginState } from "../../states/LoginState";
@@ -75,7 +75,6 @@ const NavBar = styled.main`
 const Nav = () => {
   const [currentTab, clickTab] = useState(0);
   const navigate = useNavigate();
-  const location = useLocation();
   const isLogin = useRecoilValue(LoginState);
   const setIsLogin = useSetRecoilState(LoginState);
 
@@ -138,14 +137,15 @@ const Nav = () => {
             onClick={() => {
               selectHandler(index);
               navigate(item.path);
+              localStorage.setItem("menu_cvs", item.path);
             }}
             className={
-              location.pathname === item.path.split("?")[0]
+              localStorage.getItem("menu_cvs") === item.path
                 ? "cvsLogo focused"
                 : "cvsLogo"
             }
           >
-            {location.pathname === item.path.split("?")[0]
+            {localStorage.getItem("menu_cvs") === item.path
               ? item.img1
               : item.img2}
           </div>

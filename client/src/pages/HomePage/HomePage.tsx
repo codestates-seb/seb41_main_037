@@ -608,7 +608,10 @@ const HomePage = () => {
             </button>
             <button
               className="pbBtn"
-              onClick={() => navigate("/products?page=0")}
+              onClick={() => {
+                navigate("/products?page=0");
+                localStorage.setItem("menu_cvs", "/products?page=0");
+              }}
             >
               PB상품
             </button>
@@ -623,7 +626,10 @@ const HomePage = () => {
             </button>
             <button
               className="pbBtn"
-              onClick={() => navigate("/products?page=0")}
+              onClick={() => {
+                navigate("/products?page=0");
+                localStorage.setItem("menu_cvs", "/products?page=0");
+              }}
             >
               PB상품
             </button>
