@@ -30,10 +30,10 @@ import java.util.List;
 public class FavoriteController {
 
     private final FavoriteService favoriteService;
-    final private FavoriteRepository favoriteRepository;
-    final private ProductRepository productRepository;
-    final private ProductMapper mapper;
-    final private MemberRepository memberRepository;
+    private final FavoriteRepository favoriteRepository;
+    private final ProductRepository productRepository;
+    private final ProductMapper mapper;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/favorite/{product-id}")
     @ApiOperation(value="좋아요 등록/취소", notes="좋아요를 등록 및 취소하는 api입니다. 등록 시 200 ok, 취소 시 204 No_Content")

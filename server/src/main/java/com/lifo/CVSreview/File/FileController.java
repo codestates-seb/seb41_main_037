@@ -28,7 +28,7 @@ public class FileController {
     @Autowired
     AmazonS3Client amazonS3Client;
 
-    final private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
     public FileController(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
