@@ -49,7 +49,7 @@ const AdminReviewsPagination = ({ page, totalPages }: Props) => {
       <a
         href={
           page === 1
-            ? `/admin/comment/delete`
+            ? `/admin/comment/delete?page=1`
             : `/admin/comment/delete?page=${page - 1}`
         }
       >

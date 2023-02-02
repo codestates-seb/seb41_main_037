@@ -81,22 +81,22 @@ const Nav = () => {
 
   const menuItem = [
     {
-      path: "/products",
+      path: "/products?page=0",
       img1: <FcShop size={60} />,
       img2: <FcShop size={60} />,
     },
     {
-      path: "/products/cu",
+      path: "/products/cu?page=0",
       img1: <img src="/img/cu logo.png" alt="CU"></img>,
       img2: <img src="/img/cu logo_white.png" alt="CU"></img>,
     },
     {
-      path: "/products/gs25",
+      path: "/products/gs25?page=0",
       img1: <img src="/img/gs25 logo.png" alt="GS25"></img>,
       img2: <img src="/img/gs25 logo_white.png" alt="GS25"></img>,
     },
     {
-      path: "/products/seveneleven",
+      path: "/products/seveneleven?page=0",
       img1: <img src="/img/seveneleven logo.png" alt="7-ELEVEN"></img>,
       img2: <img src="/img/seveneleven logo_white.png" alt="7-ELEVEN"></img>,
     },
@@ -140,10 +140,14 @@ const Nav = () => {
               navigate(item.path);
             }}
             className={
-              location.pathname === item.path ? "cvsLogo focused" : "cvsLogo"
+              location.pathname === item.path.split("?")[0]
+                ? "cvsLogo focused"
+                : "cvsLogo"
             }
           >
-            {location.pathname === item.path ? item.img1 : item.img2}
+            {location.pathname === item.path.split("?")[0]
+              ? item.img1
+              : item.img2}
           </div>
         ))}
       </section>

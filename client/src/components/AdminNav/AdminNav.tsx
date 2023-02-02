@@ -107,7 +107,7 @@ const AdminNav = () => {
             상품등록
           </a>
           <a
-            href="/admin/comment/delete"
+            href="/admin/comment/delete?page=0"
             className={location === "/admin/comment/delete" ? "tab" : ""}
           >
             리뷰삭제
