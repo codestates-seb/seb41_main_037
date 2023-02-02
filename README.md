@@ -117,21 +117,25 @@
 ### 📌 홈 화면
 
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/78696537/216272239-b39b4478-a271-4ed7-a473-857626aedd70.gif)
+
 <br/>
 
 ### 📌 메인 페이지
 
 ![ezgif com-gif-maker 1](https://user-images.githubusercontent.com/78696537/216272265-03ba5170-872e-459f-abcc-525403039d0f.gif)
+
 <br/>
 
 ### 📌 상세 페이지
 
 ![ezgif com-gif-maker 2](https://user-images.githubusercontent.com/78696537/216272299-2ab9e00d-8544-4e98-8abb-c591a32fecb4.gif)
+
 <br/>
 
 ### 📌 마이 페이지
 
 ![ezgif com-gif-maker 3](https://user-images.githubusercontent.com/78696537/216272335-9220fee0-8e13-4ffb-a0e8-b39d13f5d58a.gif)
+
 <br/>
 
 ### 📌 관리자 페이지
@@ -139,6 +143,7 @@
 **(CommnetDeletePage, ItemCreatePage, ItemSearchPage, ItemUpdatePage)**
 
 ![ezgif com-gif-maker 4](https://user-images.githubusercontent.com/78696537/216272420-6fe7ab77-da56-44f1-92c7-f48cf99ce3ad.gif)
+
 <br/>
 
 ### 📌 로그인 페이지
@@ -149,6 +154,7 @@
 ### 📌 회원가입 페이지
 
 ![ezgif com-gif-maker 6](https://user-images.githubusercontent.com/78696537/216272487-82408e07-6503-46fb-9380-e5179ca1e24c.gif)
+
 <br/>
 
 
@@ -223,13 +229,11 @@
 <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> <img src="https://img.shields.io/badge/amazonec2-FF9900?style=for-the-badge&logo=/amazonec2&logoColor=white"> <img src="https://img.shields.io/badge/amazonrds-527FFF?style=for-the-badge&logo=/amazonrds&logoColor=white"> 
 
 <br/>
-<br/>
 
 ### Front-end
 
 <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"> <img src="https://img.shields.io/badge/recoil-F26B00?style=for-the-badge&logo=recoil&logoColor=white"> <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white"> <img src="https://img.shields.io/badge/amazons3-569A31?style=for-the-badge&logo=amazons3&logoColor=white">
 
-<br/>
 <br/>
 
 ### Collaboration Tools
@@ -280,6 +284,7 @@
 | deploy | 배포 관련 설정 수정 |
 | etc | 그 외 수정 |
 
+<br/>
 <br/>
 <br/>
 
