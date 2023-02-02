@@ -56,8 +56,6 @@ public class ReviewService {
         return review;
     }
 
-    //리뷰수정
-    //내용만 수정할 수도 있고, 평점만 수정할 수도 있기에 Optional를 이용해 null값을 받을 수 있도록 설정.
     public Review updateReview(Review review) {
         Review findReview = findVerifiedReview(review.getReviewId());
 
@@ -74,6 +72,31 @@ public class ReviewService {
         productService.updateProduct(product);
         return findReview;
     }
+
+    //리뷰수정
+    //내용만 수정할 수도 있고, 평점만 수정할 수도 있기에 Optional를 이용해 null값을 받을 수 있도록 설정.
+//    public Review updateReview(Review review) {
+//        Review findReview = findVerifiedReview(review.getReviewId());
+//        Review review2 = reviewRepository.findById(review.getReviewId()).get();
+//        if((memberRepository.findByEmail(SecurityUtil.getCurrentMemberId()).get().getMemberId()==review2.getMember().getMemberId())&&(SecurityUtil.getCurrentMemberId()=="admin@gmail.com")){
+//            ;
+//        }else{
+//            throw new BusinessLogicException(ExceptionCode.AUTHORIZATION_NOT_FOUND);
+//        }
+//
+//
+//        Optional.ofNullable(review.getContent())
+//                .ifPresent(content -> findReview.setContent(content));
+//        Optional.ofNullable(review.getRating())
+//                .ifPresent(rating -> findReview.setRating(rating));
+//
+//        reviewRepository.save(findReview);
+//        Review review3 = reviewRepository.findById(review.getReviewId()).get();
+//        Product product = review3.getProduct();
+//        product.setRating(findProductAvgRating(product));
+//        productService.updateProduct(product);
+//        return findReview;
+//    }
 
     //리뷰 1개 찾아오기
     //매개변수로 넘어온 reviewId와 일치하는 리뷰를 가져옴.

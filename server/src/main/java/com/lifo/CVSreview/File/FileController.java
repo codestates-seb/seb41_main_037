@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,7 +34,7 @@ public class FileController {
         this.memberRepository = memberRepository;
     }
 
-    @GetMapping("/upload")
+    @PostMapping("/upload")
     @ApiOperation(value="프로필 사진 업로드", notes="프로필 사진을 선택 후 저장하면 s3에 이미지 저장 후 그 사진의 url을 해당하는 멤버 img_path에 저장 후 url 리턴.")
     public ResponseEntity<Object> upload(MultipartFile[] multipartFileList) throws Exception {
         List<String> imagePathList = new ArrayList<>();
@@ -58,11 +59,6 @@ public class FileController {
             member.setImage_path(imagePath);
             memberRepository.save(member);
         }
-
-
-
-
-
         return new ResponseEntity<Object>(imagePathList, HttpStatus.OK);
     }
 }
