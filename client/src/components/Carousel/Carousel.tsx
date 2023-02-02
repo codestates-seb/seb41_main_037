@@ -57,7 +57,7 @@ const Carousel = () => {
     if (data) {
       setBestItems(
         data.sort((a: any, b: any): number => {
-          return b.rating - a.rating;
+          return b.favoriteCount - a.favoriteCount;
         })
       );
     }

@@ -194,7 +194,6 @@ const ItemSearchPage = () => {
           setProducts(res.data.data);
         })
         .catch((err) => console.log(err));
-      // setProductName("");
     }
   };
 
