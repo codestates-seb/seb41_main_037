@@ -10,7 +10,9 @@ public enum ExceptionCode {
 
     PRODUCT_NOT_FOUND(404, "Product Not Found"),
     AUTHENTICATION_NOT_FOUND(404, "Authentication Not Found"),
-    UNAUTHORIZED_Member(404, "Unauthorized Member");
+    UNAUTHORIZED_Member(404, "Unauthorized Member"),
+    AUTHORIZATION_NOT_FOUND(407,"Authorization Not found");
+
 
     @Getter
     private int status;
