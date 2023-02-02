@@ -199,7 +199,7 @@ const CommentDeletePage = () => {
   const handleSearchKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter") {
       axios
-        .get(`http://43.201.135.238:8080/reviews/search/?search=${review}`)
+        .get(`http://43.201.135.238:8080/reviews/search?search=${review}`)
         .then((res) => setReviews(res.data))
         .catch((err) => console.log(err));
     }

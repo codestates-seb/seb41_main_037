@@ -335,32 +335,32 @@ const MyPage = () => {
 
   const fileInput = useRef<HTMLInputElement>(null);
 
-  // const reader = new FileReader();
+  const reader = new FileReader();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       // setTest(e.target.files[0]);
       // console.log(e.target.files);
       // console.log(e.target.files[0]);
-      axios
-        .get("http://43.201.135.238:8080/upload", {
-          params: { multipartFileList: e.target.files[0] },
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        })
-        .then((res) => {
-          setImage(res.data);
-          console.log(res.data);
-        })
-        .catch((err) => console.log(err));
+      // axios
+      //   .get("http://43.201.135.238:8080/upload", {
+      //     params: { multipartFileList: e.target.files[0] },
+      //     headers: {
+      //       Authorization: localStorage.getItem("token"),
+      //     },
+      //   })
+      //   .then((res) => {
+      //     setImage(res.data);
+      //     console.log(res.data);
+      //   })
+      //   .catch((err) => console.log(err));
 
-      // reader.onload = function (e) {
-      //   if (typeof e.target?.result === "string") {
-      //     setImage(e.target.result);
-      //   }
-      // };
-      // reader.readAsDataURL(e.target.files[0]);
+      reader.onload = function (e) {
+        if (typeof e.target?.result === "string") {
+          setImage(e.target.result);
+        }
+      };
+      reader.readAsDataURL(e.target.files[0]);
     }
   };
 

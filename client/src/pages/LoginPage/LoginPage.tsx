@@ -183,6 +183,39 @@ const LoginPage = () => {
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
+  const handleLoginSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === "Enter") {
+      if (emailState && passwordState) {
+        // 로그인 성공 시
+        axios
+          .post("http://43.201.135.238:8080/v1/auth/login", {
+            username: email,
+            password: password,
+          })
+          .then((res) => {
+            if (res.headers.authorization) {
+              let token = res.headers.authorization;
+              // value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
+              let base64Payload = token.split(".")[1];
+              let payload = Buffer.from(base64Payload, "base64");
+              let memberInformation = JSON.parse(payload.toString());
+              localStorage.setItem("token", token);
+              localStorage.setItem("memberID", memberInformation.memberID);
+              localStorage.setItem("role", memberInformation.roles[0]);
+              setIsLogin(true);
+            }
+            navigate("/");
+          })
+          .catch((err) => {
+            console.log(err);
+            alert("로그인에 실패했습니다");
+          });
+      } else {
+        // 로그인 실패 시
+        alert("이메일과 비밀번호를 올바르게 입력해주세요");
+      }
+    }
+  };
   return (
     <Container>
       <HomeHeader />
@@ -204,6 +237,7 @@ const LoginPage = () => {
             warning="비밀번호는 특수문자, 영문, 숫자 포함 8자리 이상이어야 합니다"
             warningState={isPasswordWarning}
             type="password"
+            handleKeyUp={handleLoginSubmit}
           />
           <button onClick={handleLogin}>Log in</button>
           <section className="convertToSignup">

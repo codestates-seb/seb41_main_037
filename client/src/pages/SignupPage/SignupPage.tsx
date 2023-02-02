@@ -111,6 +111,7 @@ interface InputProps {
   warning: string;
   warningState: boolean;
   type?: string;
+  handleKeyUp?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export const InputCard = ({
@@ -121,18 +122,25 @@ export const InputCard = ({
   warning,
   warningState,
   type,
+  handleKeyUp,
 }: InputProps) => {
   return (
-    <form action="submit" className="inputForm">
+    <div className="inputForm">
       <label htmlFor={id}>{title}</label>
-      <input type={type} id={id} value={value} onChange={handleChange} />
+      <input
+        type={type}
+        id={id}
+        value={value}
+        onChange={handleChange}
+        onKeyUp={handleKeyUp}
+      />
       {warningState && (
         <div>
           <RiErrorWarningFill size={12} />
           <div>{warning}</div>
         </div>
       )}
-    </form>
+    </div>
   );
 };
 
@@ -233,6 +241,28 @@ const SignupPage = () => {
       alert("다시 한 번 확인해주세요");
     }
   };
+  const handleSignUpSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === "Enter") {
+      if (emailState && passwordState) {
+        // 회원가입 성공 시
+        axios
+          .post("http://43.201.135.238:8080/members", {
+            email: email,
+            nickname: nickname,
+            password: password,
+            role: 0,
+          })
+          .then((res) => {
+            alert("회원가입이 완료되었습니다");
+            navigate("/login");
+          })
+          .catch((err) => alert("이미 가입한 회원입니다"));
+      } else {
+        // 회원가입 실패 시(option)
+        alert("다시 한 번 확인해주세요");
+      }
+    }
+  };
 
   return (
     <Container>
@@ -272,6 +302,7 @@ const SignupPage = () => {
             warning="정확한 비밀번호를 입력해 주세요"
             warningState={isPasswordConfirmWarning}
             type="password"
+            handleKeyUp={handleSignUpSubmit}
           />
           <button onClick={handleSignupClick}>Sign up</button>
           <section className="convertToLogin">
