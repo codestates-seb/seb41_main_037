@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../../components/Header/Header";
@@ -47,13 +47,37 @@ const MypageMain = styled.main`
       }
       img {
         display: flex;
-        width: 150px;
-        height: 150px;
+        width: 130px;
+        height: 130px;
         border-radius: 3px;
         box-shadow: 2px 2px 3px #979595;
       }
-      input {
+      .fileSection {
         display: flex;
+        width: 130px;
+        height: 130px;
+        border-radius: 3px;
+        background-color: #58419c;
+        label {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          color: #ffcb5e;
+          padding: 0 1rem;
+          p:nth-child(1) {
+            font-size: 20px;
+            padding-bottom: 0.2rem;
+          }
+          p:nth-child(2),
+          p:nth-child(3),
+          p:nth-child(4) {
+            display: flex;
+            font-size: 12px;
+            align-items: center;
+            justify-content: center;
+          }
+        }
       }
       .userIntroduction,
       .changePassword {
@@ -279,6 +303,7 @@ const MyPage = () => {
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
   const [isModify, setIsModify] = useState(false);
+  const [image, setImage] = useState<string | null>(null);
 
   const setIsLogin = useSetRecoilState(LoginState);
   useEffect(() => {
@@ -287,6 +312,7 @@ const MyPage = () => {
       setReviews(data.reviews);
       setFavorites(data.favorites);
       setNickname(data.nickname);
+      setImage(data.image_path);
     }
   }, [data]);
 
@@ -327,40 +353,21 @@ const MyPage = () => {
     );
   };
 
-  const [image, setImage] = useState(
-    "https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800"
-  );
-
-  // const [test, setTest] = useState<any>(null);
-
-  const fileInput = useRef<HTMLInputElement>(null);
-
-  const reader = new FileReader();
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      // setTest(e.target.files[0]);
-      // console.log(e.target.files);
-      // console.log(e.target.files[0]);
-      // axios
-      //   .get("http://43.201.135.238:8080/upload", {
-      //     params: { multipartFileList: e.target.files[0] },
-      //     headers: {
-      //       Authorization: localStorage.getItem("token"),
-      //     },
-      //   })
-      //   .then((res) => {
-      //     setImage(res.data);
-      //     console.log(res.data);
-      //   })
-      //   .catch((err) => console.log(err));
-
-      reader.onload = function (e) {
-        if (typeof e.target?.result === "string") {
-          setImage(e.target.result);
-        }
-      };
-      reader.readAsDataURL(e.target.files[0]);
+      const formData = new FormData();
+      formData.append("multipartFileList", e.target.files[0]);
+      axios
+        .post("http://43.201.135.238:8080/upload", formData, {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          setImage(res.data[0]);
+        })
+        .catch((err) => console.log(err));
     }
   };
 
@@ -398,7 +405,6 @@ const MyPage = () => {
           )}`,
           {
             image_name: "myimg",
-            // image_path: image,
             memberId: localStorage.getItem("memberID"),
             nickname: nickname,
             password: password,
@@ -411,7 +417,10 @@ const MyPage = () => {
           }
         )
         .then(() => window.location.reload())
-        .catch((err) => alert("회원정보 수정에 실패했습니다"));
+        .catch((err) => {
+          console.log(err);
+          alert("회원정보 수정에 실패했습니다");
+        });
     }
     setIsModify(!isModify);
   };
@@ -433,8 +442,6 @@ const MyPage = () => {
       })
       .catch((err) => alert("탈퇴에 실패했습니다"));
   };
-  // console.log(member);
-
   return (
     <>
       <Container>
@@ -444,18 +451,33 @@ const MyPage = () => {
           <MypageMain>
             <section className="mypageSection">
               <section className="userProfile">
-                <img
-                  src={member && member.image_path ? member.image_path : image}
-                  alt="userImage"
-                  onClick={() => fileInput.current?.click()}
-                />
-                <input
-                  type="file"
-                  accept="image/jpg, image/png, image/jpeg"
-                  ref={fileInput}
-                  onChange={handleChange}
-                  style={{ display: "none" }}
-                />
+                {isModify ? (
+                  <div className="fileSection">
+                    <label htmlFor="file_profile">
+                      <p>이미지 업로드</p>
+                      <p>(수정완료 버튼 클릭 시 </p>
+                      <p> 변경된 이미지 </p>
+                      <p>확인 가능)</p>
+                    </label>
+                    <input
+                      id="file_profile"
+                      type="file"
+                      accept="image/jpg, image/png, image/jpeg"
+                      onChange={handleChange}
+                      style={{ display: "none" }}
+                    />
+                  </div>
+                ) : (
+                  <img
+                    src={
+                      image
+                        ? image
+                        : "https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800"
+                    }
+                    alt="userImage"
+                  />
+                )}
+
                 <section className="userIntroduction">
                   <section className="nickname">
                     <h3>Nickname</h3>
