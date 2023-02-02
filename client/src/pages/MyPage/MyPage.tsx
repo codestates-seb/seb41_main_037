@@ -331,7 +331,7 @@ const MyPage = () => {
     "https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800"
   );
 
-  const [test, setTest] = useState<any>(null);
+  // const [test, setTest] = useState<any>(null);
 
   const fileInput = useRef<HTMLInputElement>(null);
 
@@ -339,10 +339,12 @@ const MyPage = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setTest(e.target.files);
+      // setTest(e.target.files[0]);
+      // console.log(e.target.files);
+      // console.log(e.target.files[0]);
       axios
         .get("http://43.201.135.238:8080/upload", {
-          params: { multipartFileList: test },
+          params: { multipartFileList: e.target.files[0] },
           headers: {
             Authorization: localStorage.getItem("token"),
           },
@@ -350,7 +352,6 @@ const MyPage = () => {
         .then((res) => {
           setImage(res.data);
           console.log(res.data);
-          // console.log(res);
         })
         .catch((err) => console.log(err));
 
