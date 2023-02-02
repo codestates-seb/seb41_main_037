@@ -26,6 +26,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: admin
+    connection-timeout: 15000
+    max-lifetime: 30000
+    maximum-pool-size: 10
     url: jdbc:mysql://database-1.cu34yawadyid.ap-northeast-2.rds.amazonaws.com:13306/test
     password: 12341234
 
