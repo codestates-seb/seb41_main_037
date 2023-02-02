@@ -7,7 +7,7 @@ import { FcSearch } from "react-icons/fc";
 import useFetch from "../../../api/useFetch";
 import axios from "axios";
 import AdminReviewsPagination from "../../../components/AdminReviewsPagination/AdminReviewsPagination";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const Main = styled.main`
   display: flex;
@@ -139,8 +139,6 @@ const CommentDeletePageMain = styled.main`
 `;
 
 const CommentDeletePage = () => {
-  const navigate = useNavigate();
-
   const { data } = useFetch("/reviews?page=1&size=100");
   const [reviews, setReviews] = useState<any>(null);
   const [review, setReview] = useState("");

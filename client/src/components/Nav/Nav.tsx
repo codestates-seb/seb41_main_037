@@ -116,7 +116,7 @@ const Nav = () => {
 
   const handleClickMypage = () => {
     if (localStorage.getItem("role") === "ADMIN") {
-      alert("접근 권한이 없습니다");
+      alert("마이페이지는 일반 사용자만 접근 가능합니다.");
     } else {
       navigate("/mypage");
     }

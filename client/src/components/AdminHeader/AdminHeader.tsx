@@ -49,7 +49,7 @@ const HomeHeader = () => {
     } else if (isLogin && localStorage.getItem("role") === "ADMIN") {
       navigate("/admin/search");
     } else {
-      alert("접근 권한이 없습니다");
+      alert("접근 권한이 없습니다. 관리자 계정으로 로그인해주세요.");
     }
   };
   return (

@@ -185,6 +185,11 @@ const ItemSearchPage = () => {
 
   const handleSearchKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter") {
+      // 상품 검색 수정 중
+      // axios
+      //   .get(`http://43.201.135.238:8080/products/search?key=${productName}`)
+      //   .then((res) => console.log(res))
+      //   .catch((err) => console.log(err));
       setProducts(
         products.filter((item: any) =>
           item.productName.toUpperCase().includes(productName.toUpperCase())
