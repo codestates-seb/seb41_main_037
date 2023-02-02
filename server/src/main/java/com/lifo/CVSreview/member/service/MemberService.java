@@ -90,6 +90,9 @@ public class MemberService {
 
     public MemberMyPageDto findMemberMyPage(long memberId) {
         Member findMember = findVerifiedMember(memberId);
+        if(getLoginMember().getMemberId() != findMember.getMemberId())
+            throw new BusinessLogicException(ExceptionCode.AUTHENTICATION_NOT_FOUND);
+
         MemberMyPageDto memberMyPageDto = memberMapper.MemberToMemberMyPageResponse(findMember);
         List<Review> reviews = reviewService.findMyReviews(findMember);
         List<ReviewResponseDto> responses = reviewMapper.reviewsToReviewResponseDtos(reviews);
