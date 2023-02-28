@@ -448,6 +448,16 @@ const MyPage = () => {
       })
       .catch((err) => alert("탈퇴에 실패했습니다"));
   };
+  const handleDelete = () => {
+    const confirmDelete = window.confirm("회원 탈퇴하시겠습니까?");
+    if (confirmDelete) {
+      alert("탈퇴하였습니다");
+      handleDeleteAccount(member.memberId);
+    } else {
+      alert("탈퇴가 취소되었습니다");
+    }
+  };
+
   return (
     <>
       <Container>
@@ -579,9 +589,7 @@ const MyPage = () => {
                 ) : (
                   <button onClick={handleUpdate}>수정하기</button>
                 )}
-                <button onClick={() => handleDeleteAccount(member.memberId)}>
-                  탈퇴하기
-                </button>
+                <button onClick={handleDelete}>탈퇴하기</button>
               </section>
             </section>
           </MypageMain>
